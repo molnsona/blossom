@@ -1,0 +1,2 @@
+# Interactive EmbedSOM research project
+
