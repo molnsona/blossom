@@ -1,0 +1,79 @@
+#ifndef IMGUI_UTILS_HPP
+#define IMGUI_UTILS_HPP
+
+// https://github.com/juliettef/IconFontCppHeaders
+#include <IconsFontAwesome5.h>
+
+#include <Magnum/ImGuiIntegration/Context.hpp>
+#include <Magnum/Platform/Sdl2Application.h>
+
+#include "imgui_config.h"
+
+using namespace Magnum;
+using namespace Math::Literals;
+
+
+void draw_add_window(bool& show_tools, const Vector2i& window_size) {
+    ImGuiWindowFlags window_flags = 
+        ImGuiWindowFlags_NoTitleBar |
+        ImGuiWindowFlags_NoResize |
+        ImGuiWindowFlags_NoMove;
+
+    ImGui::PushStyleVar(ImGuiStyleVar_WindowRounding, 50.0f);
+    ImGui::PushStyleVar(ImGuiStyleVar_ChildRounding, 50.0f);
+    ImGui::PushStyleVar(ImGuiStyleVar_FrameRounding, 50.0f);
+    ImGui::PushStyleVar(ImGuiStyleVar_WindowPadding, ImVec2(0, 0));        
+    
+    if(ImGui::Begin("Plus", nullptr, window_flags))
+    {
+        ImGui::SetWindowPos(ImVec2(
+            static_cast<float>(window_size.x() - WINDOW_PADDING),
+            static_cast<float>(window_size.y() - WINDOW_PADDING)));
+        ImGui::SetWindowSize(ImVec2(WINDOW_WIDTH, WINDOW_WIDTH));
+
+        if(ImGui::Button(ICON_FA_PLUS, ImVec2(50.75f, 50.75f))) {
+            show_tools = true;
+        }
+
+        ImGui::End();
+    }
+    ImGui::PopStyleVar();
+    ImGui::PopStyleVar();
+    ImGui::PopStyleVar();
+    ImGui::PopStyleVar();
+}
+
+void draw_tools_window(bool& show_tools, Shaders::Flat3D* _textured_shader) {
+    ImGuiWindowFlags window_flags = 
+        ImGuiWindowFlags_NoTitleBar |
+        ImGuiWindowFlags_NoResize;
+
+    ImVec2 center = ImGui::GetMainViewport()->GetCenter();
+    ImGui::SetNextWindowPos(ImVec2(WINDOW_PADDING - (WINDOW_WIDTH / 2), center.y), ImGuiCond_Appearing, ImVec2(0.5f, 0.5f));
+    ImGui::SetNextWindowSize(ImVec2(WINDOW_WIDTH, TOOLS_HEIGHT));
+
+    ImGui::PushStyleVar(ImGuiStyleVar_ChildRounding, 10.0f);
+    ImGui::PushStyleVar(ImGuiStyleVar_FrameRounding, 10.0f);
+    ImGui::PushStyleVar(ImGuiStyleVar_WindowPadding, ImVec2(0, 0));        
+
+    if(ImGui::Begin("Tools", &show_tools, window_flags)) {
+       
+        if(ImGui::Button(ICON_FA_FILL_DRIP, ImVec2(50.75f, 50.75f))) {
+            _textured_shader->setColor(0x00000000_rgbaf);
+        }
+        if(ImGui::Button(ICON_FA_UNDO, ImVec2(50.75f, 50.75f))) {
+            _textured_shader->setColor(0xffffffff_rgbaf);
+        }
+        if(ImGui::Button(ICON_FA_TIMES, ImVec2(50.75f, 50.75f))) {
+            show_tools = false;
+        }
+
+        ImGui::End();
+    }
+
+    ImGui::PopStyleVar();
+    ImGui::PopStyleVar();
+    ImGui::PopStyleVar();
+}
+
+#endif //#ifndef IMGUI_UTILS_HPP
