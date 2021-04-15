@@ -1,16 +1,9 @@
 ﻿cmake_minimum_required(VERSION 3.4...3.8)
 
-set(PROJECT_NAME blosSOM)
-set(MAIN_EXE_NAME blosSOM)
+project(BlosSOM VERSION 0.0.1)
 
 # Set project name
 project(${PROJECT_NAME})
-
-# Set version
-set(CMAKE_PROJECT_VERSION_MAJOR 0)
-set(CMAKE_PROJECT_VERSION_MINOR 0)
-set(CMAKE_PROJECT_VERSION_PATCH 1)
-set(CMAKE_PROJECT_VERSION ${CMAKE_PROJECT_VERSION_MAJOR}.${CMAKE_PROJECT_VERSION_MINOR}.${CMAKE_PROJECT_VERSION_PATCH})
 
 # Set the correct macro directory path
 set(CMAKE_MODULE_PATH "${PROJECT_SOURCE_DIR}/modules/" ${CMAKE_MODULE_PATH})
@@ -32,19 +25,26 @@ else (MSVC)
   add_compile_options(-w -g)
 endif (MSVC)
 
-# Install dir
-set(CMAKE_INSTALL_PREFIX "./dist")
-
-
-# Add Corrade as a subproject
-add_subdirectory(corrade EXCLUDE_FROM_ALL)
-
-# Add Magnum as a subproject, enable Sdl2Application
+# setup magnum
+set(BUILD_STATIC ON CACHE BOOL "" FORCE)
 set(WITH_SDL2APPLICATION ON CACHE BOOL "" FORCE)
 set(WITH_IMGUI ON CACHE BOOL "" FORCE)
 set(IMGUI_DIR ${CMAKE_CURRENT_SOURCE_DIR}/imgui)
 
+# add magnum
+add_subdirectory(corrade EXCLUDE_FROM_ALL)
 add_subdirectory(magnum EXCLUDE_FROM_ALL)
 add_subdirectory(magnum-integration EXCLUDE_FROM_ALL)
 
+# find magnum libraries
+find_package(Corrade REQUIRED Main)
+find_package(Magnum REQUIRED GL Sdl2Application)
+find_package(MagnumIntegration REQUIRED ImGui)
+set_directory_properties(PROPERTIES CORRADE_USE_PEDANTIC_FLAGS ON)
+
+# data files
+add_subdirectory(data)
+add_compile_definitions(BLOSSOM_DATA_DIR="${BLOSSOM_DATA_DIR}")
+
+# program sources
 add_subdirectory(src)
