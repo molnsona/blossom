@@ -14,7 +14,7 @@ using namespace Magnum;
 
 Application::Application(const Arguments& arguments):
     Platform::Application{arguments, Configuration{}
-        .setTitle("blosSOM")
+        .setTitle("BlosSOM")
         .setWindowFlags(Configuration::WindowFlag::Resizable)}
 {
     GL::Renderer::enable(GL::Renderer::Feature::DepthTest);
@@ -58,7 +58,7 @@ void Application::init_imgui() {
     io.Fonts->AddFontDefault();
 	{
 		// Regular size
-		_p_font = io.Fonts->AddFontFromFileTTF("/home/molnsona/Documents/mff/mgr/projekt/blosSOM/src/SourceSansPro-Regular.ttf", 16);
+		_p_font = io.Fonts->AddFontFromFileTTF(BLOSSOM_DATA_DIR "/SourceSansPro-Regular.ttf", 16);
 
 		int width, height;
 		unsigned char* pixels = nullptr;
@@ -83,7 +83,7 @@ void Application::init_imgui() {
     ImFontConfig config;
 	config.MergeMode = true;
 	static const ImWchar icon_ranges[] = { ICON_MIN_FA, ICON_MAX_FA, 0 };
-	io.Fonts->AddFontFromFileTTF("/home/molnsona/Documents/mff/mgr/projekt/blosSOM/src/fa-solid-900.ttf", 16.0f, &config, icon_ranges); 
+	io.Fonts->AddFontFromFileTTF(BLOSSOM_DATA_DIR "/fa-solid-900.ttf", 16.0f, &config, icon_ranges);
 
     _imgui_vars._imgui = ImGuiIntegration::Context(*ImGui::GetCurrentContext(),
         Vector2{windowSize()}/dpiScaling(), windowSize(), framebufferSize());

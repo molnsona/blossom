@@ -11,14 +11,8 @@ git submodule update
 
 mkdir build
 cd build
-cmake .. -DCMAKE_BUILD_TYPE="Debug"
-make
-```
-
-# Run
-### !!! You have to change paths to fonts in src/ui/application.cpp `io.Fonts->AddFontFromFileTTF(...)`
-``` sh
-./Debug/bin/blosSOM
+cmake .. -DCMAKE_INSTALL_PREFIX=./inst
+make install
 ```
 
 # Controls

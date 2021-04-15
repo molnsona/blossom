@@ -5,33 +5,25 @@ set(HEADERS
     ui/imgui_utils.hpp
 )
 set(SOURCES
-	${HEADERS}
     ui/application.cpp
 )
 
-add_executable(${MAIN_EXE_NAME}
+add_executable(blossom
     ${SOURCES}
-	${HEADERS}
+    ${HEADERS}
 )
 
 include_directories(.)
 
-set_target_properties(${MAIN_EXE_NAME} PROPERTIES CXX_STANDARD 17)
+set_target_properties(blossom PROPERTIES CXX_STANDARD 17)
 
 if (MSVC)
-    target_compile_options(${MAIN_EXE_NAME} BEFORE PUBLIC  /W4 /experimental:external /external:anglebrackets /external:W0)
+    target_compile_options(blossom BEFORE PUBLIC  /W4 /experimental:external /external:anglebrackets /external:W0)
 else (MSVC)
-    target_compile_options(${MAIN_EXE_NAME}  BEFORE PUBLIC  -Wall)
+    target_compile_options(blossom  BEFORE PUBLIC  -Wall)
 endif (MSVC)
 
-# Magnum
-find_package(Corrade REQUIRED Main)
-find_package(Magnum REQUIRED GL Sdl2Application)
-find_package(MagnumIntegration REQUIRED ImGui)
-
-set_directory_properties(PROPERTIES CORRADE_USE_PEDANTIC_FLAGS ON)
-
-target_link_libraries(${PROJECT_NAME} PRIVATE
+target_link_libraries(blossom PRIVATE
     Corrade::Main
     Magnum::Application
     Magnum::GL
@@ -43,3 +35,5 @@ target_link_libraries(${PROJECT_NAME} PRIVATE
     Magnum::Trade
     MagnumIntegration::ImGui
 )
+
+install(TARGETS blossom)
