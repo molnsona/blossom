@@ -6,10 +6,8 @@
 
 ## Unix-like systems
 ```sh
-git clone https://github.com/mosra/corrade.git
-git clone https://github.com/mosra/magnum.git
-git clone https://github.com/mosra/magnum-integration.git
-git clone https://github.com/ocornut/imgui.git
+git submodule init
+git submodule update
 
 mkdir build
 cd build
