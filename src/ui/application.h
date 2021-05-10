@@ -38,36 +38,42 @@
 #include <Magnum/ImGuiIntegration/Context.hpp>
 #include <Magnum/Platform/Sdl2Application.h>
 #include <Magnum/Shaders/VertexColor.h>
+#include <Magnum/GL/PixelFormat.h>
+#include <Magnum/ImageView.h>
 
 #include "imgui_utils.hpp"
+#include "../utils.hpp"
 
 using namespace Magnum;
 using namespace Math::Literals;
 using namespace std::chrono;
-
-namespace fazul{
-
 
 typedef SceneGraph::Object<SceneGraph::MatrixTransformation3D> Object3D;
 typedef SceneGraph::Scene<SceneGraph::MatrixTransformation3D> Scene3D;
 
 class PickableObject: public Object3D, SceneGraph::Drawable3D {
     public:
-        explicit PickableObject(UnsignedInt id, Shaders::Flat3D& shader, const Color3& color, GL::Mesh& mesh, Object3D& parent, SceneGraph::DrawableGroup3D& drawables): Object3D{&parent}, SceneGraph::Drawable3D{*this, &drawables}, _id{id}, _selected{false}, _shader(shader), _color{color}, _mesh(mesh) {}
+        explicit PickableObject(UnsignedInt id, Shaders::Flat3D& shader, const Color3& color, GL::Mesh& mesh, Object3D& parent, SceneGraph::DrawableGroup3D& drawables): Object3D{&parent}, SceneGraph::Drawable3D{*this, &drawables}, _id{id}, _selected{false}, _shader(shader), _color{color}, _mesh(mesh)
+        {
+            std::vector<unsigned char> pixels(BYTES_PER_PIXEL * PLOT_WIDTH * PLOT_HEIGHT, 255);
+            fill_pixels(pixels);
+
+            ImageView2D image{ GL::PixelFormat::RGBA, GL::PixelType::UnsignedByte, { PLOT_WIDTH, PLOT_HEIGHT },
+                { pixels.data(), std::size_t(BYTES_PER_PIXEL * PLOT_WIDTH * PLOT_HEIGHT) } };
+
+            _texture.setWrapping(GL::SamplerWrapping::ClampToEdge)
+                .setMagnificationFilter(GL::SamplerFilter::Linear)
+                .setMinificationFilter(GL::SamplerFilter::Linear)
+                .setStorage(1, GL::TextureFormat::RGBA8, image.size())
+                .setSubImage(0, {}, image); 
+        }
 
         void setSelected(bool selected) { _selected = selected; }
 
     private:
         virtual void draw(const Matrix4& transformationMatrix, SceneGraph::Camera3D& camera) {
             _shader.setTransformationProjectionMatrix(camera.projectionMatrix() * transformationMatrix)
-                //.setNormalMatrix(transformationMatrix.normalMatrix())
-                //.setProjectionMatrix(camera.projectionMatrix())
-                //.setAmbientColor(_selected ? _color*0.3f : Color3{})
-                //.setDiffuseColor(_color*(_selected ? 2.0f : 1.0f))
-                //.setShininess(20000.0f)
-                /* relative to the camera */
-                //.setLightPositions({{0.0f, 0.0f, 1000.0f, 0.0f}})
-                //.setObjectId(_id)
+                .bindTexture(_texture)
                 .draw(_mesh);
         }
 
@@ -76,6 +82,7 @@ class PickableObject: public Object3D, SceneGraph::Drawable3D {
         Shaders::Flat3D& _shader;
         Color3 _color;
         GL::Mesh& _mesh;
+        GL::Texture2D _texture;
 };
 
 class Application: public Platform::Application {
@@ -128,9 +135,5 @@ private:
     bool show_tools = false;
     Vector3 camera_trans = Vector3{0.0f, 0.0f, 0.0f};
 };
-
-
-
-}
 
 #endif // #ifndef APPLICATION_H

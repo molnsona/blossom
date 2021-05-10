@@ -3,6 +3,7 @@ set(HEADERS
     ui/application.h
     ui/imgui_config.h
     ui/imgui_utils.hpp
+    utils.hpp
 )
 set(SOURCES
     ui/application.cpp
