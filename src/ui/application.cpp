@@ -2,14 +2,9 @@
 
 #include <iostream>
 
-#include <Magnum/GL/PixelFormat.h>
-#include <Magnum/ImageView.h>
-
-
 // https://github.com/juliettef/IconFontCppHeaders
 #include <IconsFontAwesome5.h>
 
-using namespace fazul;
 using namespace Magnum;
 
 Application::Application(const Arguments& arguments):
@@ -23,7 +18,7 @@ Application::Application(const Arguments& arguments):
     init_imgui();
     
     /* Set up meshes */
-    _plane = MeshTools::compile(Primitives::planeSolid());    
+    _plane = MeshTools::compile(Primitives::planeSolid(Primitives::PlaneFlag::TextureCoordinates));    
      /* Set up objects */
     (*(_objects[0] = new PickableObject{3, _textured_shader, _bg_color, _plane, _scene, _drawables}))
         .rotateX(-90.0_degf)        
