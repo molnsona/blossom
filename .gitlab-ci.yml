@@ -1,0 +1,29 @@
+stages:
+  - fetch
+  - build
+  - test
+
+fetchcode:
+  stage: fetch
+  image: exaexa/blossom-builder
+  script:
+    - git submodule init; git submodule update
+  rules:
+    - if: '$CI_COMMIT_BRANCH == "master"'
+      when: delayed
+      start_in: '3 hours'
+    - if: '$CI_PIPELINE_SOURCE == "merge_request_event"'
+
+buildcode:
+  stage: build
+  needs: [fetchcode]
+  image: exaexa/blossom-builder
+  script:
+    - mkdir build; cd build; cmake ..; make install
+
+test:
+  stage: test
+  needs: [buildcode]
+  image: exaexa/blossom-builder
+  script:
+    - true
