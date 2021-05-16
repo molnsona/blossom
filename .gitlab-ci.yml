@@ -3,7 +3,7 @@ stages:
   - build
   - test
 
-fetchcode:
+fetch:
   stage: fetch
   image: exaexa/blossom-builder
   script:
@@ -14,16 +14,16 @@ fetchcode:
       start_in: '3 hours'
     - if: '$CI_PIPELINE_SOURCE == "merge_request_event"'
 
-buildcode:
+build:
   stage: build
-  needs: [fetchcode]
+  needs: [fetch]
   image: exaexa/blossom-builder
   script:
     - mkdir build; cd build; cmake ..; make install
 
 test:
   stage: test
-  needs: [buildcode]
+  needs: [build]
   image: exaexa/blossom-builder
   script:
     - /bin/true
