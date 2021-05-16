@@ -26,4 +26,4 @@ test:
   needs: [buildcode]
   image: exaexa/blossom-builder
   script:
-    - true
+    - /bin/true
