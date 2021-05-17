@@ -39,17 +39,17 @@ struct Point {
 };
 
 // Normal distribution
-std::pair<int, int> fill_vector(std::vector<Point>& result) {
+std::pair<int, int> fill_vector(std::vector<Point>& result, int cell_cnt, int mean, int std_dev) {
     std::random_device rd{};
     std::mt19937 gen{rd()};
 
-    std::normal_distribution<> d{0,200};
+    std::normal_distribution<> d{mean,std_dev};
 
     int min = std::numeric_limits<int>::max();
     int max = std::numeric_limits<int>::min();
 
-    result.reserve(10000);
-    for (size_t i = 0; i < 10000; i++)
+    result.reserve(cell_cnt);
+    for (size_t i = 0; i < cell_cnt; i++)
     {
         Point tmp_point = Point{std::round(d(gen)), std::round(d(gen))};
         min = tmp_point.get_min(min);
@@ -61,15 +61,21 @@ std::pair<int, int> fill_vector(std::vector<Point>& result) {
 }
 
 
-void fill_pixels(std::vector<unsigned char>& pixels) {
+void fill_pixels(std::vector<unsigned char>& pixels, int cell_cnt, int mean, int std_dev) {
     std::vector<Point> points;
-    auto [min, max] = fill_vector(points);
+    auto [min, max] = fill_vector(points, cell_cnt, mean, std_dev);
+
+    if (min == max) ++max;
+
+    // TODO remove later
+    min = -2000;
+    max = 2000;
 
     for(auto&& point: points) {
-        if(point.x > max) point.x = max;
-        if(point.x < min) point.x = min;
-        if(point.y > max) point.y = max;
-        if(point.y < min) point.y = min;
+        if(point.x > max) point.x = max - 1;
+        if(point.x < min) point.x = min + 1;
+        if(point.y > max) point.y = max - 1;
+        if(point.y < min) point.y = min + 1;
         std::size_t x_plot = (std::size_t)shift_interval(
             point.x, 
             min,

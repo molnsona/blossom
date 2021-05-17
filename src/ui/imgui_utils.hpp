@@ -43,7 +43,7 @@ void draw_add_window(bool& show_tools, const Vector2i& window_size) {
     ImGui::PopStyleVar();
 }
 
-void draw_tools_window(bool& show_tools, Shaders::Flat3D* _textured_shader) {
+void draw_tools_window(bool& show_tools, bool& show_config, Shaders::Flat3D* _textured_shader) {
     ImGuiWindowFlags window_flags = 
         ImGuiWindowFlags_NoTitleBar |
         ImGuiWindowFlags_NoResize;
@@ -57,9 +57,8 @@ void draw_tools_window(bool& show_tools, Shaders::Flat3D* _textured_shader) {
     ImGui::PushStyleVar(ImGuiStyleVar_WindowPadding, ImVec2(0, 0));        
 
     if(ImGui::Begin("Tools", &show_tools, window_flags)) {
-       
-        if(ImGui::Button(ICON_FA_FILL_DRIP, ImVec2(50.75f, 50.75f))) {
-            _textured_shader->setColor(0x00000000_rgbaf);
+        if(ImGui::Button(ICON_FA_COGS, ImVec2(50.75f, 50.75f))) {
+            show_config = true;
         }
         if(ImGui::Button(ICON_FA_UNDO, ImVec2(50.75f, 50.75f))) {
             _textured_shader->setColor(0xffffffff_rgbaf);
@@ -74,6 +73,35 @@ void draw_tools_window(bool& show_tools, Shaders::Flat3D* _textured_shader) {
     ImGui::PopStyleVar();
     ImGui::PopStyleVar();
     ImGui::PopStyleVar();
+}
+
+void draw_config_window(bool& show_config, int& cell_cnt, int& mean, int& std_dev) {
+    ImGuiWindowFlags window_flags = 
+        ImGuiWindowFlags_NoCollapse |
+        ImGuiWindowFlags_NoResize |
+        ImGuiWindowFlags_AlwaysAutoResize; //|
+        //ImGuiWindowFlags_NoTitleBar;        
+
+    ImGui::PushStyleVar(ImGuiStyleVar_ChildRounding, 10.0f);
+    ImGui::PushStyleVar(ImGuiStyleVar_FrameRounding, 10.0f);
+//    ImGui::PushStyleVar(ImGuiStyleVar_WindowPadding, ImVec2(0, 0));        
+
+    if(ImGui::Begin("##Config", &show_config, window_flags)) {     
+        ImGui::SetNextItemWidth(200.0f); 
+        ImGui::SliderInt("Cell count", &cell_cnt, 0, 100000);
+
+        ImGui::SetNextItemWidth(200.0f); 
+        ImGui::SliderInt("Mean", &mean, -2000, 2000);
+        
+        ImGui::SetNextItemWidth(200.0f); 
+        ImGui::SliderInt("Std deviation", &std_dev, 0, 1000);
+
+        ImGui::End();
+    }
+
+    ImGui::PopStyleVar();
+    ImGui::PopStyleVar();
+  //  ImGui::PopStyleVar();
 }
 
 #endif //#ifndef IMGUI_UTILS_HPP

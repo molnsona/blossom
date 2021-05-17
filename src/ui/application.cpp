@@ -96,6 +96,8 @@ void Application::init_imgui() {
 void Application::drawEvent() {
     GL::defaultFramebuffer.clear(GL::FramebufferClear::Color|GL::FramebufferClear::Depth);
    
+    (*_objects[0]).setConfig(_cell_cnt, _mean, _std_dev);
+
     _camera->draw(_drawables);
 
     _imgui_vars._imgui.newFrame();
@@ -107,7 +109,8 @@ void Application::drawEvent() {
         stopTextInput();
    
     draw_add_window(show_tools, windowSize());
-    if(show_tools) draw_tools_window(show_tools, &_textured_shader);
+    if(show_tools) draw_tools_window(show_tools, show_config, &_textured_shader);
+    if(show_config) draw_config_window(show_config, _cell_cnt, _mean, _std_dev);
 
     /* Update application cursor */
     _imgui_vars._imgui.updateApplicationCursor(*this);
