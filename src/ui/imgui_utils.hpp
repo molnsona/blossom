@@ -43,7 +43,7 @@ void draw_add_window(bool& show_tools, const Vector2i& window_size) {
     ImGui::PopStyleVar();
 }
 
-void draw_tools_window(bool& show_tools, bool& show_config, Shaders::Flat3D* _textured_shader) {
+void draw_tools_window(bool& show_tools, bool& show_config, Shaders::Flat3D* _textured_shader, int& cell_cnt, int& mean, int& std_dev) {
     ImGuiWindowFlags window_flags = 
         ImGuiWindowFlags_NoTitleBar |
         ImGuiWindowFlags_NoResize;
@@ -61,7 +61,9 @@ void draw_tools_window(bool& show_tools, bool& show_config, Shaders::Flat3D* _te
             show_config = true;
         }
         if(ImGui::Button(ICON_FA_UNDO, ImVec2(50.75f, 50.75f))) {
-            _textured_shader->setColor(0xffffffff_rgbaf);
+            cell_cnt = 10000;
+            mean = 0;
+            std_dev = 300;
         }
         if(ImGui::Button(ICON_FA_TIMES, ImVec2(50.75f, 50.75f))) {
             show_tools = false;

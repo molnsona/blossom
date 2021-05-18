@@ -109,7 +109,7 @@ void Application::drawEvent() {
         stopTextInput();
    
     draw_add_window(show_tools, windowSize());
-    if(show_tools) draw_tools_window(show_tools, show_config, &_textured_shader);
+    if(show_tools) draw_tools_window(show_tools, show_config, &_textured_shader, _cell_cnt, _mean, _std_dev);
     if(show_config) draw_config_window(show_config, _cell_cnt, _mean, _std_dev);
 
     /* Update application cursor */
