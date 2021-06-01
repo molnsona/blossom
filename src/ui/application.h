@@ -40,8 +40,15 @@
 #include <Magnum/GL/PixelFormat.h>
 #include <Magnum/ImageView.h>
 
+#include <memory>
+
 #include "imgui_utils.hpp"
 #include "../utils.hpp"
+#include "canvas.h"
+#include "graph.h"
+#include "ui_imgui.h"
+
+//class UiImgui;
 
 using namespace Magnum;
 using namespace Math::Literals;
@@ -124,17 +131,9 @@ private:
     void mouseScrollEvent(MouseScrollEvent& event) override;
     void textInputEvent(TextInputEvent& event) override;
 
-    void init_imgui();
-    
-    struct ImGuiVars {
-        ImGuiIntegration::Context _imgui{NoCreate};
-
-        Color4 _clearColor = 0x72909aff_rgbaf;
-        Float _floatValue = 0.0f;
-    };
-
-    std::string _domain;
-    ImGuiVars _imgui_vars;
+    std::unique_ptr<Canvas> _p_canvas;
+    std::unique_ptr<Graph> _p_graph;
+    std::unique_ptr<UiImgui> _p_ui_imgui;
     
     Shaders::Flat3D _textured_shader{Shaders::Flat3D::Flag::Textured};
     Color3 _bg_color{0xffffff_rgbf};
@@ -150,14 +149,7 @@ private:
 
     Vector2 zoom_depth;
 
-    ImFont* _p_font;
-	GL::Texture2D font_texture;
 
-    bool show_tools = false;
-    bool show_config = false;
-    int _cell_cnt = 10000;
-    int _mean = 0;
-    int _std_dev = 300;
     Vector3 camera_trans = Vector3{0.0f, 0.0f, 0.0f};
 };
 

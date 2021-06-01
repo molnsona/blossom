@@ -17,7 +17,10 @@ Application::Application(const Arguments& arguments):
     
     zoom_depth = {PLOT_WIDTH - 40, PLOT_HEIGHT - 40};
 
-    init_imgui();
+    _p_ui_imgui = std::make_unique<UiImgui>(windowSize(), 
+        dpiScaling(),
+        framebufferSize());
+    //init_imgui();
     
     /* Set up meshes */
     _plane = MeshTools::compile(Primitives::squareSolid(Primitives::SquareFlag::TextureCoordinates));    
@@ -44,93 +47,14 @@ Application::Application(const Arguments& arguments):
     setMinimalLoopPeriod(16);
 }
 
-void Application::init_imgui() {
-    
-    ImGui::CreateContext();
-    ImGui::StyleColorsLight();
-
-    ImGuiIO& io = ImGui::GetIO();
-    io.Fonts->AddFontDefault();
-	{
-		// Regular size
-		_p_font = io.Fonts->AddFontFromFileTTF(BLOSSOM_DATA_DIR "/SourceSansPro-Regular.ttf", 16);
-
-		int width, height;
-		unsigned char* pixels = nullptr;
-		int pixelSize;
-		io.Fonts->GetTexDataAsRGBA32(&pixels, &width, &height, &pixelSize);
-
-		ImageView2D image{ GL::PixelFormat::RGBA,
-			               GL::PixelType::UnsignedByte,
-			               { width, height },
-			               { pixels, std::size_t(pixelSize * width * height) } };
-
-		font_texture.setMagnificationFilter(GL::SamplerFilter::Linear)
-		    .setMinificationFilter(GL::SamplerFilter::Linear)
-		    .setStorage(1, GL::TextureFormat::RGBA8, image.size())
-		    .setSubImage(0, {}, image);
-
-		io.Fonts->TexID = static_cast<void*>(&font_texture);
-
-		io.FontDefault = _p_font;
-	}
-
-    ImFontConfig config;
-	config.MergeMode = true;
-	static const ImWchar icon_ranges[] = { ICON_MIN_FA, ICON_MAX_FA, 0 };
-	io.Fonts->AddFontFromFileTTF(BLOSSOM_DATA_DIR "/fa-solid-900.ttf", 16.0f, &config, icon_ranges);
-
-    _imgui_vars._imgui = ImGuiIntegration::Context(*ImGui::GetCurrentContext(),
-        Vector2{windowSize()}/dpiScaling(), windowSize(), framebufferSize());
-
-    /* Setup proper blending to be used by ImGui */
-    GL::Renderer::setBlendEquation(
-        GL::Renderer::BlendEquation::Add, GL::Renderer::BlendEquation::Add);
-    GL::Renderer::setBlendFunction(
-        GL::Renderer::BlendFunction::SourceAlpha,
-        GL::Renderer::BlendFunction::OneMinusSourceAlpha);
-    
-    ImGui::GetStyle().WindowRounding = 10.0f;   
-}
-
 void Application::drawEvent() {
     GL::defaultFramebuffer.clear(GL::FramebufferClear::Color|GL::FramebufferClear::Depth);
    
-    (*_objects[0]).setConfig(_cell_cnt, _mean, _std_dev);
+    (*_objects[0]).setConfig(10000, 0, 300);
 
     _camera->draw(_drawables);
 
-    _imgui_vars._imgui.newFrame();
-
-    /* Enable text input, if needed */
-    if(ImGui::GetIO().WantTextInput && !isTextInputActive())
-        startTextInput();
-    else if(!ImGui::GetIO().WantTextInput && isTextInputActive())
-        stopTextInput();
-   
-    draw_add_window(show_tools, windowSize());
-    if(show_tools) draw_tools_window(show_tools, show_config, &_textured_shader, _cell_cnt, _mean, _std_dev);
-    if(show_config) draw_config_window(show_config, _cell_cnt, _mean, _std_dev);
-
-    /* Update application cursor */
-    _imgui_vars._imgui.updateApplicationCursor(*this);
-
-    /* Set appropriate states. If you only draw ImGui, it is sufficient to
-       just enable blending and scissor test in the constructor. */
-    GL::Renderer::enable(GL::Renderer::Feature::Blending);
-    GL::Renderer::enable(GL::Renderer::Feature::ScissorTest);
-    GL::Renderer::disable(GL::Renderer::Feature::FaceCulling);
-    GL::Renderer::disable(GL::Renderer::Feature::DepthTest);
-
-    _imgui_vars._imgui.drawFrame();
-    
-    /* Reset state. Only needed if you want to draw something else with
-       different state after. */
-    GL::Renderer::enable(GL::Renderer::Feature::DepthTest);
-    GL::Renderer::enable(GL::Renderer::Feature::FaceCulling);
-    GL::Renderer::disable(GL::Renderer::Feature::ScissorTest);
-    GL::Renderer::disable(GL::Renderer::Feature::Blending);
-
+    _p_ui_imgui->draw_event(this);
 
     swapBuffers();
     redraw();
@@ -140,12 +64,11 @@ void Application::viewportEvent(ViewportEvent& event) {
     GL::defaultFramebuffer.setViewport({{}, event.framebufferSize()});
     _camera->setViewport(event.windowSize());
 
-    _imgui_vars._imgui.relayout(Vector2{event.windowSize()}/event.dpiScaling(),
-        event.windowSize(), event.framebufferSize());
+    _p_ui_imgui->viewport_event(event);
 }
 
 void Application::keyPressEvent(KeyEvent& event) {
-    if(_imgui_vars._imgui.handleKeyPressEvent(event)) return;
+    if(_p_ui_imgui->key_press_event(event)) return;
 
     /* Movement */
     float speed = 0.5f;
@@ -200,11 +123,11 @@ void Application::keyPressEvent(KeyEvent& event) {
 }
 
 void Application::keyReleaseEvent(KeyEvent& event) {
-   if(_imgui_vars._imgui.handleKeyReleaseEvent(event)) return;
+   if(_p_ui_imgui->key_release_event(event)) return;
 }
 
 void Application::mousePressEvent(MouseEvent& event) {
-    if(_imgui_vars._imgui.handleMousePressEvent(event)) {
+    if(_p_ui_imgui->mouse_press_event(event)) {
         event.setAccepted(true);
         return;
     }
@@ -213,7 +136,7 @@ void Application::mousePressEvent(MouseEvent& event) {
 }
 
 void Application::mouseReleaseEvent(MouseEvent& event) {
-   if(_imgui_vars._imgui.handleMouseReleaseEvent(event)) {
+   if(_p_ui_imgui->mouse_release_event(event)) {
         event.setAccepted(true);
         return;
    }
@@ -231,14 +154,14 @@ void Application::mouseReleaseEvent(MouseEvent& event) {
 }
 
 void Application::mouseMoveEvent(MouseMoveEvent& event) {
-   if(_imgui_vars._imgui.handleMouseMoveEvent(event)) {
+   if(_p_ui_imgui->mouse_move_event(event)) {
         event.setAccepted(true);
         return;
     }
 }
 
 void Application::mouseScrollEvent(MouseScrollEvent& event) {
-    if(_imgui_vars._imgui.handleMouseScrollEvent(event)) {
+    if(_p_ui_imgui->mouse_scroll_event(event)) {
         /* Prevent scrolling the page */
         event.setAccepted();
         return;
@@ -261,7 +184,7 @@ void Application::mouseScrollEvent(MouseScrollEvent& event) {
 }
 
 void Application::textInputEvent(TextInputEvent& event) {
-    if(_imgui_vars._imgui.handleTextInputEvent(event)) {
+    if(_p_ui_imgui->text_input_event(event)) {
         event.setAccepted(true);
         return;
     }

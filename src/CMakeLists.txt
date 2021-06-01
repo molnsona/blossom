@@ -1,12 +1,18 @@
 ﻿
 set(HEADERS
     ui/application.h
+    ui/canvas.h
+    ui/graph.h
     ui/imgui_config.h
     ui/imgui_utils.hpp
+    ui/ui_imgui.h
     utils.hpp
 )
 set(SOURCES
     ui/application.cpp
+    ui/canvas.cpp
+    ui/graph.cpp
+    ui/ui_imgui.cpp
 )
 
 add_executable(blossom
