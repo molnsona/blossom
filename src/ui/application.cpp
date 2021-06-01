@@ -10,32 +10,32 @@ using namespace Magnum;
 Application::Application(const Arguments& arguments):
     Platform::Application{arguments, Configuration{}
         .setTitle("BlosSOM")
-        .setWindowFlags(Configuration::WindowFlag::Resizable)}
+        .setWindowFlags(Configuration::WindowFlag::Maximized)}
 {
     GL::Renderer::enable(GL::Renderer::Feature::DepthTest);
     GL::Renderer::enable(GL::Renderer::Feature::FaceCulling);
     
+    zoom_depth = {PLOT_WIDTH - 40, PLOT_HEIGHT - 40};
+
     init_imgui();
     
     /* Set up meshes */
-    _plane = MeshTools::compile(Primitives::planeSolid(Primitives::PlaneFlag::TextureCoordinates));    
+    _plane = MeshTools::compile(Primitives::squareSolid(Primitives::SquareFlag::TextureCoordinates));    
      /* Set up objects */
     (*(_objects[0] = new PickableObject{3, _textured_shader, _bg_color, _plane, _scene, _drawables}))
         .rotateX(-90.0_degf)        
-        .scale(Vector3{20.0f, 0.0f, 20.0f});
+        .scale(Vector3{PLOT_WIDTH / 2, 0.0f, PLOT_HEIGHT / 2});
     
     /* Configure camera */
     _cameraObject = new Object3D{&_scene};
     (*_cameraObject)
         .translate(Vector3::zAxis(20.0f))
-       // .translate(Vector3::yAxis(5.0f))
         .rotateX(-90.0_degf);
     camera_trans.z() = 20.0f;
 
     _camera = new SceneGraph::Camera3D{*_cameraObject};
-    Vector2 view_size(40.0f, 40.0f);
     _camera->setAspectRatioPolicy(SceneGraph::AspectRatioPolicy::Extend)
-        .setProjectionMatrix(Matrix4::orthographicProjection(view_size, 0.001f, 100.0f))
+        .setProjectionMatrix(Matrix4::orthographicProjection(zoom_depth, 0.001f, 100.0f))
         .setViewport(GL::defaultFramebuffer.viewport().size());
 
     
@@ -168,14 +168,14 @@ void Application::keyPressEvent(KeyEvent& event) {
             camera_trans.x() += speed;
             break;
         case KeyEvent::Key::Space: {
-                Vector2 view_size(++zoom_depth, ++zoom_depth);
+                Vector2 view_size(++zoom_depth.x(), ++zoom_depth.y());
                 _camera->setAspectRatioPolicy(SceneGraph::AspectRatioPolicy::Extend)
                     .setProjectionMatrix(Matrix4::orthographicProjection(view_size, 0.001f, 100.0f))
                     .setViewport(GL::defaultFramebuffer.viewport().size());
                 break;
             }
         case KeyEvent::Key::Esc: {
-                Vector2 view_size(--zoom_depth, --zoom_depth);
+                Vector2 view_size(--zoom_depth.x(), --zoom_depth.y());
                 _camera->setAspectRatioPolicy(SceneGraph::AspectRatioPolicy::Extend)
                     .setProjectionMatrix(Matrix4::orthographicProjection(view_size, 0.001f, 100.0f))
                     .setViewport(GL::defaultFramebuffer.viewport().size());
@@ -183,8 +183,8 @@ void Application::keyPressEvent(KeyEvent& event) {
             }
         // Reset camera, TODO
         case KeyEvent::Key::Tab: {
-                zoom_depth = 40.0f;
-                Vector2 view_size(zoom_depth, zoom_depth);
+                zoom_depth = {PLOT_WIDTH, PLOT_HEIGHT};
+                Vector2 view_size(zoom_depth);
                 _camera->setAspectRatioPolicy(SceneGraph::AspectRatioPolicy::Extend)
                     .setProjectionMatrix(Matrix4::orthographicProjection(view_size, 0.001f, 100.0f))
                     .setViewport(GL::defaultFramebuffer.viewport().size());
@@ -246,12 +246,13 @@ void Application::mouseScrollEvent(MouseScrollEvent& event) {
 
     if(!event.offset().y()) return;
 
-    Vector2 view_size(zoom_depth, zoom_depth);
+    Vector2 view_size{zoom_depth};
     if(1.0f - (event.offset().y()) > 0) 
-        view_size = Vector2(++zoom_depth, ++zoom_depth);
+        view_size = Vector2(++zoom_depth.x(), ++zoom_depth.y());
     else {
-        if(--zoom_depth <= 0) ++zoom_depth;
-        view_size = Vector2(zoom_depth, zoom_depth);
+        if(--zoom_depth.x() <= 0) ++zoom_depth.x();
+        if(--zoom_depth.y() <= 0) ++zoom_depth.y();
+        view_size = zoom_depth;
     }
 
     _camera->setAspectRatioPolicy(SceneGraph::AspectRatioPolicy::Extend)

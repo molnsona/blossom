@@ -19,8 +19,7 @@
 #include <Magnum/Math/Color.h>
 #include <Magnum/MeshTools/Compile.h>
 #include <Magnum/Platform/Sdl2Application.h>
-#include <Magnum/Primitives/Cube.h>
-#include <Magnum/Primitives/Plane.h>
+#include <Magnum/Primitives/Square.h>
 #include <Magnum/Primitives/UVSphere.h>
 #include <Magnum/Trade/MeshData.h>
 #include <Magnum/SceneGraph/Scene.h>
@@ -149,7 +148,7 @@ private:
 
     Vector2i _previousMousePosition, _mousePressPosition;
 
-    float zoom_depth = 40.0f;
+    Vector2 zoom_depth;
 
     ImFont* _p_font;
 	GL::Texture2D font_texture;
