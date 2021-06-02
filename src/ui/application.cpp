@@ -15,30 +15,27 @@ Application::Application(const Arguments& arguments):
     GL::Renderer::enable(GL::Renderer::Feature::DepthTest);
     GL::Renderer::enable(GL::Renderer::Feature::FaceCulling);
     
-    zoom_depth = {PLOT_WIDTH - 40, PLOT_HEIGHT - 40};
+    _zoom_depth = {PLOT_WIDTH - 40, PLOT_HEIGHT - 40};
 
-    _p_ui_imgui = std::make_unique<UiImgui>(windowSize(), 
-        dpiScaling(),
-        framebufferSize());
-    //init_imgui();
-    
-    /* Set up meshes */
-    _plane = MeshTools::compile(Primitives::squareSolid(Primitives::SquareFlag::TextureCoordinates));    
-     /* Set up objects */
-    (*(_objects[0] = new PickableObject{3, _textured_shader, _bg_color, _plane, _scene, _drawables}))
-        .rotateX(-90.0_degf)        
-        .scale(Vector3{PLOT_WIDTH / 2, 0.0f, PLOT_HEIGHT / 2});
+    _p_ui_imgui = std::make_unique<UiImgui>(this);
+    _p_canvas = std::make_unique<Canvas>(_scene, _drawables);
+    // /* Set up meshes */
+    // _plane = MeshTools::compile(Primitives::squareSolid(Primitives::SquareFlag::TextureCoordinates));    
+    //  /* Set up objects */
+    // (*(_objects[0] = new PickableObject{3, _textured_shader, _scene, _drawables}))
+    //     .rotateX(-90.0_degf)        
+    //     .scale(Vector3{PLOT_WIDTH / 2, 0.0f, PLOT_HEIGHT / 2});
     
     /* Configure camera */
     _cameraObject = new Object3D{&_scene};
     (*_cameraObject)
         .translate(Vector3::zAxis(20.0f))
         .rotateX(-90.0_degf);
-    camera_trans.z() = 20.0f;
+    _camera_trans.z() = 20.0f;
 
     _camera = new SceneGraph::Camera3D{*_cameraObject};
     _camera->setAspectRatioPolicy(SceneGraph::AspectRatioPolicy::Extend)
-        .setProjectionMatrix(Matrix4::orthographicProjection(zoom_depth, 0.001f, 100.0f))
+        .setProjectionMatrix(Matrix4::orthographicProjection(_zoom_depth, 0.001f, 100.0f))
         .setViewport(GL::defaultFramebuffer.viewport().size());
 
     
@@ -50,7 +47,7 @@ Application::Application(const Arguments& arguments):
 void Application::drawEvent() {
     GL::defaultFramebuffer.clear(GL::FramebufferClear::Color|GL::FramebufferClear::Depth);
    
-    (*_objects[0]).setConfig(10000, 0, 300);
+    _p_canvas->draw_event();
 
     _camera->draw(_drawables);
 
@@ -76,29 +73,29 @@ void Application::keyPressEvent(KeyEvent& event) {
     {
         case KeyEvent::Key::Down:
             _cameraObject->translate(Vector3::zAxis(speed));
-            camera_trans.z() += speed;
+            _camera_trans.z() += speed;
             break;
         case KeyEvent::Key::Up:
             _cameraObject->translate(Vector3::zAxis(-speed));
-            camera_trans.z() -= speed;
+            _camera_trans.z() -= speed;
             break;
         case KeyEvent::Key::Left:
             _cameraObject->translate(Vector3::xAxis(-speed));
-            camera_trans.x() -= speed;
+            _camera_trans.x() -= speed;
             break;
         case KeyEvent::Key::Right:
             _cameraObject->translate(Vector3::xAxis(speed));
-            camera_trans.x() += speed;
+            _camera_trans.x() += speed;
             break;
         case KeyEvent::Key::Space: {
-                Vector2 view_size(++zoom_depth.x(), ++zoom_depth.y());
+                Vector2 view_size(++_zoom_depth.x(), +_zoom_depth.y());
                 _camera->setAspectRatioPolicy(SceneGraph::AspectRatioPolicy::Extend)
                     .setProjectionMatrix(Matrix4::orthographicProjection(view_size, 0.001f, 100.0f))
                     .setViewport(GL::defaultFramebuffer.viewport().size());
                 break;
             }
         case KeyEvent::Key::Esc: {
-                Vector2 view_size(--zoom_depth.x(), --zoom_depth.y());
+                Vector2 view_size(--_zoom_depth.x(), -_zoom_depth.y());
                 _camera->setAspectRatioPolicy(SceneGraph::AspectRatioPolicy::Extend)
                     .setProjectionMatrix(Matrix4::orthographicProjection(view_size, 0.001f, 100.0f))
                     .setViewport(GL::defaultFramebuffer.viewport().size());
@@ -106,16 +103,16 @@ void Application::keyPressEvent(KeyEvent& event) {
             }
         // Reset camera, TODO
         case KeyEvent::Key::Tab: {
-                zoom_depth = {PLOT_WIDTH, PLOT_HEIGHT};
-                Vector2 view_size(zoom_depth);
+                _zoom_depth = {PLOT_WIDTH, PLOT_HEIGHT};
+                Vector2 view_size(_zoom_depth);
                 _camera->setAspectRatioPolicy(SceneGraph::AspectRatioPolicy::Extend)
                     .setProjectionMatrix(Matrix4::orthographicProjection(view_size, 0.001f, 100.0f))
                     .setViewport(GL::defaultFramebuffer.viewport().size());
                 (*_cameraObject)
-                    .translate(-camera_trans)
+                    .translate(-_camera_trans)
                 // .translate(Vector3::yAxis(5.0f))
                     .rotateX(-90.0_degf);
-                camera_trans = Vector3(0.0f, 0.0f, 0.0f);
+                _camera_trans = Vector3(0.0f, 0.0f, 0.0f);
                 break;
             }            
     }
@@ -148,8 +145,8 @@ void Application::mouseReleaseEvent(MouseEvent& event) {
         auto norm_delta = delta.normalized();
         _cameraObject->translate(Vector3::xAxis(-float(speed * norm_delta.x())));
         _cameraObject->translate(Vector3::zAxis(-float(speed * norm_delta.y())));
-        camera_trans.x() = -float(speed * norm_delta.x());
-        camera_trans.z() = -float(speed * norm_delta.y());
+        _camera_trans.x() = -float(speed * norm_delta.x());
+        _camera_trans.z() = -float(speed * norm_delta.y());
     }
 }
 
@@ -169,13 +166,13 @@ void Application::mouseScrollEvent(MouseScrollEvent& event) {
 
     if(!event.offset().y()) return;
 
-    Vector2 view_size{zoom_depth};
+    Vector2 view_size{_zoom_depth};
     if(1.0f - (event.offset().y()) > 0) 
-        view_size = Vector2(++zoom_depth.x(), ++zoom_depth.y());
+        view_size = Vector2(++_zoom_depth.x(), +_zoom_depth.y());
     else {
-        if(--zoom_depth.x() <= 0) ++zoom_depth.x();
-        if(--zoom_depth.y() <= 0) ++zoom_depth.y();
-        view_size = zoom_depth;
+        if(--_zoom_depth.x() <= 0) +_zoom_depth.x();
+        if(--_zoom_depth.y() <= 0) +_zoom_depth.y();
+        view_size = _zoom_depth;
     }
 
     _camera->setAspectRatioPolicy(SceneGraph::AspectRatioPolicy::Extend)

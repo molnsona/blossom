@@ -14,9 +14,7 @@ using namespace Math::Literals;
 
 class UiImgui {
 public:
-    UiImgui(const Vector2i& window_size,
-        const Vector2& dpi_scaling,
-        const Vector2i& frame_buffer_size);
+    UiImgui(const Platform::Application* app);
 
     void draw_event(Platform::Application* app);
     
@@ -34,9 +32,6 @@ private:
     void draw_config_window();
 
     ImGuiIntegration::Context _context{NoCreate};
-
-    Color4 _clearColor = 0x72909aff_rgbaf;
-    Float _floatValue = 0.0f;
 
     ImFont* _p_font;
 	GL::Texture2D _font_texture;

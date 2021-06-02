@@ -43,7 +43,7 @@
 #include <memory>
 
 #include "imgui_utils.hpp"
-#include "../utils.hpp"
+//#include "../utils.hpp"
 #include "canvas.h"
 #include "graph.h"
 #include "ui_imgui.h"
@@ -56,62 +56,6 @@ using namespace std::chrono;
 
 typedef SceneGraph::Object<SceneGraph::MatrixTransformation3D> Object3D;
 typedef SceneGraph::Scene<SceneGraph::MatrixTransformation3D> Scene3D;
-
-class PickableObject: public Object3D, SceneGraph::Drawable3D {
-    public:
-        explicit PickableObject(UnsignedInt id, Shaders::Flat3D& shader, const Color3& color, GL::Mesh& mesh, Object3D& parent, SceneGraph::DrawableGroup3D& drawables): Object3D{&parent}, SceneGraph::Drawable3D{*this, &drawables}, _id{id}, _selected{false}, _shader(shader), _color{color}, _mesh(mesh)
-        { }
-
-        void setConfig(int cell_cnt, int mean, int std_dev) 
-        {
-            if(_cell_cnt == cell_cnt && _mean == mean && _std_dev == std_dev) 
-            {
-                _changed = false;
-                return;
-            }          
-
-            _changed = true;
-            _cell_cnt = cell_cnt;
-            _mean = mean;                                        
-            _std_dev = std_dev;                                             
-        }
-
-        void setSelected(bool selected) { _selected = selected; }
-
-    private:
-        virtual void draw(const Matrix4& transformationMatrix, SceneGraph::Camera3D& camera) {
-            if(_changed) {
-                std::vector<unsigned char> pixels(BYTES_PER_PIXEL * PLOT_WIDTH * PLOT_HEIGHT, 255);
-                fill_pixels(pixels, _cell_cnt, _mean, _std_dev);
-            // pixels = std::vector<unsigned char>(BYTES_PER_PIXEL * PLOT_WIDTH * PLOT_HEIGHT, 63);
-
-                ImageView2D image{ GL::PixelFormat::RGBA, GL::PixelType::UnsignedByte, { PLOT_WIDTH, PLOT_HEIGHT },
-                    { pixels.data(), std::size_t(BYTES_PER_PIXEL * PLOT_WIDTH * PLOT_HEIGHT) } };
-
-                //GL::Texture2D _texture;
-                _texture.setWrapping(GL::SamplerWrapping::ClampToEdge)
-                    .setMagnificationFilter(GL::SamplerFilter::Linear)
-                    .setMinificationFilter(GL::SamplerFilter::Linear)
-                    .setStorage(1, GL::TextureFormat::RGBA8, image.size())
-                    .setSubImage(0, {}, image); 
-            }
-            
-            _shader.setTransformationProjectionMatrix(camera.projectionMatrix() * transformationMatrix)
-                .bindTexture(_texture)
-                .draw(_mesh);
-        }
-
-        UnsignedInt _id;
-        bool _selected;
-        Shaders::Flat3D& _shader;
-        Color3 _color;
-        GL::Mesh& _mesh;
-        GL::Texture2D _texture;
-        int _cell_cnt;
-        int _mean;
-        int _std_dev;
-        bool _changed = false;
-};
 
 class Application: public Platform::Application {
 public: 
@@ -143,14 +87,13 @@ private:
     SceneGraph::Camera3D* _camera;
     Object3D* _cameraObject;
     SceneGraph::DrawableGroup3D _drawables;
-    PickableObject* _objects[1];
 
     Vector2i _previousMousePosition, _mousePressPosition;
 
-    Vector2 zoom_depth;
+    Vector2 _zoom_depth;
 
 
-    Vector3 camera_trans = Vector3{0.0f, 0.0f, 0.0f};
+    Vector3 _camera_trans = Vector3{0.0f, 0.0f, 0.0f};
 };
 
 #endif // #ifndef APPLICATION_H

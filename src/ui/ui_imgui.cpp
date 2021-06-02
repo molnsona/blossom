@@ -9,9 +9,7 @@
 #include "ui_imgui.h"
 #include "imgui_config.h"
 
-UiImgui::UiImgui(const Vector2i& window_size,
-    const Vector2& dpi_scaling,
-    const Vector2i& frame_buffer_size) 
+UiImgui::UiImgui(const Platform::Application* app) 
 {
     ImGui::CreateContext();
     ImGui::StyleColorsLight();
@@ -48,7 +46,7 @@ UiImgui::UiImgui(const Vector2i& window_size,
 	io.Fonts->AddFontFromFileTTF(BLOSSOM_DATA_DIR "/fa-solid-900.ttf", 16.0f, &config, icon_ranges);
 
     _context = ImGuiIntegration::Context(*ImGui::GetCurrentContext(),
-        Vector2{window_size}/dpi_scaling, window_size, frame_buffer_size);
+        Vector2{app->windowSize()}/app->dpiScaling(), app->windowSize(), app->framebufferSize());
 
     /* Setup proper blending to be used by ImGui */
     GL::Renderer::setBlendEquation(
