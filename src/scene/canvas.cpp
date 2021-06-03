@@ -31,7 +31,6 @@ void PickableObject::draw(const Matrix4& transformationMatrix, SceneGraph::Camer
         .draw(_mesh);
 }
 
-
 Canvas::Canvas(Object3D& parent, SceneGraph::DrawableGroup3D& drawables)
 {
     _canvas_mesh = MeshTools::compile(Primitives::squareSolid(Primitives::SquareFlag::TextureCoordinates));    

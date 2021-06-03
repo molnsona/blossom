@@ -42,18 +42,13 @@
 
 #include <memory>
 
-//#include "../ui/imgui_utils.hpp"
-//#include "../utils.hpp"
 #include "../ui/ui_imgui.h"
 #include "../scene/scene_mngr.h"
-
-//class UiImgui;
 
 using namespace Magnum;
 using namespace Math::Literals;
 using namespace std::chrono;
 
-//typedef SceneGraph::Object<SceneGraph::MatrixTransformation3D> Object3D;
 typedef SceneGraph::Scene<SceneGraph::MatrixTransformation3D> Scene3D;
 
 class Application: public Platform::Application {
@@ -78,18 +73,9 @@ private:
     std::unique_ptr<SceneMngr> _p_scn_mngr;
 
     std::unique_ptr<State> _p_state;
-    //Shaders::Flat3D _textured_shader{Shaders::Flat3D::Flag::Textured};
-    //Color3 _bg_color{0xffffff_rgbf};
 
-   // GL::Mesh _plane;
     Scene3D _scene;
-  //  SceneGraph::Camera3D* _camera;
-   // Object3D* _cameraObject;
     SceneGraph::DrawableGroup3D _drawables;
-
-
-
-
 };
 
 #endif // #ifndef APPLICATION_H

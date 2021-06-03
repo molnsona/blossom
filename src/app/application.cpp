@@ -15,32 +15,9 @@ Application::Application(const Arguments& arguments):
     GL::Renderer::enable(GL::Renderer::Feature::DepthTest);
     GL::Renderer::enable(GL::Renderer::Feature::FaceCulling);
     
-   // _zoom_depth = {PLOT_WIDTH - 40, PLOT_HEIGHT - 40};
     _p_state = std::make_unique<State>();
-
     _p_ui_imgui = std::make_unique<UiImgui>(this);
-
     _p_scn_mngr = std::make_unique<SceneMngr>(_p_state.get(), _scene, _drawables);
-
-    // /* Set up meshes */
-    // _plane = MeshTools::compile(Primitives::squareSolid(Primitives::SquareFlag::TextureCoordinates));    
-    //  /* Set up objects */
-    // (*(_objects[0] = new PickableObject{3, _textured_shader, _scene, _drawables}))
-    //     .rotateX(-90.0_degf)        
-    //     .scale(Vector3{PLOT_WIDTH / 2, 0.0f, PLOT_HEIGHT / 2});
-    
-    // /* Configure camera */
-    // _cameraObject = new Object3D{&_scene};
-    // (*_cameraObject)
-    //     .translate(Vector3::zAxis(20.0f))
-    //     .rotateX(-90.0_degf);
-    // _camera_trans.z() = 20.0f;
-
-    // _camera = new SceneGraph::Camera3D{*_cameraObject};
-    // _camera->setAspectRatioPolicy(SceneGraph::AspectRatioPolicy::Extend)
-    //     .setProjectionMatrix(Matrix4::orthographicProjection(_zoom_depth, 0.001f, 100.0f))
-    //     .setViewport(GL::defaultFramebuffer.viewport().size());
-
     
     /* Loop at 60 Hz max */
     setSwapInterval(1);
@@ -50,14 +27,8 @@ Application::Application(const Arguments& arguments):
 void Application::drawEvent() {
     GL::defaultFramebuffer.clear(GL::FramebufferClear::Color|GL::FramebufferClear::Depth);
    
-    // _p_canvas->draw_event();
-
-    // _camera->draw(_drawables);
-
     _p_scn_mngr->draw_event(_p_state.get(), _drawables);
-    
     _p_ui_imgui->draw_event(_p_state.get(), this);
-
 
     swapBuffers();
     redraw();
@@ -65,7 +36,7 @@ void Application::drawEvent() {
 
 void Application::viewportEvent(ViewportEvent& event) {
     GL::defaultFramebuffer.setViewport({{}, event.framebufferSize()});
-    // _camera->setViewport(event.windowSize());
+
     _p_scn_mngr->viewport_event(event);
     _p_ui_imgui->viewport_event(event);
 }

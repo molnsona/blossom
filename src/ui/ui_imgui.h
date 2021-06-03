@@ -12,8 +12,6 @@
 using namespace Magnum;
 using namespace Math::Literals;
 
-//class Application;
-
 class UiImgui {
 public:
     UiImgui(const Platform::Application* app);
