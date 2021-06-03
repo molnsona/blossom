@@ -58,7 +58,7 @@ UiImgui::UiImgui(const Platform::Application* app)
     ImGui::GetStyle().WindowRounding = 10.0f;   
 }
 
-void UiImgui::draw_event(Platform::Application* app)
+void UiImgui::draw_event(State* p_state, Platform::Application* app)
 {
     _context.newFrame();
 
@@ -69,8 +69,8 @@ void UiImgui::draw_event(Platform::Application* app)
         app->stopTextInput();
    
     draw_add_window(app->windowSize());
-    if(_show_tools) draw_tools_window();
-    if(_show_config) draw_config_window();
+    if(_show_tools) draw_tools_window(p_state);
+    if(_show_config) draw_config_window(p_state);
 
     /* Update application cursor */
     _context.updateApplicationCursor(*app);
@@ -164,7 +164,7 @@ void UiImgui::draw_add_window(const Vector2i& window_size)
     ImGui::PopStyleVar();
 }
 
-void UiImgui::draw_tools_window() 
+void UiImgui::draw_tools_window(State* p_state) 
 {
     ImGuiWindowFlags window_flags = 
         ImGuiWindowFlags_NoTitleBar |
@@ -183,9 +183,9 @@ void UiImgui::draw_tools_window()
             _show_config = true;
         }
         if(ImGui::Button(ICON_FA_UNDO, ImVec2(50.75f, 50.75f))) {
-            _cell_cnt = 10000;
-            _mean = 0;
-            _std_dev = 300;
+            p_state->cell_cnt = 10000;
+            p_state->mean = 0;
+            p_state->std_dev = 300;
         }
         if(ImGui::Button(ICON_FA_TIMES, ImVec2(50.75f, 50.75f))) {
             _show_tools = false;
@@ -199,7 +199,7 @@ void UiImgui::draw_tools_window()
     ImGui::PopStyleVar();
 }
 
-void UiImgui::draw_config_window() 
+void UiImgui::draw_config_window(State* p_state) 
 {
     ImGuiWindowFlags window_flags = 
         ImGuiWindowFlags_NoCollapse |
@@ -213,13 +213,13 @@ void UiImgui::draw_config_window()
 
     if(ImGui::Begin("##Config", &_show_config, window_flags)) {     
         ImGui::SetNextItemWidth(200.0f); 
-        ImGui::SliderInt("Cell count", &_cell_cnt, 0, 100000);
+        ImGui::SliderInt("Cell count", &p_state->cell_cnt, 0, 100000);
 
         ImGui::SetNextItemWidth(200.0f); 
-        ImGui::SliderInt("Mean", &_mean, -2000, 2000);
+        ImGui::SliderInt("Mean", &p_state->mean, -2000, 2000);
         
         ImGui::SetNextItemWidth(200.0f); 
-        ImGui::SliderInt("Std deviation", &_std_dev, 0, 1000);
+        ImGui::SliderInt("Std deviation", &p_state->std_dev, 0, 1000);
 
         ImGui::End();
     }

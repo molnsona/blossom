@@ -42,11 +42,10 @@
 
 #include <memory>
 
-#include "imgui_utils.hpp"
+//#include "../ui/imgui_utils.hpp"
 //#include "../utils.hpp"
-#include "canvas.h"
-#include "graph.h"
-#include "ui_imgui.h"
+#include "../ui/ui_imgui.h"
+#include "../scene/scene_mngr.h"
 
 //class UiImgui;
 
@@ -54,7 +53,7 @@ using namespace Magnum;
 using namespace Math::Literals;
 using namespace std::chrono;
 
-typedef SceneGraph::Object<SceneGraph::MatrixTransformation3D> Object3D;
+//typedef SceneGraph::Object<SceneGraph::MatrixTransformation3D> Object3D;
 typedef SceneGraph::Scene<SceneGraph::MatrixTransformation3D> Scene3D;
 
 class Application: public Platform::Application {
@@ -75,25 +74,22 @@ private:
     void mouseScrollEvent(MouseScrollEvent& event) override;
     void textInputEvent(TextInputEvent& event) override;
 
-    std::unique_ptr<Canvas> _p_canvas;
-    std::unique_ptr<Graph> _p_graph;
     std::unique_ptr<UiImgui> _p_ui_imgui;
-    
-    Shaders::Flat3D _textured_shader{Shaders::Flat3D::Flag::Textured};
-    Color3 _bg_color{0xffffff_rgbf};
+    std::unique_ptr<SceneMngr> _p_scn_mngr;
 
-    GL::Mesh _plane;
+    std::unique_ptr<State> _p_state;
+    //Shaders::Flat3D _textured_shader{Shaders::Flat3D::Flag::Textured};
+    //Color3 _bg_color{0xffffff_rgbf};
+
+   // GL::Mesh _plane;
     Scene3D _scene;
-    SceneGraph::Camera3D* _camera;
-    Object3D* _cameraObject;
+  //  SceneGraph::Camera3D* _camera;
+   // Object3D* _cameraObject;
     SceneGraph::DrawableGroup3D _drawables;
 
-    Vector2i _previousMousePosition, _mousePressPosition;
-
-    Vector2 _zoom_depth;
 
 
-    Vector3 _camera_trans = Vector3{0.0f, 0.0f, 0.0f};
+
 };
 
 #endif // #ifndef APPLICATION_H

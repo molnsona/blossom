@@ -1,17 +1,21 @@
 ﻿
 set(HEADERS
-    ui/application.h
-    ui/canvas.h
-    ui/graph.h
+    app/application.h
+    app/state.h
+    scene/canvas.h
+    scene/graph.h
+    scene/scene_mngr.h
     ui/imgui_config.h
     ui/imgui_utils.hpp
     ui/ui_imgui.h
     utils.hpp
 )
 set(SOURCES
-    ui/application.cpp
-    ui/canvas.cpp
-    ui/graph.cpp
+    app/application.cpp
+    app/state.cpp
+    scene/canvas.cpp
+    scene/graph.cpp
+    scene/scene_mngr.cpp       
     ui/ui_imgui.cpp
 )
 

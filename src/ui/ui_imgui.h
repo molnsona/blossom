@@ -7,6 +7,8 @@
 #include <Magnum/Math/Color.h>
 #include <Magnum/Platform/Sdl2Application.h>
 
+#include "../app/state.h"
+
 using namespace Magnum;
 using namespace Math::Literals;
 
@@ -16,7 +18,7 @@ class UiImgui {
 public:
     UiImgui(const Platform::Application* app);
 
-    void draw_event(Platform::Application* app);
+    void draw_event(State* state, Platform::Application* app);
     
     void viewport_event(Platform::Application::ViewportEvent& event);
     bool key_press_event(Platform::Application::KeyEvent& event);
@@ -28,8 +30,8 @@ public:
     bool text_input_event(Platform::Application::TextInputEvent& event);
 private:
     void draw_add_window(const Vector2i& window_size);
-    void draw_tools_window();
-    void draw_config_window();
+    void draw_tools_window(State* p_state);
+    void draw_config_window(State* p_state);
 
     ImGuiIntegration::Context _context{NoCreate};
 
@@ -38,11 +40,6 @@ private:
 
     bool _show_tools = false;
     bool _show_config = false;
-
-    int _cell_cnt = 10000;
-    int _mean = 0;
-    int _std_dev = 300;
-
 };
 
 #endif // #ifndef UI_IMGUI_H

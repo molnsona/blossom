@@ -41,7 +41,7 @@ Canvas::Canvas(Object3D& parent, SceneGraph::DrawableGroup3D& drawables)
                 .scale(Vector3{PLOT_WIDTH / 2, 0.0f, PLOT_HEIGHT / 2});
 }
 
-void Canvas::draw_event()
+void Canvas::draw_event(State* p_state)
 {
-    (*_canvas).setConfig(10000, 0, 300);
+    (*_canvas).setConfig(p_state->cell_cnt, p_state->mean, p_state->std_dev);
 }

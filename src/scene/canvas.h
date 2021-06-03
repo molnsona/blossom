@@ -11,6 +11,8 @@
 #include <Magnum/GL/Mesh.h>
 #include <Magnum/Math/Color.h>
 
+#include "../app/state.h"
+
 using namespace Magnum;
 using namespace Math::Literals;
 
@@ -57,7 +59,7 @@ class Canvas {
 public:
     Canvas(Object3D& parent, SceneGraph::DrawableGroup3D& drawables);
 
-    void draw_event();
+    void draw_event(State* p_state);
 private:
     PickableObject* _canvas;
     GL::Mesh _canvas_mesh;
