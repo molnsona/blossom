@@ -19,9 +19,9 @@ using namespace Math::Literals;
 typedef SceneGraph::Object<SceneGraph::MatrixTransformation3D> Object3D;
 typedef SceneGraph::Scene<SceneGraph::MatrixTransformation3D> Scene3D;
 
-class PickableObject: public Object3D, SceneGraph::Drawable3D {
+class DrawableObject: public Object3D, SceneGraph::Drawable3D {
     public:
-        explicit PickableObject(UnsignedInt id, Shaders::Flat3D& shader, GL::Mesh& mesh, Object3D& parent, SceneGraph::DrawableGroup3D& drawables): Object3D{&parent}, SceneGraph::Drawable3D{*this, &drawables}, _id{id}, _selected{false}, _shader(shader), _mesh(mesh)
+        explicit DrawableObject(UnsignedInt id, Shaders::Flat3D& shader, GL::Mesh& mesh, Object3D& parent, SceneGraph::DrawableGroup3D& drawables): Object3D{&parent}, SceneGraph::Drawable3D{*this, &drawables}, _id{id}, _selected{false}, _shader(shader), _mesh(mesh)
         { }
 
         void setConfig(int cell_cnt, int mean, int std_dev) 
@@ -40,9 +40,10 @@ class PickableObject: public Object3D, SceneGraph::Drawable3D {
 
         void setSelected(bool selected) { _selected = selected; }
 
+        void fill_texture(State* p_state);
     private:
         virtual void draw(const Matrix4& transformationMatrix, SceneGraph::Camera3D& camera);
-
+        
         UnsignedInt _id;
         bool _selected;
         Shaders::Flat3D& _shader;
@@ -61,7 +62,7 @@ public:
 
     void draw_event(State* p_state);
 private:
-    PickableObject* _canvas;
+    DrawableObject* _canvas;
     GL::Mesh _canvas_mesh;
     Shaders::Flat3D _textured_shader{Shaders::Flat3D::Flag::Textured};
 

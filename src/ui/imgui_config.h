@@ -9,5 +9,7 @@ constexpr int PLOT_WIDTH = 1980;
 constexpr int PLOT_HEIGHT = 1080;
 /** For texture of rendered plot */
 constexpr int BYTES_PER_PIXEL = 4;
+/** Background color of texture = white.*/
+#define DEFAULT_WHITE 255
 
 #endif //#ifndef CONFIG_H

@@ -3,6 +3,8 @@
 
 #include <Magnum/Math/Vector.h>
 
+#include <vector>
+
 #include "../ui/imgui_config.h"
 
 using namespace Magnum;
@@ -21,6 +23,9 @@ public:
     int cell_cnt = 10000;
     int mean = 0;
     int std_dev = 300;
+
+    std::vector<unsigned char> pixels = std::vector<unsigned char>(BYTES_PER_PIXEL * PLOT_WIDTH * PLOT_HEIGHT, DEFAULT_WHITE);
+    std::vector<Vector2i> vtx_pos;
 };
 
 #endif // #ifndef STATE_H

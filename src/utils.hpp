@@ -81,14 +81,14 @@ void fill_pixels(std::vector<unsigned char>& pixels, int cell_cnt, int mean, int
             min,
             max,
             0,
-            PLOT_WIDTH
+            PLOT_WIDTH - 1
             );
         std::size_t y_plot = (std::size_t)shift_interval(
             point.y, 
             min,
             max,
             0,
-            PLOT_HEIGHT
+            PLOT_HEIGHT - 1
             );
 
         size_t index = BYTES_PER_PIXEL * (x_plot + y_plot * PLOT_WIDTH);

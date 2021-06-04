@@ -43,7 +43,7 @@ void draw_add_window(bool& show_tools, const Vector2i& window_size) {
     ImGui::PopStyleVar();
 }
 
-void draw_tools_window(bool& show_tools, bool& show_config, Shaders::Flat3D* _textured_shader, int& cell_cnt, int& mean, int& std_dev) {
+void draw_tools_window(bool& show_tools, bool& show_config, int& cell_cnt, int& mean, int& std_dev) {
     ImGuiWindowFlags window_flags = 
         ImGuiWindowFlags_NoTitleBar |
         ImGuiWindowFlags_NoResize;
