@@ -26,6 +26,7 @@ public:
 
     std::vector<unsigned char> pixels = std::vector<unsigned char>(BYTES_PER_PIXEL * PLOT_WIDTH * PLOT_HEIGHT, DEFAULT_WHITE);
     std::vector<Vector2i> vtx_pos;
+    std::vector<Vector2i> edges;
 };
 
 #endif // #ifndef STATE_H

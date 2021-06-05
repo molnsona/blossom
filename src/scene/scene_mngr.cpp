@@ -5,7 +5,7 @@
 SceneMngr::SceneMngr(State* p_state, Scene3D& scene, SceneGraph::DrawableGroup3D& drawables)
 {
     _p_canvas = std::make_unique<Canvas>(scene, drawables);
-    _p_graph = std::make_unique<Graph>(scene, drawables);
+    _p_graph = std::make_unique<Graph>(p_state, scene, drawables);
     
     // /* Configure camera */
     // _cameraObject = new Object3D{&scene};
