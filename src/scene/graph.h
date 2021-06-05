@@ -42,7 +42,7 @@ public:
     void draw_event(State* p_state);
 private:
     std::vector<PickableObject*> _vertices;
-    GL::Mesh _circle_mesh;
+    std::vector<GL::Mesh> _circle_meshes;
     // Shaders::Flat3D _textured_shader{Shaders::Flat3D::Flag::Textured};
 
 };
