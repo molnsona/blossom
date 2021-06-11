@@ -18,8 +18,9 @@ public:
 
     Vector2 zoom_depth{PLOT_WIDTH - 40, PLOT_HEIGHT - 40};
 
-    Vector2i mouse_press_pos;
-    Vector2d mouse_delta;
+    // Vector2i mouse_press_pos;
+    // Vector2i mouse_prev_pos;
+    Vector2i mouse_delta;
 
     int cell_cnt{10000};
     int mean{0};
@@ -30,6 +31,7 @@ public:
     std::vector<Vector2i> edges;
 
     bool vtx_selected{false};
+   // bool mouse_released{false};
     UnsignedInt vtx_ind;
     // std::vector<PickableObject*> _vertices;
 };

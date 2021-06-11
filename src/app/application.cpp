@@ -148,10 +148,13 @@ void Application::mousePressEvent(MouseEvent& event) {
         return;
     }
 
-    _p_state->mouse_press_pos = event.position();
+    _mouse_pressed = true;
 
     const Vector2i position = event.position()*Vector2{framebufferSize()}/Vector2{windowSize()};
     const Vector2i fbPosition{position.x(), GL::defaultFramebuffer.viewport().sizeY() - position.y() - 1};
+    
+    _mouse_prev_pos = _mouse_press_pos = fbPosition;
+    _p_state->mouse_delta = {0, 0};
 
     /* Read object ID at given click position, and then switch to the color
        attachment again so drawEvent() blits correct buffer */
@@ -169,14 +172,22 @@ void Application::mousePressEvent(MouseEvent& event) {
 }
 
 void Application::mouseReleaseEvent(MouseEvent& event) {
-   if(_p_ui_imgui->mouse_release_event(event)) {
+    if(_p_ui_imgui->mouse_release_event(event)) {
         event.setAccepted(true);
         return;
    }
 
     // TODO add change speed of draging
     float speed = 2.5f;
-    _p_state->mouse_delta = Magnum::Vector2d(event.position()) - Magnum::Vector2d(_p_state->mouse_press_pos);
+
+    const Vector2i position = event.position()*Vector2{framebufferSize()}/Vector2{windowSize()};
+    const Vector2i fbPosition{position.x(), GL::defaultFramebuffer.viewport().sizeY() - position.y() - 1};
+
+    _p_state->mouse_delta = fbPosition - _mouse_press_pos;
+    _mouse_press_pos = fbPosition;
+    _mouse_pressed = false;
+    _p_state->vtx_selected = false;
+
     // if(delta != Vector2d(0, 0)) {
     //     auto norm_delta = _p_state->mouse_delta.normalized();
     //     _cameraObject->translate(Vector3::xAxis(-float(speed * norm_delta.x())));
@@ -187,9 +198,20 @@ void Application::mouseReleaseEvent(MouseEvent& event) {
 }
 
 void Application::mouseMoveEvent(MouseMoveEvent& event) {
-   if(_p_ui_imgui->mouse_move_event(event)) {
+    if(_p_ui_imgui->mouse_move_event(event)) {
         event.setAccepted(true);
         return;
+    }
+
+    if(_mouse_pressed)
+    {
+        _p_state->vtx_selected = true;
+
+        const Vector2i position = event.position()*Vector2{framebufferSize()}/Vector2{windowSize()};
+        const Vector2i fbPosition{position.x(), GL::defaultFramebuffer.viewport().sizeY() - position.y() - 1};
+
+        _p_state->mouse_delta = fbPosition - _mouse_prev_pos;
+        _mouse_prev_pos = fbPosition;
     }
 }
 

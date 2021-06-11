@@ -80,7 +80,10 @@ private:
     GL::Framebuffer _framebuffer;
     GL::Renderbuffer _color, _objectId, _depth;
 
-    enum { ObjectCount = 49 };
+    bool _mouse_pressed{false};
+    Vector2i _mouse_press_pos;
+    Vector2i _mouse_prev_pos;
+    //bool _mouse_released{false};
 };
 
 #endif // #ifndef APPLICATION_H

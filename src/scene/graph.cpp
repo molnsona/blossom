@@ -97,8 +97,11 @@ void Graph::draw_event(State* p_state)
         for(auto&& vtx: _vertices) vtx->setSelected(false);
         UnsignedInt id = p_state->vtx_ind;
         if(id > 0 && id < vtx_count + 1)
+        {
             _vertices[id - 1]->setSelected(true);
-        p_state->vtx_selected = false;    
+            _vertices[id - 1]->translate({p_state->mouse_delta.x(), p_state->mouse_delta.y(), 0});
+        }
+        p_state->vtx_selected = false;            
     }
 
 }
