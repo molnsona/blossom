@@ -28,8 +28,7 @@ public:
         _id{id}, 
         _selected{false}, 
         _mesh(mesh),
-        _color(color),
-        _picked_color(_color - 0xdb4437_rgbf)
+        _color(color)
     { }
 
     void setSelected(bool selected) { _selected = selected; }
@@ -50,7 +49,7 @@ private:
     GL::Mesh& _mesh;
     bool _changed = false;
     Color3 _color;
-    Color3 _picked_color;
+    Color3 _picked_color{0x7b1e16_rgbf};
 };
 
 #endif // #ifndef PICKABLE_HPP

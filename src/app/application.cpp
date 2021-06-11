@@ -149,6 +149,23 @@ void Application::mousePressEvent(MouseEvent& event) {
     }
 
     _p_state->mouse_press_pos = event.position();
+
+    const Vector2i position = event.position()*Vector2{framebufferSize()}/Vector2{windowSize()};
+    const Vector2i fbPosition{position.x(), GL::defaultFramebuffer.viewport().sizeY() - position.y() - 1};
+
+    /* Read object ID at given click position, and then switch to the color
+       attachment again so drawEvent() blits correct buffer */
+    _framebuffer.mapForRead(GL::Framebuffer::ColorAttachment{1});
+    Image2D data = _framebuffer.read(
+        Range2Di::fromSize(fbPosition, {1, 1}),
+        {PixelFormat::R32UI});
+    _framebuffer.mapForRead(GL::Framebuffer::ColorAttachment{0});
+
+    /* Highlight object under mouse and deselect all other */
+    _p_state->vtx_selected = true;
+    UnsignedInt id = data.pixels<UnsignedInt>()[0][0];
+    _p_state->vtx_ind = id;
+
 }
 
 void Application::mouseReleaseEvent(MouseEvent& event) {
@@ -167,23 +184,6 @@ void Application::mouseReleaseEvent(MouseEvent& event) {
     //     _camera_trans.x() = -float(speed * norm_delta.x());
     //     _camera_trans.z() = -float(speed * norm_delta.y());
     // }
-
-    const Vector2i position = event.position()*Vector2{framebufferSize()}/Vector2{windowSize()};
-    const Vector2i fbPosition{position.x(), GL::defaultFramebuffer.viewport().sizeY() - position.y() - 1};
-
-    /* Read object ID at given click position, and then switch to the color
-       attachment again so drawEvent() blits correct buffer */
-    _framebuffer.mapForRead(GL::Framebuffer::ColorAttachment{1});
-    Image2D data = _framebuffer.read(
-        Range2Di::fromSize(fbPosition, {1, 1}),
-        {PixelFormat::R32UI});
-    _framebuffer.mapForRead(GL::Framebuffer::ColorAttachment{0});
-
-    /* Highlight object under mouse and deselect all other */
-    for(auto* o: _p_state->_vertices) o->setSelected(false);
-    UnsignedInt id = data.pixels<UnsignedInt>()[0][0];
-    if(id > 0 && id < ObjectCount + 1)
-        _p_state->_vertices[id - 1]->setSelected(true);
 }
 
 void Application::mouseMoveEvent(MouseMoveEvent& event) {

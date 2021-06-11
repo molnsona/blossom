@@ -26,6 +26,8 @@ public:
 
     void draw_event(State* p_state);
 private:
+    static constexpr std::size_t vtx_count = 49;
+    
     Color3 _vert_color{0xdb4437_rgbf};
     Color3 _edge_color{0x000000_rgbf};
 
