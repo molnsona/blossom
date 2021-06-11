@@ -7,12 +7,6 @@
 
 #include "graph.h"
 
-void PickableObject::draw(const Matrix4& transformationMatrix, SceneGraph::Camera3D& camera) {    
-    _shader.setTransformationProjectionMatrix(camera.projectionMatrix() * transformationMatrix)
-        .setColor(_color)
-        .draw(_mesh);
-}
-
 Graph::Graph(State* p_state, Object3D& parent, SceneGraph::DrawableGroup3D& drawables)
 {
     std::size_t vtx_count = 49;
@@ -94,6 +88,7 @@ Graph::Graph(State* p_state, Object3D& parent, SceneGraph::DrawableGroup3D& draw
     // (*_edges[prev_edges_ind]).translate({100, 2, PLOT_WIDTH-1500})//.rotateX(-90.0_degf)        
     //     .scale(Vector3{1.0f, 100.0f, 1.0f});                    
 
+    p_state->_vertices = _vertices;
 }
 
 void Graph::draw_event(State* p_state)

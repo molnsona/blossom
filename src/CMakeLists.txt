@@ -2,6 +2,7 @@
 set(HEADERS
     app/application.h
     app/state.h
+    pickable.hpp
     scene/canvas.h
     scene/graph.h
     scene/scene_mngr.h

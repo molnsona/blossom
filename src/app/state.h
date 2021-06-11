@@ -6,6 +6,7 @@
 #include <vector>
 
 #include "../ui/imgui_config.h"
+#include "../pickable.hpp"
 
 using namespace Magnum;
 using namespace Math::Literals;
@@ -27,6 +28,8 @@ public:
     std::vector<unsigned char> pixels = std::vector<unsigned char>(BYTES_PER_PIXEL * PLOT_WIDTH * PLOT_HEIGHT, DEFAULT_WHITE);
     std::vector<Vector2i> vtx_pos;
     std::vector<Vector2i> edges;
+
+    std::vector<PickableObject*> _vertices;
 };
 
 #endif // #ifndef STATE_H

@@ -76,6 +76,11 @@ private:
 
     Scene3D _scene;
     SceneGraph::DrawableGroup3D _drawables;
+
+    GL::Framebuffer _framebuffer;
+    GL::Renderbuffer _color, _objectId, _depth;
+
+    enum { ObjectCount = 49 };
 };
 
 #endif // #ifndef APPLICATION_H

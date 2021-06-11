@@ -12,35 +12,13 @@
 #include <Magnum/Math/Color.h>
 
 #include "../app/state.h"
+#include "../pickable.hpp"
 
 using namespace Magnum;
 using namespace Math::Literals;
 
 typedef SceneGraph::Object<SceneGraph::MatrixTransformation3D> Object3D;
 typedef SceneGraph::Scene<SceneGraph::MatrixTransformation3D> Scene3D;
-
-class PickableObject: public Object3D, SceneGraph::Drawable3D {
-    public:
-        explicit PickableObject(UnsignedInt id, Color3 color, GL::Mesh& mesh, Object3D& parent, SceneGraph::DrawableGroup3D& drawables): 
-            Object3D{&parent}, 
-            SceneGraph::Drawable3D{*this, &drawables}, 
-            _id{id}, 
-            _selected{false}, 
-            _mesh(mesh),
-            _color(color)
-        { }
-
-        void setSelected(bool selected) { _selected = selected; }
-    private:
-        virtual void draw(const Matrix4& transformationMatrix, SceneGraph::Camera3D& camera);
-        
-        UnsignedInt _id;
-        bool _selected;
-        Shaders::Flat3D _shader{Shaders::Flat3D::Flag::ObjectId};
-        GL::Mesh& _mesh;
-        bool _changed = false;
-        Color3 _color;
-};
 
 class Graph {
 public:
