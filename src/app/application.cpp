@@ -11,7 +11,8 @@ using namespace Magnum;
 Application::Application(const Arguments& arguments):
     Platform::Application{arguments, Configuration{}
         .setTitle("BlosSOM")
-        .setWindowFlags(Configuration::WindowFlag::Maximized)},
+        .setWindowFlags(Configuration::WindowFlag::Maximized)
+        .setWindowFlags(Configuration::WindowFlag::Resizable)},
         _framebuffer{GL::defaultFramebuffer.viewport()}
 {
     MAGNUM_ASSERT_GL_VERSION_SUPPORTED(GL::Version::GL330);
