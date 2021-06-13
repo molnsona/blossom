@@ -12,17 +12,22 @@
 #include "graph.h"
 #include "../app/state.h"
 
+using namespace Magnum;
+
 typedef SceneGraph::Object<SceneGraph::MatrixTransformation3D> Object3D;
 typedef SceneGraph::Scene<SceneGraph::MatrixTransformation3D> Scene3D;
 
 class SceneMngr 
 {
 public:
-    SceneMngr(State* p_state, Scene3D& scene, SceneGraph::DrawableGroup3D& drawables);
+    SceneMngr(State* p_state);
     
-    void draw_event(State* p_state, SceneGraph::DrawableGroup3D& drawables);
+    void draw_event(State* p_state);
     void viewport_event(Platform::Application::ViewportEvent& event);
 private:
+    Scene3D _scene;
+    SceneGraph::DrawableGroup3D _drawables;
+
     std::unique_ptr<Canvas> _p_canvas;
     std::unique_ptr<Graph> _p_graph;
 

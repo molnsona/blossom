@@ -74,9 +74,6 @@ private:
 
     std::unique_ptr<State> _p_state;
 
-    Scene3D _scene;
-    SceneGraph::DrawableGroup3D _drawables;
-
     GL::Framebuffer _framebuffer;
     GL::Renderbuffer _color, _objectId, _depth;
 

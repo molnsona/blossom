@@ -24,7 +24,7 @@ class Graph {
 public:
     Graph(State* p_state, Object3D& parent, SceneGraph::DrawableGroup3D& drawables);
 
-    void draw_event(State* p_state);
+    void draw_event(State* p_state, Object3D& parent, SceneGraph::DrawableGroup3D& drawables);
 private:
     static constexpr std::size_t vtx_count = 49;
     
@@ -35,6 +35,10 @@ private:
     std::vector<GL::Mesh> _circle_meshes;
 
     std::vector<PickableObject*> _edges;
+    std::size_t edges_size;
+    std::vector<GL::Mesh> _edge_meshes;
+
+    //std::vector<GL::Mesh> meshes;
     std::vector<GL::Mesh> _hor_line_meshes;
     std::vector<GL::Mesh> _ver_line_meshes;
 

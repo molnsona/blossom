@@ -1,11 +1,13 @@
 #include <Magnum/GL/DefaultFramebuffer.h>
 
+#include "../ui/imgui_config.h"
+
 #include "scene_mngr.h"
 
-SceneMngr::SceneMngr(State* p_state, Scene3D& scene, SceneGraph::DrawableGroup3D& drawables)
+SceneMngr::SceneMngr(State* p_state)
 {
-    _p_canvas = std::make_unique<Canvas>(scene, drawables);
-    _p_graph = std::make_unique<Graph>(p_state, scene, drawables);
+    _p_canvas = std::make_unique<Canvas>(_scene, _drawables);
+    _p_graph = std::make_unique<Graph>(p_state, _scene, _drawables);
     
     // /* Configure camera */
     // _cameraObject = new Object3D{&scene};
@@ -20,21 +22,21 @@ SceneMngr::SceneMngr(State* p_state, Scene3D& scene, SceneGraph::DrawableGroup3D
     //     .setViewport(GL::defaultFramebuffer.viewport().size());
 
      /* Configure camera */
-    _cameraObject = new Object3D{&scene};
+    _cameraObject = new Object3D{&_scene};
     _cameraObject->translate(Vector3::zAxis(PLOT_WIDTH+200));
     //_cameraObject->translate(Vector3::zAxis(201.0f));
     _camera = new SceneGraph::Camera3D{*_cameraObject};
     _camera->setAspectRatioPolicy(SceneGraph::AspectRatioPolicy::Extend)
-        .setProjectionMatrix(Matrix4::perspectiveProjection(35.0_degf, 4.0f/3.0f, 0.001f, 3000.0f))
+        .setProjectionMatrix(Matrix4::orthographicProjection({PLOT_WIDTH, PLOT_HEIGHT}, 0.001f, 3000.0f))
         .setViewport(GL::defaultFramebuffer.viewport().size());
 }
 
-void SceneMngr::draw_event(State* p_state, SceneGraph::DrawableGroup3D& drawables)
+void SceneMngr::draw_event(State* p_state)
 {
     _p_canvas->draw_event(p_state);
-    _p_graph->draw_event(p_state);
+    _p_graph->draw_event(p_state, _scene, _drawables);
 
-    _camera->draw(drawables);
+    _camera->draw(_drawables);
 }
 
 void SceneMngr::viewport_event(Platform::Application::ViewportEvent& event)
