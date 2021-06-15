@@ -52,7 +52,7 @@ Graph::Graph(State* p_state, Object3D& parent, SceneGraph::DrawableGroup3D& draw
         for (int x = -3; x < 3; ++x)
         {
             int x_plot = x * 100;
-            _edges.emplace_back(new PickableObject{index + 1, _edge_color, _edge_meshes[edges_ind], parent, drawables});
+            _edges.emplace_back(std::make_unique<PickableObject>(index + 1, _edge_color, _edge_meshes[edges_ind], parent, drawables));
             (*_edges[edges_ind]).translate({x_plot, y_plot, 0.5f/*PLOT_WIDTH-1500*/});//.rotateX(-90.0_degf)                       
             p_state->edges.emplace_back(Vector2i(ind, ind + 1));
             ++index;    
@@ -77,7 +77,7 @@ Graph::Graph(State* p_state, Object3D& parent, SceneGraph::DrawableGroup3D& draw
         for (int x = -3; x < 4; ++x)
         {
             int x_plot = x * 100;
-            _edges.emplace_back(new PickableObject{index + 1, _edge_color, _edge_meshes[edges_ind], parent, drawables});
+            _edges.emplace_back(std::make_unique<PickableObject>(index + 1, _edge_color, _edge_meshes[edges_ind], parent, drawables));
             (*_edges[edges_ind]).translate({x_plot, y_plot, 0.5f/*PLOT_WIDTH-1500*/});//.rotateX(-90.0_degf)                       
             p_state->edges.emplace_back(Vector2i(ind, ind + 7));
             ++index;    
@@ -127,8 +127,8 @@ void Graph::draw_event(State* p_state, Object3D& parent, SceneGraph::DrawableGro
             v2_pos = Vector2(p_state->vtx_pos[edge.y()]);
             _edge_meshes[mesh_ind] = MeshTools::compile(Primitives::line2D(v1_pos, v2_pos));
             // _edges[mesh_ind]->translate({v1_pos.x(), v1_pos.y(), 0.0f});
-            delete _edges[mesh_ind];
-            _edges[mesh_ind] = new PickableObject{index + 1, _edge_color, _edge_meshes[mesh_ind], parent, drawables};
+
+            _edges[mesh_ind] = std::make_unique<PickableObject>(index + 1, _edge_color, _edge_meshes[mesh_ind], parent, drawables);
             (*_edges[mesh_ind]).translate({0.0f, 0.0f, 0.5f/*PLOT_WIDTH-1500*/});//.rotateX(-90.0_degf)        
             //     .scale(Vector3{100.0f, 1.0f, 1.0f});                    
 

@@ -11,6 +11,8 @@
 #include <Magnum/GL/Mesh.h>
 #include <Magnum/Math/Color.h>
 
+#include <memory>
+
 #include "../app/state.h"
 #include "../pickable.hpp"
 
@@ -34,7 +36,7 @@ private:
     std::vector<PickableObject*> _vertices;
     std::vector<GL::Mesh> _circle_meshes;
 
-    std::vector<PickableObject*> _edges;
+    std::vector<std::unique_ptr<PickableObject>> _edges;
     std::size_t edges_size;
     std::vector<GL::Mesh> _edge_meshes;
 
