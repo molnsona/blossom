@@ -29,6 +29,7 @@ public:
     std::vector<unsigned char> pixels = std::vector<unsigned char>(BYTES_PER_PIXEL * PLOT_WIDTH * PLOT_HEIGHT, DEFAULT_WHITE);
     std::vector<Vector2> vtx_pos;
     std::vector<Vector2i> edges;
+    std::vector<int> lengths;
 
     bool vtx_selected{false};
    // bool mouse_released{false};

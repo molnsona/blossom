@@ -73,6 +73,7 @@ private:
     std::unique_ptr<UiImgui> _p_ui_imgui;
     std::unique_ptr<SceneMngr> _p_scn_mngr;
     std::unique_ptr<Simulation> _p_sim;
+    std::unique_ptr<SerialSimulator> _p_ser_sim;
 
     std::unique_ptr<State> _p_state;
 

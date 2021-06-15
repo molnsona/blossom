@@ -5,6 +5,8 @@
 #include <Magnum/Trade/MeshData.h>
 #include <Magnum/Math/Vector.h>
 
+#include <vector>
+
 #include "graph.h"
 
 Graph::Graph(State* p_state, Object3D& parent, SceneGraph::DrawableGroup3D& drawables)
@@ -46,6 +48,7 @@ Graph::Graph(State* p_state, Object3D& parent, SceneGraph::DrawableGroup3D& draw
 
     std::size_t edges_ind = 0;  
     std::size_t ind = 0;
+    std::size_t vert_ind = 0;
     for (int y = 3; y > -4; --y)
     {
         int y_plot = y * 100;
@@ -55,9 +58,11 @@ Graph::Graph(State* p_state, Object3D& parent, SceneGraph::DrawableGroup3D& draw
             _edges.emplace_back(std::make_unique<PickableObject>(index + 1, _edge_color, _edge_meshes[edges_ind], parent, drawables));
             (*_edges[edges_ind]).translate({x_plot, y_plot, 0.5f/*PLOT_WIDTH-1500*/});//.rotateX(-90.0_degf)                       
             p_state->edges.emplace_back(Vector2i(ind, ind + 1));
+            p_state->edges.emplace_back(Vector2i(vert_ind, vert_ind + 7));
             ++index;    
             ++edges_ind;
             ++ind;
+            ++vert_ind;
         }
         ++ind;
     }
@@ -79,7 +84,7 @@ Graph::Graph(State* p_state, Object3D& parent, SceneGraph::DrawableGroup3D& draw
             int x_plot = x * 100;
             _edges.emplace_back(std::make_unique<PickableObject>(index + 1, _edge_color, _edge_meshes[edges_ind], parent, drawables));
             (*_edges[edges_ind]).translate({x_plot, y_plot, 0.5f/*PLOT_WIDTH-1500*/});//.rotateX(-90.0_degf)                       
-            p_state->edges.emplace_back(Vector2i(ind, ind + 7));
+            // p_state->edges.emplace_back(Vector2i(ind, ind + 7));
             ++index;    
             ++edges_ind;
             ++ind;
@@ -95,6 +100,7 @@ Graph::Graph(State* p_state, Object3D& parent, SceneGraph::DrawableGroup3D& draw
     //p_state->_vertices = _vertices;
 
     edges_size = 84;
+    p_state->lengths = std::vector(edges_size, 100);
     //meshes.resize(edges_size);
     //_edges.resize(edges_size);
 }
@@ -150,7 +156,7 @@ void Graph::draw_event(State* p_state, Object3D& parent, SceneGraph::DrawableGro
         (*_edges[mesh_ind]).translate({0.0f, 0.0f, 0.5f});
         // _edges[mesh_ind] = std::make_unique<PickableObject>(index + 1, _edge_color, _edge_meshes[mesh_ind], parent, drawables);
         // (*_edges[mesh_ind]).translate({0.0f, 0.0f, 0.5f/*PLOT_WIDTH-1500*/});//.rotateX(-90.0_degf)        
-        //     .scale(Vector3{100.0f, 1.0f, 1.0f});                    
+        // //     .scale(Vector3{100.0f, 1.0f, 1.0f});                    
 
         ++mesh_ind;
         ++index;
