@@ -70,6 +70,8 @@ private:
     void mouseScrollEvent(MouseScrollEvent& event) override;
     void textInputEvent(TextInputEvent& event) override;
 
+    Vector3 windowPos2WorldPos(const Vector2i& windowPosition);
+
     State _state;
 
     UiImgui _ui_imgui;
@@ -81,7 +83,7 @@ private:
     GL::Framebuffer _framebuffer;
     GL::Renderbuffer _color, _objectId, _depth;
 
-    bool _mouse_pressed{false};
+   // bool _mouse_pressed{false};
     Vector2i _mouse_press_pos;
     Vector2i _mouse_prev_pos;
     //bool _mouse_released{false};

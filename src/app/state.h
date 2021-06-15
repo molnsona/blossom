@@ -20,7 +20,8 @@ public:
 
     // Vector2i mouse_press_pos;
     // Vector2i mouse_prev_pos;
-    Vector2 mouse_delta;
+    Vector2 mouse_pos;
+    bool mouse_pressed{false};
 
     int cell_cnt{10000};
     int mean{0};

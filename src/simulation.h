@@ -40,7 +40,7 @@ private:
     float edgeCompulsion{20.0f};
     float timeQuantum{0.001f};
     float vertexMass{1.0f};
-    float slowdown{0.995};
+    float slowdown{0.95};
 
 
 	/**
@@ -53,6 +53,11 @@ private:
 	 */
 	void addRepulsiveForce(const std::vector<point_t> &points, index_t p1, index_t p2, std::vector<point_t> &forces)
 	{
+		auto d = points[p2]-points[p1];
+		auto q = exp(-d.length()/50)*1000;
+		forces[p1] += -q*d;
+		forces[p2] += q*d;
+		#if martin
 		real_t dx = (real_t)points[p1].x() - (real_t)points[p2].x();
 		real_t dy = (real_t)points[p1].y() - (real_t)points[p2].y();
 		real_t sqLen = std::max<real_t>(dx*dx + dy*dy, (real_t)0.0001);
@@ -63,6 +68,7 @@ private:
 		forces[p1].y() += dy;
 		forces[p2].x() -= dx;
 		forces[p2].y() -= dy;
+		#endif
 	}
 
 
@@ -77,6 +83,11 @@ private:
 	 */
 	void addCompulsiveForce(const std::vector<point_t> &points, index_t p1, index_t p2, length_t length, std::vector<point_t> &forces)
 	{
+		auto d = points[p2]-points[p1];
+		auto q = (length - d.length())*5;
+		forces[p1] += -q*d;
+		forces[p2] += q*d;
+		#if martin
 		real_t dx = (real_t)points[p2].x() - (real_t)points[p1].x();
 		real_t dy = (real_t)points[p2].y() - (real_t)points[p1].y();
 		real_t sqLen = dx*dx + dy*dy;
@@ -87,16 +98,18 @@ private:
 		forces[p1].y() += dy;
 		forces[p2].x() -= dx;
 		forces[p2].y() -= dy;
+		#endif
 	}
 
 
 	/**
 	 * \brief Update velocities based on current forces affecting the points.
 	 */
-	void updateVelocities(const std::vector<point_t> &forces)
+	void updateVelocities(State* p_state, const std::vector<point_t> &forces)
 	{
 		real_t fact = timeQuantum / vertexMass;	// v = Ft/m  => t/m is mul factor for F.
 		for (std::size_t i = 0; i < mVelocities.size(); ++i) {
+			//if(p_state->vtx_selected && (i == p_state->vtx_ind)) continue;
 			mVelocities[i].x() = (mVelocities[i].x() + (real_t)forces[i].x() * fact) * slowdown;
 			mVelocities[i].y() = (mVelocities[i].y() + (real_t)forces[i].y() * fact) * slowdown;
 		}
@@ -152,7 +165,7 @@ public:
 	}
 
 
-	void computeForces(std::vector<point_t> &points, std::vector<point_t> &forces)
+	void computeForces(State* p_state, std::vector<point_t> &points, std::vector<point_t> &forces)
 	{
 		forces.resize(points.size());
 
@@ -178,20 +191,22 @@ public:
 	 * \param points Point positions that are updated by the function.
 	 * \note The function updates internal array with velocities.
 	 */
-	void updatePoints(std::vector<point_t> &points)
+	void updatePoints(State* p_state)
 	{
 		// if (points.size() != mVelocities.size())
 		// 	throw (bpp::RuntimeError() << "Cannot compute next version of point positions."
 		// 		<< "Current model uses " << mVelocities.size() << " points, but the given buffer has " << points.size() << " points.");
 
-		computeForces(points, mForces);
-		updateVelocities(mForces);
+		computeForces(p_state, p_state->vtx_pos, mForces);
+		updateVelocities(p_state, mForces);
 
 		// Update point positions.
 		for (std::size_t i = 0; i < mVelocities.size(); ++i) {
-			points[i].x() += mVelocities[i].x() * timeQuantum;
-			points[i].y() += mVelocities[i].y() * timeQuantum;
+			//if(p_state->vtx_selected && (i == p_state->vtx_ind)) continue;
+			p_state->vtx_pos[i].x() += mVelocities[i].x() * timeQuantum;
+			p_state->vtx_pos[i].y() += mVelocities[i].y() * timeQuantum;
 		}
 	}
 };
+
 #endif // #ifndef SIMULATION_H

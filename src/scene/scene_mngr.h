@@ -5,6 +5,7 @@
 #include <Magnum/SceneGraph/Camera.h>
 #include <Magnum/SceneGraph/Scene.h>
 #include <Magnum/SceneGraph/Drawable.h>
+#include <Magnum/SceneGraph/MatrixTransformation3D.h>
 
 #include <memory>
 
@@ -13,6 +14,7 @@
 #include "../app/state.h"
 
 using namespace Magnum;
+using namespace Math::Literals;
 
 typedef SceneGraph::Object<SceneGraph::MatrixTransformation3D> Object3D;
 typedef SceneGraph::Scene<SceneGraph::MatrixTransformation3D> Scene3D;
@@ -27,6 +29,8 @@ public:
     
     void draw_event(State* p_state);
     void viewport_event(Platform::Application::ViewportEvent& event);
+
+    Matrix4 getInvViewProjMat() { return (_camera->projectionMatrix()*_camera->cameraMatrix()).inverted();}
 private:
     Scene3D _scene;
     SceneGraph::DrawableGroup3D _drawables;

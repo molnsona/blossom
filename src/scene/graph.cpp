@@ -107,7 +107,7 @@ Graph::Graph(State* p_state, Object3D& parent, SceneGraph::DrawableGroup3D& draw
 
 void Graph::update(State* p_state)
 {
-    if(p_state->vtx_selected) 
+    if(p_state->vtx_selected || p_state->mouse_pressed) 
     {
         p_state->time = 0;
         // Move vertices
@@ -116,11 +116,15 @@ void Graph::update(State* p_state)
         if(id > 0 && id < vtx_count + 1)
         {
             _vertices[id - 1]->setSelected(true);
-            //_vertices[id - 1]->translate({p_state->mouse_delta.x()+ 10, p_state->mouse_delta.y() + 10, 0});
+            //_vertices[id - 1]->translate({p_state->mouse_pos.x()+ 10, p_state->mouse_pos.y() + 10, 0});
             int x = 0, y = 0;
-            // x = p_state->mouse_delta.x() > 0 ? 10 : -10; 
-            // y = p_state->mouse_delta.y() > 0 ? 10 : -10;
-            p_state->vtx_pos[id - 1] += p_state->mouse_delta; /*+ Vector2{x,y};*/
+            // x = p_state->mouse_pos.x() > 0 ? 10 : -10; 
+            // y = p_state->mouse_pos.y() > 0 ? 10 : -10;
+            p_state->vtx_pos[id - 1] = p_state->mouse_pos; /*+ Vector2{x,y};*/
+
+            // (*_vertices[id - 1]).resetTransformation();
+            // (*_vertices[id - 1]).scale(Vector3{10.0f, 10.0f, 1.0f})            
+            //     .translate({p_state->vtx_pos[id - 1].x(), p_state->vtx_pos[id - 1].y(), 1.0f});
         }
         p_state->vtx_selected = false;     
     }

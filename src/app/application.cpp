@@ -59,7 +59,7 @@ void Application::drawEvent() {
     _scn_mngr.update(&_state);
 
     //_sim.update(&_state);
-    _ser_sim.updatePoints(_state.vtx_pos);
+    _ser_sim.updatePoints(&_state);
 
     _scn_mngr.draw_event(&_state);
     _ui_imgui.draw_event(&_state, this);
@@ -161,13 +161,14 @@ void Application::mousePressEvent(MouseEvent& event) {
         return;
     }
 
-    _mouse_pressed = true;
+    _state.mouse_pressed = true;
 
     const Vector2i position = event.position()*Vector2{framebufferSize()}/Vector2{windowSize()};
     const Vector2i fbPosition{position.x(), GL::defaultFramebuffer.viewport().sizeY() - position.y() - 1};
     
     _mouse_prev_pos = _mouse_press_pos = fbPosition;
-    _state.mouse_delta = {0, 0};
+    //_state.mouse_pos = {0, 0};
+    _state.mouse_pos = Vector2(fbPosition - (GL::defaultFramebuffer.viewport().size() / 2));
 
     /* Read object ID at given click position, and then switch to the color
        attachment again so drawEvent() blits correct buffer */
@@ -181,7 +182,6 @@ void Application::mousePressEvent(MouseEvent& event) {
     _state.vtx_selected = true;
     UnsignedInt id = data.pixels<UnsignedInt>()[0][0];
     _state.vtx_ind = id;
-
 }
 
 void Application::mouseReleaseEvent(MouseEvent& event) {
@@ -196,13 +196,15 @@ void Application::mouseReleaseEvent(MouseEvent& event) {
     const Vector2i position = event.position()*Vector2{framebufferSize()}/Vector2{windowSize()};
     const Vector2i fbPosition{position.x(), GL::defaultFramebuffer.viewport().sizeY() - position.y() - 1};
 
-    _state.mouse_delta = Vector2(fbPosition - _mouse_press_pos);
+//    _state.mouse_pos = Vector2(fbPosition - _mouse_press_pos);
+    _state.mouse_pos = Vector2(fbPosition - (GL::defaultFramebuffer.viewport().size() / 2));
+
     _mouse_press_pos = fbPosition;
-    _mouse_pressed = false;
+    _state.mouse_pressed = false;
     _state.vtx_selected = false;
 
     // if(delta != Vector2d(0, 0)) {
-    //     auto norm_delta = _state.mouse_delta.normalized();
+    //     auto norm_delta = _state.mouse_pos.normalized();
     //     _cameraObject->translate(Vector3::xAxis(-float(speed * norm_delta.x())));
     //     _cameraObject->translate(Vector3::zAxis(-float(speed * norm_delta.y())));
     //     _camera_trans.x() = -float(speed * norm_delta.x());
@@ -216,14 +218,16 @@ void Application::mouseMoveEvent(MouseMoveEvent& event) {
         return;
     }
 
-    if(_mouse_pressed)
+    if(_state.mouse_pressed)
     {
         _state.vtx_selected = true;
 
         const Vector2i position = event.position()*Vector2{framebufferSize()}/Vector2{windowSize()};
         const Vector2i fbPosition{position.x(), GL::defaultFramebuffer.viewport().sizeY() - position.y() - 1};
 
-        _state.mouse_delta = Vector2(fbPosition - _mouse_prev_pos);
+        //_state.mouse_pos = Vector2(fbPosition - _mouse_prev_pos);
+        _state.mouse_pos = Vector2(fbPosition - (GL::defaultFramebuffer.viewport().size() / 2));
+
         _mouse_prev_pos = fbPosition;
     }
 }
@@ -256,6 +260,22 @@ void Application::textInputEvent(TextInputEvent& event) {
         event.setAccepted(true);
         return;
     }
+}
+
+Vector3 Application::windowPos2WorldPos(const Vector2i& windowPosition) {
+    /* First scale the position from being relative to window size to being
+       relative to framebuffer size as those two can be different on HiDPI
+       systems */
+    const Vector2i position = windowPosition*Vector2{framebufferSize()}/Vector2{windowSize()};
+
+    /* Compute inverted model view projection matrix */
+    //const Matrix3 invViewProjMat = (_camera->projectionMatrix()*_camera->cameraMatrix()).inverted();
+    const Matrix4 invViewProjMat = _scn_mngr.getInvViewProjMat();
+
+    /* Compute the world coordinate from window coordinate */
+    const Vector2i flippedPos = Vector2i(position.x(), framebufferSize().y() - position.y());
+    const Vector2 ndcPos = Vector2(flippedPos) / Vector2(framebufferSize())*Vector2{2.0f} - Vector2{1.0f};
+    return invViewProjMat.transformPoint({ndcPos.x(),ndcPos.y(), 0.0f});
 }
 
 MAGNUM_APPLICATION_MAIN(Application)
