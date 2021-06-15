@@ -146,8 +146,10 @@ void Graph::draw_event(State* p_state, Object3D& parent, SceneGraph::DrawableGro
         _edge_meshes[mesh_ind] = MeshTools::compile(Primitives::line2D(v1_pos, v2_pos));
         // _edges[mesh_ind]->translate({v1_pos.x(), v1_pos.y(), 0.0f});
 
-        _edges[mesh_ind] = std::make_unique<PickableObject>(index + 1, _edge_color, _edge_meshes[mesh_ind], parent, drawables);
-        (*_edges[mesh_ind]).translate({0.0f, 0.0f, 0.5f/*PLOT_WIDTH-1500*/});//.rotateX(-90.0_degf)        
+        _edges[mesh_ind]->resetTransformation();
+        (*_edges[mesh_ind]).translate({0.0f, 0.0f, 0.5f});
+        // _edges[mesh_ind] = std::make_unique<PickableObject>(index + 1, _edge_color, _edge_meshes[mesh_ind], parent, drawables);
+        // (*_edges[mesh_ind]).translate({0.0f, 0.0f, 0.5f/*PLOT_WIDTH-1500*/});//.rotateX(-90.0_degf)        
         //     .scale(Vector3{100.0f, 1.0f, 1.0f});                    
 
         ++mesh_ind;
