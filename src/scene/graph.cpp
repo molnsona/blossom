@@ -21,7 +21,7 @@ Graph::Graph(State* p_state, Object3D& parent, SceneGraph::DrawableGroup3D& draw
         for (int x = -3; x < 4; ++x)
         {
             int x_plot = x * 100.0f;
-            _vertices.emplace_back(new PickableObject{index + 1, _vert_color, _circle_meshes[index], parent, drawables});
+            _vertices.emplace_back(std::make_unique<PickableObject>(index + 1, _vert_color, _circle_meshes[index], parent, drawables));
             (*_vertices[index]).scale(Vector3{10.0f, 10.0f, 1.0f})
                 .translate({x_plot, y_plot, 1.0f/*PLOT_WIDTH-1500*/});//.rotateX(-90.0_degf)                                                
             ++index;
@@ -99,52 +99,68 @@ Graph::Graph(State* p_state, Object3D& parent, SceneGraph::DrawableGroup3D& draw
     //_edges.resize(edges_size);
 }
 
-void Graph::draw_event(State* p_state, Object3D& parent, SceneGraph::DrawableGroup3D& drawables)
+void Graph::update(State* p_state)
 {
     if(p_state->vtx_selected) 
     {
+        p_state->time = 0;
         // Move vertices
         for(auto&& vtx: _vertices) vtx->setSelected(false);
         UnsignedInt id = p_state->vtx_ind;
         if(id > 0 && id < vtx_count + 1)
         {
             _vertices[id - 1]->setSelected(true);
-            _vertices[id - 1]->translate({p_state->mouse_delta.x(), p_state->mouse_delta.y(), 0});
-            p_state->vtx_pos[id - 1] += p_state->mouse_delta;
+            //_vertices[id - 1]->translate({p_state->mouse_delta.x()+ 10, p_state->mouse_delta.y() + 10, 0});
+            int x = 0, y = 0;
+            // x = p_state->mouse_delta.x() > 0 ? 10 : -10; 
+            // y = p_state->mouse_delta.y() > 0 ? 10 : -10;
+            p_state->vtx_pos[id - 1] += p_state->mouse_delta + Vector2i{x,y};
         }
         p_state->vtx_selected = false;     
-
-        // Move edges
-        //_edges.clear();
-        //meshes.clear();
-        //std::vector<GL::Mesh> meshes;
-        std::size_t index = vtx_count + 1;
-        std::size_t mesh_ind = 0;
-        for (auto&& edge: p_state->edges)
-        {
-            Vector2 v1_pos, v2_pos;
-            v1_pos = Vector2(p_state->vtx_pos[edge.x()]);
-            v2_pos = Vector2(p_state->vtx_pos[edge.y()]);
-            _edge_meshes[mesh_ind] = MeshTools::compile(Primitives::line2D(v1_pos, v2_pos));
-            // _edges[mesh_ind]->translate({v1_pos.x(), v1_pos.y(), 0.0f});
-
-            _edges[mesh_ind] = std::make_unique<PickableObject>(index + 1, _edge_color, _edge_meshes[mesh_ind], parent, drawables);
-            (*_edges[mesh_ind]).translate({0.0f, 0.0f, 0.5f/*PLOT_WIDTH-1500*/});//.rotateX(-90.0_degf)        
-            //     .scale(Vector3{100.0f, 1.0f, 1.0f});                    
-
-            ++mesh_ind;
-            ++index;
-
-            // break;
-        }
-
-        // mesh_ind = 0;
-        // for (auto&& edge: p_state->edges)
-        // {
-        //     _edges[mesh_ind] = new PickableObject{index, _edge_color, _edge_meshes[mesh_ind], parent, drawables};
-        //     ++index;
-        //     ++mesh_ind;
-        // }
     }
+}
+
+void Graph::draw_event(State* p_state, Object3D& parent, SceneGraph::DrawableGroup3D& drawables)
+{
+    // Draw vertices
+    for (size_t i = 0; i < p_state->vtx_pos.size(); ++i)
+    {      
+        _vertices[i] = std::make_unique<PickableObject>(i + 1, _vert_color, _circle_meshes[i], parent, drawables);
+        (*_vertices[i]).scale(Vector3{10.0f, 10.0f, 1.0f})
+            .translate({p_state->vtx_pos[i].x(), p_state->vtx_pos[i].y(), 1.0f});
+    }
+    
+
+    // Draw edges
+    //_edges.clear();
+    //meshes.clear();
+    //std::vector<GL::Mesh> meshes;
+    std::size_t index = vtx_count + 1;
+    std::size_t mesh_ind = 0;
+    for (auto&& edge: p_state->edges)
+    {
+        Vector2 v1_pos, v2_pos;
+        v1_pos = Vector2(p_state->vtx_pos[edge.x()]);
+        v2_pos = Vector2(p_state->vtx_pos[edge.y()]);
+        _edge_meshes[mesh_ind] = MeshTools::compile(Primitives::line2D(v1_pos, v2_pos));
+        // _edges[mesh_ind]->translate({v1_pos.x(), v1_pos.y(), 0.0f});
+
+        _edges[mesh_ind] = std::make_unique<PickableObject>(index + 1, _edge_color, _edge_meshes[mesh_ind], parent, drawables);
+        (*_edges[mesh_ind]).translate({0.0f, 0.0f, 0.5f/*PLOT_WIDTH-1500*/});//.rotateX(-90.0_degf)        
+        //     .scale(Vector3{100.0f, 1.0f, 1.0f});                    
+
+        ++mesh_ind;
+        ++index;
+
+        // break;
+    }
+
+    // mesh_ind = 0;
+    // for (auto&& edge: p_state->edges)
+    // {
+    //     _edges[mesh_ind] = new PickableObject{index, _edge_color, _edge_meshes[mesh_ind], parent, drawables};
+    //     ++index;
+    //     ++mesh_ind;
+    // }
 
 }

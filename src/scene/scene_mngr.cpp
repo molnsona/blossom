@@ -31,6 +31,11 @@ SceneMngr::SceneMngr(State* p_state)
         .setViewport(GL::defaultFramebuffer.viewport().size());
 }
 
+void SceneMngr::update(State* p_state)
+{
+    _p_graph->update(p_state);
+}
+
 void SceneMngr::draw_event(State* p_state)
 {
     _p_canvas->draw_event(p_state);

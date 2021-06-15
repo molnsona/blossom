@@ -26,6 +26,8 @@ class Graph {
 public:
     Graph(State* p_state, Object3D& parent, SceneGraph::DrawableGroup3D& drawables);
 
+    void update(State* p_state);
+
     void draw_event(State* p_state, Object3D& parent, SceneGraph::DrawableGroup3D& drawables);
 private:
     static constexpr std::size_t vtx_count = 49;
@@ -33,7 +35,7 @@ private:
     Color3 _vert_color{0xdb4437_rgbf};
     Color3 _edge_color{0x000000_rgbf};
 
-    std::vector<PickableObject*> _vertices;
+    std::vector<std::unique_ptr<PickableObject>> _vertices;
     std::vector<GL::Mesh> _circle_meshes;
 
     std::vector<std::unique_ptr<PickableObject>> _edges;

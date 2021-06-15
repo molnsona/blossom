@@ -34,6 +34,10 @@ public:
    // bool mouse_released{false};
     UnsignedInt vtx_ind;
     // std::vector<PickableObject*> _vertices;
+
+    std::size_t time = 0;
+    std::size_t timeout = 1000;
+    int expected_len = 100;
 };
 
 #endif // #ifndef STATE_H

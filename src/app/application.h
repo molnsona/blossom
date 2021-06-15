@@ -44,6 +44,7 @@
 
 #include "../ui/ui_imgui.h"
 #include "../scene/scene_mngr.h"
+#include "../simulation.h"
 
 using namespace Magnum;
 using namespace Math::Literals;
@@ -71,6 +72,7 @@ private:
 
     std::unique_ptr<UiImgui> _p_ui_imgui;
     std::unique_ptr<SceneMngr> _p_scn_mngr;
+    std::unique_ptr<Simulation> _p_sim;
 
     std::unique_ptr<State> _p_state;
 

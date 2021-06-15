@@ -6,6 +6,7 @@ set(HEADERS
     scene/canvas.h
     scene/graph.h
     scene/scene_mngr.h
+    simulation.h
     ui/imgui_config.h
     ui/imgui_utils.hpp
     ui/ui_imgui.h
@@ -17,6 +18,7 @@ set(SOURCES
     scene/canvas.cpp
     scene/graph.cpp
     scene/scene_mngr.cpp       
+    simulation.cpp
     ui/ui_imgui.cpp
 )
 

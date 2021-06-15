@@ -21,6 +21,8 @@ class SceneMngr
 {
 public:
     SceneMngr(State* p_state);
+
+    void update(State* p_state);
     
     void draw_event(State* p_state);
     void viewport_event(Platform::Application::ViewportEvent& event);

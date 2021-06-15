@@ -35,6 +35,7 @@ Application::Application(const Arguments& arguments):
     _p_state = std::make_unique<State>();
     _p_ui_imgui = std::make_unique<UiImgui>(this);
     _p_scn_mngr = std::make_unique<SceneMngr>(_p_state.get());
+    _p_sim = std::make_unique<Simulation>(_p_state.get());
     
     /* Loop at 60 Hz max */
     setSwapInterval(1);
@@ -49,6 +50,10 @@ void Application::drawEvent() {
         .clearDepth(1.0f)
         .bind();    
    
+    _p_scn_mngr->update(_p_state.get());
+
+    _p_sim->update(_p_state.get());
+
     _p_scn_mngr->draw_event(_p_state.get());
     _p_ui_imgui->draw_event(_p_state.get(), this);
 
