@@ -189,7 +189,7 @@ void Application::mouseReleaseEvent(MouseEvent& event) {
     const Vector2i position = event.position()*Vector2{framebufferSize()}/Vector2{windowSize()};
     const Vector2i fbPosition{position.x(), GL::defaultFramebuffer.viewport().sizeY() - position.y() - 1};
 
-    _p_state->mouse_delta = fbPosition - _mouse_press_pos;
+    _p_state->mouse_delta = Vector2(fbPosition - _mouse_press_pos);
     _mouse_press_pos = fbPosition;
     _mouse_pressed = false;
     _p_state->vtx_selected = false;
@@ -216,7 +216,7 @@ void Application::mouseMoveEvent(MouseMoveEvent& event) {
         const Vector2i position = event.position()*Vector2{framebufferSize()}/Vector2{windowSize()};
         const Vector2i fbPosition{position.x(), GL::defaultFramebuffer.viewport().sizeY() - position.y() - 1};
 
-        _p_state->mouse_delta = fbPosition - _mouse_prev_pos;
+        _p_state->mouse_delta = Vector2(fbPosition - _mouse_prev_pos);
         _mouse_prev_pos = fbPosition;
     }
 }

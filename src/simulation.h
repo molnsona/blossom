@@ -7,10 +7,10 @@ class Simulation
 {
 public:
     Simulation(State* p_state);
-    
+
     void update(State* p_state);
 private:
-    std::vector<Vector2i> _forces;
+    std::vector<Vector2> _forces;
 };
 
 #endif // #ifndef SIMULATION_H

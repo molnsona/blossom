@@ -20,14 +20,14 @@ public:
 
     // Vector2i mouse_press_pos;
     // Vector2i mouse_prev_pos;
-    Vector2i mouse_delta;
+    Vector2 mouse_delta;
 
     int cell_cnt{10000};
     int mean{0};
     int std_dev{300};
 
     std::vector<unsigned char> pixels = std::vector<unsigned char>(BYTES_PER_PIXEL * PLOT_WIDTH * PLOT_HEIGHT, DEFAULT_WHITE);
-    std::vector<Vector2i> vtx_pos;
+    std::vector<Vector2> vtx_pos;
     std::vector<Vector2i> edges;
 
     bool vtx_selected{false};

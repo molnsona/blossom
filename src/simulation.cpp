@@ -16,7 +16,7 @@ void Simulation::update(State* p_state)
     {
         for(auto&& edge: p_state->edges)
         {
-            Vector2i v1_pos, v2_pos;
+            Vector2 v1_pos, v2_pos;
             int e_len, error;
 
             v1_pos = p_state->vtx_pos[edge.x()];

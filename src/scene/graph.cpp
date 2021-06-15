@@ -114,7 +114,7 @@ void Graph::update(State* p_state)
             int x = 0, y = 0;
             // x = p_state->mouse_delta.x() > 0 ? 10 : -10; 
             // y = p_state->mouse_delta.y() > 0 ? 10 : -10;
-            p_state->vtx_pos[id - 1] += p_state->mouse_delta + Vector2i{x,y};
+            p_state->vtx_pos[id - 1] += p_state->mouse_delta; /*+ Vector2{x,y};*/
         }
         p_state->vtx_selected = false;     
     }
