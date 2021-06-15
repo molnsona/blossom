@@ -125,8 +125,9 @@ void Graph::draw_event(State* p_state, Object3D& parent, SceneGraph::DrawableGro
     // Draw vertices
     for (size_t i = 0; i < p_state->vtx_pos.size(); ++i)
     {      
-        _vertices[i] = std::make_unique<PickableObject>(i + 1, _vert_color, _circle_meshes[i], parent, drawables);
-        (*_vertices[i]).scale(Vector3{10.0f, 10.0f, 1.0f})
+        //_vertices[i] = std::make_unique<PickableObject>(i + 1, _vert_color, _circle_meshes[i], parent, drawables);
+        (*_vertices[i]).resetTransformation();
+        (*_vertices[i]).scale(Vector3{10.0f, 10.0f, 1.0f})            
             .translate({p_state->vtx_pos[i].x(), p_state->vtx_pos[i].y(), 1.0f});
     }
     

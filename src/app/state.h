@@ -14,9 +14,9 @@ using namespace Math::Literals;
 class State 
 {
 public:
-    Vector3 camera_trans{0.0f, 0.0f, 0.0f};
+    // Vector3 camera_trans{0.0f, 0.0f, 0.0f};
 
-    Vector2 zoom_depth{PLOT_WIDTH - 40, PLOT_HEIGHT - 40};
+    // Vector2 zoom_depth{PLOT_WIDTH - 40, PLOT_HEIGHT - 40};
 
     // Vector2i mouse_press_pos;
     // Vector2i mouse_prev_pos;
