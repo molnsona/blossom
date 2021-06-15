@@ -58,6 +58,7 @@ class DrawableObject: public Object3D, SceneGraph::Drawable3D {
 
 class Canvas {
 public:
+    Canvas() = delete;
     Canvas(Object3D& parent, SceneGraph::DrawableGroup3D& drawables);
 
     void draw_event(State* p_state);

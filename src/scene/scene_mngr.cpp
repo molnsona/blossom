@@ -4,10 +4,12 @@
 
 #include "scene_mngr.h"
 
-SceneMngr::SceneMngr(State* p_state)
+SceneMngr::SceneMngr(State* p_state) :
+    _canvas(_scene, _drawables),
+    _graph(p_state, _scene, _drawables)
 {
-    _p_canvas = std::make_unique<Canvas>(_scene, _drawables);
-    _p_graph = std::make_unique<Graph>(p_state, _scene, _drawables);
+    // _canvas = std::make_unique<Canvas>(_scene, _drawables);
+    // _graph = std::make_unique<Graph>(p_state, _scene, _drawables);
     
     // /* Configure camera */
     // _cameraObject = new Object3D{&scene};
@@ -33,13 +35,13 @@ SceneMngr::SceneMngr(State* p_state)
 
 void SceneMngr::update(State* p_state)
 {
-    _p_graph->update(p_state);
+    _graph.update(p_state);
 }
 
 void SceneMngr::draw_event(State* p_state)
 {
-    _p_canvas->draw_event(p_state);
-    _p_graph->draw_event(p_state, _scene, _drawables);
+    _canvas.draw_event(p_state);
+    _graph.draw_event(p_state, _scene, _drawables);
 
     _camera->draw(_drawables);
 }

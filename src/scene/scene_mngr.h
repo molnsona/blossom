@@ -20,6 +20,7 @@ typedef SceneGraph::Scene<SceneGraph::MatrixTransformation3D> Scene3D;
 class SceneMngr 
 {
 public:
+    SceneMngr() = delete;
     SceneMngr(State* p_state);
 
     void update(State* p_state);
@@ -30,8 +31,8 @@ private:
     Scene3D _scene;
     SceneGraph::DrawableGroup3D _drawables;
 
-    std::unique_ptr<Canvas> _p_canvas;
-    std::unique_ptr<Graph> _p_graph;
+    Canvas _canvas;
+    Graph _graph;
 
     SceneGraph::Camera3D* _camera;
     Object3D* _cameraObject;

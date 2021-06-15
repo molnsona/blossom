@@ -13,7 +13,12 @@ Application::Application(const Arguments& arguments):
         .setTitle("BlosSOM")
         .setWindowFlags(Configuration::WindowFlag::Maximized)
         .setWindowFlags(Configuration::WindowFlag::Resizable)},
-        _framebuffer{GL::defaultFramebuffer.viewport()}
+        _framebuffer{GL::defaultFramebuffer.viewport()},
+        _ui_imgui(this),
+        _scn_mngr(&_state),
+        _sim(&_state),
+        _ser_sim(_state.vtx_pos.size(), _state.edges, _state.lengths)
+
 {
     MAGNUM_ASSERT_GL_VERSION_SUPPORTED(GL::Version::GL330);
     
@@ -32,11 +37,11 @@ Application::Application(const Arguments& arguments):
                             {Shaders::Flat3D::ObjectIdOutput, GL::Framebuffer::ColorAttachment{1}}});
     CORRADE_INTERNAL_ASSERT(_framebuffer.checkStatus(GL::FramebufferTarget::Draw) == GL::Framebuffer::Status::Complete);
 
-    _p_state = std::make_unique<State>();
-    _p_ui_imgui = std::make_unique<UiImgui>(this);
-    _p_scn_mngr = std::make_unique<SceneMngr>(_p_state.get());
-    _p_sim = std::make_unique<Simulation>(_p_state.get());
-    _p_ser_sim = std::make_unique<SerialSimulator>(_p_state->vtx_pos.size(), _p_state->edges, _p_state->lengths);
+    //_state = State();
+    //_ui_imgui = UiImgui(this);
+    //_scn_mngr = SceneMngr(&_state);
+    //_sim = Simulation(&_state);
+    //_ser_sim = SerialSimulator(_state.vtx_pos.size(), _state.edges, _state.lengths);
     
     /* Loop at 60 Hz max */
     setSwapInterval(1);
@@ -51,13 +56,13 @@ void Application::drawEvent() {
         .clearDepth(1.0f)
         .bind();    
    
-    _p_scn_mngr->update(_p_state.get());
+    _scn_mngr.update(&_state);
 
-    //_p_sim->update(_p_state.get());
-    _p_ser_sim->updatePoints(_p_state->vtx_pos);
+    //_sim.update(&_state);
+    _ser_sim.updatePoints(_state.vtx_pos);
 
-    _p_scn_mngr->draw_event(_p_state.get());
-    _p_ui_imgui->draw_event(_p_state.get(), this);
+    _scn_mngr.draw_event(&_state);
+    _ui_imgui.draw_event(&_state, this);
 
     /* Clear the main buffer. Even though it seems unnecessary, if this is not
        done, it can cause flicker on some drivers. */
@@ -87,12 +92,12 @@ void Application::viewportEvent(ViewportEvent& event) {
                             {Shaders::Flat3D::ObjectIdOutput, GL::Framebuffer::ColorAttachment{1}}});
     CORRADE_INTERNAL_ASSERT(_framebuffer.checkStatus(GL::FramebufferTarget::Draw) == GL::Framebuffer::Status::Complete);
 
-    _p_scn_mngr->viewport_event(event);
-    _p_ui_imgui->viewport_event(event);
+    _scn_mngr.viewport_event(event);
+    _ui_imgui.viewport_event(event);
 }
 
 void Application::keyPressEvent(KeyEvent& event) {
-    if(_p_ui_imgui->key_press_event(event)) return;
+    if(_ui_imgui.key_press_event(event)) return;
 
     // /* Movement */
     // float speed = 0.5f;
@@ -147,11 +152,11 @@ void Application::keyPressEvent(KeyEvent& event) {
 }
 
 void Application::keyReleaseEvent(KeyEvent& event) {
-   if(_p_ui_imgui->key_release_event(event)) return;
+   if(_ui_imgui.key_release_event(event)) return;
 }
 
 void Application::mousePressEvent(MouseEvent& event) {
-    if(_p_ui_imgui->mouse_press_event(event)) {
+    if(_ui_imgui.mouse_press_event(event)) {
         event.setAccepted(true);
         return;
     }
@@ -162,7 +167,7 @@ void Application::mousePressEvent(MouseEvent& event) {
     const Vector2i fbPosition{position.x(), GL::defaultFramebuffer.viewport().sizeY() - position.y() - 1};
     
     _mouse_prev_pos = _mouse_press_pos = fbPosition;
-    _p_state->mouse_delta = {0, 0};
+    _state.mouse_delta = {0, 0};
 
     /* Read object ID at given click position, and then switch to the color
        attachment again so drawEvent() blits correct buffer */
@@ -173,14 +178,14 @@ void Application::mousePressEvent(MouseEvent& event) {
     _framebuffer.mapForRead(GL::Framebuffer::ColorAttachment{0});
 
     /* Highlight object under mouse and deselect all other */
-    _p_state->vtx_selected = true;
+    _state.vtx_selected = true;
     UnsignedInt id = data.pixels<UnsignedInt>()[0][0];
-    _p_state->vtx_ind = id;
+    _state.vtx_ind = id;
 
 }
 
 void Application::mouseReleaseEvent(MouseEvent& event) {
-    if(_p_ui_imgui->mouse_release_event(event)) {
+    if(_ui_imgui.mouse_release_event(event)) {
         event.setAccepted(true);
         return;
    }
@@ -191,13 +196,13 @@ void Application::mouseReleaseEvent(MouseEvent& event) {
     const Vector2i position = event.position()*Vector2{framebufferSize()}/Vector2{windowSize()};
     const Vector2i fbPosition{position.x(), GL::defaultFramebuffer.viewport().sizeY() - position.y() - 1};
 
-    _p_state->mouse_delta = Vector2(fbPosition - _mouse_press_pos);
+    _state.mouse_delta = Vector2(fbPosition - _mouse_press_pos);
     _mouse_press_pos = fbPosition;
     _mouse_pressed = false;
-    _p_state->vtx_selected = false;
+    _state.vtx_selected = false;
 
     // if(delta != Vector2d(0, 0)) {
-    //     auto norm_delta = _p_state->mouse_delta.normalized();
+    //     auto norm_delta = _state.mouse_delta.normalized();
     //     _cameraObject->translate(Vector3::xAxis(-float(speed * norm_delta.x())));
     //     _cameraObject->translate(Vector3::zAxis(-float(speed * norm_delta.y())));
     //     _camera_trans.x() = -float(speed * norm_delta.x());
@@ -206,25 +211,25 @@ void Application::mouseReleaseEvent(MouseEvent& event) {
 }
 
 void Application::mouseMoveEvent(MouseMoveEvent& event) {
-    if(_p_ui_imgui->mouse_move_event(event)) {
+    if(_ui_imgui.mouse_move_event(event)) {
         event.setAccepted(true);
         return;
     }
 
     if(_mouse_pressed)
     {
-        _p_state->vtx_selected = true;
+        _state.vtx_selected = true;
 
         const Vector2i position = event.position()*Vector2{framebufferSize()}/Vector2{windowSize()};
         const Vector2i fbPosition{position.x(), GL::defaultFramebuffer.viewport().sizeY() - position.y() - 1};
 
-        _p_state->mouse_delta = Vector2(fbPosition - _mouse_prev_pos);
+        _state.mouse_delta = Vector2(fbPosition - _mouse_prev_pos);
         _mouse_prev_pos = fbPosition;
     }
 }
 
 void Application::mouseScrollEvent(MouseScrollEvent& event) {
-    if(_p_ui_imgui->mouse_scroll_event(event)) {
+    if(_ui_imgui.mouse_scroll_event(event)) {
         /* Prevent scrolling the page */
         event.setAccepted();
         return;
@@ -247,7 +252,7 @@ void Application::mouseScrollEvent(MouseScrollEvent& event) {
 }
 
 void Application::textInputEvent(TextInputEvent& event) {
-    if(_p_ui_imgui->text_input_event(event)) {
+    if(_ui_imgui.text_input_event(event)) {
         event.setAccepted(true);
         return;
     }

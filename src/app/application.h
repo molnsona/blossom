@@ -70,12 +70,13 @@ private:
     void mouseScrollEvent(MouseScrollEvent& event) override;
     void textInputEvent(TextInputEvent& event) override;
 
-    std::unique_ptr<UiImgui> _p_ui_imgui;
-    std::unique_ptr<SceneMngr> _p_scn_mngr;
-    std::unique_ptr<Simulation> _p_sim;
-    std::unique_ptr<SerialSimulator> _p_ser_sim;
+    State _state;
 
-    std::unique_ptr<State> _p_state;
+    UiImgui _ui_imgui;
+    SceneMngr _scn_mngr;
+    Simulation _sim;
+    SerialSimulator _ser_sim;
+
 
     GL::Framebuffer _framebuffer;
     GL::Renderbuffer _color, _objectId, _depth;

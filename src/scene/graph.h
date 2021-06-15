@@ -24,6 +24,7 @@ typedef SceneGraph::Scene<SceneGraph::MatrixTransformation3D> Scene3D;
 
 class Graph {
 public:
+    Graph() = delete;
     Graph(State* p_state, Object3D& parent, SceneGraph::DrawableGroup3D& drawables);
 
     void update(State* p_state);

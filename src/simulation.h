@@ -6,6 +6,7 @@
 class Simulation
 {
 public:
+	Simulation() = delete;
     Simulation(State* p_state);
 
     void update(State* p_state);

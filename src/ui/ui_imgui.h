@@ -14,6 +14,7 @@ using namespace Math::Literals;
 
 class UiImgui {
 public:
+    UiImgui() = delete;
     UiImgui(const Platform::Application* app);
 
     void draw_event(State* state, Platform::Application* app);
