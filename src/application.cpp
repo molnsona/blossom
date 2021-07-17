@@ -19,8 +19,6 @@ Application::Application(const Arguments &arguments)
   , _framebuffer{ GL::defaultFramebuffer.viewport() }
   , _ui_imgui(this)
   , _scn_mngr(&_state)
-  , _sim(&_state)
-  , _ser_sim(_state.vtx_pos.size(), _state.edges, _state.lengths)
 
 {
     MAGNUM_ASSERT_GL_VERSION_SUPPORTED(GL::Version::GL330);
@@ -51,8 +49,6 @@ Application::Application(const Arguments &arguments)
     //_state = State();
     //_ui_imgui = UiImgui(this);
     //_scn_mngr = SceneMngr(&_state);
-    //_sim = Simulation(&_state);
-    //_ser_sim = SerialSimulator(_state.vtx_pos.size(), _state.edges,
     //_state.lengths);
 
     /* Loop at 60 Hz max */
@@ -69,10 +65,9 @@ Application::drawEvent()
       .clearDepth(1.0f)
       .bind();
 
-    _scn_mngr.update(&_state);
+    _state.update(0.016);
 
-    //_sim.update(&_state);
-    _ser_sim.updatePoints(&_state);
+    _scn_mngr.update(&_state);
 
     _scn_mngr.draw_event(&_state);
     _ui_imgui.draw_event(&_state, this);

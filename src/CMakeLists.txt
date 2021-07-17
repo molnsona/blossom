@@ -6,11 +6,11 @@ set(HEADERS
     canvas.h
     graph.h
     scene_mngr.h
-    simulation.h
     imgui_config.h
     imgui_utils.hpp
     ui_imgui.h
     utils.hpp
+    graph_layout.h
 )
 set(SOURCES
     application.cpp
@@ -18,8 +18,8 @@ set(SOURCES
     canvas.cpp
     graph.cpp
     scene_mngr.cpp
-    simulation.cpp
     ui_imgui.cpp
+    graph_layout.cpp
 )
 
 add_executable(blossom

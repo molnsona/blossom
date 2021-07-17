@@ -43,7 +43,6 @@
 #include <memory>
 
 #include "scene_mngr.h"
-#include "simulation.h"
 #include "ui_imgui.h"
 
 using namespace Magnum;
@@ -77,8 +76,6 @@ private:
 
     UiImgui _ui_imgui;
     SceneMngr _scn_mngr;
-    Simulation _sim;
-    SerialSimulator _ser_sim;
 
     GL::Framebuffer _framebuffer;
     GL::Renderbuffer _color, _objectId, _depth;

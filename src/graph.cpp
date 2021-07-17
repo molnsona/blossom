@@ -124,9 +124,7 @@ Graph::Graph(State *p_state,
     // p_state->_vertices = _vertices;
 
     edges_size = 84;
-    p_state->lengths = std::vector(edges_size, 100);
-    // meshes.resize(edges_size);
-    //_edges.resize(edges_size);
+    p_state->lengths = std::vector<float>(edges_size, 100);
 }
 
 void
