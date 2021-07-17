@@ -7,7 +7,7 @@
 #include <Magnum/Math/Color.h>
 #include <Magnum/Platform/Sdl2Application.h>
 
-#include "../app/state.h"
+#include "state.h"
 
 using namespace Magnum;
 using namespace Math::Literals;

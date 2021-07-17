@@ -1,6 +1,6 @@
 #include <Magnum/GL/DefaultFramebuffer.h>
 
-#include "../ui/imgui_config.h"
+#include "imgui_config.h"
 
 #include "scene_mngr.h"
 

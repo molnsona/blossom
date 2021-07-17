@@ -11,7 +11,7 @@
 #include <Magnum/GL/Mesh.h>
 #include <Magnum/Math/Color.h>
 
-#include "../app/state.h"
+#include "state.h"
 
 using namespace Magnum;
 using namespace Math::Literals;

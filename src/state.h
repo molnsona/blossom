@@ -5,8 +5,8 @@
 
 #include <vector>
 
-#include "../ui/imgui_config.h"
-#include "../pickable.hpp"
+#include "imgui_config.h"
+#include "pickable.hpp"
 
 using namespace Magnum;
 using namespace Math::Literals;

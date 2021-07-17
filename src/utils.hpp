@@ -8,7 +8,7 @@
 #include <cmath>
 #include <limits>
 
-#include "ui/imgui_config.h"
+#include "imgui_config.h"
 
 /** Shifts from [a,b] to [c, d]*/
 float shift_interval(float value, float a, float b, float c, float d) { return c + ((d - c) / (b - a)) * (value - a); }

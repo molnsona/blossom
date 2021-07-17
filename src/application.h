@@ -42,9 +42,9 @@
 
 #include <memory>
 
-#include "../ui/ui_imgui.h"
-#include "../scene/scene_mngr.h"
-#include "../simulation.h"
+#include "ui_imgui.h"
+#include "scene_mngr.h"
+#include "simulation.h"
 
 using namespace Magnum;
 using namespace Math::Literals;

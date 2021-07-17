@@ -5,8 +5,7 @@
 #include <Magnum/ImageView.h>
 #include <Magnum/Trade/MeshData.h>
 
-#include "../utils.hpp"
-
+#include "utils.hpp"
 #include "canvas.h"
 
 void DrawableObject::fill_texture(State* p_state)

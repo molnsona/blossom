@@ -13,8 +13,8 @@
 
 #include <memory>
 
-#include "../app/state.h"
-#include "../pickable.hpp"
+#include "state.h"
+#include "pickable.hpp"
 
 using namespace Magnum;
 using namespace Math::Literals;

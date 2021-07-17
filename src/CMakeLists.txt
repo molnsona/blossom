@@ -1,25 +1,25 @@
 ﻿
 set(HEADERS
-    app/application.h
-    app/state.h
+    application.h
+    state.h
     pickable.hpp
-    scene/canvas.h
-    scene/graph.h
-    scene/scene_mngr.h
+    canvas.h
+    graph.h
+    scene_mngr.h
     simulation.h
-    ui/imgui_config.h
-    ui/imgui_utils.hpp
-    ui/ui_imgui.h
+    imgui_config.h
+    imgui_utils.hpp
+    ui_imgui.h
     utils.hpp
 )
 set(SOURCES
-    app/application.cpp
-    app/state.cpp
-    scene/canvas.cpp
-    scene/graph.cpp
-    scene/scene_mngr.cpp       
+    application.cpp
+    state.cpp
+    canvas.cpp
+    graph.cpp
+    scene_mngr.cpp
     simulation.cpp
-    ui/ui_imgui.cpp
+    ui_imgui.cpp
 )
 
 add_executable(blossom

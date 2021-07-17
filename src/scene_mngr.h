@@ -11,7 +11,7 @@
 
 #include "canvas.h"
 #include "graph.h"
-#include "../app/state.h"
+#include "state.h"
 
 using namespace Magnum;
 using namespace Math::Literals;
