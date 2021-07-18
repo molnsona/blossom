@@ -138,21 +138,20 @@ Application::keyPressEvent(KeyEvent &event)
     if (_ui_imgui.key_press_event(event))
         return;
 
-    const float speed=0.1;
-    switch(event.key())
-    {
+    const float speed = 0.1;
+    switch (event.key()) {
         case KeyEvent::Key::Left:
-	    //all stuff is scaled to vertical size, so the .y() here is OK
-            view.mid_target.x() -= view.view_size().y()*speed;
+            // all stuff is scaled to vertical size, so the .y() here is OK
+            view.mid_target.x() -= view.view_size().y() * speed;
             break;
         case KeyEvent::Key::Right:
-            view.mid_target.x() += view.view_size().y()*speed;
+            view.mid_target.x() += view.view_size().y() * speed;
             break;
         case KeyEvent::Key::Down:
-            view.mid_target.y() -= view.view_size().y()*speed;
+            view.mid_target.y() -= view.view_size().y() * speed;
             break;
         case KeyEvent::Key::Up:
-            view.mid_target.y() += view.view_size().y()*speed;
+            view.mid_target.y() += view.view_size().y() * speed;
             break;
     }
     event.setAccepted();
@@ -268,7 +267,7 @@ Application::mouseScrollEvent(MouseScrollEvent &event)
         return;
     }
 
-    view.zoom(0.2*event.offset().y());
+    view.zoom(0.2 * event.offset().y());
     event.setAccepted();
 }
 

@@ -65,13 +65,15 @@ struct View
     {
         return Magnum::Matrix3(Vector3(1.0f / fb_size.x(), 0, 0),
                                Vector3(0, 1.0f / fb_size.y(), 0),
-                               Vector3(-1, -1, 1));
+                               Vector3(-0.5, -0.5, 1));
     }
 
     // kinda event handlers
 
     void zoom(float delta)
     {
+        /*TODO: this zooms around the "mid" point, should instead zoom around
+         * mouse cursor */
         view_logv_target += delta;
         if (view_logv_target > 15)
             view_logv_target = 15;

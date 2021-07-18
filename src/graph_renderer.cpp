@@ -49,8 +49,8 @@ GraphRenderer::draw(const View &view,
     for (auto &&v : vertices) {
         flat_shader
           .setTransformationProjectionMatrix(
-            screen_proj * Matrix3::translation(v) * Matrix3::scaling(Vector2(vertex_size))
-            )
+            screen_proj * Matrix3::translation(v) *
+            Matrix3::scaling(Vector2(vertex_size)))
           .draw(circle_mesh);
     }
 }
