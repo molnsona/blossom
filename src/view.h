@@ -3,6 +3,7 @@
 #define VIEW_H
 
 #include <Magnum/Magnum.h>
+#include <Magnum/Math/Vector2.h>
 #include <tuple>
 
 struct View

@@ -63,6 +63,7 @@ Application::drawEvent()
 {
     timer.tick();
 
+    view.update(timer.frametime);
     state.update(timer.frametime);
     _scn_mngr.update(&state);
 
@@ -93,6 +94,9 @@ void
 Application::viewportEvent(ViewportEvent &event)
 {
     GL::defaultFramebuffer.setViewport({ {}, event.framebufferSize() });
+
+    view.set_fb_size(event.framebufferSize());
+
 
     _framebuffer.setViewport(GL::defaultFramebuffer.viewport());
 

@@ -22,6 +22,7 @@ set(SOURCES
     scene_mngr.cpp
     state.cpp
     ui_imgui.cpp
+    view.cpp
 )
 
 add_executable(blossom
