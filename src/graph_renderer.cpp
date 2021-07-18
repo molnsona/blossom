@@ -1,6 +1,7 @@
 
 #include "graph_renderer.h"
 
+#include <Magnum/GL/Renderer.h>
 #include <Magnum/Math/Color.h>
 #include <Magnum/MeshTools/Compile.h>
 #include <Magnum/Primitives/Circle.h>
@@ -19,12 +20,13 @@ GraphRenderer::~GraphRenderer() {}
 
 void
 GraphRenderer::draw(const View &view,
-                    const GraphModel &model,
+                    const LandmarkModel &model,
                     float vertex_size)
 {
-    std::vector<Vector2> vertices(model.vertices.size());
+    // TODO cache these allocations in GraphRenderer object
+    std::vector<Vector2> vertices(model.lodim_vertices.size());
     for (size_t i = 0; i < vertices.size(); ++i)
-        vertices[i] = view.screen_coords(model.vertices[i]);
+        vertices[i] = view.screen_coords(model.lodim_vertices[i]);
 
     std::vector<Vector2> edge_lines(2 * model.edges.size());
     for (size_t i = 0; i < model.edges.size(); ++i) {
@@ -36,16 +38,20 @@ GraphRenderer::draw(const View &view,
     buffer.setData(
       Corrade::Containers::ArrayView(edge_lines.data(), edge_lines.size()));
 
+    GL::Renderer::enable(GL::Renderer::Feature::Blending);
+    GL::Renderer::setBlendFunction(GL::Renderer::BlendFunction::One,
+                                   GL::Renderer::BlendFunction::One);
+
     line_mesh.setCount(edge_lines.size())
       .addVertexBuffer(std::move(buffer), 0, decltype(flat_shader)::Position{});
 
     auto screen_proj = view.screen_projection_matrix();
 
     flat_shader.setTransformationProjectionMatrix(screen_proj)
-      .setColor(0xff0000_rgbf)
+      .setColor(0xc01010_rgbf)
       .draw(line_mesh);
 
-    flat_shader.setColor(0x00ff00_rgbf);
+    flat_shader.setColor(0x666666_rgbf);
     for (auto &&v : vertices) {
         flat_shader
           .setTransformationProjectionMatrix(
@@ -53,4 +59,6 @@ GraphRenderer::draw(const View &view,
             Matrix3::scaling(Vector2(vertex_size)))
           .draw(circle_mesh);
     }
+
+    GL::Renderer::disable(GL::Renderer::Feature::Blending);
 }
