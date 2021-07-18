@@ -11,6 +11,7 @@
 #include "graph_layout.h"
 #include "graph_model.h"
 #include "scatter_model.h"
+#include "data_model.h"
 
 using namespace Magnum;
 using namespace Math::Literals;
@@ -38,9 +39,11 @@ struct State
     std::size_t timeout = 1000;
     int expected_len = 100;
 
+    DataModel data;
     GraphModel model;
-    GraphLayoutData layout_data;
     ScatterModel scatter;
+
+    GraphLayoutData layout_data;
 
     void update(float time);
 };

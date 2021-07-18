@@ -2,6 +2,7 @@
 set(HEADERS
     application.h
     canvas.h
+    data_model.h
     graph.h
     graph_layout.h
     graph_model.h
@@ -20,6 +21,7 @@ set(HEADERS
 set(SOURCES
     application.cpp
     canvas.cpp
+    data_model.cpp
     graph.cpp
     graph_layout.cpp
     graph_model.cpp
