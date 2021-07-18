@@ -1,7 +1,10 @@
 #include "application.h"
 #include <Magnum/Shaders/Flat.h>
 
+#define DEBUG 0
+#ifdef DEBUG
 #include <iostream>
+#endif
 
 // https://github.com/juliettef/IconFontCppHeaders
 #include <IconsFontAwesome5.h>
@@ -172,6 +175,18 @@ Application::mousePressEvent(MouseEvent &event)
         return;
     }
 
+    if (event.button() == MouseEvent::Button::Middle) {
+#ifdef DEBUG
+        std::cout << view.screen_mouse_coords(event.position()).x()
+                  << ", "
+                  << view.screen_mouse_coords(event.position()).y()
+                  << std::endl;
+#endif
+
+        view.center(event.position());
+        return;
+    }
+
     state.mouse_pressed = true;
 
     const Vector2i position =
@@ -267,7 +282,7 @@ Application::mouseScrollEvent(MouseScrollEvent &event)
         return;
     }
 
-    view.zoom(0.2 * event.offset().y());
+    view.zoom(0.2 * event.offset().y(), event.position());
     event.setAccepted();
 }
 
