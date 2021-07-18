@@ -93,7 +93,7 @@ Application::drawEvent()
 #endif
 
     scatter_renderer.draw(view, state.scatter);
-    graph_renderer.draw(view, state.landmarks, 16);
+    graph_renderer.draw(view, state.landmarks, 8);
     _ui_imgui.draw_event(&state, this);
 
     swapBuffers();

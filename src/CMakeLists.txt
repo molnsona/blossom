@@ -3,6 +3,7 @@ set(HEADERS
     application.h
     canvas.h
     data_model.h
+    embedsom.h
     graph.h
     graph_layout.h
     graph_renderer.h
@@ -22,6 +23,7 @@ set(SOURCES
     application.cpp
     canvas.cpp
     data_model.cpp
+    embedsom.cpp
     graph.cpp
     graph_layout.cpp
     graph_renderer.cpp

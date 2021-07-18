@@ -1,6 +1,7 @@
 
 #include "graph_renderer.h"
 
+#include <Magnum/GL/Renderer.h>
 #include <Magnum/Math/Color.h>
 #include <Magnum/MeshTools/Compile.h>
 #include <Magnum/Primitives/Circle.h>
@@ -23,9 +24,9 @@ GraphRenderer::draw(const View &view,
                     float vertex_size)
 {
     // TODO cache these allocations in GraphRenderer object
-    std::vector<Vector2> vertices(model.vertices.size());
+    std::vector<Vector2> vertices(model.lodim_vertices.size());
     for (size_t i = 0; i < vertices.size(); ++i)
-        vertices[i] = view.screen_coords(model.vertices[i]);
+        vertices[i] = view.screen_coords(model.lodim_vertices[i]);
 
     std::vector<Vector2> edge_lines(2 * model.edges.size());
     for (size_t i = 0; i < model.edges.size(); ++i) {
@@ -46,7 +47,12 @@ GraphRenderer::draw(const View &view,
       .setColor(0xff0000_rgbf)
       .draw(line_mesh);
 
-    flat_shader.setColor(0x00ff00_rgbf);
+    GL::Renderer::enable(GL::Renderer::Feature::Blending);
+    GL::Renderer::setBlendFunction(
+      GL::Renderer::BlendFunction::SourceAlpha,
+      GL::Renderer::BlendFunction::OneMinusSourceAlpha);
+
+    flat_shader.setColor(0xffffff20_rgbaf);
     for (auto &&v : vertices) {
         flat_shader
           .setTransformationProjectionMatrix(
@@ -54,4 +60,6 @@ GraphRenderer::draw(const View &view,
             Matrix3::scaling(Vector2(vertex_size)))
           .draw(circle_mesh);
     }
+
+    GL::Renderer::disable(GL::Renderer::Feature::Blending);
 }

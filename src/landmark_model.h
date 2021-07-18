@@ -12,7 +12,11 @@ struct LandmarkModel
 
     static constexpr size_t side() { return 7; }
 
-    std::vector<Magnum::Vector2> vertices;
+    std::vector<float> hidim_vertices;
+    size_t d;
+
+    std::vector<Magnum::Vector2> lodim_vertices;
+
     std::vector<float> edge_lengths;
     std::vector<std::pair<size_t, size_t>> edges; // constraint: first<second
 };

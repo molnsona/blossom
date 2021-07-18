@@ -21,10 +21,10 @@ struct View
 
     View()
       : fb_size(1, 1)
-      , mid(0, 0)
-      , mid_target(0, 0)
-      , view_logv(0)
-      , view_logv_target(0)
+      , mid(4, 4)
+      , mid_target(4, 4)
+      , view_logv(-4)
+      , view_logv_target(-4)
     {}
 
     void update(float dt)
