@@ -63,9 +63,9 @@ struct View
 
     inline Magnum::Matrix3 screen_projection_matrix() const
     {
-        return Magnum::Matrix3(Vector3(1.0f / fb_size.x(), 0, 0),
-                               Vector3(0, 1.0f / fb_size.y(), 0),
-                               Vector3(-0.5, -0.5, 1));
+        return Magnum::Matrix3(Vector3(2.0f / fb_size.x(), 0, 0),
+                               Vector3(0, 2.0f / fb_size.y(), 0),
+                               Vector3(-1, -1, 1));
     }
 
     // kinda event handlers
