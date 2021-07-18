@@ -45,6 +45,7 @@
 #include "state.h"
 #include "timer.h"
 #include "ui_imgui.h"
+#include "view.h"
 
 #include "scene_mngr.h"
 
@@ -77,6 +78,7 @@ private:
 
     State state;
     Timer timer;
+    View view;
 
     UiImgui _ui_imgui;
     SceneMngr _scn_mngr;

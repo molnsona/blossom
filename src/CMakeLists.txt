@@ -12,6 +12,7 @@ set(HEADERS
     timer.h
     ui_imgui.h
     utils.hpp
+    view.h
 )
 set(SOURCES
     application.cpp
