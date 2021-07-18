@@ -46,16 +46,16 @@ Application::Application(const Arguments &arguments)
       _framebuffer.checkStatus(GL::FramebufferTarget::Draw) ==
       GL::Framebuffer::Status::Complete);
 
-    //state = State();
+    // state = State();
     //_ui_imgui = UiImgui(this);
     //_scn_mngr = SceneMngr(&state);
-    //state.lengths);
+    // state.lengths);
 
     /* Loop at 100 Hz max */
     setMinimalLoopPeriod(10);
     setSwapInterval(1);
 
-    timer.tick(); //discard initialization time
+    timer.tick(); // discard initialization time
 }
 
 void
@@ -205,7 +205,7 @@ Application::mousePressEvent(MouseEvent &event)
                                  position.y() - 1 };
 
     _mouse_prev_pos = _mouse_press_pos = fbPosition;
-    //state.mouse_pos = {0, 0};
+    // state.mouse_pos = {0, 0};
     state.mouse_pos =
       Vector2(fbPosition - (GL::defaultFramebuffer.viewport().size() / 2));
 
@@ -275,7 +275,7 @@ Application::mouseMoveEvent(MouseMoveEvent &event)
                                    GL::defaultFramebuffer.viewport().sizeY() -
                                      position.y() - 1 };
 
-        //state.mouse_pos = Vector2(fbPosition - _mouse_prev_pos);
+        // state.mouse_pos = Vector2(fbPosition - _mouse_prev_pos);
         state.mouse_pos =
           Vector2(fbPosition - (GL::defaultFramebuffer.viewport().size() / 2));
 
