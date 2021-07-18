@@ -23,8 +23,8 @@ struct View
       : fb_size(1, 1)
       , mid(0, 0)
       , mid_target(0, 0)
-      , view_logv(2)
-      , view_logv_target(-1)
+      , view_logv(0)
+      , view_logv_target(0)
     {}
 
     void update(float dt)
@@ -94,11 +94,7 @@ struct View
 
     void set_fb_size(Vector2i);
 
-    void center(Vector2i mouse)
-    {
-        Vector2 m = model_mouse_coords(mouse);
-        lookat(m);        
-    }
+    void center(Vector2i mouse) { lookat(model_mouse_coords(mouse)); }
 };
 
 #endif

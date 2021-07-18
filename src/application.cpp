@@ -1,7 +1,7 @@
 #include "application.h"
 #include <Magnum/Shaders/Flat.h>
 
-#define DEBUG 0
+//#define DEBUG
 #ifdef DEBUG
 #include <iostream>
 #endif
@@ -177,8 +177,7 @@ Application::mousePressEvent(MouseEvent &event)
 
     if (event.button() == MouseEvent::Button::Middle) {
 #ifdef DEBUG
-        std::cout << view.screen_mouse_coords(event.position()).x()
-                  << ", "
+        std::cout << view.screen_mouse_coords(event.position()).x() << ", "
                   << view.screen_mouse_coords(event.position()).y()
                   << std::endl;
 #endif
