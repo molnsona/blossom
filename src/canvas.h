@@ -1,5 +1,5 @@
-#ifndef PICKABLE_HPP
-#define PICKABLE_HPP
+#ifndef CANVAS_H
+#define CANVAS_H
 
 #include <Magnum/GL/Mesh.h>
 #include <Magnum/GL/Texture.h>
@@ -11,7 +11,7 @@
 #include <Magnum/SceneGraph/Object.h>
 #include <Magnum/Shaders/Flat.h>
 
-#include <iostream>
+#include "state.h"
 
 using namespace Magnum;
 using namespace Math::Literals;
@@ -19,13 +19,13 @@ using namespace Math::Literals;
 typedef SceneGraph::Object<SceneGraph::MatrixTransformation3D> Object3D;
 typedef SceneGraph::Scene<SceneGraph::MatrixTransformation3D> Scene3D;
 
-class PickableObject
+class DrawableObject
   : public Object3D
   , SceneGraph::Drawable3D
 {
 public:
-    explicit PickableObject(UnsignedInt id,
-                            Color3 color,
+    explicit DrawableObject(UnsignedInt id,
+                            Shaders::Flat3D &shader,
                             GL::Mesh &mesh,
                             Object3D &parent,
                             SceneGraph::DrawableGroup3D &drawables)
@@ -33,33 +33,54 @@ public:
       , SceneGraph::Drawable3D{ *this, &drawables }
       , _id{ id }
       , _selected{ false }
+      , _shader(shader)
       , _mesh(mesh)
-      , _color(color)
     {}
+
+    void setConfig(int cell_cnt, int mean, int std_dev)
+    {
+        if (_cell_cnt == cell_cnt && _mean == mean && _std_dev == std_dev) {
+            _changed = false;
+            return;
+        }
+
+        _changed = true;
+        _cell_cnt = cell_cnt;
+        _mean = mean;
+        _std_dev = std_dev;
+    }
 
     void setSelected(bool selected) { _selected = selected; }
 
+    void fill_texture(State *p_state);
+
 private:
     virtual void draw(const Matrix4 &transformationMatrix,
-                      SceneGraph::Camera3D &camera)
-    {
-        Color3 color = _selected ? _picked_color : _color;
-        // if(_selected) std::cout << _id << std::endl;
-        _shader
-          .setTransformationProjectionMatrix(camera.projectionMatrix() *
-                                             transformationMatrix)
-          .setColor(color)
-          .setObjectId(_id)
-          .draw(_mesh);
-    }
+                      SceneGraph::Camera3D &camera);
 
     UnsignedInt _id;
     bool _selected;
-    Shaders::Flat3D _shader{ Shaders::Flat3D::Flag::ObjectId };
+    Shaders::Flat3D &_shader;
     GL::Mesh &_mesh;
+    GL::Texture2D _texture;
+    int _cell_cnt;
+    int _mean;
+    int _std_dev;
     bool _changed = false;
-    Color3 _color;
-    Color3 _picked_color{ 0x7b1e16_rgbf };
 };
 
-#endif // #ifndef PICKABLE_HPP
+class Canvas
+{
+public:
+    Canvas() = delete;
+    Canvas(Object3D &parent, SceneGraph::DrawableGroup3D &drawables);
+
+    void draw_event(State *p_state);
+
+private:
+    DrawableObject *_canvas;
+    GL::Mesh _canvas_mesh;
+    Shaders::Flat3D _textured_shader{ Shaders::Flat3D::Flag::Textured };
+};
+
+#endif // #ifndef CANVAS_H
