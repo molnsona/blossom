@@ -8,10 +8,10 @@
 #include "imgui_config.h"
 #include "pickable.hpp"
 
+#include "data_model.h"
 #include "graph_layout.h"
 #include "graph_model.h"
 #include "scatter_model.h"
-#include "data_model.h"
 
 using namespace Magnum;
 using namespace Math::Literals;
