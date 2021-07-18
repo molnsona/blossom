@@ -42,8 +42,11 @@
 
 #include <memory>
 
-#include "scene_mngr.h"
+#include "state.h"
 #include "ui_imgui.h"
+#include "timer.h"
+
+#include "scene_mngr.h"
 
 using namespace Magnum;
 using namespace Math::Literals;
@@ -72,7 +75,8 @@ private:
 
     Vector3 windowPos2WorldPos(const Vector2i &windowPosition);
 
-    State _state;
+    State state;
+    Timer timer;
 
     UiImgui _ui_imgui;
     SceneMngr _scn_mngr;
@@ -80,10 +84,8 @@ private:
     GL::Framebuffer _framebuffer;
     GL::Renderbuffer _color, _objectId, _depth;
 
-    // bool _mouse_pressed{false};
     Vector2i _mouse_press_pos;
     Vector2i _mouse_prev_pos;
-    // bool _mouse_released{false};
 };
 
 #endif // #ifndef APPLICATION_H
