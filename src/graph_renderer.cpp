@@ -38,21 +38,20 @@ GraphRenderer::draw(const View &view,
     buffer.setData(
       Corrade::Containers::ArrayView(edge_lines.data(), edge_lines.size()));
 
+    GL::Renderer::enable(GL::Renderer::Feature::Blending);
+    GL::Renderer::setBlendFunction(GL::Renderer::BlendFunction::One,
+                                   GL::Renderer::BlendFunction::One);
+
     line_mesh.setCount(edge_lines.size())
       .addVertexBuffer(std::move(buffer), 0, decltype(flat_shader)::Position{});
 
     auto screen_proj = view.screen_projection_matrix();
 
     flat_shader.setTransformationProjectionMatrix(screen_proj)
-      .setColor(0xff0000_rgbf)
+      .setColor(0xc01010_rgbf)
       .draw(line_mesh);
 
-    GL::Renderer::enable(GL::Renderer::Feature::Blending);
-    GL::Renderer::setBlendFunction(
-      GL::Renderer::BlendFunction::SourceAlpha,
-      GL::Renderer::BlendFunction::OneMinusSourceAlpha);
-
-    flat_shader.setColor(0xffffff20_rgbaf);
+    flat_shader.setColor(0x666666_rgbf);
     for (auto &&v : vertices) {
         flat_shader
           .setTransformationProjectionMatrix(
