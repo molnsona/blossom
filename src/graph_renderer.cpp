@@ -19,7 +19,7 @@ GraphRenderer::~GraphRenderer() {}
 
 void
 GraphRenderer::draw(const View &view,
-                    const GraphModel &model,
+                    const LandmarkModel &model,
                     float vertex_size)
 {
     // TODO cache these allocations in GraphRenderer object

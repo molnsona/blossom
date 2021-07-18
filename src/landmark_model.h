@@ -6,9 +6,9 @@
 #include <Magnum/Math/Vector2.h>
 #include <vector>
 
-struct GraphModel
+struct LandmarkModel
 {
-    GraphModel();
+    LandmarkModel();
 
     static constexpr size_t side() { return 7; }
 

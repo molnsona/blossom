@@ -10,7 +10,7 @@
 
 #include "data_model.h"
 #include "graph_layout.h"
-#include "graph_model.h"
+#include "landmark_model.h"
 #include "scatter_model.h"
 
 using namespace Magnum;
@@ -40,7 +40,7 @@ struct State
     int expected_len = 100;
 
     DataModel data;
-    GraphModel model;
+    LandmarkModel landmarks;
     ScatterModel scatter;
 
     GraphLayoutData layout_data;

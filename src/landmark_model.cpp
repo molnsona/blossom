@@ -1,7 +1,7 @@
 
-#include "graph_model.h"
+#include "landmark_model.h"
 
-GraphModel::GraphModel()
+LandmarkModel::LandmarkModel()
 {
     auto n = side();
 

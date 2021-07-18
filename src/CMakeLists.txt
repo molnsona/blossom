@@ -5,9 +5,9 @@ set(HEADERS
     data_model.h
     graph.h
     graph_layout.h
-    graph_model.h
     graph_renderer.h
     imgui_config.h
+    landmark_model.h
     pickable.hpp
     scatter_model.h
     scatter_renderer.h
@@ -24,11 +24,11 @@ set(SOURCES
     data_model.cpp
     graph.cpp
     graph_layout.cpp
-    graph_model.cpp
     graph_renderer.cpp
-    scene_mngr.cpp
+    landmark_model.cpp
     scatter_model.cpp
     scatter_renderer.cpp
+    scene_mngr.cpp
     state.cpp
     ui_imgui.cpp
     view.cpp
