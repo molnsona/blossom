@@ -10,6 +10,7 @@
 
 #include "graph_layout.h"
 #include "graph_model.h"
+#include "scatter_model.h"
 
 using namespace Magnum;
 using namespace Math::Literals;
@@ -39,6 +40,7 @@ struct State
 
     GraphModel model;
     GraphLayoutData layout_data;
+    ScatterModel scatter;
 
     void update(float time);
 };

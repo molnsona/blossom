@@ -29,7 +29,7 @@ struct View
 
     void update(float dt)
     {
-        const float ir = pow(0.01, dt);
+        const float ir = pow(0.005, dt);
         const float r = 1 - ir;
 
         view_logv = ir * view_logv + r * view_logv_target;
@@ -66,6 +66,16 @@ struct View
         return Magnum::Matrix3(Vector3(2.0f / fb_size.x(), 0, 0),
                                Vector3(0, 2.0f / fb_size.y(), 0),
                                Vector3(-1, -1, 1));
+    }
+
+    inline Magnum::Matrix3 projection_matrix() const
+    {
+        auto isize = 1.0 / view_size();
+
+        return Magnum::Matrix3(
+          Vector3(2 * isize.x(), 0, 0),
+          Vector3(0, 2 * isize.y(), 0),
+          Vector3(-2 * mid.x() * isize.x(), -2 * mid.y() * isize.y(), 1));
     }
 
     // kinda event handlers

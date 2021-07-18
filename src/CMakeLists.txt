@@ -8,6 +8,8 @@ set(HEADERS
     graph_renderer.h
     imgui_config.h
     pickable.hpp
+    scatter_model.h
+    scatter_renderer.h
     scene_mngr.h
     state.h
     timer.h
@@ -23,6 +25,8 @@ set(SOURCES
     graph_model.cpp
     graph_renderer.cpp
     scene_mngr.cpp
+    scatter_model.cpp
+    scatter_renderer.cpp
     state.cpp
     ui_imgui.cpp
     view.cpp

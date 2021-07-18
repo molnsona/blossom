@@ -22,6 +22,7 @@ GraphRenderer::draw(const View &view,
                     const GraphModel &model,
                     float vertex_size)
 {
+    // TODO cache these allocations in GraphRenderer object
     std::vector<Vector2> vertices(model.vertices.size());
     for (size_t i = 0; i < vertices.size(); ++i)
         vertices[i] = view.screen_coords(model.vertices[i]);
