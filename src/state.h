@@ -9,6 +9,7 @@
 #include "pickable.hpp"
 
 #include "graph_layout.h"
+#include "graph_model.h"
 
 using namespace Magnum;
 using namespace Math::Literals;
@@ -29,14 +30,15 @@ struct State
     std::vector<Vector2i> edges;
     std::vector<float> lengths;
 
-    GraphLayoutData layout_data;
-
     bool vtx_selected{ false };
     UnsignedInt vtx_ind;
 
     std::size_t time = 0;
     std::size_t timeout = 1000;
     int expected_len = 100;
+
+    GraphModel model;
+    GraphLayoutData layout_data;
 
     void update(float time);
 };

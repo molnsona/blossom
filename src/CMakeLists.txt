@@ -4,8 +4,9 @@ set(HEADERS
     canvas.h
     graph.h
     graph_layout.h
+    graph_model.h
+    graph_renderer.h
     imgui_config.h
-    imgui_utils.hpp
     pickable.hpp
     scene_mngr.h
     state.h
@@ -19,6 +20,8 @@ set(SOURCES
     canvas.cpp
     graph.cpp
     graph_layout.cpp
+    graph_model.cpp
+    graph_renderer.cpp
     scene_mngr.cpp
     state.cpp
     ui_imgui.cpp

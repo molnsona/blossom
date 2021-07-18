@@ -23,7 +23,7 @@ Application::Application(const Arguments &arguments)
 {
     MAGNUM_ASSERT_GL_VERSION_SUPPORTED(GL::Version::GL330);
 
-    GL::Renderer::enable(GL::Renderer::Feature::DepthTest);
+    GL::Renderer::disable(GL::Renderer::Feature::DepthTest);
     GL::Renderer::enable(GL::Renderer::Feature::FaceCulling);
 
     /* Configure framebuffer. Using a 32-bit int for object ID, which is likely
@@ -56,6 +56,8 @@ Application::Application(const Arguments &arguments)
     setSwapInterval(1);
 
     timer.tick(); // discard initialization time
+    view.set_fb_size(Vector2i(GL::defaultFramebuffer.viewport().sizeX(),
+                              GL::defaultFramebuffer.viewport().sizeY()));
 }
 
 void
@@ -65,8 +67,13 @@ Application::drawEvent()
 
     view.update(timer.frametime);
     state.update(timer.frametime);
-    _scn_mngr.update(&state);
 
+    GL::defaultFramebuffer.clear(GL::FramebufferClear::Color |
+                                 GL::FramebufferClear::Depth);
+
+#if 0
+
+    _scn_mngr.update(&state);
     /* Draw to custom framebuffer */
     _framebuffer.clearColor(0, Color3{ 0.125f })
       .clearColor(1, Vector4ui{})
@@ -74,17 +81,19 @@ Application::drawEvent()
       .bind();
 
     _scn_mngr.draw_event(&state);
-    _ui_imgui.draw_event(&state, this);
 
     /* Clear the main buffer. Even though it seems unnecessary, if this is not
        done, it can cause flicker on some drivers. */
-    GL::defaultFramebuffer.clear(GL::FramebufferClear::Color |
-                                 GL::FramebufferClear::Depth);
     /* Blit color to window framebuffer */
     GL::AbstractFramebuffer::blit(_framebuffer,
                                   GL::defaultFramebuffer,
                                   _framebuffer.viewport(),
                                   GL::FramebufferBlit::Color);
+
+#endif
+
+    graph_renderer.draw(view, state.model, 16);
+    _ui_imgui.draw_event(&state, this);
 
     swapBuffers();
     redraw();
@@ -96,7 +105,6 @@ Application::viewportEvent(ViewportEvent &event)
     GL::defaultFramebuffer.setViewport({ {}, event.framebufferSize() });
 
     view.set_fb_size(event.framebufferSize());
-
 
     _framebuffer.setViewport(GL::defaultFramebuffer.viewport());
 
@@ -130,58 +138,23 @@ Application::keyPressEvent(KeyEvent &event)
     if (_ui_imgui.key_press_event(event))
         return;
 
-    // /* Movement */
-    // float speed = 0.5f;
-    // switch(event.key())
-    // {
-    //     case KeyEvent::Key::Down:
-    //         _cameraObject->translate(Vector3::zAxis(speed));
-    //         _camera_trans.z() += speed;
-    //         break;
-    //     case KeyEvent::Key::Up:
-    //         _cameraObject->translate(Vector3::zAxis(-speed));
-    //         _camera_trans.z() -= speed;
-    //         break;
-    //     case KeyEvent::Key::Left:
-    //         _cameraObject->translate(Vector3::xAxis(-speed));
-    //         _camera_trans.x() -= speed;
-    //         break;
-    //     case KeyEvent::Key::Right:
-    //         _cameraObject->translate(Vector3::xAxis(speed));
-    //         _camera_trans.x() += speed;
-    //         break;
-    //     case KeyEvent::Key::Space: {
-    //             Vector2 view_size(++_zoom_depth.x(), +_zoom_depth.y());
-    //             _camera->setAspectRatioPolicy(SceneGraph::AspectRatioPolicy::Extend)
-    //                 .setProjectionMatrix(Matrix4::orthographicProjection(view_size,
-    //                 0.001f, 100.0f))
-    //                 .setViewport(GL::defaultFramebuffer.viewport().size());
-    //             break;
-    //         }
-    //     case KeyEvent::Key::Esc: {
-    //             Vector2 view_size(--_zoom_depth.x(), -_zoom_depth.y());
-    //             _camera->setAspectRatioPolicy(SceneGraph::AspectRatioPolicy::Extend)
-    //                 .setProjectionMatrix(Matrix4::orthographicProjection(view_size,
-    //                 0.001f, 100.0f))
-    //                 .setViewport(GL::defaultFramebuffer.viewport().size());
-    //             break;
-    //         }
-    //     // Reset camera, TODO
-    //     case KeyEvent::Key::Tab: {
-    //             _zoom_depth = {PLOT_WIDTH, PLOT_HEIGHT};
-    //             Vector2 view_size(_zoom_depth);
-    //             _camera->setAspectRatioPolicy(SceneGraph::AspectRatioPolicy::Extend)
-    //                 .setProjectionMatrix(Matrix4::orthographicProjection(view_size,
-    //                 0.001f, 100.0f))
-    //                 .setViewport(GL::defaultFramebuffer.viewport().size());
-    //             (*_cameraObject)
-    //                 .translate(-_camera_trans)
-    //             // .translate(Vector3::yAxis(5.0f))
-    //                 .rotateX(-90.0_degf);
-    //             _camera_trans = Vector3(0.0f, 0.0f, 0.0f);
-    //             break;
-    //         }
-    // }
+    const float speed=0.1;
+    switch(event.key())
+    {
+        case KeyEvent::Key::Left:
+	    //all stuff is scaled to vertical size, so the .y() here is OK
+            view.mid_target.x() -= view.view_size().y()*speed;
+            break;
+        case KeyEvent::Key::Right:
+            view.mid_target.x() += view.view_size().y()*speed;
+            break;
+        case KeyEvent::Key::Down:
+            view.mid_target.y() -= view.view_size().y()*speed;
+            break;
+        case KeyEvent::Key::Up:
+            view.mid_target.y() += view.view_size().y()*speed;
+            break;
+    }
     event.setAccepted();
 }
 
@@ -291,26 +264,12 @@ void
 Application::mouseScrollEvent(MouseScrollEvent &event)
 {
     if (_ui_imgui.mouse_scroll_event(event)) {
-        /* Prevent scrolling the page */
         event.setAccepted();
         return;
     }
 
-    if (!event.offset().y())
-        return;
-
-    // Vector2 view_size{_zoom_depth};
-    // if(1.0f - (event.offset().y()) > 0)
-    //     view_size = Vector2(++_zoom_depth.x(), +_zoom_depth.y());
-    // else {
-    //     if(--_zoom_depth.x() <= 0) +_zoom_depth.x();
-    //     if(--_zoom_depth.y() <= 0) +_zoom_depth.y();
-    //     view_size = _zoom_depth;
-    // }
-
-    // _camera->setAspectRatioPolicy(SceneGraph::AspectRatioPolicy::Extend)
-    // .setProjectionMatrix(Matrix4::orthographicProjection(view_size, 0.001f,
-    // 100.0f)) .setViewport(GL::defaultFramebuffer.viewport().size());
+    view.zoom(0.2*event.offset().y());
+    event.setAccepted();
 }
 
 void

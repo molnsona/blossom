@@ -42,6 +42,7 @@
 
 #include <memory>
 
+#include "graph_renderer.h"
 #include "state.h"
 #include "timer.h"
 #include "ui_imgui.h"
@@ -79,6 +80,8 @@ private:
     State state;
     Timer timer;
     View view;
+
+    GraphRenderer graph_renderer;
 
     UiImgui _ui_imgui;
     SceneMngr _scn_mngr;

@@ -16,7 +16,7 @@ struct GraphLayoutData
 void
 graph_layout_step(GraphLayoutData &data,
                   std::vector<Magnum::Vector2> &vertices,
-                  const std::vector<Magnum::Vector2i> &edges,
+                  const std::vector<std::pair<size_t, size_t>> &edges,
                   const std::vector<float> &lengths,
                   float time);
 

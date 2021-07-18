@@ -9,8 +9,9 @@
 
 #include <memory>
 
-#include "canvas.h"
 #include "graph.h"
+
+#include "canvas.h"
 #include "state.h"
 
 using namespace Magnum;

@@ -3,13 +3,17 @@
 #define VIEW_H
 
 #include <Magnum/Magnum.h>
+#include <Magnum/Math/Matrix3.h>
 #include <Magnum/Math/Vector2.h>
+#include <Magnum/Math/Vector3.h>
 #include <tuple>
 
 struct View
 {
     using Vector2 = Magnum::Vector2;
     using Vector2i = Magnum::Vector2i;
+    using Vector3 = Magnum::Vector3;
+    using Matrix3 = Magnum::Matrix3;
 
     Vector2i fb_size;
     Vector2 mid, mid_target;
@@ -35,7 +39,7 @@ struct View
     inline Vector2 view_size() const
     {
         const float v = pow(2, -view_logv);
-        const float h = fb_size.x() * h / fb_size.y();
+        const float h = fb_size.x() * v / fb_size.y();
         return Vector2(h, v);
     }
 
@@ -51,9 +55,17 @@ struct View
                        (Vector2(screen) / Vector2(fb_size) - Vector2(0.5, 0.5));
     }
 
-    inline Vector2i screen_coords(Vector2 model) const
+    inline Vector2 screen_coords(Vector2 model) const
     {
-        return ((model - mid) / view_size() + Vector2(0.5, 0.5)) * fb_size;
+        return ((model - mid) / view_size() + Vector2(0.5, 0.5)) *
+               Vector2(fb_size);
+    }
+
+    inline Magnum::Matrix3 screen_projection_matrix() const
+    {
+        return Magnum::Matrix3(Vector3(1.0f / fb_size.x(), 0, 0),
+                               Vector3(0, 1.0f / fb_size.y(), 0),
+                               Vector3(-1, -1, 1));
     }
 
     // kinda event handlers

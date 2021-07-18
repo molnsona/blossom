@@ -224,12 +224,12 @@ UiImgui::draw_config_window(State *p_state)
 {
     ImGuiWindowFlags window_flags = ImGuiWindowFlags_NoCollapse |
                                     ImGuiWindowFlags_NoResize |
-                                    ImGuiWindowFlags_AlwaysAutoResize; //|
+                                    ImGuiWindowFlags_AlwaysAutoResize;
     // ImGuiWindowFlags_NoTitleBar;
 
     ImGui::PushStyleVar(ImGuiStyleVar_ChildRounding, 10.0f);
     ImGui::PushStyleVar(ImGuiStyleVar_FrameRounding, 10.0f);
-    //    ImGui::PushStyleVar(ImGuiStyleVar_WindowPadding, ImVec2(0, 0));
+    // ImGui::PushStyleVar(ImGuiStyleVar_WindowPadding, ImVec2(0, 0));
 
     if (ImGui::Begin("##Config", &_show_config, window_flags)) {
         ImGui::SetNextItemWidth(200.0f);
