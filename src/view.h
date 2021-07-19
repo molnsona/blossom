@@ -61,6 +61,16 @@ struct View
                Vector2(fb_size);
     }
 
+    inline Vector2i screen_mouse_coords(Vector2i mouse) const
+    {
+        return Vector2i(mouse.x(), fb_size.y() - mouse.y());
+    }
+
+    inline Vector2 model_mouse_coords(Vector2i mouse) const
+    {
+        return model_coords(screen_mouse_coords(mouse));
+    }
+
     inline Magnum::Matrix3 screen_projection_matrix() const
     {
         return Magnum::Matrix3(Vector3(2.0f / fb_size.x(), 0, 0),
@@ -80,10 +90,9 @@ struct View
 
     // kinda event handlers
 
-    void zoom(float delta)
+    void zoom(float delta, Vector2i mouse)
     {
-        /*TODO: this zooms around the "mid" point, should instead zoom around
-         * mouse cursor */
+        center(mouse);
         view_logv_target += delta;
         if (view_logv_target > 15)
             view_logv_target = 15;
@@ -94,6 +103,8 @@ struct View
     void lookat(Vector2 tgt) { mid_target = tgt; }
 
     void set_fb_size(Vector2i);
+
+    void center(Vector2i mouse) { lookat(model_mouse_coords(mouse)); }
 };
 
 #endif
