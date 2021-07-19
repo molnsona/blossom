@@ -21,15 +21,15 @@ struct View
 
     View()
       : fb_size(1, 1)
-      , mid(0, 0)
-      , mid_target(0, 0)
-      , view_logv(0)
-      , view_logv_target(0)
+      , mid(4, 4)
+      , mid_target(4, 4)
+      , view_logv(-4)
+      , view_logv_target(-4)
     {}
 
     void update(float dt)
     {
-        const float ir = pow(0.01, dt);
+        const float ir = pow(0.005, dt);
         const float r = 1 - ir;
 
         view_logv = ir * view_logv + r * view_logv_target;
@@ -61,13 +61,6 @@ struct View
                Vector2(fb_size);
     }
 
-    inline Magnum::Matrix3 screen_projection_matrix() const
-    {
-        return Magnum::Matrix3(Vector3(2.0f / fb_size.x(), 0, 0),
-                               Vector3(0, 2.0f / fb_size.y(), 0),
-                               Vector3(-1, -1, 1));
-    }
-
     inline Vector2i screen_mouse_coords(Vector2i mouse) const
     {
         return Vector2i(mouse.x(), fb_size.y() - mouse.y());
@@ -76,6 +69,23 @@ struct View
     inline Vector2 model_mouse_coords(Vector2i mouse) const
     {
         return model_coords(screen_mouse_coords(mouse));
+    }
+
+    inline Magnum::Matrix3 screen_projection_matrix() const
+    {
+        return Magnum::Matrix3(Vector3(2.0f / fb_size.x(), 0, 0),
+                               Vector3(0, 2.0f / fb_size.y(), 0),
+                               Vector3(-1, -1, 1));
+    }
+
+    inline Magnum::Matrix3 projection_matrix() const
+    {
+        auto isize = 1.0 / view_size();
+
+        return Magnum::Matrix3(
+          Vector3(2 * isize.x(), 0, 0),
+          Vector3(0, 2 * isize.y(), 0),
+          Vector3(-2 * mid.x() * isize.x(), -2 * mid.y() * isize.y(), 1));
     }
 
     // kinda event handlers

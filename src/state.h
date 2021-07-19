@@ -8,8 +8,10 @@
 #include "imgui_config.h"
 #include "pickable.hpp"
 
+#include "data_model.h"
 #include "graph_layout.h"
-#include "graph_model.h"
+#include "landmark_model.h"
+#include "scatter_model.h"
 
 using namespace Magnum;
 using namespace Math::Literals;
@@ -37,7 +39,10 @@ struct State
     std::size_t timeout = 1000;
     int expected_len = 100;
 
-    GraphModel model;
+    DataModel data;
+    LandmarkModel landmarks;
+    ScatterModel scatter;
+
     GraphLayoutData layout_data;
 
     void update(float time);

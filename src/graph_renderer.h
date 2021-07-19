@@ -7,7 +7,7 @@
 
 #include <vector>
 
-#include "graph_model.h"
+#include "landmark_model.h"
 #include "view.h"
 
 struct GraphRenderer
@@ -15,7 +15,9 @@ struct GraphRenderer
     GraphRenderer();
     ~GraphRenderer();
 
-    void draw(const View &v, const GraphModel &m, float vertex_size);
+    // TODO: this should not know about actual Landmarks, we should pass actual
+    // vertex + edge positions as with the layouter.
+    void draw(const View &v, const LandmarkModel &m, float vertex_size);
 
 private:
     Magnum::GL::Mesh line_mesh;
