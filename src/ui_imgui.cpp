@@ -61,6 +61,12 @@ UiImgui::UiImgui(const Platform::Application *app)
       GL::Renderer::BlendFunction::OneMinusSourceAlpha);
 
     ImGui::GetStyle().WindowRounding = 10.0f;
+
+    // Uncomment to change colors of ui
+    // ImGui::PushStyleColor(ImGuiCol_WindowBg, IM_COL32(0, 0, 0, 100));
+    // ImGui::PushStyleColor(ImGuiCol_Button, IM_COL32(148, 210, 189, 100));
+    // ImGui::PushStyleColor(ImGuiCol_ButtonHovered, IM_COL32(0, 0, 0, 100));
+    // ImGui::PushStyleColor(ImGuiCol_ButtonActive, IM_COL32(0, 0, 0, 100));
 }
 
 void
@@ -167,9 +173,8 @@ UiImgui::draw_add_window(const Vector2i &window_size)
     ImGui::PushStyleVar(ImGuiStyleVar_WindowPadding, ImVec2(0, 0));
 
     if (ImGui::Begin("Plus", nullptr, window_flags)) {
-        ImGui::SetWindowPos(
-          ImVec2(static_cast<float>(window_size.x() - WINDOW_PADDING),
-                 static_cast<float>(window_size.y() - WINDOW_PADDING)));
+        ImGui::SetWindowPos(ImVec2(window_size.x() - WINDOW_PADDING,
+                                   window_size.y() - WINDOW_PADDING));
         ImGui::SetWindowSize(ImVec2(WINDOW_WIDTH, WINDOW_WIDTH));
 
         if (ImGui::Button(ICON_FA_PLUS, ImVec2(50.75f, 50.75f))) {
@@ -187,26 +192,35 @@ UiImgui::draw_add_window(const Vector2i &window_size)
 void
 UiImgui::draw_tools_window(const Vector2i &window_size, State *p_state)
 {
-    ImGuiWindowFlags window_flags =
-      ImGuiWindowFlags_NoTitleBar | ImGuiWindowFlags_NoResize;
+    ImGuiWindowFlags window_flags = ImGuiWindowFlags_NoTitleBar |
+                                    ImGuiWindowFlags_NoResize |
+                                    ImGuiWindowFlags_NoMove;
 
     ImGui::PushStyleVar(ImGuiStyleVar_ChildRounding, 10.0f);
     ImGui::PushStyleVar(ImGuiStyleVar_FrameRounding, 10.0f);
     ImGui::PushStyleVar(ImGuiStyleVar_WindowPadding, ImVec2(0, 0));
 
     if (ImGui::Begin("Tools", &_show_tools, window_flags)) {
-        ImGui::SetWindowPos(ImVec2(
-          static_cast<float>(window_size.x() - WINDOW_PADDING),
-          static_cast<float>(window_size.y() - WINDOW_PADDING - TOOLS_HEIGHT)));
+        ImGui::SetWindowPos(
+          ImVec2(window_size.x() - WINDOW_PADDING,
+                 window_size.y() - WINDOW_PADDING - TOOLS_HEIGHT));
         ImGui::SetWindowSize(ImVec2(WINDOW_WIDTH, TOOLS_HEIGHT));
+
+        if (ImGui::Button(ICON_FA_FOLDER_OPEN, ImVec2(50.75f, 50.75f))) {
+        }
+
+        if (ImGui::Button(ICON_FA_SAVE, ImVec2(50.75f, 50.75f))) {
+        }
+
+        ImGui::PushStyleColor(ImGuiCol_ChildBg, IM_COL32(0, 0, 0, 100));
+        if (ImGui::BeginChild(
+              "Tfdgools", ImVec2(50.75f, 3.75f), false, window_flags)) {
+            ImGui::EndChild();
+        }
+        ImGui::PopStyleColor();
 
         if (ImGui::Button(ICON_FA_COGS, ImVec2(50.75f, 50.75f))) {
             _show_config = true;
-        }
-        if (ImGui::Button(ICON_FA_UNDO, ImVec2(50.75f, 50.75f))) {
-            p_state->cell_cnt = 10000;
-            p_state->mean = 0;
-            p_state->std_dev = 300;
         }
         if (ImGui::Button(ICON_FA_TIMES, ImVec2(50.75f, 50.75f))) {
             _show_tools = false;
