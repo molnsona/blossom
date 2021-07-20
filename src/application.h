@@ -79,6 +79,7 @@ private:
 #if 0
     Vector3 windowPos2WorldPos(const Vector2i &windowPosition);
 #endif
+    static constexpr float vertex_size = 8.0f;
 
     State state;
     Timer timer;

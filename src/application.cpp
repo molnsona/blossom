@@ -96,7 +96,7 @@ Application::drawEvent()
 #endif
 
     scatter_renderer.draw(view, state.scatter);
-    graph_renderer.draw(view, state.landmarks, 8);
+    graph_renderer.draw(view, state.landmarks, vertex_size);
     _ui_imgui.draw_event(&state, this);
 
     swapBuffers();
@@ -192,7 +192,10 @@ Application::mousePressEvent(MouseEvent &event)
             state.mouse.mouse_prev_pos = state.mouse.mouse_press_pos =
               event.position();
 
-            if (graph_renderer.is_vert_pressed(state.mouse.vert_ind)) {
+            if (graph_renderer.is_vert_pressed(
+                  Vector2(view.screen_mouse_coords(state.mouse.mouse_pos)),
+                  vertex_size,
+                  state.mouse.vert_ind)) {
                 state.mouse.vert_pressed = true;
                 state.landmarks.lodim_vertices[state.mouse.vert_ind] =
                   view.model_mouse_coords(state.mouse.mouse_pos);

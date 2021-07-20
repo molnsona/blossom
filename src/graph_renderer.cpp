@@ -7,6 +7,8 @@
 #include <Magnum/Primitives/Circle.h>
 #include <Magnum/Trade/MeshData.h>
 
+#include <cmath>
+
 using namespace Magnum;
 using namespace Math::Literals;
 
@@ -70,7 +72,22 @@ GraphRenderer::draw(const View &view,
 }
 
 bool
-GraphRenderer::is_vert_pressed(std::size_t &vert_ind)
+GraphRenderer::is_vert_pressed(Magnum::Vector2 mouse,
+                               float vertex_size,
+                               std::size_t &vert_ind)
 {
-    return true;
+    float radius = vertex_size / 2 + 1;
+
+    for (size_t i = 0; i < vertices.size(); ++i) {
+        auto vert = vertices[i];
+        if ((mouse.x() >= roundf(vert.x()) - radius) &&
+            (mouse.x() <= roundf(vert.x()) + radius) &&
+            (mouse.y() >= roundf(vert.y()) - radius) &&
+            (mouse.y() <= roundf(vert.y()) + radius)) {
+            vert_ind = i;
+            return true;
+        }
+    }
+
+    return false;
 }

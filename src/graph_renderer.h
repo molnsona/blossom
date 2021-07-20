@@ -20,7 +20,9 @@ struct GraphRenderer
     void draw(const View &v, const LandmarkModel &m, float vertex_size);
 
     // If some vertex is pressed it returns true and index of the vertex
-    bool is_vert_pressed(std::size_t &vert_ind);
+    bool is_vert_pressed(Magnum::Vector2 mouse,
+                         float vertex_size,
+                         std::size_t &vert_ind);
 
 private:
     Magnum::GL::Mesh line_mesh;
