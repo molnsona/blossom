@@ -212,12 +212,7 @@ UiImgui::draw_tools_window(const Vector2i &window_size, State *p_state)
         if (ImGui::Button(ICON_FA_SAVE, ImVec2(50.75f, 50.75f))) {
         }
 
-        ImGui::PushStyleColor(ImGuiCol_ChildBg, IM_COL32(0, 0, 0, 100));
-        if (ImGui::BeginChild(
-              "Tfdgools", ImVec2(50.75f, 3.75f), false, window_flags)) {
-            ImGui::EndChild();
-        }
-        ImGui::PopStyleColor();
+        ImGui::Separator();
 
         if (ImGui::Button(ICON_FA_COGS, ImVec2(50.75f, 50.75f))) {
             _show_config = true;
