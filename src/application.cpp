@@ -21,7 +21,7 @@ Application::Application(const Arguments &arguments)
                                Configuration::WindowFlag::Resizable) }
   , _framebuffer{ GL::defaultFramebuffer.viewport() }
   , _ui_imgui(this)
-  , _scn_mngr(&state)
+//, _scn_mngr(&state)
 
 {
     MAGNUM_ASSERT_GL_VERSION_SUPPORTED(GL::Version::GL330);
@@ -132,7 +132,7 @@ Application::viewportEvent(ViewportEvent &event)
       _framebuffer.checkStatus(GL::FramebufferTarget::Draw) ==
       GL::Framebuffer::Status::Complete);
 
-    _scn_mngr.viewport_event(event);
+    //_scn_mngr.viewport_event(event);
     _ui_imgui.viewport_event(event);
 }
 
@@ -176,17 +176,31 @@ Application::mousePressEvent(MouseEvent &event)
         return;
     }
 
-    if (event.button() == MouseEvent::Button::Middle) {
+    switch (event.button()) {
+        case MouseEvent::Button::Middle:
 #ifdef DEBUG
-        std::cout << view.screen_mouse_coords(event.position()).x() << ", "
-                  << view.screen_mouse_coords(event.position()).y()
-                  << std::endl;
+            std::cout << view.screen_mouse_coords(event.position()).x() << ", "
+                      << view.screen_mouse_coords(event.position()).y()
+                      << std::endl;
 #endif
 
-        view.center(event.position());
-        return;
+            view.center(event.position());
+            return;
+        case MouseEvent::Button::Left:
+            state.mouse.mouse_pressed = true;
+            state.mouse.mouse_pos = event.position();
+            state.mouse.mouse_prev_pos = state.mouse.mouse_press_pos =
+              event.position();
+
+            if (graph_renderer.is_vert_pressed(state.mouse.vert_ind)) {
+                state.mouse.vert_pressed = true;
+                state.landmarks.lodim_vertices[state.mouse.vert_ind] =
+                  view.model_mouse_coords(state.mouse.mouse_pos);
+            }
+            break;
     }
 
+#if 0 
     state.mouse_pressed = true;
 
     const Vector2i position =
@@ -211,6 +225,7 @@ Application::mousePressEvent(MouseEvent &event)
     state.vtx_selected = true;
     UnsignedInt id = data.pixels<UnsignedInt>()[0][0];
     state.vtx_ind = id;
+#endif
 }
 
 void
@@ -221,6 +236,16 @@ Application::mouseReleaseEvent(MouseEvent &event)
         return;
     }
 
+    if (event.button() != MouseEvent::Button::Left) {
+        event.setAccepted(true);
+        return;
+    }
+
+    state.mouse.mouse_pos = event.position();
+    state.mouse.mouse_pressed = false;
+    state.mouse.vert_pressed = false;
+    state.mouse.mouse_press_pos = event.position();
+#if 0
     // TODO add change speed of draging
     float speed = 2.5f;
 
@@ -237,15 +262,7 @@ Application::mouseReleaseEvent(MouseEvent &event)
     _mouse_press_pos = fbPosition;
     state.mouse_pressed = false;
     state.vtx_selected = false;
-
-    // if(delta != Vector2d(0, 0)) {
-    //     auto norm_delta = state.mouse_pos.normalized();
-    //     _cameraObject->translate(Vector3::xAxis(-float(speed *
-    //     norm_delta.x())));
-    //     _cameraObject->translate(Vector3::zAxis(-float(speed
-    //     * norm_delta.y()))); _camera_trans.x() = -float(speed *
-    //     norm_delta.x()); _camera_trans.z() = -float(speed * norm_delta.y());
-    // }
+#endif
 }
 
 void
@@ -256,7 +273,8 @@ Application::mouseMoveEvent(MouseMoveEvent &event)
         return;
     }
 
-    if (state.mouse_pressed) {
+    if (state.mouse.vert_pressed) {
+#if 0            
         state.vtx_selected = true;
 
         const Vector2i position = event.position() *
@@ -271,6 +289,12 @@ Application::mouseMoveEvent(MouseMoveEvent &event)
           Vector2(fbPosition - (GL::defaultFramebuffer.viewport().size() / 2));
 
         _mouse_prev_pos = fbPosition;
+#endif
+        state.landmarks.lodim_vertices[state.mouse.vert_ind] =
+          view.model_mouse_coords(state.mouse.mouse_pos);
+
+        state.mouse.mouse_pos = event.position();
+        state.mouse.mouse_prev_pos = event.position();
     }
 }
 
@@ -295,6 +319,7 @@ Application::textInputEvent(TextInputEvent &event)
     }
 }
 
+#if 0
 Vector3
 Application::windowPos2WorldPos(const Vector2i &windowPosition)
 {
@@ -317,5 +342,6 @@ Application::windowPos2WorldPos(const Vector2i &windowPosition)
       Vector2{ 1.0f };
     return invViewProjMat.transformPoint({ ndcPos.x(), ndcPos.y(), 0.0f });
 }
+#endif
 
 MAGNUM_APPLICATION_MAIN(Application)

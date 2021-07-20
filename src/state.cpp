@@ -6,6 +6,7 @@ void
 State::update(float time)
 {
     graph_layout_step(layout_data,
+                      mouse,
                       landmarks.lodim_vertices,
                       landmarks.edges,
                       landmarks.edge_lengths,

@@ -24,9 +24,15 @@ GraphRenderer::draw(const View &view,
                     float vertex_size)
 {
     // TODO cache these allocations in GraphRenderer object
-    std::vector<Vector2> vertices(model.lodim_vertices.size());
-    for (size_t i = 0; i < vertices.size(); ++i)
+    // std::vector<Vector2> vertices(model.lodim_vertices.size());
+    if (vertices.size() != model.lodim_vertices.size()) {
+        vertices.clear();
+        vertices.resize(model.lodim_vertices.size());
+    }
+
+    for (size_t i = 0; i < vertices.size(); ++i) {
         vertices[i] = view.screen_coords(model.lodim_vertices[i]);
+    }
 
     std::vector<Vector2> edge_lines(2 * model.edges.size());
     for (size_t i = 0; i < model.edges.size(); ++i) {
@@ -61,4 +67,10 @@ GraphRenderer::draw(const View &view,
     }
 
     GL::Renderer::disable(GL::Renderer::Feature::Blending);
+}
+
+bool
+GraphRenderer::is_vert_pressed(std::size_t &vert_ind)
+{
+    return true;
 }

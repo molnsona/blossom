@@ -7,6 +7,8 @@
 
 #include <vector>
 
+#include "mouse_data.h"
+
 struct GraphLayoutData
 {
     std::vector<Magnum::Vector2> velocities;
@@ -15,6 +17,7 @@ struct GraphLayoutData
 
 void
 graph_layout_step(GraphLayoutData &data,
+                  const MouseData &mouse,
                   std::vector<Magnum::Vector2> &vertices,
                   const std::vector<std::pair<size_t, size_t>> &edges,
                   const std::vector<float> &lengths,

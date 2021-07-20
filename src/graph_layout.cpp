@@ -5,6 +5,7 @@
 
 void
 graph_layout_step(GraphLayoutData &data,
+                  const MouseData &mouse,
                   std::vector<Magnum::Vector2> &vertices,
                   const std::vector<std::pair<size_t, size_t>> &edges,
                   const std::vector<float> &edge_lengths,
@@ -41,6 +42,9 @@ graph_layout_step(GraphLayoutData &data,
     // update velocities and positions
     auto slowdown = pow(0.1f, time);
     for (size_t i = 0; i < vertices.size(); ++i) {
+        if (mouse.vert_pressed && mouse.vert_ind == i)
+            continue;
+
         data.velocities[i] += data.forces[i] * time;
         vertices[i] += data.velocities[i] * time;
         data.velocities[i] *= slowdown;

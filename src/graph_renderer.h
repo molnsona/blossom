@@ -19,6 +19,9 @@ struct GraphRenderer
     // vertex + edge positions as with the layouter.
     void draw(const View &v, const LandmarkModel &m, float vertex_size);
 
+    // If some vertex is pressed it returns true and index of the vertex
+    bool is_vert_pressed(std::size_t &vert_ind);
+
 private:
     Magnum::GL::Mesh line_mesh;
     Magnum::GL::Mesh circle_mesh;
@@ -26,6 +29,8 @@ private:
 
     // cached allocations
     std::vector<Magnum::Vector2> line_buf;
+    // In screen coordinates.
+    std::vector<Magnum::Vector2> vertices;
 };
 
 #endif // #ifndef GRAPH_RENDERER_H

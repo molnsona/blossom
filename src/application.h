@@ -76,7 +76,9 @@ private:
     void mouseScrollEvent(MouseScrollEvent &event) override;
     void textInputEvent(TextInputEvent &event) override;
 
+#if 0
     Vector3 windowPos2WorldPos(const Vector2i &windowPosition);
+#endif
 
     State state;
     Timer timer;
@@ -86,13 +88,13 @@ private:
     ScatterRenderer scatter_renderer;
 
     UiImgui _ui_imgui;
-    SceneMngr _scn_mngr;
+    // SceneMngr _scn_mngr;
 
     GL::Framebuffer _framebuffer;
     GL::Renderbuffer _color, _objectId, _depth;
 
-    Vector2i _mouse_press_pos;
-    Vector2i _mouse_prev_pos;
+    // Vector2i _mouse_press_pos;
+    // Vector2i _mouse_prev_pos;
 };
 
 #endif // #ifndef APPLICATION_H

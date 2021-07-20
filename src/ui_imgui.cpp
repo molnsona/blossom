@@ -89,7 +89,7 @@ UiImgui::draw_event(State *p_state, Platform::Application *app)
     GL::Renderer::enable(GL::Renderer::Feature::Blending);
     GL::Renderer::setBlendFunction(
       GL::Renderer::BlendFunction::SourceAlpha,
-      GL::Renderer::BlendFunction::OneMinusSourceAlpha);  
+      GL::Renderer::BlendFunction::OneMinusSourceAlpha);
     GL::Renderer::enable(GL::Renderer::Feature::ScissorTest);
     GL::Renderer::disable(GL::Renderer::Feature::FaceCulling);
     GL::Renderer::disable(GL::Renderer::Feature::DepthTest);
