@@ -27,6 +27,10 @@ struct View
       , view_logv_target(-4)
     {}
 
+    inline float zoom_scale(float logv) const { return pow(2, -logv); }
+
+    inline float zoom_scale() const { return zoom_scale(view_logv); }
+
     void update(float dt)
     {
         const float ir = pow(0.005, dt);
@@ -38,7 +42,7 @@ struct View
 
     inline Vector2 view_size() const
     {
-        const float v = pow(2, -view_logv);
+        const float v = zoom_scale();
         const float h = fb_size.x() * v / fb_size.y();
         return Vector2(h, v);
     }
@@ -92,19 +96,22 @@ struct View
 
     void zoom(float delta, Vector2i mouse)
     {
-        center(mouse);
         view_logv_target += delta;
         if (view_logv_target > 15)
             view_logv_target = 15;
         if (view_logv_target < -10)
             view_logv_target = -10;
+
+        auto zoom_around = model_mouse_coords(mouse);
+        mid_target = zoom_around + zoom_scale(view_logv_target) *
+                                     (mid - zoom_around) / zoom_scale();
     }
 
     void lookat(Vector2 tgt) { mid_target = tgt; }
 
     void set_fb_size(Vector2i);
 
-    void center(Vector2i mouse) { lookat(model_mouse_coords(mouse)); }
+    void lookat_screen(Vector2i mouse) { lookat(model_mouse_coords(mouse)); }
 };
 
 #endif

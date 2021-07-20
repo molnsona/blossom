@@ -111,7 +111,7 @@ Application::mousePressEvent(MouseEvent &event)
                       << view.screen_mouse_coords(event.position()).y()
                       << std::endl;
 #endif
-            view.center(event.position());
+            view.lookat_screen(event.position());
             return;
         case MouseEvent::Button::Left:
             state.mouse.mouse_pressed = true;
