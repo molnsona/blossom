@@ -1,7 +1,7 @@
 ﻿
 set(HEADERS
     application.h
-    canvas.h
+    #canvas.h
     data_model.h
     embedsom.h
     #graph.h
@@ -17,12 +17,12 @@ set(HEADERS
     state.h
     timer.h
     ui_imgui.h
-    utils.hpp
+    #utils.hpp
     view.h
 )
 set(SOURCES
     application.cpp
-    canvas.cpp
+    #canvas.cpp
     data_model.cpp
     embedsom.cpp
     #graph.cpp

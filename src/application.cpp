@@ -48,7 +48,7 @@ Application::drawEvent()
 
     scatter_renderer.draw(view, state.scatter);
     graph_renderer.draw(view, state.landmarks, vertex_size);
-    ui_imgui.draw_event(&state, this);
+    ui_imgui.draw_event(view, &state, this);
 
     swapBuffers();
     redraw();

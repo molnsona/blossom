@@ -8,6 +8,7 @@
 #include <Magnum/Platform/Sdl2Application.h>
 
 #include "state.h"
+#include "view.h"
 
 using namespace Magnum;
 using namespace Math::Literals;
@@ -18,7 +19,7 @@ public:
     UiImgui() = delete;
     UiImgui(const Platform::Application *app);
 
-    void draw_event(State *state, Platform::Application *app);
+    void draw_event(const View &view, State *state, Platform::Application *app);
 
     void viewport_event(Platform::Application::ViewportEvent &event);
     bool key_press_event(Platform::Application::KeyEvent &event);
@@ -31,7 +32,7 @@ public:
 
 private:
     void draw_add_window(const Vector2i &window_size);
-    void draw_tools_window(State *p_state);
+    void draw_tools_window(const Vector2i &window_size, State *p_state);
     void draw_config_window(State *p_state);
 
     ImGuiIntegration::Context _context{ NoCreate };

@@ -65,7 +65,9 @@ UiImgui::UiImgui(const Platform::Application *app)
 }
 
 void
-UiImgui::draw_event(State *p_state, Platform::Application *app)
+UiImgui::draw_event(const View &view,
+                    State *p_state,
+                    Platform::Application *app)
 {
     _context.newFrame();
 
@@ -75,9 +77,9 @@ UiImgui::draw_event(State *p_state, Platform::Application *app)
     else if (!ImGui::GetIO().WantTextInput && app->isTextInputActive())
         app->stopTextInput();
 
-    draw_add_window(app->windowSize());
+    draw_add_window(view.fb_size);
     if (_show_tools)
-        draw_tools_window(p_state);
+        draw_tools_window(view.fb_size, p_state);
     if (_show_config)
         draw_config_window(p_state);
 
@@ -172,7 +174,7 @@ UiImgui::draw_add_window(const Vector2i &window_size)
         ImGui::SetWindowSize(ImVec2(WINDOW_WIDTH, WINDOW_WIDTH));
 
         if (ImGui::Button(ICON_FA_PLUS, ImVec2(50.75f, 50.75f))) {
-            _show_tools = true;
+            _show_tools = _show_tools ? false : true;
         }
 
         ImGui::End();
@@ -184,23 +186,21 @@ UiImgui::draw_add_window(const Vector2i &window_size)
 }
 
 void
-UiImgui::draw_tools_window(State *p_state)
+UiImgui::draw_tools_window(const Vector2i &window_size, State *p_state)
 {
     ImGuiWindowFlags window_flags =
       ImGuiWindowFlags_NoTitleBar | ImGuiWindowFlags_NoResize;
-
-    ImVec2 center = ImGui::GetMainViewport()->GetCenter();
-    ImGui::SetNextWindowPos(
-      ImVec2(WINDOW_PADDING - (WINDOW_WIDTH / 2), center.y),
-      ImGuiCond_Appearing,
-      ImVec2(0.5f, 0.5f));
-    ImGui::SetNextWindowSize(ImVec2(WINDOW_WIDTH, TOOLS_HEIGHT));
 
     ImGui::PushStyleVar(ImGuiStyleVar_ChildRounding, 10.0f);
     ImGui::PushStyleVar(ImGuiStyleVar_FrameRounding, 10.0f);
     ImGui::PushStyleVar(ImGuiStyleVar_WindowPadding, ImVec2(0, 0));
 
     if (ImGui::Begin("Tools", &_show_tools, window_flags)) {
+        ImGui::SetWindowPos(ImVec2(
+          static_cast<float>(window_size.x() - WINDOW_PADDING),
+          static_cast<float>(window_size.y() - WINDOW_PADDING - TOOLS_HEIGHT)));
+        ImGui::SetWindowSize(ImVec2(WINDOW_WIDTH, TOOLS_HEIGHT));
+
         if (ImGui::Button(ICON_FA_COGS, ImVec2(50.75f, 50.75f))) {
             _show_config = true;
         }
