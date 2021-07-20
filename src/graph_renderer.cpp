@@ -7,6 +7,8 @@
 #include <Magnum/Primitives/Circle.h>
 #include <Magnum/Trade/MeshData.h>
 
+#include <cmath>
+
 using namespace Magnum;
 using namespace Math::Literals;
 
@@ -24,9 +26,15 @@ GraphRenderer::draw(const View &view,
                     float vertex_size)
 {
     // TODO cache these allocations in GraphRenderer object
-    std::vector<Vector2> vertices(model.lodim_vertices.size());
-    for (size_t i = 0; i < vertices.size(); ++i)
+    // std::vector<Vector2> vertices(model.lodim_vertices.size());
+    if (vertices.size() != model.lodim_vertices.size()) {
+        vertices.clear();
+        vertices.resize(model.lodim_vertices.size());
+    }
+
+    for (size_t i = 0; i < vertices.size(); ++i) {
         vertices[i] = view.screen_coords(model.lodim_vertices[i]);
+    }
 
     std::vector<Vector2> edge_lines(2 * model.edges.size());
     for (size_t i = 0; i < model.edges.size(); ++i) {
@@ -61,4 +69,25 @@ GraphRenderer::draw(const View &view,
     }
 
     GL::Renderer::disable(GL::Renderer::Feature::Blending);
+}
+
+bool
+GraphRenderer::is_vert_pressed(Magnum::Vector2 mouse,
+                               float vertex_size,
+                               std::size_t &vert_ind)
+{
+    float radius = vertex_size;
+
+    for (size_t i = 0; i < vertices.size(); ++i) {
+        auto vert = vertices[i];
+        if ((mouse.x() >= roundf(vert.x()) - radius) &&
+            (mouse.x() <= roundf(vert.x()) + radius) &&
+            (mouse.y() >= roundf(vert.y()) - radius) &&
+            (mouse.y() <= roundf(vert.y()) + radius)) {
+            vert_ind = i;
+            return true;
+        }
+    }
+
+    return false;
 }

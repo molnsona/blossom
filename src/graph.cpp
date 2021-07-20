@@ -130,7 +130,7 @@ Graph::Graph(State *p_state,
 void
 Graph::update(State *p_state)
 {
-    if (p_state->vtx_selected || p_state->mouse_pressed) {
+    if (p_state->vtx_selected || p_state->mouse.mouse_pressed) {
         p_state->time = 0;
         // Move vertices
         for (auto &&vtx : _vertices)
@@ -143,7 +143,8 @@ Graph::update(State *p_state)
             int x = 0, y = 0;
             // x = p_state->mouse_pos.x() > 0 ? 10 : -10;
             // y = p_state->mouse_pos.y() > 0 ? 10 : -10;
-            p_state->vtx_pos[id - 1] = p_state->mouse_pos; /*+ Vector2{x,y};*/
+            p_state->vtx_pos[id - 1] =
+              p_state->mouse.mouse_pos; /*+ Vector2{x,y};*/
 
             // (*_vertices[id - 1]).resetTransformation();
             // (*_vertices[id - 1]).scale(Vector3{10.0f, 10.0f, 1.0f})
