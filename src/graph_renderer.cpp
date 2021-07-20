@@ -76,7 +76,7 @@ GraphRenderer::is_vert_pressed(Magnum::Vector2 mouse,
                                float vertex_size,
                                std::size_t &vert_ind)
 {
-    float radius = vertex_size / 2 + 1;
+    float radius = vertex_size;
 
     for (size_t i = 0; i < vertices.size(); ++i) {
         auto vert = vertices[i];

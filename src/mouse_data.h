@@ -10,9 +10,8 @@ using namespace Magnum;
 struct MouseData
 {
     // Raw coordinates on the screen (upper left [0,0])
-    Vector2i mouse_press_pos;
-    Vector2i mouse_prev_pos;
     Vector2i mouse_pos;
+    
     bool mouse_pressed{ false };
     bool vert_pressed{ false };
     std::size_t vert_ind{ 0 };
