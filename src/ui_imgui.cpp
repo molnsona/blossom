@@ -49,8 +49,7 @@ UiImgui::UiImgui(const Platform::Application *app)
       BLOSSOM_DATA_DIR "/fa-solid-900.ttf", 16.0f, &config, icon_ranges);
 
     _context = ImGuiIntegration::Context(*ImGui::GetCurrentContext(),
-                                         Vector2{ app->windowSize() } /
-                                           app->dpiScaling(),
+                                         Vector2{ app->windowSize() },
                                          app->windowSize(),
                                          app->framebufferSize());
 
@@ -108,7 +107,7 @@ UiImgui::draw_event(const View &view,
 void
 UiImgui::viewport_event(Platform::Application::ViewportEvent &event)
 {
-    _context.relayout(Vector2{ event.windowSize() } / event.dpiScaling(),
+    _context.relayout(Vector2{ event.windowSize() },
                       event.windowSize(),
                       event.framebufferSize());
 }
