@@ -49,8 +49,7 @@ UiImgui::UiImgui(const Platform::Application *app)
       BLOSSOM_DATA_DIR "/fa-solid-900.ttf", 16.0f, &config, icon_ranges);
 
     _context = ImGuiIntegration::Context(*ImGui::GetCurrentContext(),
-                                         Vector2{ app->windowSize() } /
-                                           app->dpiScaling(),
+                                         Vector2{ app->windowSize() },
                                          app->windowSize(),
                                          app->framebufferSize());
 
@@ -62,10 +61,18 @@ UiImgui::UiImgui(const Platform::Application *app)
       GL::Renderer::BlendFunction::OneMinusSourceAlpha);
 
     ImGui::GetStyle().WindowRounding = 10.0f;
+
+    // Uncomment to change colors of ui
+    // ImGui::PushStyleColor(ImGuiCol_WindowBg, IM_COL32(0, 0, 0, 100));
+    // ImGui::PushStyleColor(ImGuiCol_Button, IM_COL32(148, 210, 189, 100));
+    // ImGui::PushStyleColor(ImGuiCol_ButtonHovered, IM_COL32(0, 0, 0, 100));
+    // ImGui::PushStyleColor(ImGuiCol_ButtonActive, IM_COL32(0, 0, 0, 100));
 }
 
 void
-UiImgui::draw_event(State *p_state, Platform::Application *app)
+UiImgui::draw_event(const View &view,
+                    State *p_state,
+                    Platform::Application *app)
 {
     _context.newFrame();
 
@@ -75,9 +82,9 @@ UiImgui::draw_event(State *p_state, Platform::Application *app)
     else if (!ImGui::GetIO().WantTextInput && app->isTextInputActive())
         app->stopTextInput();
 
-    draw_add_window(app->windowSize());
+    draw_add_window(view.fb_size);
     if (_show_tools)
-        draw_tools_window(p_state);
+        draw_tools_window(view.fb_size, p_state);
     if (_show_config)
         draw_config_window(p_state);
 
@@ -106,7 +113,7 @@ UiImgui::draw_event(State *p_state, Platform::Application *app)
 void
 UiImgui::viewport_event(Platform::Application::ViewportEvent &event)
 {
-    _context.relayout(Vector2{ event.windowSize() } / event.dpiScaling(),
+    _context.relayout(Vector2{ event.windowSize() },
                       event.windowSize(),
                       event.framebufferSize());
 }
@@ -166,13 +173,12 @@ UiImgui::draw_add_window(const Vector2i &window_size)
     ImGui::PushStyleVar(ImGuiStyleVar_WindowPadding, ImVec2(0, 0));
 
     if (ImGui::Begin("Plus", nullptr, window_flags)) {
-        ImGui::SetWindowPos(
-          ImVec2(static_cast<float>(window_size.x() - WINDOW_PADDING),
-                 static_cast<float>(window_size.y() - WINDOW_PADDING)));
+        ImGui::SetWindowPos(ImVec2(window_size.x() - WINDOW_PADDING,
+                                   window_size.y() - WINDOW_PADDING));
         ImGui::SetWindowSize(ImVec2(WINDOW_WIDTH, WINDOW_WIDTH));
 
         if (ImGui::Button(ICON_FA_PLUS, ImVec2(50.75f, 50.75f))) {
-            _show_tools = true;
+            _show_tools = _show_tools ? false : true;
         }
 
         ImGui::End();
@@ -184,30 +190,37 @@ UiImgui::draw_add_window(const Vector2i &window_size)
 }
 
 void
-UiImgui::draw_tools_window(State *p_state)
+UiImgui::draw_tools_window(const Vector2i &window_size, State *p_state)
 {
-    ImGuiWindowFlags window_flags =
-      ImGuiWindowFlags_NoTitleBar | ImGuiWindowFlags_NoResize;
-
-    ImVec2 center = ImGui::GetMainViewport()->GetCenter();
-    ImGui::SetNextWindowPos(
-      ImVec2(WINDOW_PADDING - (WINDOW_WIDTH / 2), center.y),
-      ImGuiCond_Appearing,
-      ImVec2(0.5f, 0.5f));
-    ImGui::SetNextWindowSize(ImVec2(WINDOW_WIDTH, TOOLS_HEIGHT));
+    ImGuiWindowFlags window_flags = ImGuiWindowFlags_NoTitleBar |
+                                    ImGuiWindowFlags_NoResize |
+                                    ImGuiWindowFlags_NoMove;
 
     ImGui::PushStyleVar(ImGuiStyleVar_ChildRounding, 10.0f);
     ImGui::PushStyleVar(ImGuiStyleVar_FrameRounding, 10.0f);
     ImGui::PushStyleVar(ImGuiStyleVar_WindowPadding, ImVec2(0, 0));
 
     if (ImGui::Begin("Tools", &_show_tools, window_flags)) {
+        ImGui::SetWindowPos(
+          ImVec2(window_size.x() - WINDOW_PADDING,
+                 window_size.y() - WINDOW_PADDING - TOOLS_HEIGHT));
+        ImGui::SetWindowSize(ImVec2(WINDOW_WIDTH, TOOLS_HEIGHT));
+
+        if (ImGui::Button(ICON_FA_FOLDER_OPEN, ImVec2(50.75f, 50.75f))) {
+        }
+
+        if (ImGui::Button(ICON_FA_SAVE, ImVec2(50.75f, 50.75f))) {
+        }
+
+        ImGui::PushStyleColor(ImGuiCol_ChildBg, IM_COL32(0, 0, 0, 100));
+        if (ImGui::BeginChild(
+              "Tfdgools", ImVec2(50.75f, 3.75f), false, window_flags)) {
+            ImGui::EndChild();
+        }
+        ImGui::PopStyleColor();
+
         if (ImGui::Button(ICON_FA_COGS, ImVec2(50.75f, 50.75f))) {
             _show_config = true;
-        }
-        if (ImGui::Button(ICON_FA_UNDO, ImVec2(50.75f, 50.75f))) {
-            p_state->cell_cnt = 10000;
-            p_state->mean = 0;
-            p_state->std_dev = 300;
         }
         if (ImGui::Button(ICON_FA_TIMES, ImVec2(50.75f, 50.75f))) {
             _show_tools = false;
