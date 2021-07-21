@@ -7,6 +7,7 @@ set(HEADERS
     #graph.h
     graph_layout.h
     graph_renderer.h
+    imfilebrowser.h
     imgui_config.h
     landmark_model.h
     mouse_data.h
