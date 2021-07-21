@@ -1,5 +1,6 @@
 #include "fcs_parser.h"
 
+#include <algorithm>
 #include <cstddef>
 #include <filesystem>
 #include <iomanip>
@@ -8,8 +9,13 @@
 #include <sstream>
 #include <string>
 
+constexpr size_t points_count = 1000;
+
 void
-FCSParser::parse(const std::string &fp)
+FCSParser::parse(const std::string &fp,
+                 std::vector<float> &out_data,
+                 size_t &dim,
+                 size_t &n)
 {
     file_path = fp;
     file_name = std::filesystem::path(fp).filename().string();
@@ -27,6 +33,9 @@ FCSParser::parse(const std::string &fp)
     }
 
     parse_info(file_reader);
+    dim = params_count;
+    n = points_count;
+    parse_data(file_reader, out_data);
     file_reader.close();
 }
 
@@ -100,6 +109,40 @@ FCSParser::parse_info(std::ifstream &file_reader)
             continue;
         }
     }
+}
+
+void
+FCSParser::parse_data(std::ifstream &file_reader, std::vector<float> &out_data)
+{
+    out_data.resize(params_count * points_count);
+    file_reader.seekg(data_begin_offset);
+    file_reader.read(reinterpret_cast<char *>(out_data.data()),
+                     params_count * points_count * sizeof(float));
+
+    if (!is_be)
+        // little endian
+        std::transform(
+          out_data.begin(), out_data.end(), out_data.begin(), [](float n) {
+              uint8_t *tmp = reinterpret_cast<uint8_t *>(&n);
+              uint32_t w1 = *tmp;
+              uint32_t w2 = *(tmp + 1);
+              uint32_t w3 = *(tmp + 2);
+              uint32_t w4 = *(tmp + 3);
+              uint32_t res = w1 << 0 | w2 << 8 | w3 << 16 | w4 << 24;
+              return *reinterpret_cast<float *>(&res);
+          });
+    else
+        // big endian
+        std::transform(
+          out_data.begin(), out_data.end(), out_data.begin(), [](float n) {
+              uint8_t *tmp = reinterpret_cast<uint8_t *>(&n);
+              uint32_t w1 = *tmp;
+              uint32_t w2 = *(tmp + 1);
+              uint32_t w3 = *(tmp + 2);
+              uint32_t w4 = *(tmp + 3);
+              uint32_t res = w4 << 0 | w3 << 8 | w2 << 16 | w1 << 24;
+              return *reinterpret_cast<float *>(&res);
+          });
 }
 
 size_t

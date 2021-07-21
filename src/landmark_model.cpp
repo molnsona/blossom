@@ -36,3 +36,21 @@ LandmarkModel::LandmarkModel()
         }
     }
 }
+
+void
+LandmarkModel::recompute(size_t dim)
+{
+    d = dim;
+    auto n = side();
+
+    hidim_vertices.resize(n * n * d);
+
+    for (size_t i = 0; i < n * n; ++i) {
+        auto x = i % n;
+        auto y = i / n;
+
+        // TODO compute this dynamically from data model
+        hidim_vertices[d * i + 0] = x / float(n);
+        hidim_vertices[d * i + 1] = y / float(n);
+    }
+}

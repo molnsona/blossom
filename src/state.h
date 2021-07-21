@@ -3,6 +3,7 @@
 
 #include <Magnum/Magnum.h>
 
+#include <string>
 #include <vector>
 
 #include "imgui_config.h"
@@ -40,6 +41,8 @@ struct State
 #endif
     MouseData mouse;
 
+    bool parse{ false };
+    std::string file_path;
     FCSParser fcs_parser;
 
     DataModel data;

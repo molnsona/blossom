@@ -281,7 +281,8 @@ UiImgui::draw_open_file(State &state)
     if (open_file.HasSelected()) {
         std::string file_path = open_file.GetSelected().string();
 
-        state.fcs_parser.parse(file_path);
+        state.parse = true;
+        state.file_path = file_path;
 
         open_file.ClearSelected();
     }

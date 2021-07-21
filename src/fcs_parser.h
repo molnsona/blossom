@@ -15,7 +15,10 @@ public:
     /**
      * Parses input fcs file header information.
      */
-    void parse(const std::string &file_path);
+    void parse(const std::string &file_path,
+               std::vector<float> &out_data,
+               size_t &dim,
+               size_t &n);
 
     // Getters and setters.
     std::string get_file_name() const { return file_name; }
@@ -37,6 +40,9 @@ public:
 private:
     /** Parses information from the header of the given file.*/
     void parse_info(std::ifstream &file_reader);
+    /** Parses data from the file*/
+    void parse_data(std::ifstream &file_reader, std::vector<float> &out_data);
+
     /** Parses number from the input word, in the format: P[0-9]+N.*/
     static size_t parse_id(const std::string &word);
 

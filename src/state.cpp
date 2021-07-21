@@ -5,6 +5,13 @@
 void
 State::update(float time)
 {
+    if (parse) {
+        fcs_parser.parse(file_path, data.data, data.d, data.n);
+
+        landmarks.recompute(data.d);
+        parse = false;
+    }
+
     graph_layout_step(layout_data,
                       mouse,
                       landmarks.lodim_vertices,

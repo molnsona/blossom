@@ -12,6 +12,8 @@ struct LandmarkModel
 
     static constexpr size_t side() { return 7; }
 
+    void recompute(size_t d);
+
     std::vector<float> hidim_vertices;
     size_t d;
 
