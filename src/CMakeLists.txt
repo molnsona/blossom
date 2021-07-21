@@ -5,6 +5,7 @@ set(SOURCES
     data_model.cpp
     embedsom.cpp
     embedsom_cuda.cpp
+    fcs_parser.cpp
     #graph.cpp
     graph_layout.cpp
     graph_renderer.cpp

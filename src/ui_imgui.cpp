@@ -75,9 +75,7 @@ UiImgui::UiImgui(const Platform::Application *app)
 }
 
 void
-UiImgui::draw_event(const View &view,
-                    State *p_state,
-                    Platform::Application *app)
+UiImgui::draw_event(const View &view, State &state, Platform::Application *app)
 {
     context.newFrame();
 
@@ -89,11 +87,11 @@ UiImgui::draw_event(const View &view,
 
     draw_add_window(view.fb_size);
     if (show_menu)
-        draw_menu_window(view.fb_size, p_state);
+        draw_menu_window(view.fb_size);
     if (show_config)
-        draw_config_window(p_state);
+        draw_config_window(state);
 
-    draw_open_file();
+    draw_open_file(state);
 
     /* Update application cursor */
     context.updateApplicationCursor(*app);
@@ -197,7 +195,7 @@ UiImgui::draw_add_window(const Vector2i &window_size)
 }
 
 void
-UiImgui::draw_menu_window(const Vector2i &window_size, State *p_state)
+UiImgui::draw_menu_window(const Vector2i &window_size)
 {
     ImGuiWindowFlags window_flags = ImGuiWindowFlags_NoTitleBar |
                                     ImGuiWindowFlags_NoResize |
@@ -246,7 +244,7 @@ UiImgui::draw_menu_window(const Vector2i &window_size, State *p_state)
 }
 
 void
-UiImgui::draw_config_window(State *p_state)
+UiImgui::draw_config_window(State &state)
 {
     ImGuiWindowFlags window_flags = ImGuiWindowFlags_NoCollapse |
                                     ImGuiWindowFlags_NoResize |
@@ -259,13 +257,13 @@ UiImgui::draw_config_window(State *p_state)
 
     if (ImGui::Begin("##Config", &show_config, window_flags)) {
         ImGui::SetNextItemWidth(200.0f);
-        ImGui::SliderInt("Cell count", &p_state->cell_cnt, 0, 100000);
+        ImGui::SliderInt("Cell count", &state.cell_cnt, 0, 100000);
 
         ImGui::SetNextItemWidth(200.0f);
-        ImGui::SliderInt("Mean", &p_state->mean, -2000, 2000);
+        ImGui::SliderInt("Mean", &state.mean, -2000, 2000);
 
         ImGui::SetNextItemWidth(200.0f);
-        ImGui::SliderInt("Std deviation", &p_state->std_dev, 0, 1000);
+        ImGui::SliderInt("Std deviation", &state.std_dev, 0, 1000);
 
         ImGui::End();
     }
@@ -276,15 +274,14 @@ UiImgui::draw_config_window(State *p_state)
 }
 
 void
-UiImgui::draw_open_file()
+UiImgui::draw_open_file(State &state)
 {
     open_file.Display();
 
     if (open_file.HasSelected()) {
         std::string file_path = open_file.GetSelected().string();
 
-        std::string file_name =
-          std::filesystem::path(file_path).filename().string();
+        state.fcs_parser.parse(file_path);
 
         open_file.ClearSelected();
     }
