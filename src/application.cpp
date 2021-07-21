@@ -104,6 +104,9 @@ Application::mousePressEvent(MouseEvent &event)
         return;
     }
 
+    // Close menu if it was opened and clicked somewhere else.
+    ui_imgui.close_menu();
+
     switch (event.button()) {
         case MouseEvent::Button::Middle:
 #ifdef DEBUG
