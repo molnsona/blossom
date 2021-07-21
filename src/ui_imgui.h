@@ -7,6 +7,7 @@
 #include <Magnum/Math/Color.h>
 #include <Magnum/Platform/Sdl2Application.h>
 
+#include "imfilebrowser.h"
 #include "state.h"
 #include "view.h"
 
@@ -32,16 +33,19 @@ public:
 
 private:
     void draw_add_window(const Vector2i &window_size);
-    void draw_tools_window(const Vector2i &window_size, State *p_state);
+    void draw_menu_window(const Vector2i &window_size, State *p_state);
     void draw_config_window(State *p_state);
+    void draw_open_file();
 
-    ImGuiIntegration::Context _context{ NoCreate };
+    ImGuiIntegration::Context context{ NoCreate };
 
-    ImFont *_p_font;
-    GL::Texture2D _font_texture;
+    ImFont *p_font;
+    GL::Texture2D font_texture;
 
-    bool _show_tools = false;
-    bool _show_config = false;
+    bool show_menu{ false };
+    bool show_config{ false };
+
+    ImGui::FileBrowser open_file;
 };
 
 #endif // #ifndef UI_IMGUI_H
