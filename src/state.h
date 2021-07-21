@@ -9,6 +9,7 @@
 #include "pickable.hpp"
 
 #include "data_model.h"
+#include "fcs_parser.h"
 #include "graph_layout.h"
 #include "landmark_model.h"
 #include "mouse_data.h"
@@ -38,6 +39,8 @@ struct State
     int expected_len = 100;
 #endif
     MouseData mouse;
+
+    FCSParser fcs_parser;
 
     DataModel data;
     LandmarkModel landmarks;

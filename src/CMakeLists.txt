@@ -4,6 +4,7 @@ set(HEADERS
     #canvas.h
     data_model.h
     embedsom.h
+    fcs_parser.h
     #graph.h
     graph_layout.h
     graph_renderer.h
@@ -26,6 +27,7 @@ set(SOURCES
     #canvas.cpp
     data_model.cpp
     embedsom.cpp
+    fcs_parser.cpp
     #graph.cpp
     graph_layout.cpp
     graph_renderer.cpp
