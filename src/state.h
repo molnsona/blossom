@@ -2,6 +2,10 @@
 #define STATE_H
 
 //#define NO_CUDA
+#include <Magnum/Magnum.h>
+
+#include <string>
+#include <vector>
 
 #include "imgui_config.h"
 #include "pickable.hpp"
@@ -44,6 +48,8 @@ struct State
 #endif
     MouseData mouse;
 
+    bool parse{ false };
+    std::string file_path;
     FCSParser fcs_parser;
 
     DataModel data;
