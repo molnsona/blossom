@@ -8,7 +8,7 @@ State::update(float time)
     if (parse) {
         fcs_parser.parse(file_path, data.data, data.d, data.n);
 
-        landmarks.recompute(data.d);
+        landmarks.update(data);
         parse = false;
     }
 

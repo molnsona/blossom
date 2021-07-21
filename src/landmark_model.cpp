@@ -38,9 +38,9 @@ LandmarkModel::LandmarkModel()
 }
 
 void
-LandmarkModel::recompute(size_t dim)
+LandmarkModel::update(const DataModel &data)
 {
-    d = dim;
+    d = data.d;
     auto n = side();
 
     hidim_vertices.resize(n * n * d);
