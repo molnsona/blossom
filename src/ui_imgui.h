@@ -7,6 +7,8 @@
 #include <Magnum/Math/Color.h>
 #include <Magnum/Platform/Sdl2Application.h>
 
+#include <string>
+
 #include "imfilebrowser.h"
 #include "state.h"
 #include "view.h"
@@ -36,6 +38,7 @@ private:
     void draw_menu_window(const Vector2i &window_size, State *p_state);
     void draw_config_window(State *p_state);
     void draw_open_file();
+    void hover_info(const std::string& text);
 
     ImGuiIntegration::Context context{ NoCreate };
 
