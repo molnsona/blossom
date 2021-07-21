@@ -217,10 +217,12 @@ UiImgui::draw_menu_window(const Vector2i &window_size, State *p_state)
             open_file.Open();
             show_menu = false;
         }
+        hover_info("Open file");     
 
         if (ImGui::Button(ICON_FA_SAVE, ImVec2(50.75f, 50.75f))) {
             show_menu = false;
         }
+        hover_info("Save");
 
         ImGui::Separator();
 
@@ -228,9 +230,12 @@ UiImgui::draw_menu_window(const Vector2i &window_size, State *p_state)
             show_config = true;
             show_menu = false;
         }
+        hover_info("dummy");
+
         if (ImGui::Button(ICON_FA_TIMES, ImVec2(50.75f, 50.75f))) {
             show_menu = false;
         }
+        hover_info("Close");
 
         ImGui::End();
     }
@@ -283,4 +288,16 @@ UiImgui::draw_open_file()
 
         open_file.ClearSelected();
     }
+}
+
+void UiImgui::hover_info(const std::string& text)
+{
+    ImGui::PushStyleVar(ImGuiStyleVar_WindowRounding, 5.0f);
+    ImGui::PushStyleVar(ImGuiStyleVar_WindowPadding, ImVec2(2, 2));
+    ImGui::PushStyleVar(ImGuiStyleVar_Alpha, 0.8f);
+    if (ImGui::IsItemHovered())
+        ImGui::SetTooltip(text.data());
+    ImGui::PopStyleVar();
+    ImGui::PopStyleVar();
+    ImGui::PopStyleVar();     
 }
