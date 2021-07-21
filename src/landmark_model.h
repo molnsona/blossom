@@ -6,13 +6,15 @@
 #include <Magnum/Math/Vector2.h>
 #include <vector>
 
+#include "data_model.h"
+
 struct LandmarkModel
 {
     LandmarkModel();
 
     static constexpr size_t side() { return 7; }
 
-    void recompute(size_t d);
+    void update(const DataModel &data);
 
     std::vector<float> hidim_vertices;
     size_t d;
