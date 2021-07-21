@@ -33,12 +33,14 @@ public:
     bool mouse_scroll_event(Platform::Application::MouseScrollEvent &event);
     bool text_input_event(Platform::Application::TextInputEvent &event);
 
+    void close_menu() { show_menu = false; }
+
 private:
     void draw_add_window(const Vector2i &window_size);
     void draw_menu_window(const Vector2i &window_size, State *p_state);
     void draw_config_window(State *p_state);
     void draw_open_file();
-    void hover_info(const std::string& text);
+    void hover_info(const std::string &text);
 
     ImGuiIntegration::Context context{ NoCreate };
 
