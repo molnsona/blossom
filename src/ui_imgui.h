@@ -37,7 +37,7 @@ public:
 
 private:
     void draw_add_window(const Vector2i &window_size);
-    void draw_menu_window(const Vector2i &window_size);
+    void draw_menu_window(const Vector2i &window_size, State &state);
     void draw_config_window(State &state);
     void draw_open_file(State &state);
     void hover_info(const std::string &text);

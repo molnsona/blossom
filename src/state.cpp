@@ -5,8 +5,16 @@
 void
 State::update(float time)
 {
+    if (reset) {
+        data = DataModel();
+        landmarks = LandmarkModel();
+        scatter = ScatterModel();
+        layout_data = GraphLayoutData();
+        reset = false;
+    }
+
     if (parse) {
-        fcs_parser.parse(file_path, data.data, data.d, data.n);
+        parser->parse(file_path, 1000, data.data, data.d, data.n);
 
         landmarks.update(data);
         parse = false;

@@ -3,11 +3,14 @@
 
 #include <Magnum/Magnum.h>
 
+#include <memory>
 #include <string>
 #include <vector>
 
+#if 0
 #include "imgui_config.h"
 #include "pickable.hpp"
+#endif
 
 #include "data_model.h"
 #include "fcs_parser.h"
@@ -43,7 +46,9 @@ struct State
 
     bool parse{ false };
     std::string file_path;
-    FCSParser fcs_parser;
+    std::unique_ptr<Parser> parser;
+
+    bool reset{ false };
 
     DataModel data;
     LandmarkModel landmarks;

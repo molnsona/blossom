@@ -9,13 +9,16 @@
 #include <tuple>
 #include <vector>
 
-class FCSParser
+#include "parser.h"
+
+class FCSParser : public Parser
 {
 public:
     /**
      * Parses input fcs file header information.
      */
     void parse(const std::string &file_path,
+               size_t points_count,
                std::vector<float> &out_data,
                size_t &dim,
                size_t &n);
@@ -41,7 +44,9 @@ private:
     /** Parses information from the header of the given file.*/
     void parse_info(std::ifstream &file_reader);
     /** Parses data from the file*/
-    void parse_data(std::ifstream &file_reader, std::vector<float> &out_data);
+    void parse_data(std::ifstream &file_reader,
+                    size_t points_count,
+                    std::vector<float> &out_data);
 
     /** Parses number from the input word, in the format: P[0-9]+N.*/
     static size_t parse_id(const std::string &word);

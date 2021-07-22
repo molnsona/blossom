@@ -8,7 +8,9 @@
 // https://github.com/juliettef/IconFontCppHeaders
 #include <IconsFontAwesome5.h>
 
+#include "fcs_parser.h"
 #include "imgui_config.h"
+#include "tsv_parser.h"
 #include "ui_imgui.h"
 
 UiImgui::UiImgui(const Platform::Application *app)
@@ -71,7 +73,7 @@ UiImgui::UiImgui(const Platform::Application *app)
     // ImGui::PushStyleColor(ImGuiCol_ButtonActive, IM_COL32(0, 0, 0, 100));
 
     open_file.SetTitle("Open file");
-    open_file.SetTypeFilters({ ".fcs" });
+    open_file.SetTypeFilters({ ".fcs", ".tsv" });
 }
 
 void
@@ -87,7 +89,7 @@ UiImgui::draw_event(const View &view, State &state, Platform::Application *app)
 
     draw_add_window(view.fb_size);
     if (show_menu)
-        draw_menu_window(view.fb_size);
+        draw_menu_window(view.fb_size, state);
     if (show_config)
         draw_config_window(state);
 
@@ -195,7 +197,7 @@ UiImgui::draw_add_window(const Vector2i &window_size)
 }
 
 void
-UiImgui::draw_menu_window(const Vector2i &window_size)
+UiImgui::draw_menu_window(const Vector2i &window_size, State &state)
 {
     ImGuiWindowFlags window_flags = ImGuiWindowFlags_NoTitleBar |
                                     ImGuiWindowFlags_NoResize |
@@ -230,10 +232,11 @@ UiImgui::draw_menu_window(const Vector2i &window_size)
         }
         hover_info("dummy");
 
-        if (ImGui::Button(ICON_FA_TIMES, ImVec2(50.75f, 50.75f))) {
+        if (ImGui::Button(ICON_FA_UNDO, ImVec2(50.75f, 50.75f))) {
+            state.reset = true;
             show_menu = false;
         }
-        hover_info("Close");
+        hover_info("Reset");
 
         ImGui::End();
     }
@@ -280,6 +283,12 @@ UiImgui::draw_open_file(State &state)
 
     if (open_file.HasSelected()) {
         std::string file_path = open_file.GetSelected().string();
+
+        std::string ext = std::filesystem::path(file_path).extension().string();
+        if (ext == ".fcs")
+            state.parser = std::make_unique<FCSParser>();
+        else if (ext == ".tsv")
+            state.parser = std::make_unique<TSVParser>();
 
         state.parse = true;
         state.file_path = file_path;

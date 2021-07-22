@@ -12,12 +12,14 @@ set(HEADERS
     imgui_config.h
     landmark_model.h
     mouse_data.h
+    parser.h
     pickable.hpp
     scatter_model.h
     scatter_renderer.h
     #scene_mngr.h
     state.h
     timer.h
+    tsv_parser.h
     ui_imgui.h
     #utils.hpp
     view.h
@@ -36,6 +38,7 @@ set(SOURCES
     scatter_renderer.cpp
     #scene_mngr.cpp
     state.cpp
+    tsv_parser.cpp
     ui_imgui.cpp
     view.cpp
 )
