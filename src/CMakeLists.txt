@@ -14,6 +14,7 @@ set(SOURCES
     scatter_renderer.cpp
     #scene_mngr.cpp
     state.cpp
+    tsv_parser.cpp
     ui_imgui.cpp
     view.cpp
 )

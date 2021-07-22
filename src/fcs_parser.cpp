@@ -5,14 +5,14 @@
 #include <filesystem>
 #include <iomanip>
 #include <iostream>
+#include <random>
 #include <regex>
 #include <sstream>
 #include <string>
 
-constexpr size_t points_count = 1000;
-
 void
 FCSParser::parse(const std::string &fp,
+                 size_t points_count,
                  std::vector<float> &out_data,
                  size_t &dim,
                  size_t &n)
@@ -35,7 +35,7 @@ FCSParser::parse(const std::string &fp,
     parse_info(file_reader);
     dim = params_count;
     n = points_count;
-    parse_data(file_reader, out_data);
+    parse_data(file_reader, points_count, out_data);
     file_reader.close();
 }
 
@@ -112,12 +112,35 @@ FCSParser::parse_info(std::ifstream &file_reader)
 }
 
 void
-FCSParser::parse_data(std::ifstream &file_reader, std::vector<float> &out_data)
+FCSParser::parse_data(std::ifstream &file_reader,
+                      size_t points_count,
+                      std::vector<float> &out_data)
 {
-    out_data.resize(params_count * points_count);
+    // If not enough points.
+    auto diff = data_end_offset - data_begin_offset;
+    if (diff < params_count * points_count * sizeof(float))
+        points_count = diff / params_count / sizeof(float);
+
+    std::vector<float> all_values(events_count);
+
     file_reader.seekg(data_begin_offset);
-    file_reader.read(reinterpret_cast<char *>(out_data.data()),
-                     params_count * points_count * sizeof(float));
+    file_reader.read(reinterpret_cast<char *>(all_values.data()),
+                     events_count * sizeof(float));
+
+    out_data.resize(params_count * points_count);
+
+    // pick randomly 1000 points
+    std::default_random_engine gen;
+    std::uniform_int_distribution<size_t> dist(0, points_count);
+
+    out_data.resize(params_count * points_count);
+
+    for (size_t i = 0; i < points_count; ++i) {
+        size_t ind = dist(gen);
+        for (size_t j = 0; j < params_count; ++j) {
+            out_data[i * params_count + j] = all_values[ind * params_count + j];
+        }
+    }
 
     if (!is_be)
         // little endian
