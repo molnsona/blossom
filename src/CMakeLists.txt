@@ -46,7 +46,7 @@ set(CUDA_SOURCES
 
 add_executable(blossom
     ${SOURCES}
-    ${HEADERS}
+    #${HEADERS}
     ${CUDA_SOURCES}
 )
 
@@ -54,19 +54,24 @@ include_directories(.)
 
 set_target_properties(blossom PROPERTIES
     CXX_STANDARD 17
+    CUDA_STANDARD 17
     CUDA_SEPARABLE_COMPILATION ON
 	POSITION_INDEPENDENT_CODE ON
 	CUDA_RESOLVE_DEVICE_SYMBOLS ON
-    CUDA_ARCHITECTURES "50;52;60;61"
+    CUDA_ARCHITECTURES OFF
+    #"50;52;60;61"
 )
 
 if (MSVC)
-    target_compile_options(blossom BEFORE PUBLIC  /W4 /experimental:external /external:anglebrackets /external:W0)
+    target_compile_options(blossom BEFORE PUBLIC
+        $<$<COMPILE_LANGUAGE:CXX>:/W4>
+        $<$<COMPILE_LANGUAGE:CXX>:/experimental:external>
+        $<$<COMPILE_LANGUAGE:CXX>:/external:anglebrackets>
+        $<$<COMPILE_LANGUAGE:CXX>:/external:W0>
+    )
 else (MSVC)
-    target_compile_options(blossom BEFORE PUBLIC  -Wall)
+    target_compile_options(blossom BEFORE PUBLIC $<$<COMPILE_LANGUAGE:CXX>:-Wall>)
 endif (MSVC)
-
-target_include_directories(blossom PUBLIC include ${CMAKE_CUDA_TOOLKIT_INCLUDE_DIRECTORIES})
 
 target_link_libraries(blossom PRIVATE
     Corrade::Main

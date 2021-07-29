@@ -8,27 +8,27 @@
  * Kernels
  */
 
- template <typename F = float>
- __inline__ __device__ F distance(const F* __restrict__ lhs, const F* __restrict__ rhs, const std::uint32_t dim)
- {
-	 F sum = (F)0.0;
-	 for (std::uint32_t d = 0; d < dim; ++d) {
-		 F diff = *lhs++ - *rhs++;
-		 sum += diff * diff;
-	 }
-	 return sum; // squared euclidean
- }
+template <typename F = float>
+__inline__ __device__ F distance(const F* __restrict__ lhs, const F* __restrict__ rhs, const std::uint32_t dim)
+{
+	F sum = (F)0.0;
+	for (std::uint32_t d = 0; d < dim; ++d) {
+		F diff = *lhs++ - *rhs++;
+		sum += diff * diff;
+	}
+	return sum; // squared euclidean
+}
  
- template <typename F = float>
- __inline__ __device__ void bubbleUp(EsomCuda::TopkResult* const __restrict__ topK, std::uint32_t idx)
- {
-	 while (idx > 0 && topK[idx - 1].distance > topK[idx].distance) {
-		 const typename TopkProblemInstance<F>::Result tmp = topK[idx];
-		 topK[idx] = topK[idx - 1];
-		 topK[idx - 1] = tmp;
-		 --idx;
-	 }
- }
+template <typename F = float>
+__inline__ __device__ void bubbleUp(EsomCuda::TopkResult* const __restrict__ topK, std::uint32_t idx)
+{
+	while (idx > 0 && topK[idx - 1].distance > topK[idx].distance) {
+		const typename EsomCuda::TopkResult tmp = topK[idx];
+		topK[idx] = topK[idx - 1];
+		topK[idx - 1] = tmp;
+		--idx;
+	}
+}
  
  /**
  * Each thread iterates over whole point grid and computes kNN for a specified point

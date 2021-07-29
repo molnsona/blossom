@@ -6,6 +6,7 @@
 #include <string>
 #include <sstream>
 
+
 /*
  * Private
  */
@@ -32,17 +33,17 @@ void EsomCuda::preflightCheck()
 		throw std::runtime_error("Landmark coordinates in target embedding space must be set before embedding computation can be started.");
 	}
 
-	if (mTopK < 1 && mTopK > std::min(256, mLandmarksCount)) {
+	if (mTopK < 1 && mTopK > std::min<std::size_t>(256, mLandmarksCount)) {
 		throw std::runtime_error("The k parameter (for top-k selection) is out of range.");
 	}
 
 	// allocate missing buffers if necessary
 	if (mTopkResults == nullptr) {
-		CUCH(cudaMalloc(mTopkResults, mTopK * mPointsCount * sizeof(EsomCuda::TopkResult)));
+		CUCH(cudaMalloc(&mTopkResults, mTopK * mPointsCount * sizeof(EsomCuda::TopkResult)));
 	}
 
 	if (mCuEmbedding == nullptr) {
-		CUCH(cudaMalloc(mCuEmbedding, 2 * mPointsCount * sizeof(float)));
+		CUCH(cudaMalloc(&mCuEmbedding, 2 * mPointsCount * sizeof(float)));
 	}
 }
 
@@ -85,7 +86,7 @@ void EsomCuda::setK(std::size_t k)
 	}
 }
 
-void EsomCuda::setPoints(std::size_t pointsCount, const float *pointsData = nullptr)
+void EsomCuda::setPoints(std::size_t pointsCount, const float *pointsData)
 {
 	dimCheck();
 
@@ -97,7 +98,7 @@ void EsomCuda::setPoints(std::size_t pointsCount, const float *pointsData = null
 			mCuPoints = nullptr;
 		}
 		if (pointsCount > 0) {
-			CUCH(cudaMalloc(mCuPoints, pointsCount * mDim * sizeof(float)));
+			CUCH(cudaMalloc(&mCuPoints, pointsCount * mDim * sizeof(float)));
 		}
 	}
 
@@ -121,7 +122,7 @@ void EsomCuda::setPoints(std::size_t pointsCount, const float *pointsData = null
 	}
 }
 
-void EsomCuda::setLandmarks(std::size_t landmarksCount, const float *highDim = nullptr, const float *lowDim = nullptr)
+void EsomCuda::setLandmarks(std::size_t landmarksCount, const float *highDim, const float *lowDim)
 {
 	dimCheck();
 
@@ -133,7 +134,7 @@ void EsomCuda::setLandmarks(std::size_t landmarksCount, const float *highDim = n
 			mCuLandmarksHighDim = nullptr;
 		}
 		if (landmarksCount > 0) {
-			CUCH(cudaMalloc(mCuLandmarksHighDim, landmarksCount * mDim * sizeof(float)));
+			CUCH(cudaMalloc(&mCuLandmarksHighDim, landmarksCount * mDim * sizeof(float)));
 		}
 	}
 
@@ -144,7 +145,7 @@ void EsomCuda::setLandmarks(std::size_t landmarksCount, const float *highDim = n
 			mCuLandmarksLowDim = nullptr;
 		}
 		if (landmarksCount > 0) {
-			CUCH(cudaMalloc(mCuLandmarksLowDim, landmarksCount * 2 * sizeof(float)));
+			CUCH(cudaMalloc(&mCuLandmarksLowDim, landmarksCount * 2 * sizeof(float)));
 		}
 	}
 

@@ -2,6 +2,8 @@
 #ifndef EMBEDSOM_CUDA_H
 #define EMBEDSOM_CUDA_H
 
+#include "cuda_runtime.h"
+
 #include <exception>
 #include <string>
 #include <sstream>
@@ -97,9 +99,9 @@ protected:
 	cudaError_t mStatus;
 
 public:
-	CudaError(cudaError_t status = cudaSuccess) : std::exception(), mStatus(status) {}
-	CudaError(const char *msg, cudaError_t status = cudaSuccess) : std::exception((msg), mStatus(status) {}
-	CudaError(const std::string &msg, cudaError_t status = cudaSuccess) : std::exception((msg), mStatus(status) {}
+	CudaError(cudaError_t status = cudaSuccess) : std::exception(), mMessage(), mStatus(status) {}
+	CudaError(const char *msg, cudaError_t status = cudaSuccess) : std::exception(), mMessage(msg), mStatus(status) {}
+	CudaError(const std::string &msg, cudaError_t status = cudaSuccess) : std::exception(), mMessage(msg), mStatus(status) {}
 	virtual ~CudaError() noexcept {}
 
 	virtual const char* what() const throw()
