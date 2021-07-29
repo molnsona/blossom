@@ -1,9 +1,9 @@
-﻿cmake_minimum_required(VERSION 3.4...3.8)
+﻿cmake_minimum_required(VERSION 3.9 FATAL_ERROR)
 
 project(BlosSOM VERSION 0.0.1)
 
 # Set project name
-project(${PROJECT_NAME})
+project(${PROJECT_NAME} LANGUAGES CXX CUDA)
 
 # Set the correct macro directory path
 set(CMAKE_MODULE_PATH "${PROJECT_SOURCE_DIR}/modules/" ${CMAKE_MODULE_PATH})
@@ -48,3 +48,4 @@ add_compile_definitions(BLOSSOM_DATA_DIR="${BLOSSOM_DATA_DIR}")
 
 # program sources
 add_subdirectory(src)
+
