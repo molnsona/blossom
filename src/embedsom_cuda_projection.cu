@@ -122,6 +122,35 @@ __inline__ __device__ void storeToCache(const std::uint32_t groupRank, const std
 	readAligned<F, typename ArrayFloatType<F>::Type4>(gridCache, grid, neighbors, k, gridCacheLeadingDim, groupRank, groupSize);
 }
 
+template <typename F>
+__inline__ __device__ void sortedDistsToScores(TopkResult<F>* const __restrict__ neighbors, const std::size_t adjustedK, const std::size_t k,
+											   const F boost)
+{
+	// compute the distance distribution for the scores
+	F mean = 0, sd = 0, wsum = 0;
+	for (std::uint32_t i = 0; i < adjustedK; ++i) {
+		const F tmp = sqrt(neighbors[i].distance);
+		const F w = 1 / F(i + 1);
+		mean += tmp * w;
+		sd += tmp * tmp * w;
+		wsum += w;
+		neighbors[i].distance = tmp;
+	}
+
+	mean /= wsum;
+	sd = boost / sqrt(sd / wsum - mean * mean);
+	const F nmax = Constants<F>::maxAvoidance / neighbors[adjustedK - 1].distance;
+
+	// convert the stuff to scores
+	for (std::uint32_t i = 0; i < k; ++i) {
+		if (k < adjustedK)
+			neighbors[i].distance =
+				exp((mean - neighbors[i].distance) * sd) * (1 - exp(neighbors[i].distance * nmax - Constants<F>::maxAvoidance));
+		else
+			neighbors[i].distance = exp((mean - neighbors[i].distance) * sd);
+	}
+}
+
 
 /**
  * Uses thread_block_tile and its built in functions for reduction and shuffle.
@@ -168,19 +197,46 @@ __inline__ __device__ void sortedDistsToScoresWarp(const TILE& tile, SCORE_STORA
 		for (std::uint32_t i = tile.thread_rank(); i < k; i += warpSize)
 			storage.storeScore(i, exp((mean - tmpScores[i / warpSize]) * sd));
 }
- 
+
+
+template <typename F>
+__inline__ __device__ void addGravity(const F score, const F* const __restrict__ grid2DPoint, F* const __restrict__ mtx)
+{
+	const F gs = score * Constants<F>::gridGravity;
+
+	mtx[0] += gs;
+	mtx[3] += gs;
+	mtx[4] += gs * grid2DPoint[0];
+	mtx[5] += gs * grid2DPoint[1];
+}
+
+
 template <typename F>
 __inline__ __device__ void addGravity2Wise(const F score, const F* const __restrict__ grid2DPoint, F* const __restrict__ mtx)
 {
 	const F gs = score * Constants<F>::gridGravity;
 
-	const typename ArrayFloatType<F>::Type2  tmpGrid2d = reinterpret_cast<const typename ArrayFloatType<F>::Type2*>(grid2DPoint)[0];
+	const typename ArrayFloatType<F>::Type2 tmpGrid2d = reinterpret_cast<const typename ArrayFloatType<F>::Type2*>(grid2DPoint)[0];
 
 	mtx[0] += gs;
 	mtx[3] += gs;
 	mtx[4] += gs * tmpGrid2d.x;
 	mtx[5] += gs * tmpGrid2d.y;
 }
+
+template <typename F>
+__inline__ __device__ typename ArrayFloatType<F>::Type2 euclideanProjection(const F* const __restrict__ point, const F* const __restrict__ gridPointI,
+																			const F* const __restrict__ gridPointJ, const std::uint32_t dim)
+{
+	typename ArrayFloatType<F>::Type2 result { 0.0, 0.0 };
+	for (std::uint32_t k = 0; k < dim; ++k) {
+		const F tmp = gridPointJ[k] - gridPointI[k];
+		result.y += tmp * tmp;
+		result.x += tmp * (point[k] - gridPointI[k]);
+	}
+	return result;
+}
+
 
 template <typename F>
 __inline__ __device__ typename ArrayFloatType<F>::Type2 euclideanProjection4Wise(const F* const __restrict__ point,
@@ -218,6 +274,35 @@ __inline__ __device__ typename ArrayFloatType<F>::Type2 euclideanProjection4Wise
 
 	return result;
 }
+
+template <typename F>
+__inline__ __device__ void addApproximation(const F scoreI, const F scoreJ, const F* const __restrict__ grid2DPointI,
+											const F* const __restrict__ grid2DPointJ, const F adjust, const F scalarProjection,
+											F* const __restrict__ mtx)
+{
+	F h[2], hp = 0;
+#pragma unroll
+	for (std::uint32_t i = 0; i < 2; ++i) {
+		h[i] = grid2DPointJ[i] - grid2DPointI[i];
+		hp += h[i] * h[i];
+	}
+
+	if (hp < Constants<F>::zeroAvoidance)
+		return;
+
+	const F exponent = scalarProjection - .5;
+	const F s = scoreI * scoreJ * pow(1 + hp, adjust) * exp(-exponent * exponent);
+	const F sihp = s / hp;
+	const F rhsc = s * (scalarProjection + (h[0] * grid2DPointI[0] + h[1] * grid2DPointI[1]) / hp);
+
+	mtx[0] += h[0] * h[0] * sihp;
+	mtx[1] += h[0] * h[1] * sihp;
+	mtx[2] += h[1] * h[0] * sihp;
+	mtx[3] += h[1] * h[1] * sihp;
+	mtx[4] += h[0] * rhsc;
+	mtx[5] += h[1] * rhsc;
+}
+
 
 template <typename F>
 __inline__ __device__ void addApproximation2Wise(const F scoreI, const F scoreJ, const F* const __restrict__ grid2DPointI,
@@ -280,7 +365,52 @@ __inline__ __device__ uint2 getIndices<RectangleIndexer>(std::uint32_t plainInde
 }
  
  
+/**
+ * One thread computes embedding for one point.
+ */
+template <typename F>
+__global__ void projectionBaseKernel(const F* __restrict__ points, const F* const __restrict__ grid, const F* const __restrict__ grid2d,
+									TopkResult<F>* __restrict__ neighbors, F* __restrict__ projections, const std::uint32_t dim,
+									const std::uint32_t n, const std::uint32_t gridSize, const std::uint32_t k, const F adjust, const F boost)
+{
+	// assign defaults and generate scores
+	{
+		const std::uint32_t adjustedK = k < gridSize ? k + 1 : k;
+		const std::uint32_t pointIdx = blockIdx.x * blockDim.x + threadIdx.x; 
+		if (pointIdx >= n)
+			return; 
+		points = points + pointIdx * dim;
+		neighbors = neighbors + pointIdx * adjustedK;
+		projections = projections + pointIdx * 2; 
+		sortedDistsToScores<F>(neighbors, adjustedK, k, boost);
+	} 
 
+	F mtx[6];
+	memset(mtx, 0, 6 * sizeof(F)); 
+	for (std::uint32_t i = 0; i < k; ++i) {
+		const std::uint32_t idxI = neighbors[i].index;
+		const F scoreI = neighbors[i].distance; 
+		addGravity(scoreI, grid2d + idxI * 2, mtx); 
+		for (std::uint32_t j = i + 1; j < k; ++j) {
+			const std::uint32_t idxJ = neighbors[j].index;
+			const F scoreJ = neighbors[j].distance; 
+			const auto result = euclideanProjection<F>(points, grid + idxI * dim, grid + idxJ * dim, dim);
+			F scalarProjection = result.x;
+			const F squaredGridPointsDistance = result.y; 
+			if (squaredGridPointsDistance == F(0))
+				continue; 
+			scalarProjection /= squaredGridPointsDistance; 
+			addApproximation(scoreI, scoreJ, grid2d + idxI * 2, grid2d + idxJ * 2, adjust, scalarProjection, mtx);
+		}
+	} 
+	// solve linear equation
+	const F det = mtx[0] * mtx[3] - mtx[1] * mtx[2];
+	projections[0] = (mtx[4] * mtx[3] - mtx[5] * mtx[2]) / det;
+	projections[1] = (mtx[0] * mtx[5] - mtx[1] * mtx[4]) / det;
+}
+ 
+ 
+ 
 /**
  * One block computes embedding for one point, using CUB block reduce for matrix reduction.
  */
@@ -358,7 +488,20 @@ __global__ void projectionBlockMultiCUBKernel(const F* __restrict__ points, cons
 	}
 } 
 
-// runner wrapped in a class
+/*
+ * Runners
+ */
+void EsomCuda::runProjectionBaseKernel(float boost, float adjust)
+{
+	unsigned int blockSize = 256;
+	unsigned int blockCount = (mPointsCount + blockSize - 1) / blockSize;
+	projectionBaseKernel<float><<<blockCount, blockSize>>>(
+		mCuPoints, mCuLandmarksHighDim, mCuLandmarksLowDim, reinterpret_cast<::TopkResult<float>*>(mCuTopkResult), mCuEmbedding,
+		mDim, mPointsCount, mLandmarksCount, mTopK, adjust, boost);
+		
+	CUCH(cudaGetLastError());
+}
+
 void EsomCuda::runProjectionKernel(float boost, float adjust)
 {
 	constexpr size_t alignment = 16;

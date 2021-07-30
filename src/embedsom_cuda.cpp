@@ -186,7 +186,7 @@ void EsomCuda::embedsom(float boost, float adjust, float *embedding)
 
 	std::cout << std::endl << std::endl;
 */
-	runProjectionKernel(boost, adjust);
+	runProjectionBaseKernel(boost, adjust);
 
 	// this is blocking operation so it also provides host sync with GPU
 	CUCH(cudaMemcpy(embedding, mCuEmbedding, mPointsCount * 2 * sizeof(float), cudaMemcpyDeviceToHost));

@@ -49,6 +49,7 @@ private:
 
 	// kernel runners (implemented separately in .cu files)
 	void runTopkBaseKernel();
+	void runProjectionBaseKernel(float boost, float adjust);
 	void runProjectionKernel(float boost, float adjust);
 
 public:
