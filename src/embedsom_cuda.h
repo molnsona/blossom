@@ -30,12 +30,15 @@ private:
 	std::size_t mLandmarksCount;
 	std::size_t mDim;
 	std::size_t mTopK;
+	std::size_t mAdjustedTopK; // topk + 1 (if topk < gridsize)
+	std::size_t mAllocatedTopk;
+	std::size_t mAllocatedEmbedding;
 
 	float *mCuPoints;
 	float *mCuLandmarksHighDim;
 	float *mCuLandmarksLowDim;
 	float *mCuEmbedding;
-	TopkResult *mTopkResults;
+	TopkResult *mCuTopkResult;
 
 	bool mPointsValid;
 	bool mLandmarksHighDimValid;
@@ -46,6 +49,7 @@ private:
 
 	// kernel runners (implemented separately in .cu files)
 	void runTopkBaseKernel();
+	void runProjectionKernel(float boost, float adjust);
 
 public:
 	EsomCuda();

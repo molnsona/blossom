@@ -5,7 +5,8 @@
 #include <exception>
 #include <string>
 #include <sstream>
-
+#include <iostream>
+#include <vector>
 
 /*
  * Private
@@ -37,13 +38,29 @@ void EsomCuda::preflightCheck()
 		throw std::runtime_error("The k parameter (for top-k selection) is out of range.");
 	}
 
+	mAdjustedTopK = mTopK < mLandmarksCount ? mTopK + 1 : mTopK;
+
 	// allocate missing buffers if necessary
-	if (mTopkResults == nullptr) {
-		CUCH(cudaMalloc(&mTopkResults, mTopK * mPointsCount * sizeof(EsomCuda::TopkResult)));
+	std::size_t topkResultSize = mAdjustedTopK * mPointsCount * sizeof(EsomCuda::TopkResult);
+	if (mCuTopkResult == nullptr || mAllocatedTopk != topkResultSize) {
+		if (mCuTopkResult != nullptr) {
+			CUCH(cudaFree(mCuTopkResult));
+			mCuTopkResult = nullptr;
+		}
+
+		CUCH(cudaMalloc(&mCuTopkResult, topkResultSize));
+		mAllocatedTopk = topkResultSize;
 	}
 
-	if (mCuEmbedding == nullptr) {
-		CUCH(cudaMalloc(&mCuEmbedding, 2 * mPointsCount * sizeof(float)));
+	std::size_t embeddingSize = 2 * mPointsCount * sizeof(float);
+	if (mCuEmbedding == nullptr || mAllocatedEmbedding != embeddingSize) {
+		if (mCuEmbedding != nullptr) {
+			CUCH(cudaFree(mCuEmbedding));
+			mCuEmbedding = nullptr;
+		}
+
+		CUCH(cudaMalloc(&mCuEmbedding, embeddingSize));
+		mAllocatedEmbedding = embeddingSize;
 	}
 }
 
@@ -53,8 +70,8 @@ void EsomCuda::preflightCheck()
  */
 
 EsomCuda::EsomCuda()
-	: mPointsCount(0), mLandmarksCount(0), mDim(0), mTopK(0),
-	mCuPoints(nullptr), mCuLandmarksHighDim(nullptr), mCuLandmarksLowDim(nullptr), mCuEmbedding(nullptr), mTopkResults(nullptr),
+	: mPointsCount(0), mLandmarksCount(0), mDim(0), mTopK(0), mAllocatedTopk(0), mAllocatedEmbedding(0),
+	mCuPoints(nullptr), mCuLandmarksHighDim(nullptr), mCuLandmarksLowDim(nullptr), mCuEmbedding(nullptr), mCuTopkResult(nullptr),
 	mPointsValid(false), mLandmarksHighDimValid(false), mLandmarksLowDimValid(false)
 {}
 
@@ -77,17 +94,12 @@ void EsomCuda::setDim(std::size_t dim)
 
 void EsomCuda::setK(std::size_t k)
 {
-	if (mTopK == k) return;
 	mTopK = k;
-
-	if (mTopkResults != nullptr) {
-		CUCH(cudaFree(mTopkResults));
-		mTopkResults = nullptr;
-	}
 }
 
 void EsomCuda::setPoints(std::size_t pointsCount, const float *pointsData)
 {
+	CUCH(cudaSetDevice(0));
 	dimCheck();
 
 	// realocate buffers if necessary
@@ -102,17 +114,6 @@ void EsomCuda::setPoints(std::size_t pointsCount, const float *pointsData)
 		}
 	}
 
-	if (pointsCount != mPointsCount) {
-		if (mCuEmbedding != nullptr) {
-			CUCH(cudaFree(mCuEmbedding));
-			mCuEmbedding = nullptr;
-		}
-		if (mTopkResults != nullptr) {
-			CUCH(cudaFree(mTopkResults));
-			mTopkResults = nullptr;
-		}
-	}
-
 	mPointsCount = pointsCount;
 
 	// copy data to GPU if possible
@@ -124,6 +125,7 @@ void EsomCuda::setPoints(std::size_t pointsCount, const float *pointsData)
 
 void EsomCuda::setLandmarks(std::size_t landmarksCount, const float *highDim, const float *lowDim)
 {
+	CUCH(cudaSetDevice(0));
 	dimCheck();
 
 	// realocate buffers if necessary
@@ -166,12 +168,25 @@ void EsomCuda::setLandmarks(std::size_t landmarksCount, const float *highDim, co
 
 void EsomCuda::embedsom(float boost, float adjust, float *embedding)
 {
+	CUCH(cudaSetDevice(0));
+
 	preflightCheck();
 
-	CUCH(cudaSetDevice(0));
 	runTopkBaseKernel();
+	CUCH(cudaDeviceSynchronize()); // redundant
 
-	// TODO run projection kernel
+/* debuging
+	std::cout << "adj topk " << mAdjustedTopK << std::endl; 
+	std::vector<TopkResult> debug(mAdjustedTopK);
+	CUCH(cudaMemcpy(debug.data(), mCuTopkResult, debug.size() * sizeof(TopkResult), cudaMemcpyDeviceToHost));
+
+	for (std::size_t i = 0; i < mAdjustedTopK; ++i) {
+		std::cout << debug[i].index << " " << debug[i].distance << std::endl;
+	}
+
+	std::cout << std::endl << std::endl;
+*/
+	runProjectionKernel(boost, adjust);
 
 	// this is blocking operation so it also provides host sync with GPU
 	CUCH(cudaMemcpy(embedding, mCuEmbedding, mPointsCount * 2 * sizeof(float), cudaMemcpyDeviceToHost));

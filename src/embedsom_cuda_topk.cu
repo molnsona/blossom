@@ -18,7 +18,7 @@ __inline__ __device__ F distance(const F* __restrict__ lhs, const F* __restrict_
 	}
 	return sum; // squared euclidean
 }
- 
+
 template <typename F = float>
 __inline__ __device__ void bubbleUp(EsomCuda::TopkResult* const __restrict__ topK, std::uint32_t idx)
 {
@@ -77,6 +77,6 @@ void EsomCuda::runTopkBaseKernel()
 	constexpr unsigned int blockSize = 256;
 	unsigned int blockCount = (mPointsCount + blockSize - 1) / blockSize;
 	topkBaseKernel<float><<<blockCount, blockSize>>>(
-		mCuPoints, mCuLandmarksHighDim, mTopkResults, mDim, mPointsCount, mLandmarksCount, mTopK);
+		mCuPoints, mCuLandmarksHighDim, mCuTopkResult, mDim, mPointsCount, mLandmarksCount, mAdjustedTopK);
 	CUCH(cudaGetLastError());
 }

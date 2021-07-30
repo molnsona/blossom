@@ -2,6 +2,8 @@
 #include "state.h"
 #include "embedsom.h"
 
+#include <iostream>
+
 void State::update(float time)
 {
     graph_layout_step(layout_data,
@@ -38,5 +40,6 @@ void State::update(float time)
 
     // this is the actual method that is called in every update
     esom_cuda.embedsom(2.0, 0.2, scatter.points[0].data()); // boost and adjust parameters are now passed in every call, but we might want to cache them iside?
+    // std::cout << scatter.points[0][0] << " " << scatter.points[0][1] << std::endl;
 #endif
 }

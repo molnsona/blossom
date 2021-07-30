@@ -41,7 +41,7 @@ set(SOURCES
 
 set(CUDA_SOURCES
     embedsom_cuda_topk.cu
-    #embedsom_cuda_projection.cu
+    embedsom_cuda_projection.cu
 )
 
 add_executable(blossom
