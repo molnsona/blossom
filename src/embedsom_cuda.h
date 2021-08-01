@@ -1,6 +1,7 @@
 
 #ifndef EMBEDSOM_CUDA_H
 #define EMBEDSOM_CUDA_H
+#ifndef NO_CUDA
 
 #include "cuda_runtime.h"
 
@@ -8,7 +9,14 @@
 #include <string>
 #include <sstream>
 #include <algorithm>
+#include <deque>
 #include <cstdint>
+
+#ifdef __CUDACC__
+#define CUDA_CALLABLE_MEMBER __host__ __device__
+#else
+#define CUDA_CALLABLE_MEMBER
+#endif
 
 /**
  * Wrapper for embedsom computed on CUDA. It holds intermediate context, such as preallocated memory buffers.
@@ -23,9 +31,30 @@ public:
 	{
 		float distance;
 		std::uint32_t index;
+
+		CUDA_CALLABLE_MEMBER bool operator<(const TopkResult& rhs) const
+		{
+			return this->distance < rhs.distance || (this->distance == rhs.distance && this->index < rhs.index);
+		}
+		
+		CUDA_CALLABLE_MEMBER bool operator>(const TopkResult& rhs) const
+		{
+			return rhs < *this;
+		}
+		
+		CUDA_CALLABLE_MEMBER bool operator<=(const TopkResult& rhs) const
+		{
+			return !(*this > rhs);
+		}
+		
+		CUDA_CALLABLE_MEMBER bool operator>=(const TopkResult& rhs) const
+		{
+			return !(*this < rhs);
+		}
 	};
 
 private:
+	// configuration
 	std::size_t mPointsCount;
 	std::size_t mLandmarksCount;
 	std::size_t mDim;
@@ -34,21 +63,30 @@ private:
 	std::size_t mAllocatedTopk;
 	std::size_t mAllocatedEmbedding;
 
+	// buffers
 	float *mCuPoints;
 	float *mCuLandmarksHighDim;
 	float *mCuLandmarksLowDim;
 	float *mCuEmbedding;
 	TopkResult *mCuTopkResult;
 
+	// flags that indicate whether buffers hold up-to-date data
 	bool mPointsValid;
 	bool mLandmarksHighDimValid;
 	bool mLandmarksLowDimValid;
+
+	// some stats
+	const std::size_t timeMeasurements = 10;
+	std::deque<float> mPointsUploadTimes;
+	std::deque<float> mLandmarksUploadTimes;
+	std::deque<float> mProcessingTimes;
 
 	void dimCheck();
 	void preflightCheck();
 
 	// kernel runners (implemented separately in .cu files)
 	void runTopkBaseKernel();
+	void runTopkBitonicOptKernel();
 	void runProjectionBaseKernel(float boost, float adjust);
 	void runProjectionKernel(float boost, float adjust);
 
@@ -91,6 +129,11 @@ public:
 	 * @param embedding a buffer for the result
 	 */
 	void embedsom(float boost, float adjust, float *embedding);
+
+	// Constant accessors
+	float getAvgPointsUploadTime() const;
+	float getAvgLandmarksUploadTime() const;
+	float getAvgProcessingTime() const;
 };
 
 
@@ -142,4 +185,5 @@ inline void _cuda_check(cudaError_t status, int line, const char *srcFile, const
  */
 #define CUCH(status) _cuda_check(status, __LINE__, __FILE__, #status)
 
+#endif
 #endif

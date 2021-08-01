@@ -4,8 +4,8 @@
 #include <random>
 
 DataModel::DataModel()
-  : n(1000)
-  , d(2)
+  : n(5000)
+  , d(3)
 {
 
     std::default_random_engine gen;

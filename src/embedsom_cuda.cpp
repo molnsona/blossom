@@ -1,3 +1,5 @@
+#ifndef NO_CUDA
+
 #include "embedsom_cuda.h"
 
 #include "cuda_runtime.h"
@@ -7,6 +9,7 @@
 #include <sstream>
 #include <iostream>
 #include <vector>
+#include <chrono>
 
 /*
  * Private
@@ -73,7 +76,9 @@ EsomCuda::EsomCuda()
 	: mPointsCount(0), mLandmarksCount(0), mDim(0), mTopK(0), mAllocatedTopk(0), mAllocatedEmbedding(0),
 	mCuPoints(nullptr), mCuLandmarksHighDim(nullptr), mCuLandmarksLowDim(nullptr), mCuEmbedding(nullptr), mCuTopkResult(nullptr),
 	mPointsValid(false), mLandmarksHighDimValid(false), mLandmarksLowDimValid(false)
-{}
+{
+	CUCH(cudaSetDevice(0));
+}
 
 void EsomCuda::setDim(std::size_t dim)
 {
@@ -118,8 +123,15 @@ void EsomCuda::setPoints(std::size_t pointsCount, const float *pointsData)
 
 	// copy data to GPU if possible
 	if (mPointsCount > 0 && pointsData != nullptr) {
+		auto startTs = std::chrono::high_resolution_clock::now();
+		
 		CUCH(cudaMemcpy(mCuPoints, pointsData, mPointsCount * mDim * sizeof(float), cudaMemcpyHostToDevice));
 		mPointsValid = true;
+		
+		auto endTs = std::chrono::high_resolution_clock::now();
+		std::chrono::duration<float, std::milli> duration = endTs - startTs;
+		while (mPointsUploadTimes.size() >= timeMeasurements) mPointsUploadTimes.pop_front();
+		mPointsUploadTimes.push_back(duration.count());
 	}
 }
 
@@ -156,8 +168,15 @@ void EsomCuda::setLandmarks(std::size_t landmarksCount, const float *highDim, co
 
 	// copy data to GPU if possible
 	if (highDim != nullptr) {
+		auto startTs = std::chrono::high_resolution_clock::now();
+
 		CUCH(cudaMemcpy(mCuLandmarksHighDim, highDim, mLandmarksCount * mDim * sizeof(float), cudaMemcpyHostToDevice));
 		mLandmarksHighDimValid = true;
+
+		auto endTs = std::chrono::high_resolution_clock::now();
+		std::chrono::duration<float, std::milli> duration = endTs - startTs;
+		while (mLandmarksUploadTimes.size() >= timeMeasurements) mLandmarksUploadTimes.pop_front();
+		mLandmarksUploadTimes.push_back(duration.count());
 	}
 
 	if (lowDim != nullptr) {
@@ -172,22 +191,44 @@ void EsomCuda::embedsom(float boost, float adjust, float *embedding)
 
 	preflightCheck();
 
-	runTopkBaseKernel();
-	CUCH(cudaDeviceSynchronize()); // redundant
+	auto startTs = std::chrono::high_resolution_clock::now();
 
-/* debuging
-	std::cout << "adj topk " << mAdjustedTopK << std::endl; 
-	std::vector<TopkResult> debug(mAdjustedTopK);
-	CUCH(cudaMemcpy(debug.data(), mCuTopkResult, debug.size() * sizeof(TopkResult), cudaMemcpyDeviceToHost));
-
-	for (std::size_t i = 0; i < mAdjustedTopK; ++i) {
-		std::cout << debug[i].index << " " << debug[i].distance << std::endl;
-	}
-
-	std::cout << std::endl << std::endl;
-*/
-	runProjectionBaseKernel(boost, adjust);
+	runTopkBitonicOptKernel();
+	runProjectionKernel(boost, adjust);
 
 	// this is blocking operation so it also provides host sync with GPU
 	CUCH(cudaMemcpy(embedding, mCuEmbedding, mPointsCount * 2 * sizeof(float), cudaMemcpyDeviceToHost));
+
+	auto endTs = std::chrono::high_resolution_clock::now();
+	std::chrono::duration<float, std::milli> duration = endTs - startTs;
+	while (mProcessingTimes.size() >= timeMeasurements) mProcessingTimes.pop_front();
+	mProcessingTimes.push_back(duration.count());
 }
+
+
+float EsomCuda::getAvgPointsUploadTime() const
+{
+	float sum = 0.0f;
+	for (auto &t : mPointsUploadTimes) sum += t;
+	if (!mPointsUploadTimes.empty()) sum /= (float)mPointsUploadTimes.size();
+	return sum;
+}
+
+float EsomCuda::getAvgLandmarksUploadTime() const
+{
+	float sum = 0.0f;
+	for (auto &t : mLandmarksUploadTimes) sum += t;
+	if (!mLandmarksUploadTimes.empty()) sum /= (float)mLandmarksUploadTimes.size();
+	return sum;
+}
+
+float EsomCuda::getAvgProcessingTime() const
+{
+	float sum = 0.0f;
+	for (auto &t : mProcessingTimes) sum += t;
+	if (!mProcessingTimes.empty()) sum /= (float)mProcessingTimes.size();
+	return sum;
+}
+
+
+#endif

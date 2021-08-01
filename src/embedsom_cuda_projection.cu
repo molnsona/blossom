@@ -1,3 +1,5 @@
+#ifndef NO_CUDA
+
 #include "embedsom_cuda.h"
 
 #define _CG_ABI_EXPERIMENTAL
@@ -526,4 +528,6 @@ void EsomCuda::runProjectionKernel(float boost, float adjust)
 	);
 
 	CUCH(cudaGetLastError());
-}  
+}
+
+#endif
