@@ -119,9 +119,15 @@ __inline__ __device__ void storeToCache(const std::uint32_t groupRank, const std
 	for (; copyIdx < dim; copyIdx += groupSize)
 		pointsCache[copyIdx] = points[copyIdx];
 
-	readAlignedGrid2D<F>(grid2dCache, grid2d, neighbors, k, groupRank, groupSize);
+	copyIdx -= dim;
 
-	readAligned<F, typename ArrayFloatType<F>::Type4>(gridCache, grid, neighbors, k, gridCacheLeadingDim, groupRank, groupSize);
+	for (; copyIdx < k * dim; copyIdx += groupSize) {
+		auto globIdx = copyIdx / dim;
+		auto globOff = copyIdx % dim;
+		gridCache[globIdx * gridCacheLeadingDim + globOff] = grid[neighbors[globIdx].index * dim + globOff];
+	}
+
+	readAlignedGrid2D<F>(grid2dCache, grid2d, neighbors, k, groupRank, groupSize);
 }
 
 template <typename F>
@@ -417,7 +423,7 @@ __global__ void projectionBaseKernel(const F* __restrict__ points, const F* cons
  * One block computes embedding for one point, using CUB block reduce for matrix reduction.
  */
 template <typename F, typename INDEXER>
-__global__ void projectionBlockMultiCUBKernel(const F* __restrict__ points, const F* const __restrict__ grid, const F* const __restrict__ grid2d,
+__global__ void projectionAlignedShMemoryKernel(const F* __restrict__ points, const F* const __restrict__ grid, const F* const __restrict__ grid2d,
 											TopkResult<F>* __restrict__ neighbors, F* __restrict__ projections, const std::uint32_t dim,
 											const std::uint32_t n, const std::uint32_t gridSize, const std::uint32_t k, const F adjust,
 											const F boost, const std::uint32_t groupSize, const std::uint32_t cacheLeadingDim)
@@ -521,7 +527,7 @@ void EsomCuda::runProjectionKernel(float boost, float adjust)
 		+ sizeof(float) * (mTopK + 1) * gridCacheLeadingDim * groupsPerBlock
 		+ sizeof(float) * mTopK * 2 * groupsPerBlock; 
 
-	projectionBlockMultiCUBKernel<float, RectangleIndexer><<<blockCount, blockSize, sharedMem>>>(
+	projectionAlignedShMemoryKernel<float, RectangleIndexer><<<blockCount, blockSize, sharedMem>>>(
 		mCuPoints, mCuLandmarksHighDim, mCuLandmarksLowDim, reinterpret_cast<::TopkResult<float>*>(mCuTopkResult), mCuEmbedding,
 		mDim, mPointsCount, mLandmarksCount, mTopK,
 		adjust, boost, groupSize, gridCacheLeadingDim
