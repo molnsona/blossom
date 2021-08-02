@@ -431,8 +431,9 @@ __global__ void projectionAlignedShMemoryKernel(const F* __restrict__ points, co
 	extern __shared__ char sharedMemory[]; 
 	const std::uint32_t groupRank = threadIdx.x % groupSize;
 	const std::uint32_t groupIdx = threadIdx.x / groupSize;
-	const std::uint32_t groupsCount = blockDim.x / groupSize; 
-	auto sharedMemoryoff = reinterpret_cast<F*>(sharedMemory) + ((k + 1) * cacheLeadingDim + k * 2) * groupIdx; 
+	const std::uint32_t groupsCount = blockDim.x / groupSize;
+	const auto grid2dPadding = (k * 2) % cacheLeadingDim == 0 ? 0 : cacheLeadingDim - ((k * 2) % cacheLeadingDim);
+	auto sharedMemoryoff = reinterpret_cast<F*>(sharedMemory) + ((k + 1) * cacheLeadingDim + k * 2 + grid2dPadding) * groupIdx;
 	F* const __restrict__ pointCache = sharedMemoryoff;
 	F* const __restrict__ gridCache = sharedMemoryoff + cacheLeadingDim;
 	F* const __restrict__ grid2dCache = sharedMemoryoff + (k + 1) * cacheLeadingDim; 
@@ -523,9 +524,11 @@ void EsomCuda::runProjectionKernel(float boost, float adjust)
 	auto groupsPerBlock = blockSize / groupSize;
 	unsigned int blockCount = (mPointsCount + groupsPerBlock - 1) / groupsPerBlock;
 	auto warpCount = blockSize / 32; 
+	auto grid2dPadding = (mTopK * 2) % gridCacheLeadingDim == 0 ? 
+		0 : gridCacheLeadingDim - ((mTopK * 2) % gridCacheLeadingDim);
 	auto sharedMem = sizeof(float) * warpCount
 		+ sizeof(float) * (mTopK + 1) * gridCacheLeadingDim * groupsPerBlock
-		+ sizeof(float) * mTopK * 2 * groupsPerBlock; 
+		+ sizeof(float) * (mTopK * 2 + grid2dPadding) * groupsPerBlock;
 
 	projectionAlignedShMemoryKernel<float, RectangleIndexer><<<blockCount, blockSize, sharedMem>>>(
 		mCuPoints, mCuLandmarksHighDim, mCuLandmarksLowDim, reinterpret_cast<::TopkResult<float>*>(mCuTopkResult), mCuEmbedding,
