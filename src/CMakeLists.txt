@@ -60,6 +60,7 @@ target_link_libraries(blossom PRIVATE
 target_compile_definitions(blossom PRIVATE NO_CUDA)
 
 
+find_package(CUDA)
 # CUDA-accelerated target is compiled only if CUDA is available
 if (CMAKE_CUDA_COMPILER)
     add_executable(blossom_cuda
@@ -86,7 +87,9 @@ if (CMAKE_CUDA_COMPILER)
     else (MSVC)
         target_compile_options(blossom_cuda BEFORE PUBLIC $<$<COMPILE_LANGUAGE:CXX>:-Wall>)
     endif (MSVC)
-
+    
+    target_include_directories(blossom_cuda PUBLIC include "${CUDA_INCLUDE_DIRS}")
+    
     target_link_libraries(blossom_cuda PRIVATE
         Corrade::Main
         Magnum::Application
