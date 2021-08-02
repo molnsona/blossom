@@ -1,9 +1,7 @@
 #ifndef STATE_H
 #define STATE_H
 
-#include <Magnum/Magnum.h>
-
-#include <vector>
+//#define NO_CUDA
 
 #include "imgui_config.h"
 #include "pickable.hpp"
@@ -13,6 +11,12 @@
 #include "landmark_model.h"
 #include "mouse_data.h"
 #include "scatter_model.h"
+#include "embedsom_cuda.h"
+
+#include <Magnum/Magnum.h>
+
+#include <vector>
+
 
 using namespace Magnum;
 using namespace Math::Literals;
@@ -44,6 +48,9 @@ struct State
     ScatterModel scatter;
 
     GraphLayoutData layout_data;
+#ifndef NO_CUDA
+    EsomCuda esom_cuda;
+#endif;
 
     void update(float time);
 };
