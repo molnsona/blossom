@@ -77,7 +77,7 @@ UiImgui::UiImgui(const Platform::Application *app)
 }
 
 void
-UiImgui::draw_event(const View &view, State &state, Platform::Application *app)
+UiImgui::draw_event(const View &view, UiData &ui, Platform::Application *app)
 {
     context.newFrame();
 
@@ -89,11 +89,11 @@ UiImgui::draw_event(const View &view, State &state, Platform::Application *app)
 
     draw_add_window(view.fb_size);
     if (show_menu)
-        draw_menu_window(view.fb_size, state);
+        draw_menu_window(view.fb_size, ui);
     if (show_config)
-        draw_config_window(state);
+        draw_config_window(ui);
 
-    draw_open_file(state);
+    draw_open_file(ui);
 
     /* Update application cursor */
     context.updateApplicationCursor(*app);
@@ -197,7 +197,7 @@ UiImgui::draw_add_window(const Vector2i &window_size)
 }
 
 void
-UiImgui::draw_menu_window(const Vector2i &window_size, State &state)
+UiImgui::draw_menu_window(const Vector2i &window_size, UiData &ui)
 {
     ImGuiWindowFlags window_flags = ImGuiWindowFlags_NoTitleBar |
                                     ImGuiWindowFlags_NoResize |
@@ -233,7 +233,7 @@ UiImgui::draw_menu_window(const Vector2i &window_size, State &state)
         hover_info("dummy");
 
         if (ImGui::Button(ICON_FA_UNDO, ImVec2(50.75f, 50.75f))) {
-            state.reset = true;
+            ui.reset = true;
             show_menu = false;
         }
         hover_info("Reset");
@@ -247,7 +247,7 @@ UiImgui::draw_menu_window(const Vector2i &window_size, State &state)
 }
 
 void
-UiImgui::draw_config_window(State &state)
+UiImgui::draw_config_window(UiData &ui)
 {
     ImGuiWindowFlags window_flags = ImGuiWindowFlags_NoCollapse |
                                     ImGuiWindowFlags_NoResize |
@@ -260,13 +260,13 @@ UiImgui::draw_config_window(State &state)
 
     if (ImGui::Begin("##Config", &show_config, window_flags)) {
         ImGui::SetNextItemWidth(200.0f);
-        ImGui::SliderInt("Cell count", &state.cell_cnt, 0, 100000);
+        ImGui::SliderInt("Cell count", &ui.cell_cnt, 0, 100000);
 
         ImGui::SetNextItemWidth(200.0f);
-        ImGui::SliderInt("Mean", &state.mean, -2000, 2000);
+        ImGui::SliderInt("Mean", &ui.mean, -2000, 2000);
 
         ImGui::SetNextItemWidth(200.0f);
-        ImGui::SliderInt("Std deviation", &state.std_dev, 0, 1000);
+        ImGui::SliderInt("Std deviation", &ui.std_dev, 0, 1000);
 
         ImGui::End();
     }
@@ -277,7 +277,7 @@ UiImgui::draw_config_window(State &state)
 }
 
 void
-UiImgui::draw_open_file(State &state)
+UiImgui::draw_open_file(UiData &ui)
 {
     open_file.Display();
 
@@ -286,12 +286,12 @@ UiImgui::draw_open_file(State &state)
 
         std::string ext = std::filesystem::path(file_path).extension().string();
         if (ext == ".fcs")
-            state.parser = std::make_unique<FCSParser>();
+            ui.parser = std::make_unique<FCSParser>();
         else if (ext == ".tsv")
-            state.parser = std::make_unique<TSVParser>();
+            ui.parser = std::make_unique<TSVParser>();
 
-        state.parse = true;
-        state.file_path = file_path;
+        ui.parse = true;
+        ui.file_path = file_path;
 
         open_file.ClearSelected();
     }

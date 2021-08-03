@@ -9,19 +9,19 @@ std::size_t counter = 0;
 void
 State::update(float time)
 {
-    if (reset) {
+    if (ui.reset) {
         data = DataModel();
         landmarks = LandmarkModel();
         scatter = ScatterModel();
         layout_data = GraphLayoutData();
-        reset = false;
+        ui.reset = false;
     }
 
-    if (parse) {
-        parser->parse(file_path, 1000, data.data, data.d, data.n);
+    if (ui.parse) {
+        ui.parser->parse(ui.file_path, 1000, data.data, data.d, data.n);
 
         landmarks.update(data);
-        parse = false;
+        ui.parse = false;
     }
 
     graph_layout_step(layout_data,

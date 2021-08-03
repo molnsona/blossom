@@ -20,6 +20,7 @@
 #include "landmark_model.h"
 #include "mouse_data.h"
 #include "scatter_model.h"
+#include "ui_data.h"
 
 #include <Magnum/Magnum.h>
 
@@ -30,9 +31,6 @@ using namespace Math::Literals;
 
 struct State
 {
-    int cell_cnt{ 10000 };
-    int mean{ 0 };
-    int std_dev{ 300 };
 #if 0
     std::vector<unsigned char> pixels =
       std::vector<unsigned char>(BYTES_PER_PIXEL * PLOT_WIDTH * PLOT_HEIGHT,
@@ -50,11 +48,7 @@ struct State
 #endif
     MouseData mouse;
 
-    bool parse{ false };
-    std::string file_path;
-    std::unique_ptr<Parser> parser;
-
-    bool reset{ false };
+    UiData ui;
 
     DataModel data;
     LandmarkModel landmarks;

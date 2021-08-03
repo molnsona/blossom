@@ -10,7 +10,7 @@
 #include <string>
 
 #include "imfilebrowser.h"
-#include "state.h"
+#include "ui_data.h"
 #include "view.h"
 
 using namespace Magnum;
@@ -22,7 +22,7 @@ public:
     UiImgui() = delete;
     UiImgui(const Platform::Application *app);
 
-    void draw_event(const View &view, State &state, Platform::Application *app);
+    void draw_event(const View &view, UiData &ui, Platform::Application *app);
 
     void viewport_event(Platform::Application::ViewportEvent &event);
     bool key_press_event(Platform::Application::KeyEvent &event);
@@ -37,9 +37,9 @@ public:
 
 private:
     void draw_add_window(const Vector2i &window_size);
-    void draw_menu_window(const Vector2i &window_size, State &state);
-    void draw_config_window(State &state);
-    void draw_open_file(State &state);
+    void draw_menu_window(const Vector2i &window_size, UiData &ui);
+    void draw_config_window(UiData &ui);
+    void draw_open_file(UiData &ui);
     void hover_info(const std::string &text);
 
     ImGuiIntegration::Context context{ NoCreate };
