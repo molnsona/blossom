@@ -121,13 +121,12 @@ FCSParser::parse_data(std::ifstream &file_reader,
     if (diff < params_count * points_count * sizeof(float))
         points_count = diff / params_count / sizeof(float);
 
+#if 0
     std::vector<float> all_values(events_count);
 
     file_reader.seekg(data_begin_offset);
     file_reader.read(reinterpret_cast<char *>(all_values.data()),
                      events_count * sizeof(float));
-
-    out_data.resize(params_count * points_count);
 
     // pick randomly 1000 points
     std::default_random_engine gen;
@@ -141,6 +140,16 @@ FCSParser::parse_data(std::ifstream &file_reader,
             out_data[i * params_count + j] = all_values[ind * params_count + j];
         }
     }
+#endif
+
+    // vvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvv
+    // Pick first 1000 points from data set
+    // TODO: Later use all points.
+    out_data.resize(params_count * points_count);
+    file_reader.seekg(data_begin_offset);
+    file_reader.read(reinterpret_cast<char *>(out_data.data()),
+                     params_count * points_count * sizeof(float));
+    // ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
     if (!is_be)
         // little endian

@@ -14,17 +14,16 @@
 #endif
 
 #include "data_model.h"
+#include "embedsom_cuda.h"
 #include "fcs_parser.h"
 #include "graph_layout.h"
 #include "landmark_model.h"
 #include "mouse_data.h"
 #include "scatter_model.h"
-#include "embedsom_cuda.h"
 
 #include <Magnum/Magnum.h>
 
 #include <vector>
-
 
 using namespace Magnum;
 using namespace Math::Literals;

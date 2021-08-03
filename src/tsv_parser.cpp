@@ -31,14 +31,23 @@ TSVParser::parse(const std::string &fp,
 
     std::string line;
     std::vector<std::string> values;
-    std::vector<float> all_values;
+    std::size_t counter = 0;
     while (std::getline(file_reader, line)) {
+        // vvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvv
+        // Pick first 1000 points from data set
+        // TODO: Later use all points.
+        if (counter > points_count)
+            break;
+        // ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
         values = split(line, '\t');
         for (auto &&value : values) {
-            all_values.push_back(std::stof(value));
+            out_data.emplace_back(std::stof(value));
         }
+        ++counter;
     }
 
+#if 0
     // pick randomly 1000 points
     std::default_random_engine gen;
     std::uniform_int_distribution<size_t> dist(0, points_count);
@@ -52,9 +61,10 @@ TSVParser::parse(const std::string &fp,
               all_values[ind * values.size() + j];
         }
     }
+#endif
 
     dim = values.size();
-    n = points_count;
+    n = out_data.size() / dim;
 }
 
 std::vector<std::string>
