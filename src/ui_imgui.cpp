@@ -285,11 +285,15 @@ UiImgui::draw_open_file(UiData &ui)
         std::string file_path = open_file.GetSelected().string();
 
         std::string ext = std::filesystem::path(file_path).extension().string();
-        if (ext == ".fcs")
+        if (ext == ".fcs") {
             ui.parser = std::make_unique<FCSParser>();
-        else if (ext == ".tsv")
+            ui.is_tsv =
+              false; // TODO: Remove when landmarks are dynamically computed
+        } else if (ext == ".tsv") {
             ui.parser = std::make_unique<TSVParser>();
-
+            ui.is_tsv =
+              true; // TODO: Remove when landmarks are dynamically computed
+        }
         ui.parse = true;
         ui.file_path = file_path;
 

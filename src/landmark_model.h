@@ -14,7 +14,7 @@ struct LandmarkModel
 
     static constexpr size_t side() { return 7; }
 
-    void update(const DataModel &data);
+    void update(const DataModel &data, bool is_tsv);
 
     std::vector<float> hidim_vertices;
     size_t d;

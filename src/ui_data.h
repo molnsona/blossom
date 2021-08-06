@@ -11,6 +11,8 @@ struct UiData
     std::string file_path;
     std::unique_ptr<Parser> parser;
     bool reset{ false };
+
+    bool is_tsv = false; // TODO: Remove when landmarks are dynamically computed
 };
 
 #endif // #ifndef UI_DATA_H

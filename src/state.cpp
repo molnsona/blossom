@@ -20,7 +20,7 @@ State::update(float time)
     if (ui.parse) {
         ui.parser->parse(ui.file_path, 1000, data.data, data.d, data.n);
 
-        landmarks.update(data);
+        landmarks.update(data, ui.is_tsv);
         ui.parse = false;
     }
 
