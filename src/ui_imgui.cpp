@@ -90,8 +90,8 @@ UiImgui::draw_event(const View &view, UiData &ui, Platform::Application *app)
     draw_add_window(view.fb_size);
     if (show_menu)
         draw_menu_window(view.fb_size, ui);
-    if (show_config)
-        draw_config_window(ui);
+    if (show_scale)
+        draw_scale_window(ui);
 
     draw_open_file(ui);
 
@@ -226,11 +226,11 @@ UiImgui::draw_menu_window(const Vector2i &window_size, UiData &ui)
 
         ImGui::Separator();
 
-        if (ImGui::Button(ICON_FA_COGS, ImVec2(50.75f, 50.75f))) {
-            show_config = true;
+        if (ImGui::Button(ICON_FA_SLIDERS_H, ImVec2(50.75f, 50.75f))) {
+            show_scale = true;
             show_menu = false;
         }
-        hover_info("dummy");
+        hover_info("Scale data");
 
         if (ImGui::Button(ICON_FA_UNDO, ImVec2(50.75f, 50.75f))) {
             ui.reset = true;
@@ -247,7 +247,7 @@ UiImgui::draw_menu_window(const Vector2i &window_size, UiData &ui)
 }
 
 void
-UiImgui::draw_config_window(UiData &ui)
+UiImgui::draw_scale_window(UiData &ui)
 {
     ImGuiWindowFlags window_flags = ImGuiWindowFlags_NoCollapse |
                                     ImGuiWindowFlags_NoResize |
@@ -258,15 +258,13 @@ UiImgui::draw_config_window(UiData &ui)
     ImGui::PushStyleVar(ImGuiStyleVar_FrameRounding, 10.0f);
     // ImGui::PushStyleVar(ImGuiStyleVar_WindowPadding, ImVec2(0, 0));
 
-    if (ImGui::Begin("##Config", &show_config, window_flags)) {
-        ImGui::SetNextItemWidth(200.0f);
-        ImGui::SliderInt("Cell count", &ui.cell_cnt, 0, 100000);
-
-        ImGui::SetNextItemWidth(200.0f);
-        ImGui::SliderInt("Mean", &ui.mean, -2000, 2000);
-
-        ImGui::SetNextItemWidth(200.0f);
-        ImGui::SliderInt("Std deviation", &ui.std_dev, 0, 1000);
+    if (ImGui::Begin("##Scale", &show_scale, window_flags)) {
+        std::size_t i = 0;
+        for (auto &&name : ui.param_names) {    
+            ImGui::SetNextItemWidth(200.0f);                    
+            ImGui::SliderFloat(name.data(), &ui.scale[i], 0.0f, 5.0f, "%.3f", ImGuiSliderFlags_AlwaysClamp);
+            ++i;
+        }
 
         ImGui::End();
     }

@@ -14,11 +14,14 @@ State::update(float time)
         landmarks = LandmarkModel();
         scatter = ScatterModel();
         layout_data = GraphLayoutData();
-        ui.reset = false;
+        ui.reset_data();
     }
 
     if (ui.parse) {
-        ui.parser->parse(ui.file_path, 1000, data.data, data.d, data.n);
+        ui.parser->parse(ui.file_path, 1000, data.data, data.d, data.n, ui.param_names);
+    
+        ui.scale.clear();
+        ui.scale.resize(ui.param_names.size());
 
         landmarks.update(data, ui.is_tsv);
         ui.parse = false;

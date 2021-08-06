@@ -38,7 +38,7 @@ public:
 private:
     void draw_add_window(const Vector2i &window_size);
     void draw_menu_window(const Vector2i &window_size, UiData &ui);
-    void draw_config_window(UiData &ui);
+    void draw_scale_window(UiData &ui);
     void draw_open_file(UiData &ui);
     void hover_info(const std::string &text);
 
@@ -48,7 +48,7 @@ private:
     GL::Texture2D font_texture;
 
     bool show_menu{ false };
-    bool show_config{ false };
+    bool show_scale{ false };
 
     ImGui::FileBrowser open_file;
 };

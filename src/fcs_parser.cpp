@@ -15,7 +15,8 @@ FCSParser::parse(const std::string &fp,
                  size_t points_count,
                  std::vector<float> &out_data,
                  size_t &dim,
-                 size_t &n)
+                 size_t &n,
+                 std::vector<std::string>& param_names)
 {
     file_path = fp;
     file_name = std::filesystem::path(fp).filename().string();
@@ -37,6 +38,8 @@ FCSParser::parse(const std::string &fp,
     n = points_count;
     parse_data(file_reader, points_count, out_data);
     file_reader.close();
+
+    param_names = this->params_names;
 }
 
 void
