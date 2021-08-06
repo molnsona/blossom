@@ -5,6 +5,7 @@ set(SOURCES
     data_model.cpp
     embedsom.cpp
     embedsom_cuda.cpp
+    fcs_parser.cpp
     #graph.cpp
     graph_layout.cpp
     graph_renderer.cpp
@@ -13,6 +14,7 @@ set(SOURCES
     scatter_renderer.cpp
     #scene_mngr.cpp
     state.cpp
+    tsv_parser.cpp
     ui_imgui.cpp
     view.cpp
 )

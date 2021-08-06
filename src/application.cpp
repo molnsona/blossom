@@ -48,7 +48,7 @@ Application::drawEvent()
 
     scatter_renderer.draw(view, state.scatter);
     graph_renderer.draw(view, state.landmarks, vertex_size);
-    ui_imgui.draw_event(view, &state, this);
+    ui_imgui.draw_event(view, state.ui, this);
 
     swapBuffers();
     redraw();
@@ -103,6 +103,9 @@ Application::mousePressEvent(MouseEvent &event)
         event.setAccepted(true);
         return;
     }
+
+    // Close menu if it was opened and clicked somewhere else.
+    ui_imgui.close_menu();
 
     switch (event.button()) {
         case MouseEvent::Button::Middle:

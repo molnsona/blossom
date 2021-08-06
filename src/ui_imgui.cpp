@@ -3,10 +3,14 @@
 #include <Magnum/GL/Renderer.h>
 #include <Magnum/ImageView.h>
 
+#include <filesystem>
+
 // https://github.com/juliettef/IconFontCppHeaders
 #include <IconsFontAwesome5.h>
 
+#include "fcs_parser.h"
 #include "imgui_config.h"
+#include "tsv_parser.h"
 #include "ui_imgui.h"
 
 UiImgui::UiImgui(const Platform::Application *app)
@@ -18,7 +22,7 @@ UiImgui::UiImgui(const Platform::Application *app)
     io.Fonts->AddFontDefault();
     {
         // Regular size
-        _p_font = io.Fonts->AddFontFromFileTTF(
+        p_font = io.Fonts->AddFontFromFileTTF(
           BLOSSOM_DATA_DIR "/SourceSansPro-Regular.ttf", 16);
 
         int width, height;
@@ -32,14 +36,14 @@ UiImgui::UiImgui(const Platform::Application *app)
                            { pixels,
                              std::size_t(pixelSize * width * height) } };
 
-        _font_texture.setMagnificationFilter(GL::SamplerFilter::Linear)
+        font_texture.setMagnificationFilter(GL::SamplerFilter::Linear)
           .setMinificationFilter(GL::SamplerFilter::Linear)
           .setStorage(1, GL::TextureFormat::RGBA8, image.size())
           .setSubImage(0, {}, image);
 
-        io.Fonts->TexID = static_cast<void *>(&_font_texture);
+        io.Fonts->TexID = static_cast<void *>(&font_texture);
 
-        io.FontDefault = _p_font;
+        io.FontDefault = p_font;
     }
 
     ImFontConfig config;
@@ -48,10 +52,10 @@ UiImgui::UiImgui(const Platform::Application *app)
     io.Fonts->AddFontFromFileTTF(
       BLOSSOM_DATA_DIR "/fa-solid-900.ttf", 16.0f, &config, icon_ranges);
 
-    _context = ImGuiIntegration::Context(*ImGui::GetCurrentContext(),
-                                         Vector2{ app->windowSize() },
-                                         app->windowSize(),
-                                         app->framebufferSize());
+    context = ImGuiIntegration::Context(*ImGui::GetCurrentContext(),
+                                        Vector2{ app->windowSize() },
+                                        app->windowSize(),
+                                        app->framebufferSize());
 
     /* Setup proper blending to be used by ImGui */
     GL::Renderer::setBlendEquation(GL::Renderer::BlendEquation::Add,
@@ -67,14 +71,15 @@ UiImgui::UiImgui(const Platform::Application *app)
     // ImGui::PushStyleColor(ImGuiCol_Button, IM_COL32(148, 210, 189, 100));
     // ImGui::PushStyleColor(ImGuiCol_ButtonHovered, IM_COL32(0, 0, 0, 100));
     // ImGui::PushStyleColor(ImGuiCol_ButtonActive, IM_COL32(0, 0, 0, 100));
+
+    open_file.SetTitle("Open file");
+    open_file.SetTypeFilters({ ".fcs", ".tsv" });
 }
 
 void
-UiImgui::draw_event(const View &view,
-                    State *p_state,
-                    Platform::Application *app)
+UiImgui::draw_event(const View &view, UiData &ui, Platform::Application *app)
 {
-    _context.newFrame();
+    context.newFrame();
 
     /* Enable text input, if needed */
     if (ImGui::GetIO().WantTextInput && !app->isTextInputActive())
@@ -83,13 +88,15 @@ UiImgui::draw_event(const View &view,
         app->stopTextInput();
 
     draw_add_window(view.fb_size);
-    if (_show_tools)
-        draw_tools_window(view.fb_size, p_state);
-    if (_show_config)
-        draw_config_window(p_state);
+    if (show_menu)
+        draw_menu_window(view.fb_size, ui);
+    if (show_config)
+        draw_config_window(ui);
+
+    draw_open_file(ui);
 
     /* Update application cursor */
-    _context.updateApplicationCursor(*app);
+    context.updateApplicationCursor(*app);
 
     /* Set appropriate states. If you only draw ImGui, it is sufficient to
        just enable blending and scissor test in the constructor. */
@@ -101,7 +108,7 @@ UiImgui::draw_event(const View &view,
     GL::Renderer::disable(GL::Renderer::Feature::FaceCulling);
     GL::Renderer::disable(GL::Renderer::Feature::DepthTest);
 
-    _context.drawFrame();
+    context.drawFrame();
 
     /* Reset state. Only needed if you want to draw something else with
        different state after. */
@@ -113,51 +120,51 @@ UiImgui::draw_event(const View &view,
 void
 UiImgui::viewport_event(Platform::Application::ViewportEvent &event)
 {
-    _context.relayout(Vector2{ event.windowSize() },
-                      event.windowSize(),
-                      event.framebufferSize());
+    context.relayout(Vector2{ event.windowSize() },
+                     event.windowSize(),
+                     event.framebufferSize());
 }
 
 bool
 UiImgui::key_press_event(Platform::Application::KeyEvent &event)
 {
-    return _context.handleKeyPressEvent(event);
+    return context.handleKeyPressEvent(event);
 }
 
 bool
 UiImgui::key_release_event(Platform::Application::KeyEvent &event)
 {
-    return _context.handleKeyReleaseEvent(event);
+    return context.handleKeyReleaseEvent(event);
 }
 
 bool
 UiImgui::mouse_press_event(Platform::Application::MouseEvent &event)
 {
-    return _context.handleMousePressEvent(event);
+    return context.handleMousePressEvent(event);
 }
 
 bool
 UiImgui::mouse_release_event(Platform::Application::MouseEvent &event)
 {
-    return _context.handleMouseReleaseEvent(event);
+    return context.handleMouseReleaseEvent(event);
 }
 
 bool
 UiImgui::mouse_move_event(Platform::Application::MouseMoveEvent &event)
 {
-    return _context.handleMouseMoveEvent(event);
+    return context.handleMouseMoveEvent(event);
 }
 
 bool
 UiImgui::mouse_scroll_event(Platform::Application::MouseScrollEvent &event)
 {
-    return _context.handleMouseScrollEvent(event);
+    return context.handleMouseScrollEvent(event);
 }
 
 bool
 UiImgui::text_input_event(Platform::Application::TextInputEvent &event)
 {
-    return _context.handleTextInputEvent(event);
+    return context.handleTextInputEvent(event);
 }
 
 void
@@ -178,7 +185,7 @@ UiImgui::draw_add_window(const Vector2i &window_size)
         ImGui::SetWindowSize(ImVec2(WINDOW_WIDTH, WINDOW_WIDTH));
 
         if (ImGui::Button(ICON_FA_PLUS, ImVec2(50.75f, 50.75f))) {
-            _show_tools = _show_tools ? false : true;
+            show_menu = show_menu ? false : true;
         }
 
         ImGui::End();
@@ -190,7 +197,7 @@ UiImgui::draw_add_window(const Vector2i &window_size)
 }
 
 void
-UiImgui::draw_tools_window(const Vector2i &window_size, State *p_state)
+UiImgui::draw_menu_window(const Vector2i &window_size, UiData &ui)
 {
     ImGuiWindowFlags window_flags = ImGuiWindowFlags_NoTitleBar |
                                     ImGuiWindowFlags_NoResize |
@@ -200,26 +207,36 @@ UiImgui::draw_tools_window(const Vector2i &window_size, State *p_state)
     ImGui::PushStyleVar(ImGuiStyleVar_FrameRounding, 10.0f);
     ImGui::PushStyleVar(ImGuiStyleVar_WindowPadding, ImVec2(0, 0));
 
-    if (ImGui::Begin("Tools", &_show_tools, window_flags)) {
+    if (ImGui::Begin("Tools", &show_menu, window_flags)) {
         ImGui::SetWindowPos(
           ImVec2(window_size.x() - WINDOW_PADDING,
                  window_size.y() - WINDOW_PADDING - TOOLS_HEIGHT));
         ImGui::SetWindowSize(ImVec2(WINDOW_WIDTH, TOOLS_HEIGHT));
 
         if (ImGui::Button(ICON_FA_FOLDER_OPEN, ImVec2(50.75f, 50.75f))) {
+            open_file.Open();
+            show_menu = false;
         }
+        hover_info("Open file");
 
         if (ImGui::Button(ICON_FA_SAVE, ImVec2(50.75f, 50.75f))) {
+            show_menu = false;
         }
+        hover_info("Save");
 
         ImGui::Separator();
 
         if (ImGui::Button(ICON_FA_COGS, ImVec2(50.75f, 50.75f))) {
-            _show_config = true;
+            show_config = true;
+            show_menu = false;
         }
-        if (ImGui::Button(ICON_FA_TIMES, ImVec2(50.75f, 50.75f))) {
-            _show_tools = false;
+        hover_info("dummy");
+
+        if (ImGui::Button(ICON_FA_UNDO, ImVec2(50.75f, 50.75f))) {
+            ui.reset = true;
+            show_menu = false;
         }
+        hover_info("Reset");
 
         ImGui::End();
     }
@@ -230,7 +247,7 @@ UiImgui::draw_tools_window(const Vector2i &window_size, State *p_state)
 }
 
 void
-UiImgui::draw_config_window(State *p_state)
+UiImgui::draw_config_window(UiData &ui)
 {
     ImGuiWindowFlags window_flags = ImGuiWindowFlags_NoCollapse |
                                     ImGuiWindowFlags_NoResize |
@@ -241,15 +258,15 @@ UiImgui::draw_config_window(State *p_state)
     ImGui::PushStyleVar(ImGuiStyleVar_FrameRounding, 10.0f);
     // ImGui::PushStyleVar(ImGuiStyleVar_WindowPadding, ImVec2(0, 0));
 
-    if (ImGui::Begin("##Config", &_show_config, window_flags)) {
+    if (ImGui::Begin("##Config", &show_config, window_flags)) {
         ImGui::SetNextItemWidth(200.0f);
-        ImGui::SliderInt("Cell count", &p_state->cell_cnt, 0, 100000);
+        ImGui::SliderInt("Cell count", &ui.cell_cnt, 0, 100000);
 
         ImGui::SetNextItemWidth(200.0f);
-        ImGui::SliderInt("Mean", &p_state->mean, -2000, 2000);
+        ImGui::SliderInt("Mean", &ui.mean, -2000, 2000);
 
         ImGui::SetNextItemWidth(200.0f);
-        ImGui::SliderInt("Std deviation", &p_state->std_dev, 0, 1000);
+        ImGui::SliderInt("Std deviation", &ui.std_dev, 0, 1000);
 
         ImGui::End();
     }
@@ -257,4 +274,42 @@ UiImgui::draw_config_window(State *p_state)
     ImGui::PopStyleVar();
     ImGui::PopStyleVar();
     //  ImGui::PopStyleVar();
+}
+
+void
+UiImgui::draw_open_file(UiData &ui)
+{
+    open_file.Display();
+
+    if (open_file.HasSelected()) {
+        std::string file_path = open_file.GetSelected().string();
+
+        std::string ext = std::filesystem::path(file_path).extension().string();
+        if (ext == ".fcs") {
+            ui.parser = std::make_unique<FCSParser>();
+            ui.is_tsv =
+              false; // TODO: Remove when landmarks are dynamically computed
+        } else if (ext == ".tsv") {
+            ui.parser = std::make_unique<TSVParser>();
+            ui.is_tsv =
+              true; // TODO: Remove when landmarks are dynamically computed
+        }
+        ui.parse = true;
+        ui.file_path = file_path;
+
+        open_file.ClearSelected();
+    }
+}
+
+void
+UiImgui::hover_info(const std::string &text)
+{
+    ImGui::PushStyleVar(ImGuiStyleVar_WindowRounding, 5.0f);
+    ImGui::PushStyleVar(ImGuiStyleVar_WindowPadding, ImVec2(2, 2));
+    ImGui::PushStyleVar(ImGuiStyleVar_Alpha, 0.8f);
+    if (ImGui::IsItemHovered())
+        ImGui::SetTooltip(text.data());
+    ImGui::PopStyleVar();
+    ImGui::PopStyleVar();
+    ImGui::PopStyleVar();
 }

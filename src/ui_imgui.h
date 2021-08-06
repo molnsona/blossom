@@ -7,7 +7,10 @@
 #include <Magnum/Math/Color.h>
 #include <Magnum/Platform/Sdl2Application.h>
 
-#include "state.h"
+#include <string>
+
+#include "imfilebrowser.h"
+#include "ui_data.h"
 #include "view.h"
 
 using namespace Magnum;
@@ -19,7 +22,7 @@ public:
     UiImgui() = delete;
     UiImgui(const Platform::Application *app);
 
-    void draw_event(const View &view, State *state, Platform::Application *app);
+    void draw_event(const View &view, UiData &ui, Platform::Application *app);
 
     void viewport_event(Platform::Application::ViewportEvent &event);
     bool key_press_event(Platform::Application::KeyEvent &event);
@@ -30,18 +33,24 @@ public:
     bool mouse_scroll_event(Platform::Application::MouseScrollEvent &event);
     bool text_input_event(Platform::Application::TextInputEvent &event);
 
+    void close_menu() { show_menu = false; }
+
 private:
     void draw_add_window(const Vector2i &window_size);
-    void draw_tools_window(const Vector2i &window_size, State *p_state);
-    void draw_config_window(State *p_state);
+    void draw_menu_window(const Vector2i &window_size, UiData &ui);
+    void draw_config_window(UiData &ui);
+    void draw_open_file(UiData &ui);
+    void hover_info(const std::string &text);
 
-    ImGuiIntegration::Context _context{ NoCreate };
+    ImGuiIntegration::Context context{ NoCreate };
 
-    ImFont *_p_font;
-    GL::Texture2D _font_texture;
+    ImFont *p_font;
+    GL::Texture2D font_texture;
 
-    bool _show_tools = false;
-    bool _show_config = false;
+    bool show_menu{ false };
+    bool show_config{ false };
+
+    ImGui::FileBrowser open_file;
 };
 
 #endif // #ifndef UI_IMGUI_H

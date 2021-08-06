@@ -2,30 +2,35 @@
 #define STATE_H
 
 //#define NO_CUDA
+#include <Magnum/Magnum.h>
 
+#include <memory>
+#include <string>
+#include <vector>
+
+#if 0
 #include "imgui_config.h"
 #include "pickable.hpp"
+#endif
 
 #include "data_model.h"
+#include "embedsom_cuda.h"
+#include "fcs_parser.h"
 #include "graph_layout.h"
 #include "landmark_model.h"
 #include "mouse_data.h"
 #include "scatter_model.h"
-#include "embedsom_cuda.h"
+#include "ui_data.h"
 
 #include <Magnum/Magnum.h>
 
 #include <vector>
-
 
 using namespace Magnum;
 using namespace Math::Literals;
 
 struct State
 {
-    int cell_cnt{ 10000 };
-    int mean{ 0 };
-    int std_dev{ 300 };
 #if 0
     std::vector<unsigned char> pixels =
       std::vector<unsigned char>(BYTES_PER_PIXEL * PLOT_WIDTH * PLOT_HEIGHT,
@@ -42,6 +47,8 @@ struct State
     int expected_len = 100;
 #endif
     MouseData mouse;
+
+    UiData ui;
 
     DataModel data;
     LandmarkModel landmarks;

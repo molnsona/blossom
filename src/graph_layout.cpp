@@ -11,6 +11,7 @@ graph_layout_step(GraphLayoutData &data,
                   const std::vector<float> &edge_lengths,
                   float time)
 {
+    // if(time > 0.05) time = 0.05;
     // check if data is m'kay
     if (data.velocities.size() != vertices.size())
         data.velocities.resize(vertices.size(), Magnum::Vector2(0, 0));
