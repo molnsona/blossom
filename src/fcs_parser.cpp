@@ -16,7 +16,7 @@ FCSParser::parse(const std::string &fp,
                  std::vector<float> &out_data,
                  size_t &dim,
                  size_t &n,
-                 std::vector<std::string>& param_names)
+                 std::vector<std::string> &param_names)
 {
     file_path = fp;
     file_name = std::filesystem::path(fp).filename().string();

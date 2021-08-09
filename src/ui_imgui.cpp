@@ -258,11 +258,21 @@ UiImgui::draw_scale_window(UiData &ui)
     ImGui::PushStyleVar(ImGuiStyleVar_FrameRounding, 10.0f);
     // ImGui::PushStyleVar(ImGuiStyleVar_WindowPadding, ImVec2(0, 0));
 
-    if (ImGui::Begin("##Scale", &show_scale, window_flags)) {
+    if (ImGui::Begin("Scale", &show_scale, window_flags)) {
+
+        // ImGui::Text("Scale:");
+        ui.data_changed |= ImGui::Checkbox("Mean (=0)", &ui.scale_mean);
+        ui.data_changed |= ImGui::Checkbox("Variance (=1)", &ui.scale_var);
+
         std::size_t i = 0;
-        for (auto &&name : ui.param_names) {    
-            ImGui::SetNextItemWidth(200.0f);                    
-            ImGui::SliderFloat(name.data(), &ui.scale[i], 0.0f, 5.0f, "%.3f", ImGuiSliderFlags_AlwaysClamp);
+        for (auto &&name : ui.param_names) {
+            ImGui::SetNextItemWidth(200.0f);
+            ui.data_changed |= ImGui::SliderFloat(name.data(),
+                                                  &ui.scale[i],
+                                                  0.0f,
+                                                  5.0f,
+                                                  "%.3f",
+                                                  ImGuiSliderFlags_AlwaysClamp);
             ++i;
         }
 
@@ -284,10 +294,12 @@ UiImgui::draw_open_file(UiData &ui)
 
         std::string ext = std::filesystem::path(file_path).extension().string();
         if (ext == ".fcs") {
+            ui.reset_data();
             ui.parser = std::make_unique<FCSParser>();
             ui.is_tsv =
               false; // TODO: Remove when landmarks are dynamically computed
         } else if (ext == ".tsv") {
+            ui.reset_data();
             ui.parser = std::make_unique<TSVParser>();
             ui.is_tsv =
               true; // TODO: Remove when landmarks are dynamically computed

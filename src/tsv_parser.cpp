@@ -69,11 +69,9 @@ TSVParser::parse(const std::string &fp,
 
     param_names.resize(dim);
     // TODO: add normal column names later
-    for (size_t i = 0; i < dim; ++i)
-    {
+    for (size_t i = 0; i < dim; ++i) {
         param_names[i] = std::to_string(i + 1);
     }
-    
 }
 
 std::vector<std::string>

@@ -6,6 +6,10 @@
 
 std::size_t counter = 0;
 
+State::State()
+  : trans(data.data)
+{}
+
 void
 State::update(float time)
 {
@@ -18,12 +22,14 @@ State::update(float time)
     }
 
     if (ui.parse) {
-        ui.parser->parse(ui.file_path, 1000, data.data, data.d, data.n, ui.param_names);
-    
+        ui.parser->parse(
+          ui.file_path, 1000, data.data, data.d, data.n, ui.param_names);
+
         ui.scale.clear();
         ui.scale.resize(ui.param_names.size());
 
         landmarks.update(data, ui.is_tsv);
+        trans.update(data.data);
         ui.parse = false;
     }
 
