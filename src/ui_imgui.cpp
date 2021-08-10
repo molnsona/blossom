@@ -269,13 +269,13 @@ UiImgui::draw_scale_window(UiTransData &ui)
         std::size_t i = 0;
         for (auto &&name : ui.param_names) {
             ImGui::SetNextItemWidth(200.0f);
-            bool tmp = ui.sliders[i]; 
+            bool tmp = ui.sliders[i];
             tmp |= ImGui::SliderFloat(name.data(),
-                                                &ui.scale[i],
-                                                0.0f,
-                                                5.0f,
-                                                "%.3f",
-                                                ImGuiSliderFlags_AlwaysClamp);
+                                      &ui.scale[i],
+                                      0.0f,
+                                      5.0f,
+                                      "%.3f",
+                                      ImGuiSliderFlags_AlwaysClamp);
             ui.sliders[i] = tmp;
             ui.sliders_changed |= tmp;
             ui.data_changed |= ui.sliders_changed;

@@ -27,9 +27,9 @@ struct UiTransData
         sliders.clear();
     }
 
-    void reset_flags() {
-        scale_mean = scale_var = data_changed = mean_changed = var_changed =
-          sliders_changed = false;
+    void reset_flags()
+    {
+        data_changed = mean_changed = var_changed = sliders_changed = false;
         std::fill(sliders.begin(), sliders.end(), false);
     }
 };

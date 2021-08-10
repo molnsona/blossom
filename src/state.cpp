@@ -23,8 +23,12 @@ State::update(float time)
     }
 
     if (ui.parser_data.parse) {
-        ui.parser_data.parser->parse(
-          ui.parser_data.file_path, 1000, data.data, data.d, data.n, ui.trans_data.param_names);
+        ui.parser_data.parser->parse(ui.parser_data.file_path,
+                                     1000,
+                                     data.data,
+                                     data.d,
+                                     data.n,
+                                     ui.trans_data.param_names);
 
         ui.trans_data.scale.clear();
         ui.trans_data.scale.resize(ui.trans_data.param_names.size());

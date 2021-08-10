@@ -21,8 +21,8 @@ TransData::update(UiTransData &ui)
         ui.reset_flags();
 
         trans_thread = std::thread(&TransData::fn_wrapper, // method
-                                      this,                   // instance
-                                      std::cref(cpy_ui)       // parameter
+                                   this,                   // instance
+                                   std::cref(cpy_ui)       // parameter
         );
     }
 }
