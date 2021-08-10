@@ -15,23 +15,29 @@ State::update(float time)
 {
     if (ui.reset) {
         data = DataModel();
+        trans.set_data(data.data);
         landmarks = LandmarkModel();
         scatter = ScatterModel();
         layout_data = GraphLayoutData();
         ui.reset_data();
     }
 
-    if (ui.parse) {
-        ui.parser->parse(
-          ui.file_path, 1000, data.data, data.d, data.n, ui.param_names);
+    if (ui.parser_data.parse) {
+        ui.parser_data.parser->parse(
+          ui.parser_data.file_path, 1000, data.data, data.d, data.n, ui.trans_data.param_names);
 
-        ui.scale.clear();
-        ui.scale.resize(ui.param_names.size());
+        ui.trans_data.scale.clear();
+        ui.trans_data.scale.resize(ui.trans_data.param_names.size());
 
-        landmarks.update(data, ui.is_tsv);
-        trans.update(data.data);
-        ui.parse = false;
+        ui.trans_data.sliders.clear();
+        ui.trans_data.sliders.resize(ui.trans_data.param_names.size());
+
+        landmarks.update(data, ui.parser_data.is_tsv);
+        trans.set_data(data.data);
+        ui.parser_data.parse = false;
     }
+
+    trans.update(ui.trans_data);
 
     graph_layout_step(layout_data,
                       mouse,

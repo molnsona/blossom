@@ -58,6 +58,7 @@ target_link_libraries(blossom PRIVATE
     Magnum::Shaders
     Magnum::Trade
     MagnumIntegration::ImGui
+    Threads::Threads
 )
 
 target_compile_definitions(blossom PRIVATE NO_CUDA)

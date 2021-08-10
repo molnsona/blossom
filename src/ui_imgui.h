@@ -11,6 +11,8 @@
 
 #include "imfilebrowser.h"
 #include "ui_data.h"
+#include "ui_parser_data.h"
+#include "ui_trans_data.h"
 #include "view.h"
 
 using namespace Magnum;
@@ -38,8 +40,8 @@ public:
 private:
     void draw_add_window(const Vector2i &window_size);
     void draw_menu_window(const Vector2i &window_size, UiData &ui);
-    void draw_scale_window(UiData &ui);
-    void draw_open_file(UiData &ui);
+    void draw_scale_window(UiTransData &ui);
+    void draw_open_file(UiParserData &ui);
     void hover_info(const std::string &text);
 
     ImGuiIntegration::Context context{ NoCreate };

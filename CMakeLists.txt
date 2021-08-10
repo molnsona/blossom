@@ -41,6 +41,10 @@ find_package(MagnumIntegration REQUIRED ImGui)
 add_subdirectory(data)
 add_compile_definitions(BLOSSOM_DATA_DIR="${BLOSSOM_DATA_DIR}")
 
+# using threads
+set(THREADS_PREFER_PTHREAD_FLAG ON)
+find_package(Threads REQUIRED)
+
 # program sources
 add_subdirectory(src)
 
