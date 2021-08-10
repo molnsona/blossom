@@ -4,6 +4,7 @@
 #include <Magnum/ImageView.h>
 
 #include <filesystem>
+#include <iostream> // TODO: remove
 
 // https://github.com/juliettef/IconFontCppHeaders
 #include <IconsFontAwesome5.h>
@@ -272,8 +273,8 @@ UiImgui::draw_scale_window(UiTransData &ui)
             bool tmp = ui.sliders[i];
             tmp |= ImGui::SliderFloat(name.data(),
                                       &ui.scale[i],
-                                      0.0f,
-                                      5.0f,
+                                      1.0f,
+                                      10.0f,
                                       "%.3f",
                                       ImGuiSliderFlags_AlwaysClamp);
             ui.sliders[i] = tmp;
