@@ -1,18 +1,22 @@
 #ifndef UI_DATA_H
 #define UI_DATA_H
 
+#include "ui_parser_data.h"
+#include "ui_trans_data.h"
+
 struct UiData
 {
-    int cell_cnt{ 10000 };
-    int mean{ 0 };
-    int std_dev{ 300 };
+    UiTransData trans_data;
+    UiParserData parser_data;
 
-    bool parse{ false };
-    std::string file_path;
-    std::unique_ptr<Parser> parser;
     bool reset{ false };
 
-    bool is_tsv = false; // TODO: Remove when landmarks are dynamically computed
+    void reset_data()
+    {
+        trans_data.reset_data();
+        parser_data.reset_data();
+        reset = false;
+    }
 };
 
 #endif // #ifndef UI_DATA_H

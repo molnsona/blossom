@@ -14,6 +14,7 @@ set(SOURCES
     scatter_renderer.cpp
     #scene_mngr.cpp
     state.cpp
+    trans_data.cpp
     tsv_parser.cpp
     ui_imgui.cpp
     view.cpp
@@ -57,6 +58,7 @@ target_link_libraries(blossom PRIVATE
     Magnum::Shaders
     Magnum::Trade
     MagnumIntegration::ImGui
+    Threads::Threads
 )
 
 target_compile_definitions(blossom PRIVATE NO_CUDA)

@@ -15,11 +15,11 @@
 
 #include "data_model.h"
 #include "embedsom_cuda.h"
-#include "fcs_parser.h"
 #include "graph_layout.h"
 #include "landmark_model.h"
 #include "mouse_data.h"
 #include "scatter_model.h"
+#include "trans_data.h"
 #include "ui_data.h"
 
 #include <Magnum/Magnum.h>
@@ -51,6 +51,7 @@ struct State
     UiData ui;
 
     DataModel data;
+    TransData trans;
     LandmarkModel landmarks;
     ScatterModel scatter;
 
@@ -58,6 +59,8 @@ struct State
 #ifndef NO_CUDA
     EsomCuda esom_cuda;
 #endif;
+
+    State();
 
     void update(float time);
 };

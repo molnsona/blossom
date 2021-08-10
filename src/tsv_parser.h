@@ -13,7 +13,8 @@ public:
                size_t points_count,
                std::vector<float> &out_data,
                size_t &dim,
-               size_t &n);
+               size_t &n,
+               std::vector<std::string> &param_names);
 
 private:
     std::vector<std::string> split(const std::string &str, char delim);

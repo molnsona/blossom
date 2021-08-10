@@ -38,9 +38,9 @@ LandmarkModel::LandmarkModel()
 }
 
 void
-LandmarkModel::update(const DataModel &data, bool is_tsv)
+LandmarkModel::update(const std::vector<float> &data, size_t dim, bool is_tsv)
 {
-    d = data.d;
+    d = dim;
     auto n = side();
 
     hidim_vertices.resize(n * n * d);

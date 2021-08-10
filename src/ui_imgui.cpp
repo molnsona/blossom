@@ -4,6 +4,7 @@
 #include <Magnum/ImageView.h>
 
 #include <filesystem>
+#include <iostream> // TODO: remove
 
 // https://github.com/juliettef/IconFontCppHeaders
 #include <IconsFontAwesome5.h>
@@ -90,10 +91,10 @@ UiImgui::draw_event(const View &view, UiData &ui, Platform::Application *app)
     draw_add_window(view.fb_size);
     if (show_menu)
         draw_menu_window(view.fb_size, ui);
-    if (show_config)
-        draw_config_window(ui);
+    if (show_scale)
+        draw_scale_window(ui.trans_data);
 
-    draw_open_file(ui);
+    draw_open_file(ui.parser_data);
 
     /* Update application cursor */
     context.updateApplicationCursor(*app);
@@ -226,11 +227,11 @@ UiImgui::draw_menu_window(const Vector2i &window_size, UiData &ui)
 
         ImGui::Separator();
 
-        if (ImGui::Button(ICON_FA_COGS, ImVec2(50.75f, 50.75f))) {
-            show_config = true;
+        if (ImGui::Button(ICON_FA_SLIDERS_H, ImVec2(50.75f, 50.75f))) {
+            show_scale = true;
             show_menu = false;
         }
-        hover_info("dummy");
+        hover_info("Scale data");
 
         if (ImGui::Button(ICON_FA_UNDO, ImVec2(50.75f, 50.75f))) {
             ui.reset = true;
@@ -247,7 +248,7 @@ UiImgui::draw_menu_window(const Vector2i &window_size, UiData &ui)
 }
 
 void
-UiImgui::draw_config_window(UiData &ui)
+UiImgui::draw_scale_window(UiTransData &ui)
 {
     ImGuiWindowFlags window_flags = ImGuiWindowFlags_NoCollapse |
                                     ImGuiWindowFlags_NoResize |
@@ -258,15 +259,29 @@ UiImgui::draw_config_window(UiData &ui)
     ImGui::PushStyleVar(ImGuiStyleVar_FrameRounding, 10.0f);
     // ImGui::PushStyleVar(ImGuiStyleVar_WindowPadding, ImVec2(0, 0));
 
-    if (ImGui::Begin("##Config", &show_config, window_flags)) {
-        ImGui::SetNextItemWidth(200.0f);
-        ImGui::SliderInt("Cell count", &ui.cell_cnt, 0, 100000);
+    if (ImGui::Begin("Scale", &show_scale, window_flags)) {
 
-        ImGui::SetNextItemWidth(200.0f);
-        ImGui::SliderInt("Mean", &ui.mean, -2000, 2000);
+        // ImGui::Text("Scale:");
+        ui.mean_changed |= ImGui::Checkbox("Mean (=0)", &ui.scale_mean);
+        ui.var_changed |= ImGui::Checkbox("Variance (=1)", &ui.scale_var);
+        ui.data_changed |= ui.mean_changed;
+        ui.data_changed |= ui.var_changed;
 
-        ImGui::SetNextItemWidth(200.0f);
-        ImGui::SliderInt("Std deviation", &ui.std_dev, 0, 1000);
+        std::size_t i = 0;
+        for (auto &&name : ui.param_names) {
+            ImGui::SetNextItemWidth(200.0f);
+            bool tmp = ui.sliders[i];
+            tmp |= ImGui::SliderFloat(name.data(),
+                                      &ui.scale[i],
+                                      1.0f,
+                                      10.0f,
+                                      "%.3f",
+                                      ImGuiSliderFlags_AlwaysClamp);
+            ui.sliders[i] = tmp;
+            ui.sliders_changed |= tmp;
+            ui.data_changed |= ui.sliders_changed;
+            ++i;
+        }
 
         ImGui::End();
     }
@@ -277,7 +292,7 @@ UiImgui::draw_config_window(UiData &ui)
 }
 
 void
-UiImgui::draw_open_file(UiData &ui)
+UiImgui::draw_open_file(UiParserData &ui)
 {
     open_file.Display();
 
@@ -286,10 +301,12 @@ UiImgui::draw_open_file(UiData &ui)
 
         std::string ext = std::filesystem::path(file_path).extension().string();
         if (ext == ".fcs") {
+            ui.reset_data();
             ui.parser = std::make_unique<FCSParser>();
             ui.is_tsv =
               false; // TODO: Remove when landmarks are dynamically computed
         } else if (ext == ".tsv") {
+            ui.reset_data();
             ui.parser = std::make_unique<TSVParser>();
             ui.is_tsv =
               true; // TODO: Remove when landmarks are dynamically computed

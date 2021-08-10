@@ -10,7 +10,8 @@ TSVParser::parse(const std::string &fp,
                  size_t points_count,
                  std::vector<float> &out_data,
                  size_t &dim,
-                 size_t &n)
+                 size_t &n,
+                 std::vector<std::string> &param_names)
 {
     std::string file_path = fp;
     std::string file_name = std::filesystem::path(fp).filename().string();
@@ -65,6 +66,12 @@ TSVParser::parse(const std::string &fp,
 
     dim = values.size();
     n = out_data.size() / dim;
+
+    param_names.resize(dim);
+    // TODO: add normal column names later
+    for (size_t i = 0; i < dim; ++i) {
+        param_names[i] = std::to_string(i + 1);
+    }
 }
 
 std::vector<std::string>

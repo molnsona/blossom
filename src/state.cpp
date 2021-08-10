@@ -6,23 +6,43 @@
 
 std::size_t counter = 0;
 
+State::State()
+  : trans(data.data, data.d, data.n)
+{}
+
 void
 State::update(float time)
 {
     if (ui.reset) {
         data = DataModel();
+        trans.set_data(data.data, data.d, data.n);
         landmarks = LandmarkModel();
         scatter = ScatterModel();
         layout_data = GraphLayoutData();
-        ui.reset = false;
+        ui.reset_data();
     }
 
-    if (ui.parse) {
-        ui.parser->parse(ui.file_path, 1000, data.data, data.d, data.n);
+    if (ui.parser_data.parse) {
+        ui.parser_data.parser->parse(ui.parser_data.file_path,
+                                     1000,
+                                     data.data,
+                                     data.d,
+                                     data.n,
+                                     ui.trans_data.param_names);
 
-        landmarks.update(data, ui.is_tsv);
-        ui.parse = false;
+        ui.trans_data.scale.clear();
+        ui.trans_data.scale.resize(ui.trans_data.param_names.size());
+
+        ui.trans_data.sliders.clear();
+        ui.trans_data.sliders.resize(ui.trans_data.param_names.size());
+
+        trans.set_data(data.data, data.d, data.n);
+
+        landmarks.update(trans.get_data(), trans.d, ui.parser_data.is_tsv);
+        ui.parser_data.parse = false;
     }
+
+    trans.update(ui.trans_data, data);
 
     graph_layout_step(layout_data,
                       mouse,
@@ -31,9 +51,9 @@ State::update(float time)
                       landmarks.edge_lengths,
                       time);
 
-    if (scatter.points.size() != data.n) {
+    if (scatter.points.size() != trans.n) {
         scatter.points.clear();
-        scatter.points.resize(data.n);
+        scatter.points.resize(trans.n);
     }
 
 #ifdef NO_CUDA
@@ -52,9 +72,9 @@ State::update(float time)
 #else
     // these methods should be called only once in the initialization and then
     // only when the data/paramters change
-    esom_cuda.setDim(data.d);
+    esom_cuda.setDim(trans.d);
     esom_cuda.setK(10);
-    esom_cuda.setPoints(data.n, data.data.data());
+    esom_cuda.setPoints(trans.n, trans.get_data().data());
     esom_cuda.setLandmarks(landmarks.lodim_vertices.size(),
                            landmarks.hidim_vertices.data(),
                            landmarks.lodim_vertices[0].data());
