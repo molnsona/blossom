@@ -9,14 +9,18 @@ struct UiTransData
     // Scale factor of each parameter.
     std::vector<float> scale;
     std::vector<std::string> param_names;
-    bool scale_mean{ false };
-    bool scale_var{ false };
-    bool data_changed{ false };
-    bool mean_changed{ false };
-    bool var_changed{ false };
-    bool sliders_changed{ false };
+    bool scale_mean;
+    bool scale_var;
+    bool data_changed;
+    bool mean_changed;
+    bool var_changed;
+    bool sliders_changed;
     // Which slider has changed.
     std::vector<bool> sliders;
+
+    UiTransData() { init(); }
+
+    void init() { reset_data(); }
 
     void reset_data()
     {

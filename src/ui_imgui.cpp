@@ -10,6 +10,8 @@
 #include "ui_imgui.h"
 
 UiImgui::UiImgui(const Platform::Application *app)
+  : show_menu(false)
+  , show_scale(false)
 {
     ImGui::CreateContext();
     ImGui::StyleColorsLight();

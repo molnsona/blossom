@@ -11,6 +11,10 @@ struct UiData
 
     bool reset{ false };
 
+    UiData()
+      : reset(false)
+    {}
+
     void reset_data()
     {
         trans_data.reset_data();
