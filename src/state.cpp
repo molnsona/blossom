@@ -1,8 +1,18 @@
 
-#include "state.h"
-#include "embedsom.h"
-
+#include <filesystem>
 #include <iostream>
+
+#include "embedsom.h"
+#include "fcs_parser.h"
+#include "state.h"
+#include "tsv_parser.h"
+
+using Parser = void (*)(const std::string &file_path,
+                        size_t points_count,
+                        std::vector<float> &out_data,
+                        size_t &dim,
+                        size_t &n,
+                        std::vector<std::string> &param_names);
 
 std::size_t counter = 0;
 
@@ -23,12 +33,28 @@ State::update(float time)
     }
 
     if (ui.parser_data.parse) {
-        ui.parser_data.parser->parse(ui.parser_data.file_path,
-                                     1000,
-                                     data.data,
-                                     data.d,
-                                     data.n,
-                                     ui.trans_data.param_names);
+        std::string ext =
+          std::filesystem::path(ui.parser_data.file_path).extension().string();
+        Parser parse;
+
+        if (ext == ".fcs") {
+            ui.parser_data.reset_data();
+            parse = FCSParser::parse;
+            ui.parser_data.is_tsv =
+              false; // TODO: Remove when landmarks are dynamically computed
+        } else if (ext == ".tsv") {
+            ui.parser_data.reset_data();
+            parse = TSVParser::parse;
+            ui.parser_data.is_tsv =
+              true; // TODO: Remove when landmarks are dynamically computed
+        }
+
+        parse(ui.parser_data.file_path,
+              1000,
+              data.data,
+              data.d,
+              data.n,
+              ui.trans_data.param_names);
 
         ui.trans_data.scale.clear();
         ui.trans_data.scale.resize(ui.trans_data.param_names.size());

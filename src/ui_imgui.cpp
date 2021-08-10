@@ -3,15 +3,10 @@
 #include <Magnum/GL/Renderer.h>
 #include <Magnum/ImageView.h>
 
-#include <filesystem>
-#include <iostream> // TODO: remove
-
 // https://github.com/juliettef/IconFontCppHeaders
 #include <IconsFontAwesome5.h>
 
-#include "fcs_parser.h"
 #include "imgui_config.h"
-#include "tsv_parser.h"
 #include "ui_imgui.h"
 
 UiImgui::UiImgui(const Platform::Application *app)
@@ -299,18 +294,6 @@ UiImgui::draw_open_file(UiParserData &ui)
     if (open_file.HasSelected()) {
         std::string file_path = open_file.GetSelected().string();
 
-        std::string ext = std::filesystem::path(file_path).extension().string();
-        if (ext == ".fcs") {
-            ui.reset_data();
-            ui.parser = std::make_unique<FCSParser>();
-            ui.is_tsv =
-              false; // TODO: Remove when landmarks are dynamically computed
-        } else if (ext == ".tsv") {
-            ui.reset_data();
-            ui.parser = std::make_unique<TSVParser>();
-            ui.is_tsv =
-              true; // TODO: Remove when landmarks are dynamically computed
-        }
         ui.parse = true;
         ui.file_path = file_path;
 
