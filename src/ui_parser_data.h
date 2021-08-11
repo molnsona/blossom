@@ -3,20 +3,20 @@
 
 #include <memory>
 
-#include "parser.h"
-
 struct UiParserData
 {
-    bool parse{ false };
+    bool parse;
     std::string file_path;
-    std::unique_ptr<Parser> parser;
 
-    bool is_tsv = false; // TODO: Remove when landmarks are dynamically computed
+    bool is_tsv; // TODO: Remove when landmarks are dynamically computed
+
+    UiParserData() { init(); }
+
+    void init() { reset_data(); }
 
     void reset_data()
     {
         parse = false;
-        parser = nullptr;
         is_tsv = false; // TODO: Remove when landmarks are dynamically computed
     }
 };

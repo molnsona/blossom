@@ -49,8 +49,8 @@ private:
     ImFont *p_font;
     GL::Texture2D font_texture;
 
-    bool show_menu{ false };
-    bool show_scale{ false };
+    bool show_menu;
+    bool show_scale;
 
     ImGui::FileBrowser open_file;
 };

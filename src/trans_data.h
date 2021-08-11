@@ -32,7 +32,7 @@ private:
     DataModel orig_data_snapshot;
 
     std::thread trans_thread;
-    bool thread_finished{ true };
+    bool thread_finished;
 };
 
 #endif // #ifndef TRANS_DATA_H

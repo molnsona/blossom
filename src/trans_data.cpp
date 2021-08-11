@@ -4,6 +4,7 @@ TransData::TransData(const std::vector<float> &d, size_t dim, size_t size)
   : d(dim)
   , n(size)
   , data(d)
+  , thread_finished(true)
 {}
 
 void
