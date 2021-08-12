@@ -9,7 +9,7 @@
 
 #include <string>
 
-#include "imfilebrowser.h"
+#include "extern/imfilebrowser.h"
 #include "ui_data.h"
 #include "ui_parser_data.h"
 #include "ui_trans_data.h"
