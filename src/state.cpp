@@ -49,6 +49,8 @@ State::update(float time)
               true; // TODO: Remove when landmarks are dynamically computed
         }
 
+        ui.reset_data();
+
         parse(ui.parser_data.file_path,
               1000,
               data.data,

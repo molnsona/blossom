@@ -23,9 +23,10 @@ ScatterRenderer::ScatterRenderer()
 void
 ScatterRenderer::draw(const View &view,
                       const ScatterModel &model,
-                      const TransData &trans_data)
+                      const TransData &trans_data,
+                      std::size_t col_ind)
 {
-    std::vector<Color3> color = fill_color(trans_data);
+    std::vector<Color3> color = fill_color(trans_data, col_ind);
     GL::Buffer buffer;
     buffer.setData(MeshTools::interleave(
       Corrade::Containers::ArrayView(model.points.data(), model.points.size()),
@@ -43,7 +44,7 @@ ScatterRenderer::draw(const View &view,
 }
 
 std::vector<Color3>
-ScatterRenderer::fill_color(const TransData &trans_data)
+ScatterRenderer::fill_color(const TransData &trans_data, std::size_t col_ind)
 {
     std::vector<Color3> color(trans_data.n);
 
@@ -52,14 +53,17 @@ ScatterRenderer::fill_color(const TransData &trans_data)
 
     for (size_t i = 0; i < trans_data.n; ++i) {
         // take second parameter
-        max = std::max(max, trans_data.get_data().at(i * trans_data.d + 1));
-        min = std::min(min, trans_data.get_data().at(i * trans_data.d + 1));
+        max =
+          std::max(max, trans_data.get_data().at(i * trans_data.d + col_ind));
+        min =
+          std::min(min, trans_data.get_data().at(i * trans_data.d + col_ind));
     }
 
     auto col_palette = colormap::palettes.at("rdbu").rescale(min, max);
 
     for (size_t i = 0; i < trans_data.n; ++i) {
-        auto c = col_palette(trans_data.get_data().at(i * trans_data.d + 1));
+        auto c =
+          col_palette(trans_data.get_data().at(i * trans_data.d + col_ind));
         std::vector<unsigned char> res;
         c.get_rgb(res);
         color[i] = Color3(res[0] / 255.0f, res[1] / 255.0f, res[2] / 255.0f);
