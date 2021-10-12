@@ -20,7 +20,7 @@ struct TransData
         d = dim;
         n = size;
     }
-    const std::vector<float> &get_data() { return data; }
+    const std::vector<float> &get_data() const { return data; }
     void update(UiTransData &ui, const DataModel &orig_data);
 
 private:

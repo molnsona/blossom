@@ -2,7 +2,7 @@
 #define CONFIG_H
 
 constexpr float WINDOW_PADDING = 100.0f;
-constexpr float TOOLS_HEIGHT = 216.0f;
+constexpr float TOOLS_HEIGHT = 271.0f;
 constexpr float WINDOW_WIDTH = 50.0f;
 
 #if 0

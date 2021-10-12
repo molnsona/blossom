@@ -9,16 +9,20 @@ struct UiData
     UiTransData trans_data;
     UiParserData parser_data;
 
+    int color_ind;
+
     bool reset{ false };
 
     UiData()
-      : reset(false)
+      : color_ind(0)
+      , reset(false)
     {}
 
     void reset_data()
     {
         trans_data.reset_data();
         parser_data.reset_data();
+        color_ind = 0;
         reset = false;
     }
 };
