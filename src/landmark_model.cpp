@@ -6,7 +6,7 @@
 LandmarkModel::LandmarkModel()
   : d(0)
 {
-    init_grid(3);
+    init_grid(0);
 }
 
 void
@@ -52,5 +52,5 @@ LandmarkModel::update_dim(size_t dim)
     if (dim == d)
         return;
     d = dim;
-    init_grid(3);
+    init_grid(5);
 }

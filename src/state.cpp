@@ -86,12 +86,14 @@ State::update(float time)
       landmarks.d,
       100, // TODO parametrize (now this is 100 iters per frame, there should be
            // fixed number of iters per actual elapsed time)
-      0.005,  // TODO parametrize, logarithmically between 1e-6 and ~0.5
-      0.0001, // TODO parametrize as 0-1 multiple of ^^
+      0.01,  // TODO parametrize, logarithmically between 1e-6 and ~0.5
+      0.001, // TODO parametrize as 0-1 multiple of ^^
       landmarks.edges,
       landmarks.hidim_vertices);
 
+#ifdef NOT_REALLY_STABLE_YET
     make_knn_edges(knn_data, landmarks, 3);
+#endif
 
     if (scatter.points.size() != trans.n) {
         scatter.points.clear();
