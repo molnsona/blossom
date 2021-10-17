@@ -66,7 +66,7 @@ State::update(float time)
 
         trans.set_data(data.data, data.d, data.n);
 
-        landmarks.update(trans.get_data(), trans.d, ui.parser_data.is_tsv);
+        landmarks.update_dim(trans.d);
         ui.parser_data.parse = false;
     }
 
@@ -78,6 +78,20 @@ State::update(float time)
                       landmarks.edges,
                       landmarks.edge_lengths,
                       time);
+
+    kmeans_landmark_step(
+      kmeans_data,
+      data,
+      landmarks.n_landmarks(),
+      landmarks.d,
+      100, // TODO parametrize (now this is 100 iters per frame, there should be
+           // fixed number of iters per actual elapsed time)
+      0.005,  // TODO parametrize, logarithmically between 1e-6 and ~0.5
+      0.0001, // TODO parametrize as 0-1 multiple of ^^
+      landmarks.edges,
+      landmarks.hidim_vertices);
+
+    make_knn_edges(knn_data, landmarks, 3);
 
     if (scatter.points.size() != trans.n) {
         scatter.points.clear();
@@ -113,11 +127,11 @@ State::update(float time)
                                            // now passed in every call, but we
                                            // might want to cache them iside?
 
-    if (counter == 9) {
+    if (++counter >= 10) {
         std::cout << esom_cuda.getAvgPointsUploadTime() << "ms \t"
                   << esom_cuda.getAvgLandmarksUploadTime() << "ms \t"
                   << esom_cuda.getAvgProcessingTime() << "ms" << std::endl;
     }
-    counter = (counter + 1) % 10;
+    counter %= 10;
 #endif
 }

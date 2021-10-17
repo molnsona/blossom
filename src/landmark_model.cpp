@@ -4,9 +4,18 @@
 #include <random>
 
 LandmarkModel::LandmarkModel()
-  : d(2 /*TODO take from data model*/)
+  : d(0)
 {
-    auto n = side();
+    init_grid(3);
+}
+
+void
+LandmarkModel::init_grid(size_t n)
+{
+    if (!d) {
+        lodim_vertices.clear();
+        return;
+    }
 
     lodim_vertices.resize(n * n);
     hidim_vertices.resize(n * n * d);
@@ -38,35 +47,10 @@ LandmarkModel::LandmarkModel()
 }
 
 void
-LandmarkModel::update(const std::vector<float> &data, size_t dim, bool is_tsv)
+LandmarkModel::update_dim(size_t dim)
 {
+    if (dim == d)
+        return;
     d = dim;
-    auto n = side();
-
-    hidim_vertices.resize(n * n * d);
-
-    if (is_tsv) {
-        std::size_t index = 0;
-        for (size_t i = 100; i < 500; i += 400 / n) {
-            for (int j = -150; j < 150; j += 300 / n) {
-                float y = i;
-                float z = j;
-
-                // TODO compute this dynamically from data model
-                hidim_vertices[d * index + 0] = 0;
-                hidim_vertices[d * index + 1] = y;
-                hidim_vertices[d * index + 2] = z;
-                ++index;
-            }
-        }
-    } else {
-        for (size_t i = 0; i < n * n; ++i) {
-            auto x = i % n;
-            auto y = i / n;
-
-            // TODO compute this dynamically from data model
-            hidim_vertices[d * i + 0] = x / float(n);
-            hidim_vertices[d * i + 1] = y / float(n);
-        }
-    }
+    init_grid(3);
 }
