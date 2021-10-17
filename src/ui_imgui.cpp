@@ -309,8 +309,10 @@ UiImgui::draw_color_window(UiData &ui)
     ImGui::PushStyleVar(ImGuiStyleVar_FrameRounding, 10.0f);
     // ImGui::PushStyleVar(ImGuiStyleVar_WindowPadding, ImVec2(0, 0));
 
-    if (ImGui::Begin("Color", &show_scale, window_flags)) {
+    if (ImGui::Begin("Color", &show_color, window_flags)) {
 
+        ImGui::Text("Column:");
+        if(ui.trans_data.param_names.size() == 0)  ImGui::Text("No columns detected.");
         std::size_t i = 0;
         for (auto &&name : ui.trans_data.param_names) {
             ImGui::RadioButton(name.data(), &ui.color_ind, i);
