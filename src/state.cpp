@@ -72,13 +72,17 @@ State::update(float time)
 
     trans.update(ui.trans_data, data);
 
+
+#if 0
     graph_layout_step(layout_data,
                       mouse,
                       landmarks.lodim_vertices,
                       landmarks.edges,
                       landmarks.edge_lengths,
                       time);
+#endif
 
+#if 0
     kmeans_landmark_step(
       kmeans_data,
       data,
@@ -86,12 +90,26 @@ State::update(float time)
       landmarks.d,
       100, // TODO parametrize (now this is 100 iters per frame, there should be
            // fixed number of iters per actual elapsed time)
-      0.01,  // TODO parametrize, logarithmically between 1e-6 and ~0.5
-      0.001, // TODO parametrize as 0-1 multiple of ^^
+      0.0001,    // TODO parametrize, logarithmically between 1e-6 and ~0.5
+      0,   // TODO parametrize as 0-1 multiple of ^^
       landmarks.edges,
       landmarks.hidim_vertices);
+#endif
 
-#ifdef NOT_REALLY_STABLE_YET
+#if 1
+    som_landmark_step(
+      kmeans_data,
+      data,
+      landmarks.n_landmarks(),
+      landmarks.d,
+      100,
+      0.001,
+      1.1, //TODO this really needs to be slidable by the user
+      landmarks.hidim_vertices,
+      landmarks.lodim_vertices);
+#endif
+
+#if 0
     make_knn_edges(knn_data, landmarks, 3);
 #endif
 

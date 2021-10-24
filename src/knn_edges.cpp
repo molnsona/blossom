@@ -25,7 +25,7 @@ make_knn_edges(KnnEdgesData &data, LandmarkModel &landmarks, const size_t kns)
         return;
     }
 
-    landmarks.edges.reserve((1+kns) * landmarks.n_landmarks());
+    landmarks.edges.reserve((1 + kns) * landmarks.n_landmarks());
     landmarks.edge_lengths.reserve(landmarks.edges.size());
 
     std::map<std::pair<size_t, size_t>, float> nn;
@@ -48,7 +48,8 @@ make_knn_edges(KnnEdgesData &data, LandmarkModel &landmarks, const size_t kns)
             for (size_t ni = nns; ni > 0; --ni) {
                 if (inn[ni].first < inn[ni - 1].first)
                     inn[ni].swap(inn[ni - 1]);
-                else break;
+                else
+                    break;
             }
             if (nns < kns)
                 ++nns;
@@ -60,6 +61,7 @@ make_knn_edges(KnnEdgesData &data, LandmarkModel &landmarks, const size_t kns)
     }
 #endif
 
+#if 1
     // add a MST graph to keep connections
     std::vector<bool> visited(landmarks.n_landmarks(), false);
     std::set<std::tuple<float, size_t, size_t>> q;
@@ -83,9 +85,10 @@ make_knn_edges(KnnEdgesData &data, LandmarkModel &landmarks, const size_t kns)
             q.insert({sqd, i, cur});
         }
     }
+#endif
 
     for (auto &&p : nn) {
         landmarks.edges.push_back(p.first);
-        landmarks.edge_lengths.push_back(0.05*sqrt(p.second)); //TODO
+        landmarks.edge_lengths.push_back(0.05 * sqrt(p.second)); // TODO
     }
 }
