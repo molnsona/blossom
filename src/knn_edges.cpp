@@ -65,24 +65,27 @@ make_knn_edges(KnnEdgesData &data, LandmarkModel &landmarks, const size_t kns)
     // add a MST graph to keep connections
     std::vector<bool> visited(landmarks.n_landmarks(), false);
     std::set<std::tuple<float, size_t, size_t>> q;
-    q.insert({0, 0, 0});
-    while(!q.empty()) {
+    q.insert({ 0, 0, 0 });
+    while (!q.empty()) {
         auto [curdist, cur, from] = *q.begin();
         q.erase(q.begin());
 
-        if(visited[cur]) continue;
-        visited[cur]=true;
+        if (visited[cur])
+            continue;
+        visited[cur] = true;
 
-        if(cur != from) nn[{std::min(cur,from), std::max(cur,from)}]=curdist;
+        if (cur != from)
+            nn[{ std::min(cur, from), std::max(cur, from) }] = curdist;
 
-        for(size_t i=0; i<landmarks.n_landmarks(); ++i) {
-            if(visited[i]) continue;
+        for (size_t i = 0; i < landmarks.n_landmarks(); ++i) {
+            if (visited[i])
+                continue;
             float sqd = 0;
             for (size_t di = 0; di < landmarks.d; ++di)
                 sqd += sqr(landmarks.hidim_vertices[di + landmarks.d * cur] -
                            landmarks.hidim_vertices[di + landmarks.d * i]);
 
-            q.insert({sqd, i, cur});
+            q.insert({ sqd, i, cur });
         }
     }
 #endif

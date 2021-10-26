@@ -18,7 +18,14 @@ std::size_t counter = 0;
 
 State::State()
   : trans(data.data, data.d, data.n)
-{}
+{
+#if 1
+    // Default dataset
+    ui.parser_data.parse = true;
+    ui.parser_data.file_path = std::filesystem::current_path().string() +
+                               "/../test_data/small/clusters.tsv";
+#endif
+}
 
 void
 State::update(float time)
@@ -72,7 +79,6 @@ State::update(float time)
 
     trans.update(ui.trans_data, data);
 
-
 #if 0
     graph_layout_step(layout_data,
                       mouse,
@@ -104,7 +110,8 @@ State::update(float time)
       landmarks.d,
       100,
       0.001,
-      1.1, //TODO this really needs to be slidable by the user
+      ui.sliders_data
+        .alpha, // TODO this really needs to be slidable by the user
       landmarks.hidim_vertices,
       landmarks.lodim_vertices);
 #endif

@@ -2,12 +2,14 @@
 #define UI_DATA_H
 
 #include "ui_parser_data.h"
+#include "ui_sliders_data.h"
 #include "ui_trans_data.h"
 
 struct UiData
 {
     UiTransData trans_data;
     UiParserData parser_data;
+    UiSlidersData sliders_data;
 
     int color_ind;
 
@@ -22,6 +24,7 @@ struct UiData
     {
         trans_data.reset_data();
         parser_data.reset_data();
+        sliders_data.reset_data();
         color_ind = 0;
         reset = false;
     }

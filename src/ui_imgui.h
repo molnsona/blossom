@@ -41,6 +41,7 @@ private:
     void draw_add_window(const Vector2i &window_size);
     void draw_menu_window(const Vector2i &window_size, UiData &ui);
     void draw_scale_window(UiTransData &ui);
+    void draw_sliders_window(UiSlidersData &ui);
     void draw_color_window(UiData &ui);
 
     void draw_open_file(UiParserData &ui);
@@ -53,6 +54,7 @@ private:
 
     bool show_menu;
     bool show_scale;
+    bool show_sliders;
     bool show_color;
 
     ImGui::FileBrowser open_file;
