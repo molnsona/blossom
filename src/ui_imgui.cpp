@@ -318,7 +318,10 @@ UiImgui::draw_sliders_window(UiSlidersData &ui)
 
     if (ImGui::Begin("Sliders", &show_sliders, window_flags)) {
         ImGui::SliderFloat(
-          "alpha", &ui.alpha, 0.1f, 5.0f, "%.3f", ImGuiSliderFlags_AlwaysClamp);
+          "alpha", &ui.alpha, 0.001f, 2.0f, "%.3f", ImGuiSliderFlags_AlwaysClamp);
+
+        ImGui::SliderFloat(
+          "sigma", &ui.sigma, 0.1f, 5.0f, "%.3f", ImGuiSliderFlags_AlwaysClamp);
     }
 
     ImGui::End();

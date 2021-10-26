@@ -109,9 +109,9 @@ State::update(float time)
       landmarks.n_landmarks(),
       landmarks.d,
       100,
-      0.001,
+      ui.sliders_data.alpha,
       ui.sliders_data
-        .alpha, // TODO this really needs to be slidable by the user
+        .sigma, // TODO this really needs to be slidable by the user
       landmarks.hidim_vertices,
       landmarks.lodim_vertices);
 #endif
