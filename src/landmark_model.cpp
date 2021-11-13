@@ -88,11 +88,8 @@ LandmarkModel::duplicate(const std::size_t &ind)
     // Find edges.
     std::vector<std::size_t> edge_idxs;
     for(std::size_t i = 0; i < edges.size(); ++i) {
-        if(edges[i].first == ind) {
+        if(edges[i].first == ind || edges[i].second == ind) {
             edge_idxs.emplace_back(i);         
-        }
-        else if(edges[i].second == ind) {
-            edge_idxs.emplace_back(i);
         }
     }    
 
@@ -108,4 +105,37 @@ LandmarkModel::duplicate(const std::size_t &ind)
         edge_lengths.emplace_back(edge_lengths[edge_idx]);
     }
 #endif
+}
+
+void
+LandmarkModel::remove(const std::size_t &ind)
+{
+    lodim_vertices.erase(lodim_vertices.begin() + ind);
+    std::size_t line_idx = d * ind;
+    hidim_vertices.erase(hidim_vertices.begin() + line_idx,
+                         hidim_vertices.begin() + line_idx + 4);
+
+    // Remove edges.
+    std::vector<std::size_t> edge_idxs;
+    std::size_t edge_ind = 0;
+    for (auto i = edges.begin(); i != edges.end();) {
+        if (i->first == ind || i->second == ind) {
+            i = edges.erase(i);
+            edge_lengths.erase(edge_lengths.begin() + edge_ind);
+            continue;
+        }
+        ++edge_ind;
+        ++i;
+    }
+
+    // Update indices of vertices that are after the removing vertex
+    // so the edges have proper vertex indices
+    for (auto i = edges.begin(); i != edges.end(); ++i) {
+        if (i->first >= ind) {
+            --i->first;
+        }
+        if (i->second >= ind) {
+            --i->second;
+        }
+    }
 }

@@ -133,7 +133,7 @@ Application::mousePressEvent(MouseEvent &event)
             view.lookat_screen(event.position());
             return;
         case MouseEvent::Button::Left:
-            state.mouse.mouse_pressed = true;
+            state.mouse.left_pressed = true;
             state.mouse.mouse_pos = event.position();
 
             if (graph_renderer.is_vert_pressed(
@@ -146,6 +146,19 @@ Application::mousePressEvent(MouseEvent &event)
                     state.mouse.vert_pressed = true;
                     state.landmarks.press(
                       state.mouse.vert_ind, state.mouse.mouse_pos, view);
+                }
+            }
+            break;
+        case MouseEvent::Button::Right:
+            state.mouse.right_pressed = true;
+            state.mouse.mouse_pos = event.position();
+
+            if (graph_renderer.is_vert_pressed(
+                  Vector2(view.screen_mouse_coords(state.mouse.mouse_pos)),
+                  vertex_size,
+                  state.mouse.vert_ind)) {
+                if (state.keyboard.ctrl_pressed) {
+                    state.landmarks.remove(state.mouse.vert_ind);
                 }
             }
             break;
@@ -166,7 +179,7 @@ Application::mouseReleaseEvent(MouseEvent &event)
     }
 
     state.mouse.mouse_pos = event.position();
-    state.mouse.mouse_pressed = false;
+    state.mouse.left_pressed = false;
     state.mouse.vert_pressed = false;
 }
 
