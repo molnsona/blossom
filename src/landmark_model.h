@@ -27,6 +27,7 @@ struct LandmarkModel
               const Magnum::Vector2i &mouse_pos,
               View &view);
     void duplicate(const std::size_t &ind);
+    void remove(const std::size_t &ind);
 
     size_t n_landmarks() const { return lodim_vertices.size(); }
 };

@@ -76,12 +76,13 @@ LandmarkModel::duplicate(const std::size_t &ind)
 {
     // Add new line to hidim
     std::size_t line_idx = d * ind;
-    for(std::size_t i = 0; i < d; ++i) {
+    for (std::size_t i = 0; i < d; ++i) {
         hidim_vertices.emplace_back(hidim_vertices[line_idx + i]);
     }
 
     // Add new vertex to lodim
-    lodim_vertices.emplace_back(Magnum::Vector2(lodim_vertices[ind].x() + 0.3,lodim_vertices[ind].y()));
+    lodim_vertices.emplace_back(
+      Magnum::Vector2(lodim_vertices[ind].x() + 0.3, lodim_vertices[ind].y()));
     std::size_t new_vert_ind = lodim_vertices.size() - 1;
 #if 0
     // Find edges.
