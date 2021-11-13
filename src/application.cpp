@@ -85,6 +85,12 @@ Application::keyPressEvent(KeyEvent &event)
         case KeyEvent::Key::Up:
             view.mid_target.y() += view.view_size().y() * speed;
             break;
+        case KeyEvent::Key::LeftCtrl:
+            state.keyboard.ctrl_pressed = true;
+            break;
+        case KeyEvent::Key::RightCtrl:
+            state.keyboard.ctrl_pressed = true;
+            break;
     }
     event.setAccepted();
 }
@@ -94,6 +100,16 @@ Application::keyReleaseEvent(KeyEvent &event)
 {
     if (ui_imgui.key_release_event(event))
         return;
+
+    switch (event.key()) {
+        case KeyEvent::Key::LeftCtrl:
+            state.keyboard.ctrl_pressed = false;
+            break;
+        case KeyEvent::Key::RightCtrl:
+            state.keyboard.ctrl_pressed = false;
+            break;
+    }
+    event.setAccepted();
 }
 
 void
@@ -124,9 +140,13 @@ Application::mousePressEvent(MouseEvent &event)
                   Vector2(view.screen_mouse_coords(state.mouse.mouse_pos)),
                   vertex_size,
                   state.mouse.vert_ind)) {
-                state.mouse.vert_pressed = true;
-                state.landmarks.lodim_vertices[state.mouse.vert_ind] =
-                  view.model_mouse_coords(state.mouse.mouse_pos);
+                if (state.keyboard.ctrl_pressed) {
+                    state.landmarks.duplicate(state.mouse.vert_ind);
+                } else {
+                    state.mouse.vert_pressed = true;
+                    state.landmarks.press(
+                      state.mouse.vert_ind, state.mouse.mouse_pos, view);
+                }
             }
             break;
     }
@@ -160,9 +180,7 @@ Application::mouseMoveEvent(MouseMoveEvent &event)
 
     if (state.mouse.vert_pressed) {
         state.mouse.mouse_pos = event.position();
-
-        state.landmarks.lodim_vertices[state.mouse.vert_ind] =
-          view.model_mouse_coords(state.mouse.mouse_pos);
+        state.landmarks.move(state.mouse.vert_ind, state.mouse.mouse_pos, view);
     }
 }
 

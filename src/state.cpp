@@ -37,6 +37,12 @@ State::update(float time)
         scatter = ScatterModel();
         layout_data = GraphLayoutData();
         ui.reset_data();
+#if 1
+        // Default dataset
+        ui.parser_data.parse = true;
+        ui.parser_data.file_path = std::filesystem::current_path().string() +
+                                   "/../test_data/small/clusters.tsv";
+#endif
     }
 
     if (ui.parser_data.parse) {

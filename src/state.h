@@ -11,6 +11,7 @@
 #include "data_model.h"
 #include "embedsom_cuda.h"
 #include "graph_layout.h"
+#include "keyboard_data.h"
 #include "kmeans_landmark.h"
 #include "knn_edges.h"
 #include "landmark_model.h"
@@ -44,6 +45,7 @@ struct State
     int expected_len = 100;
 #endif
     MouseData mouse;
+    KeyboardData keyboard;
 
     UiData ui;
 
