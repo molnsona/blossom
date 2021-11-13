@@ -18,7 +18,14 @@ std::size_t counter = 0;
 
 State::State()
   : trans(data.data, data.d, data.n)
-{}
+{
+#if 1
+    // Default dataset
+    ui.parser_data.parse = true;
+    ui.parser_data.file_path = std::filesystem::current_path().string() +
+                               "/../test_data/small/clusters.tsv";
+#endif
+}
 
 void
 State::update(float time)
@@ -66,18 +73,52 @@ State::update(float time)
 
         trans.set_data(data.data, data.d, data.n);
 
-        landmarks.update(trans.get_data(), trans.d, ui.parser_data.is_tsv);
+        landmarks.update_dim(trans.d);
         ui.parser_data.parse = false;
     }
 
     trans.update(ui.trans_data, data);
 
+#if 0
     graph_layout_step(layout_data,
                       mouse,
                       landmarks.lodim_vertices,
                       landmarks.edges,
                       landmarks.edge_lengths,
                       time);
+#endif
+
+#if 0
+    kmeans_landmark_step(
+      kmeans_data,
+      data,
+      landmarks.n_landmarks(),
+      landmarks.d,
+      100, // TODO parametrize (now this is 100 iters per frame, there should be
+           // fixed number of iters per actual elapsed time)
+      0.0001,    // TODO parametrize, logarithmically between 1e-6 and ~0.5
+      0,   // TODO parametrize as 0-1 multiple of ^^
+      landmarks.edges,
+      landmarks.hidim_vertices);
+#endif
+
+#if 1
+    som_landmark_step(
+      kmeans_data,
+      data,
+      landmarks.n_landmarks(),
+      landmarks.d,
+      100,
+      ui.sliders_data.alpha,
+      ui.sliders_data
+        .sigma, // TODO this really needs to be slidable by the user
+      landmarks.hidim_vertices,
+      landmarks.lodim_vertices);
+#endif
+
+#if 0
+    make_knn_edges(knn_data, landmarks, 3);
+#endif
 
     if (scatter.points.size() != trans.n) {
         scatter.points.clear();
@@ -113,11 +154,11 @@ State::update(float time)
                                            // now passed in every call, but we
                                            // might want to cache them iside?
 
-    if (counter == 9) {
+    if (++counter >= 10) {
         std::cout << esom_cuda.getAvgPointsUploadTime() << "ms \t"
                   << esom_cuda.getAvgLandmarksUploadTime() << "ms \t"
                   << esom_cuda.getAvgProcessingTime() << "ms" << std::endl;
     }
-    counter = (counter + 1) % 10;
+    counter %= 10;
 #endif
 }

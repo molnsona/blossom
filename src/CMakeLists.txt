@@ -9,6 +9,8 @@ set(SOURCES
     #graph.cpp
     graph_layout.cpp
     graph_renderer.cpp
+    kmeans_landmark.cpp
+    knn_edges.cpp
     landmark_model.cpp
     scatter_model.cpp
     scatter_renderer.cpp
@@ -64,9 +66,9 @@ target_link_libraries(blossom PRIVATE
 target_compile_definitions(blossom PRIVATE NO_CUDA)
 
 
-find_package(CUDA)
 # CUDA-accelerated target is compiled only if CUDA is available
-if (CMAKE_CUDA_COMPILER)
+if (BUILD_CUDA)
+    find_package(CUDA)
     add_executable(blossom_cuda
         ${SOURCES}
         ${CUDA_SOURCES}
@@ -109,6 +111,6 @@ if (CMAKE_CUDA_COMPILER)
 
     install(TARGETS blossom blossom_cuda)
 
-else (CMAKE_CUDA_COMPILER)
+else (BUILD_CUDA)
     install(TARGETS blossom)
-endif (CMAKE_CUDA_COMPILER)
+endif (BUILD_CUDA)

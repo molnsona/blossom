@@ -433,6 +433,9 @@ embedsom(const size_t n,
     // single-thread version
     const size_t topnn = topn < n_landmarks ? topn + 1 : topn;
 
+    if (n_landmarks < 3)
+        return;
+
     vector<dist_id> dists;
     dists.resize(topnn);
 

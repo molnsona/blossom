@@ -8,14 +8,11 @@
 #include <string>
 #include <vector>
 
-#if 0
-#include "imgui_config.h"
-#include "pickable.hpp"
-#endif
-
 #include "data_model.h"
 #include "embedsom_cuda.h"
 #include "graph_layout.h"
+#include "kmeans_landmark.h"
+#include "knn_edges.h"
 #include "landmark_model.h"
 #include "mouse_data.h"
 #include "scatter_model.h"
@@ -56,6 +53,8 @@ struct State
     ScatterModel scatter;
 
     GraphLayoutData layout_data;
+    KMeansData kmeans_data;
+    KnnEdgesData knn_data;
 #ifndef NO_CUDA
     EsomCuda esom_cuda;
 #endif;

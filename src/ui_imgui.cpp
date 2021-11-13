@@ -12,6 +12,7 @@
 UiImgui::UiImgui(const Platform::Application *app)
   : show_menu(false)
   , show_scale(false)
+  , show_sliders(false)
   , show_color(false)
 {
     ImGui::CreateContext();
@@ -91,6 +92,8 @@ UiImgui::draw_event(const View &view, UiData &ui, Platform::Application *app)
         draw_menu_window(view.fb_size, ui);
     if (show_scale)
         draw_scale_window(ui.trans_data);
+    if (show_sliders)
+        draw_sliders_window(ui.sliders_data);
     if (show_color)
         draw_color_window(ui);
 
@@ -227,11 +230,17 @@ UiImgui::draw_menu_window(const Vector2i &window_size, UiData &ui)
 
         ImGui::Separator();
 
-        if (ImGui::Button(ICON_FA_SLIDERS_H, ImVec2(50.75f, 50.75f))) {
+        if (ImGui::Button(ICON_FA_WRENCH, ImVec2(50.75f, 50.75f))) {
             show_scale = true;
             show_menu = false;
         }
         hover_info("Scale data");
+
+        if (ImGui::Button(ICON_FA_SLIDERS_H, ImVec2(50.75f, 50.75f))) {
+            show_sliders = true;
+            show_menu = false;
+        }
+        hover_info("Sliders");
 
         if (ImGui::Button(ICON_FA_PALETTE, ImVec2(50.75f, 50.75f))) {
             show_color = true;
@@ -298,6 +307,30 @@ UiImgui::draw_scale_window(UiTransData &ui)
 }
 
 void
+UiImgui::draw_sliders_window(UiSlidersData &ui)
+{
+    ImGuiWindowFlags window_flags = ImGuiWindowFlags_NoCollapse |
+                                    ImGuiWindowFlags_NoResize |
+                                    ImGuiWindowFlags_AlwaysAutoResize;
+
+    ImGui::PushStyleVar(ImGuiStyleVar_ChildRounding, 10.0f);
+    ImGui::PushStyleVar(ImGuiStyleVar_FrameRounding, 10.0f);
+
+    if (ImGui::Begin("Sliders", &show_sliders, window_flags)) {
+        ImGui::SliderFloat(
+          "alpha", &ui.alpha, 0.001f, 2.0f, "%.3f", ImGuiSliderFlags_AlwaysClamp);
+
+        ImGui::SliderFloat(
+          "sigma", &ui.sigma, 0.1f, 5.0f, "%.3f", ImGuiSliderFlags_AlwaysClamp);
+    }
+
+    ImGui::End();
+
+    ImGui::PopStyleVar();
+    ImGui::PopStyleVar();
+}
+
+void
 UiImgui::draw_color_window(UiData &ui)
 {
     ImGuiWindowFlags window_flags = ImGuiWindowFlags_NoCollapse |
@@ -312,7 +345,8 @@ UiImgui::draw_color_window(UiData &ui)
     if (ImGui::Begin("Color", &show_color, window_flags)) {
 
         ImGui::Text("Column:");
-        if(ui.trans_data.param_names.size() == 0)  ImGui::Text("No columns detected.");
+        if (ui.trans_data.param_names.size() == 0)
+            ImGui::Text("No columns detected.");
         std::size_t i = 0;
         for (auto &&name : ui.trans_data.param_names) {
             ImGui::RadioButton(name.data(), &ui.color_ind, i);
