@@ -1,24 +1,23 @@
 ﻿
 set(SOURCES
     application.cpp
-    #canvas.cpp
-    data_model.cpp
     embedsom.cpp
     embedsom_cuda.cpp
     fcs_parser.cpp
-    #graph.cpp
     graph_layout.cpp
     graph_renderer.cpp
     kmeans_landmark.cpp
     knn_edges.cpp
     landmark_model.cpp
+    parsers.cpp
     scatter_model.cpp
     scatter_renderer.cpp
-    #scene_mngr.cpp
     state.cpp
     trans_data.cpp
     tsv_parser.cpp
     ui_imgui.cpp
+    ui_load.cpp
+    ui_menu.cpp
     view.cpp
 )
 

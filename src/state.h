@@ -32,8 +32,6 @@ struct State
     MouseData mouse;
     KeyboardData keyboard;
 
-    UiData ui;
-
     DataModel data;
     TransData trans;
     LandmarkModel landmarks;
@@ -48,7 +46,7 @@ struct State
 
     State();
 
-    void update(float time);
+    void update(float time, UiData &ui);
 };
 
 #endif // #ifndef STATE_H

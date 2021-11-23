@@ -42,14 +42,14 @@
 
 #include <memory>
 
+class Application; // tricky cyclic include, see ui_imgui.h
+
 #include "graph_renderer.h"
 #include "scatter_renderer.h"
 #include "state.h"
 #include "timer.h"
 #include "ui_imgui.h"
 #include "view.h"
-
-#include "scene_mngr.h"
 
 using namespace Magnum;
 using namespace Math::Literals;
@@ -78,6 +78,7 @@ private:
 
     static constexpr float vertex_size = 8.0f;
 
+public:
     State state;
     Timer timer;
     View view;

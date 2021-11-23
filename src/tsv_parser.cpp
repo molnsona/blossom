@@ -2,6 +2,7 @@
 #include "tsv_parser.h"
 
 #include <fstream>
+#include <sstream>
 
 // TODO replace by inplace ops
 static std::vector<std::string>
@@ -18,6 +19,7 @@ split(const std::string &str, char delim)
     return result;
 }
 
+void
 parse_TSV(const std::string &filename, DataModel &dm)
 {
     std::ifstream handle(filename, std::ios::in);

@@ -11,55 +11,12 @@ State::State()
 {}
 
 void
-State::update(float actual_time)
+State::update(float actual_time, UiData &ui)
 {
     // avoid simulation explosions on long frames
-    float time = std::min(actual_time, 0.05);
-
-    if (ui.reset) {
-        data = DataModel();
-        trans.set_data(data.data, data.d, data.n);
-        landmarks = LandmarkModel();
-        scatter = ScatterModel();
-        layout_data = GraphLayoutData();
-        ui.reset_data();
-    }
-
-    if (ui.parser_data.parse) {
-        std::string ext =
-          std::filesystem::path(ui.parser_data.file_path).extension().string();
-        Parser parse;
-
-        if (ext == ".fcs") {
-            ui.parser_data.reset_data();
-            parse = FCSParser::parse;
-        } else if (ext == ".tsv") {
-            ui.parser_data.reset_data();
-            parse = TSVParser::parse;
-        }
-
-        ui.reset_data();
-
-        parse(ui.parser_data.file_path,
-              1000,
-              data.data,
-              data.d,
-              data.n,
-              ui.trans_data.param_names);
-
-        ui.trans_data.scale.clear();
-        ui.trans_data.scale.resize(ui.trans_data.param_names.size());
-
-        ui.trans_data.sliders.clear();
-        ui.trans_data.sliders.resize(ui.trans_data.param_names.size());
-
-        trans.set_data(data.data, data.d, data.n);
-
-        landmarks.update_dim(trans.d);
-        ui.parser_data.parse = false;
-    }
-
-    trans.update(ui.trans_data, data);
+    float time = actual_time;
+    if (time > 0.05)
+        time = 0.05;
 
 #if 0
     graph_layout_step(layout_data,

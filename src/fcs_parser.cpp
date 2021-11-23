@@ -1,10 +1,11 @@
+
 #include "fcs_parser.h"
 
 #include <algorithm>
 #include <cstddef>
 #include <filesystem>
+#include <fstream>
 #include <iomanip>
-#include <iostream>
 #include <random>
 #include <regex>
 #include <sstream>
@@ -118,10 +119,9 @@ parse_data(std::ifstream &handle,
     handle.read(reinterpret_cast<char *>(out_data.data()),
                 params_count * events_count * sizeof(float));
 
-    std::transform(
-  out_data.begin(), out_data.end(), out_data.begin(),
-          is_be ? 
-	  [](float n) {
+    if (is_be)
+        std::transform(
+          out_data.begin(), out_data.end(), out_data.begin(), [](float n) {
               uint8_t *tmp = reinterpret_cast<uint8_t *>(&n);
               uint32_t w1 = *tmp;
               uint32_t w2 = *(tmp + 1);
@@ -129,9 +129,10 @@ parse_data(std::ifstream &handle,
               uint32_t w4 = *(tmp + 3);
               uint32_t res = w4 << 0 | w3 << 8 | w2 << 16 | w1 << 24;
               return *reinterpret_cast<float *>(&res);
-          }
-	  :
-          [](float n) {
+          });
+    else
+        std::transform(
+          out_data.begin(), out_data.end(), out_data.begin(), [](float n) {
               uint8_t *tmp = reinterpret_cast<uint8_t *>(&n);
               uint32_t w1 = *tmp;
               uint32_t w2 = *(tmp + 1);
