@@ -53,13 +53,9 @@ State::update(float time)
         if (ext == ".fcs") {
             ui.parser_data.reset_data();
             parse = FCSParser::parse;
-            ui.parser_data.is_tsv =
-              false; // TODO: Remove when landmarks are dynamically computed
         } else if (ext == ".tsv") {
             ui.parser_data.reset_data();
             parse = TSVParser::parse;
-            ui.parser_data.is_tsv =
-              true; // TODO: Remove when landmarks are dynamically computed
         }
 
         ui.reset_data();

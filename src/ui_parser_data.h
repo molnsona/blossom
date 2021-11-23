@@ -8,8 +8,6 @@ struct UiParserData
     bool parse;
     std::string file_path;
 
-    bool is_tsv; // TODO: Remove when landmarks are dynamically computed
-
     UiParserData() { init(); }
 
     void init() { reset_data(); }
@@ -17,7 +15,6 @@ struct UiParserData
     void reset_data()
     {
         parse = false;
-        is_tsv = false; // TODO: Remove when landmarks are dynamically computed
     }
 };
 
