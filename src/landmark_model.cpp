@@ -113,7 +113,7 @@ LandmarkModel::remove(const std::size_t &ind)
     lodim_vertices.erase(lodim_vertices.begin() + ind);
     std::size_t line_idx = d * ind;
     hidim_vertices.erase(hidim_vertices.begin() + line_idx,
-                         hidim_vertices.begin() + line_idx + 4);
+                         hidim_vertices.begin() + line_idx + d);
 
     // Remove edges.
     std::vector<std::size_t> edge_idxs;
