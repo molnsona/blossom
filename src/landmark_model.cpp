@@ -71,7 +71,6 @@ LandmarkModel::move(const std::size_t &ind,
     lodim_vertices[ind] = view.model_mouse_coords(mouse_pos);
 }
 
-
 void
 LandmarkModel::duplicate(const std::size_t &ind)
 {

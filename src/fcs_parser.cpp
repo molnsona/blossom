@@ -26,12 +26,12 @@ parse_id(const std::string &word)
 
 static void
 parse_info(std::ifstream &handle,
-                      size_t &data_begin_offset,
-                      size_t &data_end_offset,
-                      size_t &params_count,
-                      size_t &events_count,
-                      bool &is_be,
-                      std::vector<std::string> &params_names)
+           size_t &data_begin_offset,
+           size_t &data_end_offset,
+           size_t &params_count,
+           size_t &events_count,
+           bool &is_be,
+           std::vector<std::string> &params_names)
 {
     size_t text_begin_offset;
     size_t text_end_offset;
@@ -63,7 +63,7 @@ parse_info(std::ifstream &handle,
 
         if (word == "$BYTEORD") {
             std::getline(handle, word, delim);
-	    is_be = word=="4,3,2,1";
+            is_be = word == "4,3,2,1";
             continue;
         }
 
@@ -102,12 +102,12 @@ parse_info(std::ifstream &handle,
 
 static void
 parse_data(std::ifstream &handle,
-                      size_t data_begin_offset,
-                      size_t data_end_offset,
-                      size_t params_count,
-                      size_t events_count,
-                      bool is_be,
-                      std::vector<float> &out_data)
+           size_t data_begin_offset,
+           size_t data_end_offset,
+           size_t params_count,
+           size_t events_count,
+           bool is_be,
+           std::vector<float> &out_data)
 {
     // If not enough points.
     auto diff = data_end_offset - data_begin_offset;
@@ -116,9 +116,9 @@ parse_data(std::ifstream &handle,
 
     handle.seekg(data_begin_offset);
     handle.read(reinterpret_cast<char *>(out_data.data()),
-                     params_count * events_count * sizeof(float));
+                params_count * events_count * sizeof(float));
 
-std::transform(
+    std::transform(
   out_data.begin(), out_data.end(), out_data.begin(),
           is_be ? 
 	  [](float n) {
@@ -143,30 +143,19 @@ std::transform(
 }
 
 void
-parse_FCS(const std::string &filename,
-                 DataModel&dm)
+parse_FCS(const std::string &filename, DataModel &dm)
 {
     std::ifstream handle(filename, std::ios::in);
-    if(!handle) throw std::domain_error("Can not open file");
-
+    if (!handle)
+        throw std::domain_error("Can not open file");
 
     size_t data_begin_offset = 0;
     size_t data_end_offset = 0;
     bool is_be = false;
 
-    parse_info(handle,
-               data_begin_offset,
-               data_end_offset,
-               dm.d,
-               dm.n,
-               is_be,
-               dm.names);
-    parse_data(handle,
-               data_begin_offset,
-               data_end_offset,
-               dm.d,
-               dm.n,
-               is_be,
-               dm.data);
+    parse_info(
+      handle, data_begin_offset, data_end_offset, dm.d, dm.n, is_be, dm.names);
+    parse_data(
+      handle, data_begin_offset, data_end_offset, dm.d, dm.n, is_be, dm.data);
     handle.close();
 }

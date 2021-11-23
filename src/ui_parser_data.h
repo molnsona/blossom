@@ -12,10 +12,7 @@ struct UiParserData
 
     void init() { reset_data(); }
 
-    void reset_data()
-    {
-        parse = false;
-    }
+    void reset_data() { parse = false; }
 };
 
 #endif // #ifndef UI_PARSER_DATA_H

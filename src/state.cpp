@@ -8,13 +8,12 @@
 
 State::State()
   : trans(data.data, data.d, data.n)
-{
-}
+{}
 
 void
 State::update(float actual_time)
 {
-    //avoid simulation explosions on long frames
+    // avoid simulation explosions on long frames
     float time = std::min(actual_time, 0.05);
 
     if (ui.reset) {
