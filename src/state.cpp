@@ -22,8 +22,11 @@ State::State()
 }
 
 void
-State::update(float time)
+State::update(float actual_time)
 {
+    //avoid simulation explosions on long frames
+    float time = std::min(actual_time, 0.05);
+
     if (ui.reset) {
         data = DataModel();
         trans.set_data(data.data, data.d, data.n);
