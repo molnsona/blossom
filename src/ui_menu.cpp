@@ -14,23 +14,8 @@ uiMenu::uiMenu()
   , show_color(false)
 {}
 
-void
-uiMenu::render(Application &app)
-{
-    draw_add_window(app.view.fb_size);
-
-    if (show_menu)
-        draw_menu_window(app.view.fb_size, ui);
-    if (show_scale)
-        draw_scale_window(ui.trans_data);
-    if (show_sliders)
-        draw_sliders_window(ui.sliders_data);
-    if (show_color)
-        draw_color_window(ui);
-}
-
-void
-uiMenu::draw_add_window(const Vector2i &window_size)
+static void
+draw_menu_button(bool &show_menu, const Vector2i &window_size)
 {
     ImGuiWindowFlags window_flags = ImGuiWindowFlags_NoTitleBar |
                                     ImGuiWindowFlags_NoResize |
@@ -47,12 +32,42 @@ uiMenu::draw_add_window(const Vector2i &window_size)
         ImGui::SetWindowSize(ImVec2(WINDOW_WIDTH, WINDOW_WIDTH));
 
         if (ImGui::Button(ICON_FA_PLUS, ImVec2(50.75f, 50.75f))) {
-            show_menu = show_menu ? false : true;
+            show_menu = !show_menu;
         }
 
         ImGui::End();
     }
     ImGui::PopStyleVar();
+    ImGui::PopStyleVar();
+    ImGui::PopStyleVar();
+    ImGui::PopStyleVar();
+}
+
+void
+uiMenu::render(Application &app)
+{
+    draw_menu_button(show_menu, app.view.fb_size);
+    if (show_menu)
+        draw_menu_window(app.view.fb_size, ui);
+
+    loader.render(app);
+
+    if (show_scale)
+        draw_scale_window(ui.trans_data);
+    if (show_sliders)
+        draw_sliders_window(ui.sliders_data);
+    if (show_color)
+        draw_color_window(ui);
+}
+
+static void
+tooltip(const char *text)
+{
+    ImGui::PushStyleVar(ImGuiStyleVar_WindowRounding, 5.0f);
+    ImGui::PushStyleVar(ImGuiStyleVar_WindowPadding, ImVec2(2, 2));
+    ImGui::PushStyleVar(ImGuiStyleVar_Alpha, 0.8f);
+    if (ImGui::IsItemHovered())
+        ImGui::SetTooltip(text);
     ImGui::PopStyleVar();
     ImGui::PopStyleVar();
     ImGui::PopStyleVar();
@@ -75,16 +90,21 @@ uiMenu::draw_menu_window(const Vector2i &window_size, UiData &ui)
                  window_size.y() - WINDOW_PADDING - TOOLS_HEIGHT));
         ImGui::SetWindowSize(ImVec2(WINDOW_WIDTH, TOOLS_HEIGHT));
 
-        if (ImGui::Button(ICON_FA_FOLDER_OPEN, ImVec2(50.75f, 50.75f))) {
-            loader.show();
-            show_menu = false;
-        }
-        hover_info("Open file");
+        auto menu_entry = [&](auto icon, const char *label, auto &x) {
+            if (ImGui::Button(icon, ImVec2(50.75f, 50.75f))) {
+                x.show();
+                show_menu = false;
+            }
+            tooltip(label);
+        };
 
+        menu_entry(ICON_FA_FOLDER_OPEN, "Open file", loader);
+
+        // TODO convert these to menu_entries
         if (ImGui::Button(ICON_FA_SAVE, ImVec2(50.75f, 50.75f))) {
             show_menu = false;
         }
-        hover_info("Save");
+        tooltip("Save");
 
         ImGui::Separator();
 
@@ -92,25 +112,19 @@ uiMenu::draw_menu_window(const Vector2i &window_size, UiData &ui)
             show_scale = true;
             show_menu = false;
         }
-        hover_info("Scale data");
+        tooltip("Scale data");
 
         if (ImGui::Button(ICON_FA_SLIDERS_H, ImVec2(50.75f, 50.75f))) {
             show_sliders = true;
             show_menu = false;
         }
-        hover_info("Sliders");
+        tooltip("Sliders");
 
         if (ImGui::Button(ICON_FA_PALETTE, ImVec2(50.75f, 50.75f))) {
             show_color = true;
             show_menu = false;
         }
-        hover_info("Color points");
-
-        if (ImGui::Button(ICON_FA_UNDO, ImVec2(50.75f, 50.75f))) {
-            ui.reset = true;
-            show_menu = false;
-        }
-        hover_info("Reset");
+        tooltip("Color points");
 
         ImGui::End();
     }
@@ -221,17 +235,4 @@ uiMenu::draw_color_window(UiData &ui)
     ImGui::PopStyleVar();
     ImGui::PopStyleVar();
     //  ImGui::PopStyleVar();
-}
-
-void
-uiMenu::hover_info(const std::string &text)
-{
-    ImGui::PushStyleVar(ImGuiStyleVar_WindowRounding, 5.0f);
-    ImGui::PushStyleVar(ImGuiStyleVar_WindowPadding, ImVec2(2, 2));
-    ImGui::PushStyleVar(ImGuiStyleVar_Alpha, 0.8f);
-    if (ImGui::IsItemHovered())
-        ImGui::SetTooltip(text.data());
-    ImGui::PopStyleVar();
-    ImGui::PopStyleVar();
-    ImGui::PopStyleVar();
 }
