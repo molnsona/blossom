@@ -20,14 +20,12 @@ struct LandmarkModel
     void update_dim(size_t dim);
     void init_grid(size_t side);
 
-    void press(const std::size_t &ind,
+    void press(const size_t &ind,
                const Magnum::Vector2i &mouse_pos,
                View &view);
-    void move(const std::size_t &ind,
-              const Magnum::Vector2i &mouse_pos,
-              View &view);
-    void duplicate(const std::size_t &ind);
-    void remove(const std::size_t &ind);
+    void move(const size_t &ind, const Magnum::Vector2i &mouse_pos, View &view);
+    void duplicate(const size_t &ind);
+    void remove(const size_t &ind);
 
     size_t n_landmarks() const { return lodim_vertices.size(); }
 };

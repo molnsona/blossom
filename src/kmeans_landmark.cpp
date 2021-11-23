@@ -11,7 +11,7 @@ sqr(float x)
 
 void
 kmeans_landmark_step(KMeansData &data,
-                     const DataModel &model,
+                     const TransData &model,
                      size_t n_means,
                      size_t d,
                      size_t iters,
@@ -73,7 +73,7 @@ kmeans_landmark_step(KMeansData &data,
 
 void
 som_landmark_step(KMeansData &data,
-                  const DataModel &model,
+                  const TransData &model,
                   size_t n_neurons,
                   size_t d,
                   size_t iters,

@@ -7,32 +7,46 @@
 #include "data_model.h"
 #include "ui_trans_data.h"
 
+struct TransConfig
+{
+    bool included;              // do not touch this directly
+    std::string transformation; // e.g., "" or "asinh" etc.
+    float cofactor;
+    bool scale;
+    float sdev;
+
+    // TODO observed means+sdevs
+
+    TransConfig()
+    {
+        included = true;
+        cofactor = 500;
+        scale = false;
+        sdev = 1;
+    }
+};
+
 struct TransData
 {
-    size_t d, n;
-
-    TransData() = delete;
-    TransData(const std::vector<float> &d, size_t dim, size_t size);
-
-    void set_data(const std::vector<float> &dat, size_t dim, size_t size)
-    {
-        data = dat;
-        d = dim;
-        n = size;
-    }
-    const std::vector<float> &get_data() const { return data; }
-    void update(UiTransData &ui, const DataModel &orig_data);
-
-private:
-    void fn_wrapper(const UiTransData &ui, const DataModel &orig_data);
-
+    size_t n, d;
     std::vector<float> data;
+    std::vector<TransConfig> config;
+    size_t dirty;
 
-    UiTransData data_snapshot;
-    DataModel orig_data_snapshot;
+    TransData()
+      : n(0)
+      , d(0)
+    {}
 
-    std::thread trans_thread;
-    bool thread_finished;
+    void update(const DataModel &d);
+    void reset(const DataModel &d);
+
+    // UI interface. config can be touched directly except for adding/removing
+    // cols. After touching the config, call touch() to cause (gradual)
+    // recomputation.
+    void disable_col(size_t);
+    void enable_col(size_t);
+    void touch();
 };
 
 #endif // #ifndef TRANS_DATA_H

@@ -22,6 +22,9 @@ uiLoader::render(Application &app)
             loading_error = e.what();
         }
 
+        app.state.trans.reset(
+          app.state.data); // TODO have State handler for this
+
         opener.ClearSelected();
     }
 

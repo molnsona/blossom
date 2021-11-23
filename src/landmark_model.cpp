@@ -13,6 +13,7 @@ void
 LandmarkModel::init_grid(size_t n)
 {
     if (!d) {
+        hidim_vertices.clear();
         lodim_vertices.clear();
         return;
     }
@@ -52,7 +53,7 @@ LandmarkModel::update_dim(size_t dim)
     if (dim == d)
         return;
     d = dim;
-    init_grid(10);
+    init_grid(2);
 }
 
 void

@@ -6,9 +6,7 @@
 #include "state.h"
 #include "tsv_parser.h"
 
-State::State()
-  : trans(data.data, data.d, data.n)
-{}
+State::State() {}
 
 void
 State::update(float actual_time, UiData &ui)
@@ -17,6 +15,31 @@ State::update(float actual_time, UiData &ui)
     float time = actual_time;
     if (time > 0.05)
         time = 0.05;
+
+    trans.update(data);
+
+    // TODO only run this on data reset, ideally from trans or from a common
+    // trigger
+    landmarks.update_dim(trans.d);
+
+    // TODO make these switchable
+#if 0
+    kmeans_landmark_step(
+      kmeans_data,
+      trans,
+      landmarks.n_landmarks(),
+      landmarks.d,
+      100, // TODO parametrize (now this is 100 iters per frame, there should be
+           // fixed number of iters per actual elapsed time)
+      0.01,  // TODO parametrize, logarithmically between 1e-6 and ~0.5
+      0.001, // TODO parametrize as 0-1 multiple of ^^
+      landmarks.edges,
+      landmarks.hidim_vertices);
+#endif
+
+#if 0
+    make_knn_edges(knn_data, landmarks, 3);
+#endif
 
 #if 0
     graph_layout_step(layout_data,
@@ -27,53 +50,35 @@ State::update(float actual_time, UiData &ui)
                       time);
 #endif
 
-#if 0
-    kmeans_landmark_step(
-      kmeans_data,
-      data,
-      landmarks.n_landmarks(),
-      landmarks.d,
-      100, // TODO parametrize (now this is 100 iters per frame, there should be
-           // fixed number of iters per actual elapsed time)
-      0.0001,    // TODO parametrize, logarithmically between 1e-6 and ~0.5
-      0,   // TODO parametrize as 0-1 multiple of ^^
-      landmarks.edges,
-      landmarks.hidim_vertices);
-#endif
-
 #if 1
-    som_landmark_step(
-      kmeans_data,
-      data,
-      landmarks.n_landmarks(),
-      landmarks.d,
-      100,
-      ui.sliders_data.alpha,
-      ui.sliders_data
-        .sigma, // TODO this really needs to be slidable by the user
-      landmarks.hidim_vertices,
-      landmarks.lodim_vertices);
+    som_landmark_step(kmeans_data,
+                      trans,
+                      landmarks.n_landmarks(),
+                      landmarks.d,
+                      100,
+                      ui.sliders_data.alpha,
+                      ui.sliders_data.sigma,
+                      landmarks.hidim_vertices,
+                      landmarks.lodim_vertices);
 #endif
 
-#if 0
-    make_knn_edges(knn_data, landmarks, 3);
-#endif
+#ifdef NO_CUDA
+    // TODO check that data dimension matches landmark dimension and that
+    // model sizes are matching (this is going to change dynamically, functions
+    // that ensure this may be turned off sometime)
 
     if (scatter.points.size() != trans.n) {
         scatter.points.clear();
         scatter.points.resize(trans.n);
     }
 
-#ifdef NO_CUDA
-    // TODO check that data dimension matches landmark dimension and that
-    // model sizes are matching (this is going to change dynamically)
-    embedsom(data.n,
+    embedsom(trans.n,
              landmarks.lodim_vertices.size(),
-             data.d, // should be the same as landmarks.d
+             trans.d, // should be the same as landmarks.d
              2.0,
-             10,
+             20,
              0.2,
-             data.data.data() /* <3 */,
+             trans.data.data() /* <3 */,
              landmarks.hidim_vertices.data(),
              landmarks.lodim_vertices[0].data(),
              scatter.points[0].data());
