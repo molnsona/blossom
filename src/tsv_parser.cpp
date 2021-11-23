@@ -5,8 +5,21 @@
 #include <iostream>
 #include <random>
 
-void
-TSVParser::parse(const std::string &fp,
+static std::vector<std::string>
+split(const std::string &str, char delim)
+{
+    std::vector<std::string> result;
+    std::stringstream ss(str);
+    std::string item;
+
+    while (getline(ss, item, delim)) {
+        result.emplace_back(item);
+    }
+
+    return result;
+}
+
+parse_TSV(const std::string &fp,
                  size_t points_count,
                  std::vector<float> &out_data,
                  size_t &dim,
@@ -72,18 +85,4 @@ TSVParser::parse(const std::string &fp,
     for (size_t i = 0; i < dim; ++i) {
         param_names[i] = std::to_string(i + 1);
     }
-}
-
-std::vector<std::string>
-TSVParser::split(const std::string &str, char delim)
-{
-    std::vector<std::string> result;
-    std::stringstream ss(str);
-    std::string item;
-
-    while (getline(ss, item, delim)) {
-        result.emplace_back(item);
-    }
-
-    return result;
 }

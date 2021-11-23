@@ -10,60 +10,8 @@
 #include <sstream>
 #include <string>
 
-void
-FCSParser::parse(const std::string &file_path,
-                 size_t points_count,
-                 std::vector<float> &out_data,
-                 size_t &dim,
-                 size_t &n,
-                 std::vector<std::string> &param_names)
-{
-    std::string file_name =
-      std::filesystem::path(file_path).filename().string();
-
-    std::ifstream file_reader;
-    try {
-        file_reader.open(file_path, std::ios::binary | std::ios::in);
-    } catch (int e) {
-        std::cerr << "Did not open." << e << std::endl;
-        return;
-    }
-    if (!file_reader.is_open()) {
-        std::cerr << "Did not open." << std::endl;
-        return;
-    }
-
-    size_t data_begin_offset = 0;
-    size_t data_end_offset = 0;
-    size_t params_count = 0;
-    size_t events_count = 0;
-    bool is_be = false;
-    std::vector<std::string> params_names;
-
-    parse_info(file_reader,
-               data_begin_offset,
-               data_end_offset,
-               params_count,
-               events_count,
-               is_be,
-               params_names);
-    dim = params_count;
-    n = points_count;
-    parse_data(file_reader,
-               points_count,
-               data_begin_offset,
-               data_end_offset,
-               params_count,
-               events_count,
-               is_be,
-               out_data);
-    file_reader.close();
-
-    param_names = params_names;
-}
-
-void
-FCSParser::parse_info(std::ifstream &file_reader,
+static void
+parse_info(std::ifstream &file_reader,
                       size_t &data_begin_offset,
                       size_t &data_end_offset,
                       size_t &params_count,
@@ -140,8 +88,8 @@ FCSParser::parse_info(std::ifstream &file_reader,
     }
 }
 
-void
-FCSParser::parse_data(std::ifstream &file_reader,
+static void
+parse_data(std::ifstream &file_reader,
                       size_t points_count,
                       size_t &data_begin_offset,
                       size_t &data_end_offset,
@@ -211,8 +159,8 @@ FCSParser::parse_data(std::ifstream &file_reader,
           });
 }
 
-size_t
-FCSParser::parse_id(const std::string &word)
+static size_t
+parse_id(const std::string &word)
 {
     std::stringstream ss(word);
     std::stringstream output;
@@ -223,4 +171,56 @@ FCSParser::parse_id(const std::string &word)
     }
 
     return stoi(output.str());
+}
+
+void
+parse_FCS(const std::string &file_path,
+                 size_t points_count,
+                 std::vector<float> &out_data,
+                 size_t &dim,
+                 size_t &n,
+                 std::vector<std::string> &param_names)
+{
+    std::string file_name =
+      std::filesystem::path(file_path).filename().string();
+
+    std::ifstream file_reader;
+    try {
+        file_reader.open(file_path, std::ios::binary | std::ios::in);
+    } catch (int e) {
+        std::cerr << "Did not open." << e << std::endl;
+        return;
+    }
+    if (!file_reader.is_open()) {
+        std::cerr << "Did not open." << std::endl;
+        return;
+    }
+
+    size_t data_begin_offset = 0;
+    size_t data_end_offset = 0;
+    size_t params_count = 0;
+    size_t events_count = 0;
+    bool is_be = false;
+    std::vector<std::string> params_names;
+
+    parse_info(file_reader,
+               data_begin_offset,
+               data_end_offset,
+               params_count,
+               events_count,
+               is_be,
+               params_names);
+    dim = params_count;
+    n = points_count;
+    parse_data(file_reader,
+               points_count,
+               data_begin_offset,
+               data_end_offset,
+               params_count,
+               events_count,
+               is_be,
+               out_data);
+    file_reader.close();
+
+    param_names = params_names;
 }
