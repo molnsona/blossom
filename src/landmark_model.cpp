@@ -52,7 +52,7 @@ LandmarkModel::update_dim(size_t dim)
     if (dim == d)
         return;
     d = dim;
-    init_grid(5);
+    init_grid(10);
 }
 
 void
