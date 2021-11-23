@@ -118,7 +118,7 @@ som_landmark_step(KMeansData &data,
 
             for (size_t di = 0; di < d; ++di)
                 neurons[di + d * ni] +=
-                  r * (model.data[di + d * best] - neurons[di + d * ni]);
+                  r * (model.data[di + d * tgt] - neurons[di + d * ni]);
         }
     }
 }

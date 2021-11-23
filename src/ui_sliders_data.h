@@ -10,7 +10,11 @@ struct UiSlidersData
 
     void init() { reset_data(); }
 
-    void reset_data() { alpha = 0.001f; sigma = 1.1f; }
+    void reset_data()
+    {
+        alpha = 0.001f;
+        sigma = 1.1f;
+    }
 };
 
 #endif // #ifndef UI_SLIDERS_DATA_H

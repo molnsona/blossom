@@ -12,12 +12,14 @@ struct MouseData
     // Raw coordinates on the screen (upper left [0,0])
     Vector2i mouse_pos;
 
-    bool mouse_pressed;
+    bool left_pressed;
+    bool right_pressed;
     bool vert_pressed;
     std::size_t vert_ind;
 
     MouseData()
-      : mouse_pressed(false)
+      : left_pressed(false)
+      , right_pressed(false)
       , vert_pressed(false)
       , vert_ind(0)
     {}
