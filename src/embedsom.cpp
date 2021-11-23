@@ -419,18 +419,20 @@ embedsom_point(const size_t n_landmarks,
 }
 
 void
-embedsom(const size_t n,
-         const size_t n_landmarks,
-         const size_t dim,
-         const float boost,
-         const size_t topn,
-         const float adjust,
+embedsom(size_t n,
+         size_t n_landmarks,
+         size_t dim,
+         float boost,
+         size_t topn,
+         float adjust,
          const float *points,
          const float *hidim_lm,
          const float *lodim_lm,
          float *embedding)
 {
-    // single-thread version
+    if (topn > n_landmarks)
+        topn = n_landmarks;
+
     const size_t topnn = topn < n_landmarks ? topn + 1 : topn;
 
     if (n_landmarks < 3)
