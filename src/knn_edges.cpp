@@ -75,7 +75,7 @@ make_knn_edges(KnnEdgesData &data, LandmarkModel &landmarks, const size_t kns)
         visited[cur] = true;
 
         if (cur != from)
-            nn[{ std::min(cur, from), std::max(cur, from) }] = curdist;
+            nn[{ std::min(cur, from), std::max(cur, from) }] = sqrt(curdist);
 
         for (size_t i = 0; i < landmarks.n_landmarks(); ++i) {
             if (visited[i])
