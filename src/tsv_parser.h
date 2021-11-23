@@ -2,13 +2,8 @@
 #define TSV_PARSER_H
 
 #include <string>
-#include <vector>
+#include "data_model.h"
 
-void parse_TSV(const std::string &file_path,
-                      size_t points_count,
-                      std::vector<float> &out_data,
-                      size_t &dim,
-                      size_t &n,
-                      std::vector<std::string> &param_names);
+void parse_TSV(const std::string &file_path, DataModel&dm);
 
 #endif // #ifndef TSV_PARSER_H

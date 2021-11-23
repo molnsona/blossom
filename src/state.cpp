@@ -1,20 +1,10 @@
 
-#include <filesystem>
 #include <iostream>
 
 #include "embedsom.h"
 #include "fcs_parser.h"
 #include "state.h"
 #include "tsv_parser.h"
-
-using Parser = void (*)(const std::string &file_path,
-                        size_t points_count,
-                        std::vector<float> &out_data,
-                        size_t &dim,
-                        size_t &n,
-                        std::vector<std::string> &param_names);
-
-std::size_t counter = 0;
 
 State::State()
   : trans(data.data, data.d, data.n)
@@ -146,6 +136,8 @@ State::update(float actual_time)
       2.0, 0.2, scatter.points[0].data()); // boost and adjust parameters are
                                            // now passed in every call, but we
                                            // might want to cache them iside?
+
+    static std::size_t counter = 0;
 
     if (++counter >= 10) {
         std::cout << esom_cuda.getAvgPointsUploadTime() << "ms \t"

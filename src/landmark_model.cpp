@@ -71,6 +71,7 @@ LandmarkModel::move(const std::size_t &ind,
     lodim_vertices[ind] = view.model_mouse_coords(mouse_pos);
 }
 
+
 void
 LandmarkModel::duplicate(const std::size_t &ind)
 {
@@ -84,6 +85,7 @@ LandmarkModel::duplicate(const std::size_t &ind)
     lodim_vertices.emplace_back(
       Magnum::Vector2(lodim_vertices[ind].x() + 0.3, lodim_vertices[ind].y()));
     std::size_t new_vert_ind = lodim_vertices.size() - 1;
+
 #if 0
     // Find edges.
     std::vector<std::size_t> edge_idxs;
