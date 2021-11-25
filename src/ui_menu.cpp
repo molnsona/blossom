@@ -10,7 +10,6 @@ constexpr float WINDOW_WIDTH = 50.0f;
 uiMenu::uiMenu()
   : show_menu(false)
   , show_scale(false)
-  , show_sliders(false)
   , show_color(false)
 {}
 
@@ -51,11 +50,10 @@ uiMenu::render(Application &app)
         draw_menu_window(app.view.fb_size, ui);
 
     loader.render(app);
+    training_set.render(app);
 
     if (show_scale)
         draw_scale_window(ui.trans_data);
-    if (show_sliders)
-        draw_sliders_window(ui.sliders_data);
     if (show_color)
         draw_color_window(ui);
 }
@@ -114,11 +112,7 @@ uiMenu::draw_menu_window(const Vector2i &window_size, UiData &ui)
         }
         tooltip("Scale data");
 
-        if (ImGui::Button(ICON_FA_SLIDERS_H, ImVec2(50.75f, 50.75f))) {
-            show_sliders = true;
-            show_menu = false;
-        }
-        tooltip("Sliders");
+        menu_entry(ICON_FA_SLIDERS_H, "Training settings", training_set);
 
         if (ImGui::Button(ICON_FA_PALETTE, ImVec2(50.75f, 50.75f))) {
             show_color = true;
@@ -176,34 +170,6 @@ uiMenu::draw_scale_window(UiTransData &ui)
     ImGui::PopStyleVar();
     ImGui::PopStyleVar();
     //  ImGui::PopStyleVar();
-}
-
-void
-uiMenu::draw_sliders_window(UiSlidersData &ui)
-{
-    ImGuiWindowFlags window_flags = ImGuiWindowFlags_NoCollapse |
-                                    ImGuiWindowFlags_NoResize |
-                                    ImGuiWindowFlags_AlwaysAutoResize;
-
-    ImGui::PushStyleVar(ImGuiStyleVar_ChildRounding, 10.0f);
-    ImGui::PushStyleVar(ImGuiStyleVar_FrameRounding, 10.0f);
-
-    if (ImGui::Begin("Sliders", &show_sliders, window_flags)) {
-        ImGui::SliderFloat("alpha",
-                           &ui.alpha,
-                           0.001f,
-                           2.0f,
-                           "%.3f",
-                           ImGuiSliderFlags_AlwaysClamp);
-
-        ImGui::SliderFloat(
-          "sigma", &ui.sigma, 0.1f, 5.0f, "%.3f", ImGuiSliderFlags_AlwaysClamp);
-    }
-
-    ImGui::End();
-
-    ImGui::PopStyleVar();
-    ImGui::PopStyleVar();
 }
 
 void

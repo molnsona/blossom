@@ -24,6 +24,7 @@ uiLoader::render(Application &app)
 
         app.state.trans.reset(
           app.state.data); // TODO have State handler for this
+        app.state.training_conf.reset_data();
 
         opener.ClearSelected();
     }

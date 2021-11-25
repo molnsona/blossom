@@ -17,6 +17,7 @@ set(SOURCES
     ui_imgui.cpp
     ui_load.cpp
     ui_menu.cpp
+    ui_train.cpp
     view.cpp
 )
 

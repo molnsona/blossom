@@ -4,12 +4,14 @@
 
 #include "ui_data.h"
 #include "ui_load.h"
+#include "ui_train.h"
 
 class Application;
 
 struct uiMenu
 {
     uiLoader loader;
+    uiTrainingSettings training_set;
 
     uiMenu();
     void render(Application &app);
@@ -22,12 +24,10 @@ private:
     void draw_menu_window(const Vector2i &window_size, UiData &ui);
 
     void draw_scale_window(UiTransData &ui);
-    void draw_sliders_window(UiSlidersData &ui);
     void draw_color_window(UiData &ui);
 
     bool show_menu;
     bool show_scale;
-    bool show_sliders;
     bool show_color;
 };
 
