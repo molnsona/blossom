@@ -1,6 +1,6 @@
 
-#include "fcs_parser.h"
 #include "state.h"
+#include "fcs_parser.h"
 #include "tsv_parser.h"
 
 State::State() {}
@@ -46,7 +46,7 @@ State::update(float actual_time, UiData &ui)
 
     scatter.update(trans, landmarks);
 
-#if 0 //TODO move this to ScatterModel
+#if 0 // TODO move this to ScatterModel
     // these methods should be called only once in the initialization and then
     // only when the data/paramters change
     esom_cuda.setDim(trans.dim());
