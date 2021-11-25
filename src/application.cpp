@@ -33,13 +33,13 @@ Application::drawEvent()
     timer.tick();
 
     view.update(timer.frametime);
-    state.update(timer.frametime, ui_imgui.menu.ui);
+    state.update(timer.frametime);
 
     GL::defaultFramebuffer.clear(GL::FramebufferClear::Color |
                                  GL::FramebufferClear::Depth);
 
     scatter_renderer.draw(
-      view, state.scatter, state.trans, ui_imgui.menu.ui.color_ind);
+      view, state.scatter, state.trans, state.trans_config.color_ind);
     graph_renderer.draw(view, state.landmarks, vertex_size);
     ui_imgui.draw_event(*this);
 

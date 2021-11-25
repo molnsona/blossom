@@ -52,7 +52,7 @@ uiMenu::render(Application &app)
 
     draw_menu_button(show_menu, app.view.fb_size);
     if (show_menu)
-        draw_menu_window(app.view.fb_size, ui);
+        draw_menu_window(app.view.fb_size);
 
     loader.render(app);
     storer.render(app);
@@ -78,7 +78,7 @@ tooltip(const char *text)
 }
 
 void
-uiMenu::draw_menu_window(const Vector2i &window_size, UiData &ui)
+uiMenu::draw_menu_window(const Vector2i &window_size)
 {
     ImGuiWindowFlags window_flags = ImGuiWindowFlags_NoTitleBar |
                                     ImGuiWindowFlags_NoResize |

@@ -6,7 +6,7 @@
 State::State() {}
 
 void
-State::update(float actual_time, UiData &ui)
+State::update(float actual_time)
 {
     // avoid simulation explosions on long frames
     float time = actual_time;

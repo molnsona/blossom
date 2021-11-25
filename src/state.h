@@ -19,7 +19,6 @@
 #include "scatter_model.h"
 #include "training_config.h"
 #include "trans_data.h"
-#include "ui_data.h"
 
 #include <Magnum/Magnum.h>
 
@@ -48,7 +47,7 @@ struct State
 
     State();
 
-    void update(float time, UiData &ui);
+    void update(float time);
 };
 
 #endif // #ifndef STATE_H
