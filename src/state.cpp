@@ -1,7 +1,4 @@
 
-#include <iostream>
-
-#include "embedsom.h"
 #include "fcs_parser.h"
 #include "state.h"
 #include "tsv_parser.h"
@@ -47,11 +44,9 @@ State::update(float actual_time, UiData &ui)
                           training_conf.sigma,
                           landmarks);
 
-#ifdef NO_CUDA
-
     scatter.update(trans, landmarks);
 
-#else
+#if 0 //TODO move this to ScatterModel
     // these methods should be called only once in the initialization and then
     // only when the data/paramters change
     esom_cuda.setDim(trans.dim());

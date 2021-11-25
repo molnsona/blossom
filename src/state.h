@@ -9,7 +9,6 @@
 #include <vector>
 
 #include "data_model.h"
-#include "embedsom_cuda.h"
 #include "graph_layout.h"
 #include "keyboard_data.h"
 #include "kmeans_landmark.h"
@@ -42,10 +41,6 @@ struct State
     KMeansData kmeans_data;
     TrainingConfig training_conf;
     KnnEdgesData knn_data;
-
-#ifndef NO_CUDA
-    EsomCuda esom_cuda;
-#endif
 
     ScatterModel scatter;
 
