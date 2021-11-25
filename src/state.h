@@ -35,14 +35,16 @@ struct State
     DataModel data;
     TransData trans;
     LandmarkModel landmarks;
-    ScatterModel scatter;
 
     GraphLayoutData layout_data;
     KMeansData kmeans_data;
     KnnEdgesData knn_data;
+
 #ifndef NO_CUDA
     EsomCuda esom_cuda;
-#endif;
+#endif
+
+    ScatterModel scatter;
 
     State();
 

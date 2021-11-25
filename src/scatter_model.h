@@ -10,7 +10,7 @@ struct ScatterModel
 {
     std::vector<Magnum::Vector2> points;
 
-    ScatterModel();
+    ScatterModel() {}
 };
 
 #endif
