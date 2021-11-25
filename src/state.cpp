@@ -56,8 +56,8 @@ State::update(float actual_time, UiData &ui)
                       landmarks.n_landmarks(),
                       landmarks.d,
                       100,
-                      ui.sliders_data.alpha,
-                      ui.sliders_data.sigma,
+                      training_conf.alpha,
+                      training_conf.sigma,
                       landmarks.hidim_vertices,
                       landmarks.lodim_vertices);
 #endif

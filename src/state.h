@@ -17,6 +17,7 @@
 #include "landmark_model.h"
 #include "mouse_data.h"
 #include "scatter_model.h"
+#include "training_config.h"
 #include "trans_data.h"
 #include "ui_data.h"
 
@@ -38,6 +39,7 @@ struct State
 
     GraphLayoutData layout_data;
     KMeansData kmeans_data;
+    TrainingConfig training_conf;
     KnnEdgesData knn_data;
 
 #ifndef NO_CUDA

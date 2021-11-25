@@ -1,12 +1,12 @@
-#ifndef UI_SLIDERS_DATA_H
-#define UI_SLIDERS_DATA_H
+#ifndef TRAINING_CONFIG_H
+#define TRAINING_CONFIG_H
 
-struct UiSlidersData
+struct TrainingConfig
 {
     float alpha;
     float sigma;
 
-    UiSlidersData() { init(); }
+    TrainingConfig() { init(); }
 
     void init() { reset_data(); }
 
@@ -17,4 +17,4 @@ struct UiSlidersData
     }
 };
 
-#endif // #ifndef UI_SLIDERS_DATA_H
+#endif // #ifndef TRAINING_CONFIG_H
