@@ -10,6 +10,7 @@ set(SOURCES
     knn_edges.cpp
     landmark_model.cpp
     parsers.cpp
+    scatter_model.cpp
     scatter_renderer.cpp
     state.cpp
     trans_data.cpp

@@ -21,32 +21,40 @@ struct TransConfig
     {
         included = true;
         cofactor = 500;
-        scale = false;
+        scale = true;
         sdev = 1;
     }
 };
 
-struct TransData
+struct DataStats
+  : public Cleaner
+  , public Dirt
 {
-    size_t n, d;
+    // TODO this needs to go _after_ transformations.
+    std::vector<float> means, isds;
+
+    void update(const DataModel &dm);
+};
+
+struct TransData
+  : public Sweeper
+  , public Dirts
+{
     std::vector<float> data;
+
     std::vector<TransConfig> config;
-    size_t dirty;
+    size_t dim() const { return config.size(); }
+    void touch_config() { refresh(*this); }
 
-    TransData()
-      : n(0)
-      , d(0)
-    {}
-
-    void update(const DataModel &d);
-    void reset(const DataModel &d);
+    Cleaner stat_watch;
+    void update(const DataModel &dm, const DataStats &s);
+    void reset();
 
     // UI interface. config can be touched directly except for adding/removing
     // cols. After touching the config, call touch() to cause (gradual)
     // recomputation.
     void disable_col(size_t);
     void enable_col(size_t);
-    void touch();
 };
 
 #endif // #ifndef TRANS_DATA_H

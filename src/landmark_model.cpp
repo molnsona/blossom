@@ -32,6 +32,8 @@ LandmarkModel::init_grid(size_t n)
         hidim_vertices[d * i + 0] = x / float(n);
         hidim_vertices[d * i + 1] = y / float(n);
     }
+
+    touch();
 }
 
 void
@@ -49,6 +51,7 @@ LandmarkModel::press(const std::size_t &ind,
                      View &view)
 {
     lodim_vertices[ind] = view.model_mouse_coords(mouse_pos);
+    touch();
 }
 
 void
@@ -57,6 +60,7 @@ LandmarkModel::move(const std::size_t &ind,
                     View &view)
 {
     lodim_vertices[ind] = view.model_mouse_coords(mouse_pos);
+    touch();
 }
 
 void
@@ -94,6 +98,7 @@ LandmarkModel::duplicate(const std::size_t &ind)
         edge_lengths.emplace_back(edge_lengths[edge_idx]);
     }
 #endif
+    touch();
 }
 
 void
@@ -127,4 +132,6 @@ LandmarkModel::remove(const std::size_t &ind)
             --i->second;
         }
     }
+
+    touch();
 }

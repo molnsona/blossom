@@ -34,6 +34,7 @@ struct State
     KeyboardData keyboard;
 
     DataModel data;
+    DataStats stats;
     TransData trans;
     LandmarkModel landmarks;
 

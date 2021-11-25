@@ -7,6 +7,7 @@
 
 #include <vector>
 
+#include "landmark_model.h"
 #include "mouse_data.h"
 
 struct GraphLayoutData
@@ -18,9 +19,7 @@ struct GraphLayoutData
 void
 graph_layout_step(GraphLayoutData &data,
                   const MouseData &mouse,
-                  std::vector<Magnum::Vector2> &vertices,
-                  const std::vector<std::pair<size_t, size_t>> &edges,
-                  const std::vector<float> &lengths,
+                  LandmarkModel &lm,
                   float time);
 
 #endif

@@ -6,11 +6,16 @@
 #include <Magnum/Math/Vector2.h>
 #include <vector>
 
-struct ScatterModel
+#include "dirty.h"
+#include "landmark_model.h"
+#include "trans_data.h"
+
+struct ScatterModel : public Sweeper
 {
     std::vector<Magnum::Vector2> points;
 
-    ScatterModel() {}
+    Cleaner lm_watch;
+    void update(const TransData &d, const LandmarkModel &lm);
 };
 
 #endif
