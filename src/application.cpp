@@ -38,8 +38,10 @@ Application::drawEvent()
     GL::defaultFramebuffer.clear(GL::FramebufferClear::Color |
                                  GL::FramebufferClear::Depth);
 
-    scatter_renderer.draw(
-      view, state.scatter, state.trans, state.trans_config.color_ind);
+    scatter_renderer.draw(view,
+                          state.scatter,
+                          state.trans,
+                          0 /* TODO state.trans_config.color_ind */);
     graph_renderer.draw(view, state.landmarks, vertex_size);
     ui_imgui.draw_event(*this);
 

@@ -3,7 +3,9 @@
 #include "embedsom.h"
 
 void
-ScatterModel::update(const ScaledData &d, const LandmarkModel &lm)
+ScatterModel::update(const ScaledData &d,
+                     const LandmarkModel &lm,
+                     const TrainingConfig &tc)
 {
     if (dirty(d)) {
         points.resize(d.n);
@@ -28,9 +30,9 @@ ScatterModel::update(const ScaledData &d, const LandmarkModel &lm)
         embedsom(n,
                  lm.n_landmarks(),
                  d.dim(), // should be the same as landmarks.d
-                 2.0,
-                 20,
-                 0.2,
+                 tc.boost,
+                 tc.topn,
+                 tc.adjust,
                  d.data.data() + d.dim() * from,
                  lm.hidim_vertices.data(),
                  lm.lodim_vertices[0].data(),

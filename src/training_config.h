@@ -5,6 +5,13 @@ struct TrainingConfig
 {
     float alpha;
     float sigma;
+
+    int iters;
+    int kns;
+    int topn;
+    float boost;
+    float adjust;
+
     bool kmeans_landmark;
     bool som_landmark;
     bool knn_edges;
@@ -16,10 +23,16 @@ struct TrainingConfig
 
     void reset_data()
     {
-        kmeans_landmark = knn_edges = graph_layout = false;
-        som_landmark = true;
         alpha = 0.001f;
         sigma = 1.1f;
+        iters = 100;
+        kns = 3;
+        topn = 10;
+        boost = 2.0f;
+        adjust = 0.2f;
+
+        kmeans_landmark = knn_edges = graph_layout = false;
+        som_landmark = true;
     }
 };
 
