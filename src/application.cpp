@@ -1,11 +1,6 @@
 #include "application.h"
 #include <Magnum/Shaders/Flat.h>
 
-//#define DEBUG
-#ifdef DEBUG
-#include <iostream>
-#endif
-
 using namespace Magnum;
 
 Application::Application(const Arguments &arguments)
@@ -123,11 +118,6 @@ Application::mousePressEvent(MouseEvent &event)
 
     switch (event.button()) {
         case MouseEvent::Button::Middle:
-#ifdef DEBUG
-            std::cout << view.screen_mouse_coords(event.position()).x() << ", "
-                      << view.screen_mouse_coords(event.position()).y()
-                      << std::endl;
-#endif
             view.lookat_screen(event.position());
             return;
         case MouseEvent::Button::Left:
