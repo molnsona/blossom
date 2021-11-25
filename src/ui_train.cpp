@@ -20,6 +20,13 @@ uiTrainingSettings::render(Application &app)
     ImGui::PushStyleVar(ImGuiStyleVar_FrameRounding, 10.0f);
 
     if (ImGui::Begin("Training settings", &show_window, window_flags)) {
+
+        ImGui::Checkbox("som", &app.state.training_conf.som_landmark);
+        ImGui::Checkbox("kmeans",
+                        &app.state.training_conf.kmeans_landmark);
+        ImGui::Checkbox("knn", &app.state.training_conf.knn_edges);
+        ImGui::Checkbox("layout", &app.state.training_conf.graph_layout);
+
         ImGui::SliderFloat("alpha",
                            &app.state.training_conf.alpha,
                            0.001f,

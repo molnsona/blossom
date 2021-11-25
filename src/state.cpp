@@ -22,45 +22,40 @@ State::update(float actual_time, UiData &ui)
     // trigger
     landmarks.update_dim(trans.d);
 
-    // TODO make these switchable
-#if 0
-    kmeans_landmark_step(
-      kmeans_data,
-      trans,
-      landmarks.n_landmarks(),
-      landmarks.d,
-      100, // TODO parametrize (now this is 100 iters per frame, there should be
-           // fixed number of iters per actual elapsed time)
-      0.01,  // TODO parametrize, logarithmically between 1e-6 and ~0.5
-      0.001, // TODO parametrize as 0-1 multiple of ^^
-      landmarks.edges,
-      landmarks.hidim_vertices);
-#endif
+    if (training_conf.kmeans_landmark)
+        kmeans_landmark_step(
+          kmeans_data,
+          trans,
+          landmarks.n_landmarks(),
+          landmarks.d,
+          100,   // TODO parametrize (now this is 100 iters per frame, there
+                 // should be fixed number of iters per actual elapsed time)
+          0.01,  // TODO parametrize, logarithmically between 1e-6 and ~0.5
+          0.001, // TODO parametrize as 0-1 multiple of ^^
+          landmarks.edges,
+          landmarks.hidim_vertices);
 
-#if 0
-    make_knn_edges(knn_data, landmarks, 3);
-#endif
+    if (training_conf.knn_edges)
+        make_knn_edges(knn_data, landmarks, 3);
 
-#if 0
-    graph_layout_step(layout_data,
-                      mouse,
-                      landmarks.lodim_vertices,
-                      landmarks.edges,
-                      landmarks.edge_lengths,
-                      time);
-#endif
+    if (training_conf.graph_layout)
+        graph_layout_step(layout_data,
+                          mouse,
+                          landmarks.lodim_vertices,
+                          landmarks.edges,
+                          landmarks.edge_lengths,
+                          time);
 
-#if 1
-    som_landmark_step(kmeans_data,
-                      trans,
-                      landmarks.n_landmarks(),
-                      landmarks.d,
-                      100,
-                      training_conf.alpha,
-                      training_conf.sigma,
-                      landmarks.hidim_vertices,
-                      landmarks.lodim_vertices);
-#endif
+    if (training_conf.som_landmark)
+        som_landmark_step(kmeans_data,
+                          trans,
+                          landmarks.n_landmarks(),
+                          landmarks.d,
+                          100,
+                          training_conf.alpha,
+                          training_conf.sigma,
+                          landmarks.hidim_vertices,
+                          landmarks.lodim_vertices);
 
 #ifdef NO_CUDA
     // TODO check that data dimension matches landmark dimension and that

@@ -5,6 +5,10 @@ struct TrainingConfig
 {
     float alpha;
     float sigma;
+    bool kmeans_landmark;
+    bool som_landmark;
+    bool knn_edges;
+    bool graph_layout;
 
     TrainingConfig() { init(); }
 
@@ -12,6 +16,8 @@ struct TrainingConfig
 
     void reset_data()
     {
+        kmeans_landmark = knn_edges = graph_layout = false;
+        som_landmark = true;
         alpha = 0.001f;
         sigma = 1.1f;
     }
