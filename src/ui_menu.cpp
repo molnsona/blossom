@@ -45,17 +45,28 @@ draw_menu_button(bool &show_menu, const Vector2i &window_size)
 void
 uiMenu::render(Application &app)
 {
+    ImGuiWindowFlags window_flags = ImGuiWindowFlags_NoCollapse |
+                                    ImGuiWindowFlags_NoResize |
+                                    ImGuiWindowFlags_AlwaysAutoResize;
+
+    ImGui::PushStyleVar(ImGuiStyleVar_ChildRounding, 10.0f);
+    ImGui::PushStyleVar(ImGuiStyleVar_FrameRounding, 10.0f);
+
     draw_menu_button(show_menu, app.view.fb_size);
     if (show_menu)
         draw_menu_window(app.view.fb_size, ui);
 
     loader.render(app);
-    training_set.render(app);
+
+    training_set.render(app, window_flags);
 
     if (show_scale)
         draw_scale_window(ui.trans_data);
     if (show_color)
         draw_color_window(ui);
+
+    ImGui::PopStyleVar();
+    ImGui::PopStyleVar();
 }
 
 static void
@@ -78,8 +89,6 @@ uiMenu::draw_menu_window(const Vector2i &window_size, UiData &ui)
                                     ImGuiWindowFlags_NoResize |
                                     ImGuiWindowFlags_NoMove;
 
-    ImGui::PushStyleVar(ImGuiStyleVar_ChildRounding, 10.0f);
-    ImGui::PushStyleVar(ImGuiStyleVar_FrameRounding, 10.0f);
     ImGui::PushStyleVar(ImGuiStyleVar_WindowPadding, ImVec2(0, 0));
 
     if (ImGui::Begin("Tools", &show_menu, window_flags)) {
@@ -124,8 +133,6 @@ uiMenu::draw_menu_window(const Vector2i &window_size, UiData &ui)
     }
 
     ImGui::PopStyleVar();
-    ImGui::PopStyleVar();
-    ImGui::PopStyleVar();
 }
 
 void
@@ -135,10 +142,6 @@ uiMenu::draw_scale_window(UiTransData &ui)
                                     ImGuiWindowFlags_NoResize |
                                     ImGuiWindowFlags_AlwaysAutoResize;
     // ImGuiWindowFlags_NoTitleBar;
-
-    ImGui::PushStyleVar(ImGuiStyleVar_ChildRounding, 10.0f);
-    ImGui::PushStyleVar(ImGuiStyleVar_FrameRounding, 10.0f);
-    // ImGui::PushStyleVar(ImGuiStyleVar_WindowPadding, ImVec2(0, 0));
 
     if (ImGui::Begin("Scale", &show_scale, window_flags)) {
 
@@ -166,10 +169,6 @@ uiMenu::draw_scale_window(UiTransData &ui)
 
         ImGui::End();
     }
-
-    ImGui::PopStyleVar();
-    ImGui::PopStyleVar();
-    //  ImGui::PopStyleVar();
 }
 
 void
@@ -179,10 +178,6 @@ uiMenu::draw_color_window(UiData &ui)
                                     ImGuiWindowFlags_NoResize |
                                     ImGuiWindowFlags_AlwaysAutoResize;
     // ImGuiWindowFlags_NoTitleBar;
-
-    ImGui::PushStyleVar(ImGuiStyleVar_ChildRounding, 10.0f);
-    ImGui::PushStyleVar(ImGuiStyleVar_FrameRounding, 10.0f);
-    // ImGui::PushStyleVar(ImGuiStyleVar_WindowPadding, ImVec2(0, 0));
 
     if (ImGui::Begin("Color", &show_color, window_flags)) {
 
@@ -197,8 +192,4 @@ uiMenu::draw_color_window(UiData &ui)
 
         ImGui::End();
     }
-
-    ImGui::PopStyleVar();
-    ImGui::PopStyleVar();
-    //  ImGui::PopStyleVar();
 }

@@ -7,17 +7,10 @@ uiTrainingSettings::uiTrainingSettings()
 {}
 
 void
-uiTrainingSettings::render(Application &app)
+uiTrainingSettings::render(Application &app, ImGuiWindowFlags window_flags)
 {
     if (!show_window)
         return;
-
-    ImGuiWindowFlags window_flags = ImGuiWindowFlags_NoCollapse |
-                                    ImGuiWindowFlags_NoResize |
-                                    ImGuiWindowFlags_AlwaysAutoResize;
-
-    ImGui::PushStyleVar(ImGuiStyleVar_ChildRounding, 10.0f);
-    ImGui::PushStyleVar(ImGuiStyleVar_FrameRounding, 10.0f);
 
     if (ImGui::Begin("Training settings", &show_window, window_flags)) {
 
@@ -42,7 +35,4 @@ uiTrainingSettings::render(Application &app)
     }
 
     ImGui::End();
-
-    ImGui::PopStyleVar();
-    ImGui::PopStyleVar();
 }

@@ -12,7 +12,7 @@ struct uiTrainingSettings
 
     uiTrainingSettings();
     void show() { show_window = true; }
-    void render(Application &app);
+    void render(Application &app, ImGuiWindowFlags window_flags);
 };
 
 #endif
