@@ -1,5 +1,4 @@
 
-#include <filesystem>
 #include <iostream>
 
 #include "embedsom.h"
@@ -7,83 +6,40 @@
 #include "state.h"
 #include "tsv_parser.h"
 
-using Parser = void (*)(const std::string &file_path,
-                        size_t points_count,
-                        std::vector<float> &out_data,
-                        size_t &dim,
-                        size_t &n,
-                        std::vector<std::string> &param_names);
-
-std::size_t counter = 0;
-
-State::State()
-  : trans(data.data, data.d, data.n)
-{
-#if 1
-    // Default dataset
-    ui.parser_data.parse = true;
-    ui.parser_data.file_path = std::filesystem::current_path().string() +
-                               "/../test_data/small/clusters.tsv";
-#endif
-}
+State::State() {}
 
 void
-State::update(float time)
+State::update(float actual_time, UiData &ui)
 {
-    if (ui.reset) {
-        data = DataModel();
-        trans.set_data(data.data, data.d, data.n);
-        landmarks = LandmarkModel();
-        scatter = ScatterModel();
-        layout_data = GraphLayoutData();
-        ui.reset_data();
-#if 1
-        // Default dataset
-        ui.parser_data.parse = true;
-        ui.parser_data.file_path = std::filesystem::current_path().string() +
-                                   "/../test_data/small/clusters.tsv";
+    // avoid simulation explosions on long frames
+    float time = actual_time;
+    if (time > 0.05)
+        time = 0.05;
+
+    trans.update(data);
+
+    // TODO only run this on data reset, ideally from trans or from a common
+    // trigger
+    landmarks.update_dim(trans.d);
+
+    // TODO make these switchable
+#if 0
+    kmeans_landmark_step(
+      kmeans_data,
+      trans,
+      landmarks.n_landmarks(),
+      landmarks.d,
+      100, // TODO parametrize (now this is 100 iters per frame, there should be
+           // fixed number of iters per actual elapsed time)
+      0.01,  // TODO parametrize, logarithmically between 1e-6 and ~0.5
+      0.001, // TODO parametrize as 0-1 multiple of ^^
+      landmarks.edges,
+      landmarks.hidim_vertices);
 #endif
-    }
 
-    if (ui.parser_data.parse) {
-        std::string ext =
-          std::filesystem::path(ui.parser_data.file_path).extension().string();
-        Parser parse;
-
-        if (ext == ".fcs") {
-            ui.parser_data.reset_data();
-            parse = FCSParser::parse;
-            ui.parser_data.is_tsv =
-              false; // TODO: Remove when landmarks are dynamically computed
-        } else if (ext == ".tsv") {
-            ui.parser_data.reset_data();
-            parse = TSVParser::parse;
-            ui.parser_data.is_tsv =
-              true; // TODO: Remove when landmarks are dynamically computed
-        }
-
-        ui.reset_data();
-
-        parse(ui.parser_data.file_path,
-              1000,
-              data.data,
-              data.d,
-              data.n,
-              ui.trans_data.param_names);
-
-        ui.trans_data.scale.clear();
-        ui.trans_data.scale.resize(ui.trans_data.param_names.size());
-
-        ui.trans_data.sliders.clear();
-        ui.trans_data.sliders.resize(ui.trans_data.param_names.size());
-
-        trans.set_data(data.data, data.d, data.n);
-
-        landmarks.update_dim(trans.d);
-        ui.parser_data.parse = false;
-    }
-
-    trans.update(ui.trans_data, data);
+#if 0
+    make_knn_edges(knn_data, landmarks, 3);
+#endif
 
 #if 0
     graph_layout_step(layout_data,
@@ -94,53 +50,35 @@ State::update(float time)
                       time);
 #endif
 
-#if 0
-    kmeans_landmark_step(
-      kmeans_data,
-      data,
-      landmarks.n_landmarks(),
-      landmarks.d,
-      100, // TODO parametrize (now this is 100 iters per frame, there should be
-           // fixed number of iters per actual elapsed time)
-      0.0001,    // TODO parametrize, logarithmically between 1e-6 and ~0.5
-      0,   // TODO parametrize as 0-1 multiple of ^^
-      landmarks.edges,
-      landmarks.hidim_vertices);
-#endif
-
 #if 1
-    som_landmark_step(
-      kmeans_data,
-      data,
-      landmarks.n_landmarks(),
-      landmarks.d,
-      100,
-      ui.sliders_data.alpha,
-      ui.sliders_data
-        .sigma, // TODO this really needs to be slidable by the user
-      landmarks.hidim_vertices,
-      landmarks.lodim_vertices);
+    som_landmark_step(kmeans_data,
+                      trans,
+                      landmarks.n_landmarks(),
+                      landmarks.d,
+                      100,
+                      ui.sliders_data.alpha,
+                      ui.sliders_data.sigma,
+                      landmarks.hidim_vertices,
+                      landmarks.lodim_vertices);
 #endif
 
-#if 0
-    make_knn_edges(knn_data, landmarks, 3);
-#endif
+#ifdef NO_CUDA
+    // TODO check that data dimension matches landmark dimension and that
+    // model sizes are matching (this is going to change dynamically, functions
+    // that ensure this may be turned off sometime)
 
     if (scatter.points.size() != trans.n) {
         scatter.points.clear();
         scatter.points.resize(trans.n);
     }
 
-#ifdef NO_CUDA
-    // TODO check that data dimension matches landmark dimension and that
-    // model sizes are matching (this is going to change dynamically)
-    embedsom(data.n,
+    embedsom(trans.n,
              landmarks.lodim_vertices.size(),
-             data.d, // should be the same as landmarks.d
+             trans.d, // should be the same as landmarks.d
              2.0,
-             10,
+             20,
              0.2,
-             data.data.data() /* <3 */,
+             trans.data.data() /* <3 */,
              landmarks.hidim_vertices.data(),
              landmarks.lodim_vertices[0].data(),
              scatter.points[0].data());
@@ -159,6 +97,8 @@ State::update(float time)
       2.0, 0.2, scatter.points[0].data()); // boost and adjust parameters are
                                            // now passed in every call, but we
                                            // might want to cache them iside?
+
+    static std::size_t counter = 0;
 
     if (++counter >= 10) {
         std::cout << esom_cuda.getAvgPointsUploadTime() << "ms \t"

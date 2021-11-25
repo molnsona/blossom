@@ -29,41 +29,26 @@ using namespace Math::Literals;
 
 struct State
 {
-#if 0
-    std::vector<unsigned char> pixels =
-      std::vector<unsigned char>(BYTES_PER_PIXEL * PLOT_WIDTH * PLOT_HEIGHT,
-                                 DEFAULT_WHITE);
-    std::vector<Vector2> vtx_pos;
-    std::vector<Vector2i> edges;
-    std::vector<float> lengths;
-
-    bool vtx_selected{ false };
-    UnsignedInt vtx_ind;
-
-    std::size_t time = 0;
-    std::size_t timeout = 1000;
-    int expected_len = 100;
-#endif
     MouseData mouse;
     KeyboardData keyboard;
-
-    UiData ui;
 
     DataModel data;
     TransData trans;
     LandmarkModel landmarks;
-    ScatterModel scatter;
 
     GraphLayoutData layout_data;
     KMeansData kmeans_data;
     KnnEdgesData knn_data;
+
 #ifndef NO_CUDA
     EsomCuda esom_cuda;
-#endif;
+#endif
+
+    ScatterModel scatter;
 
     State();
 
-    void update(float time);
+    void update(float time, UiData &ui);
 };
 
 #endif // #ifndef STATE_H

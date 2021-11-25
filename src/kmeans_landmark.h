@@ -8,7 +8,7 @@
 #include <random>
 #include <vector>
 
-#include "data_model.h"
+#include "trans_data.h"
 
 struct KMeansData
 {
@@ -17,7 +17,7 @@ struct KMeansData
 
 void
 kmeans_landmark_step(KMeansData &data,
-                     const DataModel &model,
+                     const TransData &model,
                      size_t n_means,
                      size_t d,
                      size_t iters,
@@ -28,7 +28,7 @@ kmeans_landmark_step(KMeansData &data,
 
 void
 som_landmark_step(KMeansData &data,
-                  const DataModel &model,
+                  const TransData &model,
                   size_t n_means,
                   size_t d,
                   size_t iters,

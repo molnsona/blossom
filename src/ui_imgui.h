@@ -9,11 +9,10 @@
 
 #include <string>
 
-#include "extern/imfilebrowser.h"
-#include "ui_data.h"
-#include "ui_parser_data.h"
-#include "ui_trans_data.h"
-#include "view.h"
+// TRICKY: do not include this file, cyclic import breaks it.
+// Include application.h instead.
+#include "application.h"
+#include "ui_menu.h"
 
 using namespace Magnum;
 using namespace Math::Literals;
@@ -22,9 +21,9 @@ class UiImgui
 {
 public:
     UiImgui() = delete;
-    UiImgui(const Platform::Application *app);
+    UiImgui(const Application &app);
 
-    void draw_event(const View &view, UiData &ui, Platform::Application *app);
+    void draw_event(Application &app);
 
     void viewport_event(Platform::Application::ViewportEvent &event);
     bool key_press_event(Platform::Application::KeyEvent &event);
@@ -35,29 +34,13 @@ public:
     bool mouse_scroll_event(Platform::Application::MouseScrollEvent &event);
     bool text_input_event(Platform::Application::TextInputEvent &event);
 
-    void close_menu() { show_menu = false; }
+    uiMenu menu;
 
 private:
-    void draw_add_window(const Vector2i &window_size);
-    void draw_menu_window(const Vector2i &window_size, UiData &ui);
-    void draw_scale_window(UiTransData &ui);
-    void draw_sliders_window(UiSlidersData &ui);
-    void draw_color_window(UiData &ui);
-
-    void draw_open_file(UiParserData &ui);
-    void hover_info(const std::string &text);
-
     ImGuiIntegration::Context context{ NoCreate };
 
     ImFont *p_font;
     GL::Texture2D font_texture;
-
-    bool show_menu;
-    bool show_scale;
-    bool show_sliders;
-    bool show_color;
-
-    ImGui::FileBrowser open_file;
 };
 
 #endif // #ifndef UI_IMGUI_H

@@ -6,9 +6,6 @@
 #include <iostream>
 #endif
 
-// https://github.com/juliettef/IconFontCppHeaders
-#include <IconsFontAwesome5.h>
-
 using namespace Magnum;
 
 Application::Application(const Arguments &arguments)
@@ -19,7 +16,7 @@ Application::Application(const Arguments &arguments)
                                Configuration::WindowFlag::Maximized)
                              .setWindowFlags(
                                Configuration::WindowFlag::Resizable) }
-  , ui_imgui(this)
+  , ui_imgui(*this)
 {
     MAGNUM_ASSERT_GL_VERSION_SUPPORTED(GL::Version::GL330);
 
@@ -41,14 +38,15 @@ Application::drawEvent()
     timer.tick();
 
     view.update(timer.frametime);
-    state.update(timer.frametime);
+    state.update(timer.frametime, ui_imgui.menu.ui);
 
     GL::defaultFramebuffer.clear(GL::FramebufferClear::Color |
                                  GL::FramebufferClear::Depth);
 
-    scatter_renderer.draw(view, state.scatter, state.trans, state.ui.color_ind);
+    scatter_renderer.draw(
+      view, state.scatter, state.trans, ui_imgui.menu.ui.color_ind);
     graph_renderer.draw(view, state.landmarks, vertex_size);
-    ui_imgui.draw_event(view, state.ui, this);
+    ui_imgui.draw_event(*this);
 
     swapBuffers();
     redraw();
@@ -121,7 +119,7 @@ Application::mousePressEvent(MouseEvent &event)
     }
 
     // Close menu if it was opened and clicked somewhere else.
-    ui_imgui.close_menu();
+    ui_imgui.menu.close_menu();
 
     switch (event.button()) {
         case MouseEvent::Button::Middle:

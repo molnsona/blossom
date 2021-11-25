@@ -13,6 +13,7 @@ void
 LandmarkModel::init_grid(size_t n)
 {
     if (!d) {
+        hidim_vertices.clear();
         lodim_vertices.clear();
         return;
     }
@@ -52,7 +53,7 @@ LandmarkModel::update_dim(size_t dim)
     if (dim == d)
         return;
     d = dim;
-    init_grid(5);
+    init_grid(2);
 }
 
 void
@@ -84,6 +85,7 @@ LandmarkModel::duplicate(const std::size_t &ind)
     lodim_vertices.emplace_back(
       Magnum::Vector2(lodim_vertices[ind].x() + 0.3, lodim_vertices[ind].y()));
     std::size_t new_vert_ind = lodim_vertices.size() - 1;
+
 #if 0
     // Find edges.
     std::vector<std::size_t> edge_idxs;
@@ -113,7 +115,7 @@ LandmarkModel::remove(const std::size_t &ind)
     lodim_vertices.erase(lodim_vertices.begin() + ind);
     std::size_t line_idx = d * ind;
     hidim_vertices.erase(hidim_vertices.begin() + line_idx,
-                         hidim_vertices.begin() + line_idx + 4);
+                         hidim_vertices.begin() + line_idx + d);
 
     // Remove edges.
     std::vector<std::size_t> edge_idxs;
