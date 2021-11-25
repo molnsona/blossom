@@ -55,6 +55,7 @@ uiMenu::render(Application &app)
         draw_menu_window(app.view.fb_size, ui);
 
     loader.render(app);
+    storer.render(app);
     scaler.render(app, window_flags);
     training_set.render(app, window_flags);
     color_set.render(app, window_flags);
@@ -100,12 +101,7 @@ uiMenu::draw_menu_window(const Vector2i &window_size, UiData &ui)
         };
 
         menu_entry(ICON_FA_FOLDER_OPEN, "Open file", loader);
-
-        // TODO convert these to menu_entries
-        if (ImGui::Button(ICON_FA_SAVE, ImVec2(50.75f, 50.75f))) {
-            show_menu = false;
-        }
-        tooltip("Save");
+        menu_entry(ICON_FA_SAVE, "Save", storer);
 
         ImGui::Separator();
 

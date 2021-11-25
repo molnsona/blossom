@@ -21,6 +21,7 @@ set(SOURCES
     ui_load.cpp
     ui_menu.cpp
     ui_scale.cpp
+    ui_store.cpp
     ui_train.cpp
     view.cpp
 )
