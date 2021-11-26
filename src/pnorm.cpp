@@ -152,7 +152,7 @@ pnorm_both(double x, double &cum, double &ccum)
 float
 pnormf(float x, float mean, float sd)
 {
-    double p, cp;
+    double p = 0, cp = 0;
 
     if (!std::isfinite(x) && mean == x)
         return NAN;
