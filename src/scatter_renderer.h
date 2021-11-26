@@ -17,7 +17,6 @@ struct ScatterRenderer
     void draw(const View &v, const ScatterModel &m, const ColorData &colors);
 
 private:
-    Magnum::GL::Mesh point_mesh;
     Magnum::Shaders::FlatGL2D flat_shader;
 };
 
