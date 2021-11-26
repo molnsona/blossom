@@ -39,9 +39,9 @@ struct State
     ScaledData scaled;
     LandmarkModel landmarks;
 
+    TrainingConfig training_conf;
     GraphLayoutData layout_data;
     KMeansData kmeans_data;
-    TrainingConfig training_conf;
     KnnEdgesData knn_data;
 
     ScatterModel scatter;

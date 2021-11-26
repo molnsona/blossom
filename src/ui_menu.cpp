@@ -9,7 +9,6 @@ constexpr float WINDOW_WIDTH = 50.0f;
 
 uiMenu::uiMenu()
   : show_menu(false)
-  , show_scale(false)
   , show_color(false)
 {}
 
@@ -57,11 +56,9 @@ uiMenu::render(Application &app)
         draw_menu_window(app.view.fb_size, ui);
 
     loader.render(app);
-
+    scaler.render(app, window_flags);
     training_set.render(app, window_flags);
 
-    if (show_scale)
-        draw_scale_window(ui.trans_data);
     if (show_color)
         draw_color_window(ui);
 
@@ -115,12 +112,7 @@ uiMenu::draw_menu_window(const Vector2i &window_size, UiData &ui)
 
         ImGui::Separator();
 
-        if (ImGui::Button(ICON_FA_WRENCH, ImVec2(50.75f, 50.75f))) {
-            show_scale = true;
-            show_menu = false;
-        }
-        tooltip("Scale data");
-
+        menu_entry(ICON_FA_WRENCH, "Scale data", scaler);
         menu_entry(ICON_FA_SLIDERS_H, "Training settings", training_set);
 
         if (ImGui::Button(ICON_FA_PALETTE, ImVec2(50.75f, 50.75f))) {
@@ -133,42 +125,6 @@ uiMenu::draw_menu_window(const Vector2i &window_size, UiData &ui)
     }
 
     ImGui::PopStyleVar();
-}
-
-void
-uiMenu::draw_scale_window(UiTransData &ui)
-{
-    ImGuiWindowFlags window_flags = ImGuiWindowFlags_NoCollapse |
-                                    ImGuiWindowFlags_NoResize |
-                                    ImGuiWindowFlags_AlwaysAutoResize;
-    // ImGuiWindowFlags_NoTitleBar;
-
-    if (ImGui::Begin("Scale", &show_scale, window_flags)) {
-
-        // ImGui::Text("Scale:");
-        ui.mean_changed |= ImGui::Checkbox("Mean (=0)", &ui.scale_mean);
-        ui.var_changed |= ImGui::Checkbox("Variance (=1)", &ui.scale_var);
-        ui.data_changed |= ui.mean_changed;
-        ui.data_changed |= ui.var_changed;
-
-        std::size_t i = 0;
-        for (auto &&name : ui.param_names) {
-            ImGui::SetNextItemWidth(200.0f);
-            bool tmp = ui.sliders[i];
-            tmp |= ImGui::SliderFloat(name.data(),
-                                      &ui.scale[i],
-                                      1.0f,
-                                      10.0f,
-                                      "%.3f",
-                                      ImGuiSliderFlags_AlwaysClamp);
-            ui.sliders[i] = tmp;
-            ui.sliders_changed |= tmp;
-            ui.data_changed |= ui.sliders_changed;
-            ++i;
-        }
-
-        ImGui::End();
-    }
 }
 
 void
