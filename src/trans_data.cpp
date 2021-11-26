@@ -2,30 +2,30 @@
 #include <cmath>
 
 void
-DataStats::update(const DataModel &dm)
+RawDataStats::update(const DataModel &dm)
 {
     if (!dirty(dm))
         return;
 
     means.resize(dm.d);
     std::fill(means.begin(), means.end(), 0);
-    isds = means;
+    sds = means;
 
     size_t d = dm.d;
     for (size_t ni = 0; ni < dm.n; ++ni) {
         for (size_t di = 0; di < d; ++di) {
             float tmp = dm.data[ni * d + di];
             means[di] += tmp;
-            isds[di] += tmp * tmp;
+            sds[di] += tmp * tmp;
         }
     }
 
     for (size_t di = 0; di < d; ++di) {
         means[di] /= dm.n;
-        isds[di] /= dm.n;
-        isds[di] = sqrt(isds[di] - means[di]);
-        if (isds[di] < 0.0001)
-            isds[di] = 0.0001;
+        sds[di] /= dm.n;
+        sds[di] = sqrt(sds[di] - means[di]);
+        if (sds[di] < 0.0001)
+            sds[di] = 0.0001;
     }
 
     clean(dm);
@@ -33,18 +33,22 @@ DataStats::update(const DataModel &dm)
 }
 
 void
-TransData::update(const DataModel &dm, const DataStats &s)
+TransData::update(const DataModel &dm, const RawDataStats &s)
 {
     if (dirty(dm)) {
         config.resize(dm.d);
         n = dm.n;
         reset();
-        data.resize(n * dm.d);
+        data.clear(); // TODO this needs to be updated if rolling stats should
+                      // work
+        data.resize(n * dm.d, 0);
+        sums.clear();
+        sums.resize(dm.d, 0);
+        sqsums = sums;
         touch();
         clean(dm);
     }
 
-    // TODO wrong
     if (stat_watch.dirty(s)) {
         refresh(dm);
         stat_watch.clean(s);
@@ -60,14 +64,34 @@ TransData::update(const DataModel &dm, const DataStats &s)
 
     clean_range(dm, rn);
     size_t d = dim();
+    std::vector<float> sums_adjust(d, 0), sqsums_adjust(d, 0);
+
     for (; rn-- > 0; ++ri) {
-        if (ri > n)
+        if (ri >= n)
             ri = 0;
         for (size_t di = 0; di < d; ++di) {
-            data[ri * d + di] =
-              (dm.data[ri * d + di] - s.means[di]) / s.isds[di];
+            const auto &c = config[di];
+
+            float tmp = dm.data[ri * d + di];
+            sums_adjust[d] -= tmp;
+            sqsums_adjust[d] -= tmp * tmp;
+
+            // TODO if(c.zscale) ...
+            tmp += c.affine_adjust;
+            if (c.asinh)
+                tmp = asinhf(tmp / c.asinh_cofactor);
+
+            data[ri * d + di] = tmp;
+            sums_adjust[d] += tmp;
+            sqsums_adjust[d] += tmp * tmp;
         }
     }
+
+    for (size_t di = 0; di < d; ++di) {
+        sums[d] += sums_adjust[d];
+        sqsums[d] += sqsums_adjust[d];
+    }
+
     touch();
 }
 
@@ -79,6 +103,7 @@ TransData::reset()
     touch_config();
 }
 
+#if 0
 void
 TransData::disable_col(size_t c)
 {
@@ -91,3 +116,4 @@ TransData::enable_col(size_t c)
 {
     // TODO reverse of disable_col
 }
+#endif

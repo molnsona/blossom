@@ -15,15 +15,16 @@ State::update(float actual_time, UiData &ui)
 
     stats.update(data);
     trans.update(data, stats);
+    scaled.update(trans);
 
     // TODO only run this on data reset, ideally from trans or from a common
     // trigger
-    landmarks.update_dim(trans.dim());
+    landmarks.update_dim(scaled.dim());
 
     if (training_conf.kmeans_landmark)
         kmeans_landmark_step(
           kmeans_data,
-          trans,
+          scaled,
           100,   // TODO parametrize (now this is 100 iters per frame, there
                  // should be fixed number of iters per actual elapsed time)
           0.01,  // TODO parametrize, logarithmically between 1e-6 and ~0.5
@@ -38,13 +39,13 @@ State::update(float actual_time, UiData &ui)
 
     if (training_conf.som_landmark)
         som_landmark_step(kmeans_data,
-                          trans,
+                          scaled,
                           100,
                           training_conf.alpha,
                           training_conf.sigma,
                           landmarks);
 
-    scatter.update(trans, landmarks);
+    scatter.update(scaled, landmarks);
 
 #if 0 // TODO move this to ScatterModel
     // these methods should be called only once in the initialization and then

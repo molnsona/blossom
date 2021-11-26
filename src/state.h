@@ -15,6 +15,7 @@
 #include "knn_edges.h"
 #include "landmark_model.h"
 #include "mouse_data.h"
+#include "scaled_data.h"
 #include "scatter_model.h"
 #include "training_config.h"
 #include "trans_data.h"
@@ -33,8 +34,9 @@ struct State
     KeyboardData keyboard;
 
     DataModel data;
-    DataStats stats;
+    RawDataStats stats;
     TransData trans;
+    ScaledData scaled;
     LandmarkModel landmarks;
 
     GraphLayoutData layout_data;

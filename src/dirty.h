@@ -91,11 +91,11 @@ struct Sweeper : public Cleaner
     std::tuple<size_t, size_t> dirty_range(const Dirts &d)
     {
         if (dirty(d)) {
-            if (begin >= d.n)
-                begin = 0;
             refresh(d);
             clean(d);
         }
+        if (begin >= d.n)
+            begin = 0;
         return { begin, dirts };
     }
 

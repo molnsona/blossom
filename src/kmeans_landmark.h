@@ -9,7 +9,7 @@
 #include <vector>
 
 #include "landmark_model.h"
-#include "trans_data.h"
+#include "scaled_data.h"
 
 struct KMeansData
 {
@@ -18,7 +18,7 @@ struct KMeansData
 
 void
 kmeans_landmark_step(KMeansData &data,
-                     const TransData &model,
+                     const ScaledData &model,
                      size_t iters,
                      float alpha,
                      float neighbor_alpha,
@@ -26,7 +26,7 @@ kmeans_landmark_step(KMeansData &data,
 
 void
 som_landmark_step(KMeansData &data,
-                  const TransData &model,
+                  const ScaledData &model,
                   size_t iters,
                   float alpha,
                   float sigma,

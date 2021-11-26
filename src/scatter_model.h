@@ -8,14 +8,14 @@
 
 #include "dirty.h"
 #include "landmark_model.h"
-#include "trans_data.h"
+#include "scaled_data.h"
 
 struct ScatterModel : public Sweeper
 {
     std::vector<Magnum::Vector2> points;
 
     Cleaner lm_watch;
-    void update(const TransData &d, const LandmarkModel &lm);
+    void update(const ScaledData &d, const LandmarkModel &lm);
 };
 
 #endif

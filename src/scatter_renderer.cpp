@@ -49,8 +49,8 @@ ScatterRenderer::fill_color(const TransData &trans_data, std::size_t col_ind)
     std::vector<Color3> color(trans_data.n);
     size_t d = trans_data.dim();
 
-    float min{ std::numeric_limits<float>::max() },
-      max{ std::numeric_limits<float>::min() };
+    float min = std::numeric_limits<float>::max(),
+          max = std::numeric_limits<float>::min();
 
     for (size_t i = 0; i < trans_data.n; ++i) {
         // take second parameter
