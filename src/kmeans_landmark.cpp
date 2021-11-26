@@ -14,13 +14,14 @@ kmeans_landmark_step(KMeansData &data,
                      const ScaledData &model,
                      size_t iters,
                      float alpha,
-                     float neighbor_alpha,
+                     float gravity,
                      LandmarkModel &lm)
 {
     size_t n_means = lm.n_landmarks();
     size_t d = lm.d;
-    const auto &neighbors = lm.edges;
     auto &means = lm.hidim_vertices;
+
+    gravity *= alpha / n_means;
 
     if (!(model.n && n_means))
         return; // this might happen but it's technically okay
@@ -50,27 +51,12 @@ kmeans_landmark_step(KMeansData &data,
             }
         }
 
-        // move the mean a bit closer
-        for (size_t di = 0; di < d; ++di)
-            means[di + d * best] +=
-              alpha * (model.data[di + d * tgt] - means[di + d * best]);
-
-        // also move the neighbors a bit
-        size_t moved = 0;
-        for (size_t ei = 0; ei < neighbors.size(); ++ei) {
-            size_t nb;
-            if (neighbors[ei].first == best)
-                nb = neighbors[ei].second;
-            else if (neighbors[ei].second == best)
-                nb = neighbors[ei].first;
-            else
-                continue;
-            ++moved;
+        // move the means a bit closer
+        for (size_t mi = 0; mi < n_means; ++mi)
             for (size_t di = 0; di < d; ++di)
-                means[di + d * nb] +=
-                  neighbor_alpha *
-                  (model.data[di + d * tgt] - means[di + d * nb]);
-        }
+                means[di + d * best] +=
+                  (mi == tgt ? alpha : gravity) *
+                  (model.data[di + d * mi] - means[di + d * best]);
     }
 }
 

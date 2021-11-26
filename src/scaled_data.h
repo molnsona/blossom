@@ -8,6 +8,11 @@ struct ScaleConfig
 {
     bool scale;
     float sdev;
+
+    ScaleConfig()
+      : scale(false)
+      , sdev(1)
+    {}
 };
 
 struct ScaledData

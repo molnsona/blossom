@@ -7,8 +7,8 @@ RawDataStats::update(const DataModel &dm)
     if (!dirty(dm))
         return;
 
-    means.resize(dm.d);
-    std::fill(means.begin(), means.end(), 0);
+    means.clear();
+    means.resize(dm.d, 0);
     sds = means;
 
     size_t d = dm.d;
@@ -23,9 +23,7 @@ RawDataStats::update(const DataModel &dm)
     for (size_t di = 0; di < d; ++di) {
         means[di] /= dm.n;
         sds[di] /= dm.n;
-        sds[di] = sqrt(sds[di] - means[di]);
-        if (sds[di] < 0.0001)
-            sds[di] = 0.0001;
+        sds[di] = sqrt(sds[di] - means[di] * means[di]);
     }
 
     clean(dm);
@@ -41,9 +39,9 @@ TransData::update(const DataModel &dm, const RawDataStats &s)
         reset();
         data.clear(); // TODO this needs to be updated if rolling stats should
                       // work
-        data.resize(n * dm.d, 0);
+        data.resize(n * dim(), 0);
         sums.clear();
-        sums.resize(dm.d, 0);
+        sums.resize(dim(), 0);
         sqsums = sums;
         touch();
         clean(dm);
@@ -59,11 +57,11 @@ TransData::update(const DataModel &dm, const RawDataStats &s)
     if (!rn)
         return;
     // TODO: make this constant configurable (and much bigger)
-    if (rn > 100)
-        rn = 100;
+    if (rn > 10000)
+        rn = 10000;
 
     clean_range(dm, rn);
-    size_t d = dim();
+    const size_t d = dim();
     std::vector<float> sums_adjust(d, 0), sqsums_adjust(d, 0);
 
     for (; rn-- > 0; ++ri) {
@@ -72,9 +70,10 @@ TransData::update(const DataModel &dm, const RawDataStats &s)
         for (size_t di = 0; di < d; ++di) {
             const auto &c = config[di];
 
-            float tmp = dm.data[ri * d + di];
-            sums_adjust[d] -= tmp;
-            sqsums_adjust[d] -= tmp * tmp;
+            float tmp = data[ri * d + di];
+            sums_adjust[di] -= tmp;
+            sqsums_adjust[di] -= tmp * tmp;
+            tmp = dm.data[ri * d + di];
 
             // TODO if(c.zscale) ...
             tmp += c.affine_adjust;
@@ -82,14 +81,14 @@ TransData::update(const DataModel &dm, const RawDataStats &s)
                 tmp = asinhf(tmp / c.asinh_cofactor);
 
             data[ri * d + di] = tmp;
-            sums_adjust[d] += tmp;
-            sqsums_adjust[d] += tmp * tmp;
+            sums_adjust[di] += tmp;
+            sqsums_adjust[di] += tmp * tmp;
         }
     }
 
     for (size_t di = 0; di < d; ++di) {
-        sums[d] += sums_adjust[d];
-        sqsums[d] += sqsums_adjust[d];
+        sums[di] += sums_adjust[di];
+        sqsums[di] += sqsums_adjust[di];
     }
 
     touch();

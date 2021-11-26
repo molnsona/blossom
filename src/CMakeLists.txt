@@ -16,9 +16,12 @@ set(SOURCES
     state.cpp
     trans_data.cpp
     tsv_parser.cpp
+    ui_color.cpp
     ui_imgui.cpp
     ui_load.cpp
     ui_menu.cpp
+    ui_scale.cpp
+    ui_store.cpp
     ui_train.cpp
     view.cpp
 )

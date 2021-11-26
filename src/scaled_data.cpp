@@ -27,7 +27,7 @@ ScaledData::update(const TransData &td)
     for (size_t di = 0; di < d; ++di) {
         means[di] /= n;
         isds[di] /= n;
-        isds[di] = 1 / sqrt(isds[di] - means[di]);
+        isds[di] = 1 / sqrt(isds[di] - means[di] * means[di]);
         if (isds[di] > 10000)
             isds[di] = 10000;
     }
@@ -36,7 +36,9 @@ ScaledData::update(const TransData &td)
         if (ri >= n)
             ri = 0;
         for (size_t di = 0; di < d; ++di)
-            data[ri * d + di] = (td.data[ri * d + di] - means[di]) * isds[di];
+            data[ri * d + di] =
+              (td.data[ri * d + di] - means[di]) *
+              (config[di].scale ? config[di].sdev * isds[di] : 1);
     }
     touch();
 }

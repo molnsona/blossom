@@ -15,22 +15,24 @@ LandmarkModel::init_grid(size_t n)
     if (!d) {
         hidim_vertices.clear();
         lodim_vertices.clear();
+        edges.clear();
         return;
     }
 
     lodim_vertices.resize(n * n);
     hidim_vertices.resize(n * n * d);
+    edges.clear();
 
     std::default_random_engine gen;
-    std::uniform_real_distribution<double> dist(0.5, 1.5);
+    std::uniform_real_distribution<float> dist(-1, 1);
 
     for (size_t i = 0; i < n * n; ++i) {
         auto x = i % n;
         auto y = i / n;
         lodim_vertices[i] = Magnum::Vector2(x, y);
 
-        hidim_vertices[d * i + 0] = x / float(n);
-        hidim_vertices[d * i + 1] = y / float(n);
+        for (size_t di = 0; di < d; ++di)
+            hidim_vertices[i * d + di] = (di & 1) ? x : y;
     }
 
     touch();

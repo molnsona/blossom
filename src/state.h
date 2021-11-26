@@ -19,7 +19,6 @@
 #include "scatter_model.h"
 #include "training_config.h"
 #include "trans_data.h"
-#include "ui_data.h"
 
 #include <Magnum/Magnum.h>
 
@@ -39,16 +38,16 @@ struct State
     ScaledData scaled;
     LandmarkModel landmarks;
 
+    TrainingConfig training_conf;
     GraphLayoutData layout_data;
     KMeansData kmeans_data;
-    TrainingConfig training_conf;
     KnnEdgesData knn_data;
 
     ScatterModel scatter;
 
     State();
 
-    void update(float time, UiData &ui);
+    void update(float time);
 };
 
 #endif // #ifndef STATE_H

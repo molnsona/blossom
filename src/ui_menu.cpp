@@ -9,8 +9,6 @@ constexpr float WINDOW_WIDTH = 50.0f;
 
 uiMenu::uiMenu()
   : show_menu(false)
-  , show_scale(false)
-  , show_color(false)
 {}
 
 static void
@@ -45,17 +43,25 @@ draw_menu_button(bool &show_menu, const Vector2i &window_size)
 void
 uiMenu::render(Application &app)
 {
+    ImGuiWindowFlags window_flags = ImGuiWindowFlags_NoCollapse |
+                                    ImGuiWindowFlags_NoResize |
+                                    ImGuiWindowFlags_AlwaysAutoResize;
+
+    ImGui::PushStyleVar(ImGuiStyleVar_ChildRounding, 10.0f);
+    ImGui::PushStyleVar(ImGuiStyleVar_FrameRounding, 10.0f);
+
     draw_menu_button(show_menu, app.view.fb_size);
     if (show_menu)
-        draw_menu_window(app.view.fb_size, ui);
+        draw_menu_window(app.view.fb_size);
 
     loader.render(app);
-    training_set.render(app);
+    storer.render(app);
+    scaler.render(app, window_flags);
+    training_set.render(app, window_flags);
+    color_set.render(app, window_flags);
 
-    if (show_scale)
-        draw_scale_window(ui.trans_data);
-    if (show_color)
-        draw_color_window(ui);
+    ImGui::PopStyleVar();
+    ImGui::PopStyleVar();
 }
 
 static void
@@ -72,14 +78,12 @@ tooltip(const char *text)
 }
 
 void
-uiMenu::draw_menu_window(const Vector2i &window_size, UiData &ui)
+uiMenu::draw_menu_window(const Vector2i &window_size)
 {
     ImGuiWindowFlags window_flags = ImGuiWindowFlags_NoTitleBar |
                                     ImGuiWindowFlags_NoResize |
                                     ImGuiWindowFlags_NoMove;
 
-    ImGui::PushStyleVar(ImGuiStyleVar_ChildRounding, 10.0f);
-    ImGui::PushStyleVar(ImGuiStyleVar_FrameRounding, 10.0f);
     ImGui::PushStyleVar(ImGuiStyleVar_WindowPadding, ImVec2(0, 0));
 
     if (ImGui::Begin("Tools", &show_menu, window_flags)) {
@@ -97,108 +101,16 @@ uiMenu::draw_menu_window(const Vector2i &window_size, UiData &ui)
         };
 
         menu_entry(ICON_FA_FOLDER_OPEN, "Open file", loader);
-
-        // TODO convert these to menu_entries
-        if (ImGui::Button(ICON_FA_SAVE, ImVec2(50.75f, 50.75f))) {
-            show_menu = false;
-        }
-        tooltip("Save");
+        menu_entry(ICON_FA_SAVE, "Save", storer);
 
         ImGui::Separator();
 
-        if (ImGui::Button(ICON_FA_WRENCH, ImVec2(50.75f, 50.75f))) {
-            show_scale = true;
-            show_menu = false;
-        }
-        tooltip("Scale data");
-
+        menu_entry(ICON_FA_WRENCH, "Scale data", scaler);
         menu_entry(ICON_FA_SLIDERS_H, "Training settings", training_set);
-
-        if (ImGui::Button(ICON_FA_PALETTE, ImVec2(50.75f, 50.75f))) {
-            show_color = true;
-            show_menu = false;
-        }
-        tooltip("Color points");
+        menu_entry(ICON_FA_PALETTE, "Color points", color_set);
 
         ImGui::End();
     }
 
     ImGui::PopStyleVar();
-    ImGui::PopStyleVar();
-    ImGui::PopStyleVar();
-}
-
-void
-uiMenu::draw_scale_window(UiTransData &ui)
-{
-    ImGuiWindowFlags window_flags = ImGuiWindowFlags_NoCollapse |
-                                    ImGuiWindowFlags_NoResize |
-                                    ImGuiWindowFlags_AlwaysAutoResize;
-    // ImGuiWindowFlags_NoTitleBar;
-
-    ImGui::PushStyleVar(ImGuiStyleVar_ChildRounding, 10.0f);
-    ImGui::PushStyleVar(ImGuiStyleVar_FrameRounding, 10.0f);
-    // ImGui::PushStyleVar(ImGuiStyleVar_WindowPadding, ImVec2(0, 0));
-
-    if (ImGui::Begin("Scale", &show_scale, window_flags)) {
-
-        // ImGui::Text("Scale:");
-        ui.mean_changed |= ImGui::Checkbox("Mean (=0)", &ui.scale_mean);
-        ui.var_changed |= ImGui::Checkbox("Variance (=1)", &ui.scale_var);
-        ui.data_changed |= ui.mean_changed;
-        ui.data_changed |= ui.var_changed;
-
-        std::size_t i = 0;
-        for (auto &&name : ui.param_names) {
-            ImGui::SetNextItemWidth(200.0f);
-            bool tmp = ui.sliders[i];
-            tmp |= ImGui::SliderFloat(name.data(),
-                                      &ui.scale[i],
-                                      1.0f,
-                                      10.0f,
-                                      "%.3f",
-                                      ImGuiSliderFlags_AlwaysClamp);
-            ui.sliders[i] = tmp;
-            ui.sliders_changed |= tmp;
-            ui.data_changed |= ui.sliders_changed;
-            ++i;
-        }
-
-        ImGui::End();
-    }
-
-    ImGui::PopStyleVar();
-    ImGui::PopStyleVar();
-    //  ImGui::PopStyleVar();
-}
-
-void
-uiMenu::draw_color_window(UiData &ui)
-{
-    ImGuiWindowFlags window_flags = ImGuiWindowFlags_NoCollapse |
-                                    ImGuiWindowFlags_NoResize |
-                                    ImGuiWindowFlags_AlwaysAutoResize;
-    // ImGuiWindowFlags_NoTitleBar;
-
-    ImGui::PushStyleVar(ImGuiStyleVar_ChildRounding, 10.0f);
-    ImGui::PushStyleVar(ImGuiStyleVar_FrameRounding, 10.0f);
-    // ImGui::PushStyleVar(ImGuiStyleVar_WindowPadding, ImVec2(0, 0));
-
-    if (ImGui::Begin("Color", &show_color, window_flags)) {
-
-        ImGui::Text("Column:");
-        if (ui.trans_data.param_names.size() == 0)
-            ImGui::Text("No columns detected.");
-        std::size_t i = 0;
-        for (auto &&name : ui.trans_data.param_names) {
-            ImGui::RadioButton(name.data(), &ui.color_ind, i);
-            ++i;
-        }
-
-        ImGui::End();
-    }
-
-    ImGui::PopStyleVar();
-    ImGui::PopStyleVar();
-    //  ImGui::PopStyleVar();
 }
