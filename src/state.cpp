@@ -26,7 +26,7 @@ State::update(float actual_time)
                              scaled,
                              training_conf.iters,
                              training_conf.alpha,
-                             training_conf.sigma,
+                             training_conf.gravity,
                              landmarks);
 
     if (training_conf.knn_edges)

@@ -5,6 +5,7 @@ struct TrainingConfig
 {
     float alpha;
     float sigma;
+    float gravity;
 
     int iters;
     int kns;
@@ -25,6 +26,7 @@ struct TrainingConfig
     {
         alpha = 0.001f;
         sigma = 1.1f;
+        gravity = 0.01f;
         iters = 100;
         kns = 3;
         topn = 10;

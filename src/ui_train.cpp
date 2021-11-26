@@ -15,41 +15,50 @@ uiTrainingSettings::render(Application &app, ImGuiWindowFlags window_flags)
     if (!ImGui::Begin("Training settings", &show_window, window_flags))
         return;
 
-    ImGui::Checkbox("som", &app.state.training_conf.som_landmark);
-    ImGui::Checkbox("kmeans", &app.state.training_conf.kmeans_landmark);
-    ImGui::Checkbox("knn", &app.state.training_conf.knn_edges);
-    ImGui::Checkbox("layout", &app.state.training_conf.graph_layout);
-
-    // TODO: show parameters according to active training method
-
-    ImGui::SliderFloat("alpha", // TODO: logarithmicly
+    ImGui::SliderInt(
+      "Iterations (SOM and k-means)", &app.state.training_conf.iters, 0, 200);
+    ImGui::SliderFloat("Alpha (SOM and k-means)", // TODO: logarithmicly
                        &app.state.training_conf.alpha,
                        0.001f,
                        2.0f,
                        "%.3f",
                        ImGuiSliderFlags_AlwaysClamp);
 
-    ImGui::SliderFloat("sigma", // TODO: odmocninovo
+    ImGui::Checkbox("SOM", &app.state.training_conf.som_landmark);
+    ImGui::SliderFloat("Sigma", // TODO: odmocninovo
                        &app.state.training_conf.sigma,
                        0.1f,
                        5.0f,
                        "%.3f",
                        ImGuiSliderFlags_AlwaysClamp);
 
-    ImGui::SliderInt("iters", &app.state.training_conf.iters, 0, 200);
+    ImGui::Checkbox("k-means", &app.state.training_conf.kmeans_landmark);
+    ImGui::SliderFloat("Gravity", // TODO: exponencialne
+                       &app.state.training_conf.gravity,
+                       0.0f,
+                       0.1f,
+                       "%.3f",
+                       ImGuiSliderFlags_AlwaysClamp);
 
+    ImGui::Checkbox("Generate k-NN graph", &app.state.training_conf.knn_edges);
     ImGui::SliderInt("kns", &app.state.training_conf.kns, 0, 10);
+    ImGui::Checkbox("Layout the graph", &app.state.training_conf.graph_layout);
 
-    ImGui::SliderInt("topn", &app.state.training_conf.topn, 3, 32);
+    // TODO: show parameters according to active training method
 
-    ImGui::SliderFloat("boost", // TODO: exponentially
+    ImGui::Text("EmbedSOM settings");
+
+    ImGui::SliderInt(
+      "k (landmark neighborhood size)", &app.state.training_conf.topn, 3, 32);
+
+    ImGui::SliderFloat("Boost", // TODO: use smooth instead
                        &app.state.training_conf.boost,
                        0.2f,
                        5.0f,
                        "%.3f",
                        ImGuiSliderFlags_AlwaysClamp);
 
-    ImGui::SliderFloat("adjust",
+    ImGui::SliderFloat("Adjust",
                        &app.state.training_conf.adjust,
                        0.0f,
                        2.0f,
