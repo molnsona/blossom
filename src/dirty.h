@@ -82,6 +82,7 @@ struct Sweeper : public Cleaner
 
     /** \brief Force-refresh the whole range */
     void refresh(const Dirts &d) { dirts = d.n; }
+    void refresh(size_t n_dirts) { dirts = n_dirts; }
 
     /** \brief Find the range to refresh
      *

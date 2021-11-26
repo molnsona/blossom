@@ -16,6 +16,7 @@ using namespace Magnum;
 using namespace Math::Literals;
 
 ScatterRenderer::ScatterRenderer()
+  : flat_shader{ Magnum::Shaders::FlatGL2D::Flag::VertexColor }
 {
     point_mesh.setPrimitive(MeshPrimitive::Points);
 }
@@ -23,49 +24,23 @@ ScatterRenderer::ScatterRenderer()
 void
 ScatterRenderer::draw(const View &view,
                       const ScatterModel &model,
-                      const TransData &trans_data,
-                      std::size_t col_ind)
+                      const ColorData &colors)
 {
-    std::vector<Color3> color = fill_color(trans_data, col_ind);
     GL::Buffer buffer;
-    buffer.setData(MeshTools::interleave(
-      Corrade::Containers::ArrayView(model.points.data(), model.points.size()),
-      Corrade::Containers::ArrayView(color.data(), color.size())));
+    size_t n =
+      std::min(model.points.size(),
+               colors.data.size()); // misalignment aborts it, be careful
 
-    point_mesh.setCount(model.points.size())
-      .addVertexBuffer(std::move(buffer),
-                       0,
-                       decltype(flat_shader)::Position{},
-                       decltype(flat_shader)::Color3{});
+    buffer.setData(MeshTools::interleave(
+      Corrade::Containers::ArrayView(model.points.data(), n),
+      Corrade::Containers::ArrayView(colors.data.data(), n)));
+
+    point_mesh.setCount(n).addVertexBuffer(std::move(buffer),
+                                           0,
+                                           decltype(flat_shader)::Position{},
+                                           decltype(flat_shader)::Color3{});
 
     auto proj = view.projection_matrix();
 
     flat_shader.setTransformationProjectionMatrix(proj).draw(point_mesh);
-}
-
-std::vector<Color3>
-ScatterRenderer::fill_color(const TransData &trans_data, std::size_t col_ind)
-{
-    std::vector<Color3> color(trans_data.n);
-    size_t d = trans_data.dim();
-
-    float min = std::numeric_limits<float>::max(),
-          max = std::numeric_limits<float>::min();
-
-    for (size_t i = 0; i < trans_data.n; ++i) {
-        // take second parameter
-        max = std::max(max, trans_data.data.at(i * d + col_ind));
-        min = std::min(min, trans_data.data.at(i * d + col_ind));
-    }
-
-    auto col_palette = colormap::palettes.at("rdbu").rescale(min, max);
-
-    for (size_t i = 0; i < trans_data.n; ++i) {
-        auto c = col_palette(trans_data.data.at(i * d + col_ind));
-        std::vector<unsigned char> res;
-        c.get_rgb(res);
-        color[i] = Color3(res[0] / 255.0f, res[1] / 255.0f, res[2] / 255.0f);
-    }
-
-    return color;
 }
