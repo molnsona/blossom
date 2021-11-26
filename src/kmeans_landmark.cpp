@@ -11,23 +11,26 @@ sqr(float x)
 
 void
 kmeans_landmark_step(KMeansData &data,
-                     const TransData &model,
-                     size_t n_means,
-                     size_t d,
+                     const ScaledData &model,
                      size_t iters,
                      float alpha,
                      float neighbor_alpha,
-                     const std::vector<std::pair<size_t, size_t>> &neighbors,
-                     std::vector<float> &means)
+                     LandmarkModel &lm)
 {
+    size_t n_means = lm.n_landmarks();
+    size_t d = lm.d;
+    const auto &neighbors = lm.edges;
+    auto &means = lm.hidim_vertices;
+
     if (!(model.n && n_means))
         return; // this might happen but it's technically okay
 
-    if (d != model.d || means.size() != n_means * d)
+    if (d != model.dim() || means.size() != n_means * d)
         return; // TODO throw something useful
 
     std::uniform_int_distribution<size_t> random_target(0, model.n - 1);
 
+    lm.touch();
     for (size_t iter = 0; iter < iters; ++iter) {
         size_t tgt = random_target(data.gen);
 
@@ -73,26 +76,29 @@ kmeans_landmark_step(KMeansData &data,
 
 void
 som_landmark_step(KMeansData &data,
-                  const TransData &model,
-                  size_t n_neurons,
-                  size_t d,
+                  const ScaledData &model,
                   size_t iters,
                   float alpha,
                   float sigma,
-                  std::vector<float> &neurons,
-                  const std::vector<Magnum::Vector2> &map)
+                  LandmarkModel &lm)
 {
+    size_t n_neurons = lm.n_landmarks();
+    size_t d = lm.d;
+    const auto &map = lm.lodim_vertices;
+    auto &neurons = lm.hidim_vertices;
+
     const float nisqsigma = -1.0 / (sigma * sigma);
 
     if (!(model.n && n_neurons))
         return; // this might happen but it's technically okay
 
-    if (d != model.d || neurons.size() != n_neurons * d ||
+    if (d != model.dim() || neurons.size() != n_neurons * d ||
         map.size() != n_neurons)
         return; // TODO throw something useful
 
     std::uniform_int_distribution<size_t> random_target(0, model.n - 1);
 
+    lm.touch();
     for (size_t iter = 0; iter < iters; ++iter) {
         size_t tgt = random_target(data.gen);
 

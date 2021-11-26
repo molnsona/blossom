@@ -6,11 +6,13 @@
 void
 graph_layout_step(GraphLayoutData &data,
                   const MouseData &mouse,
-                  std::vector<Magnum::Vector2> &vertices,
-                  const std::vector<std::pair<size_t, size_t>> &edges,
-                  const std::vector<float> &edge_lengths,
+                  LandmarkModel &lm,
                   float time)
 {
+    auto &vertices = lm.lodim_vertices;
+    const auto &edges = lm.edges;
+    const auto &edge_lengths = lm.edge_lengths;
+
     if (time > 0.05)
         time = 0.05;
     // check if data is m'kay
@@ -51,4 +53,6 @@ graph_layout_step(GraphLayoutData &data,
         vertices[i] += data.velocities[i] * time;
         data.velocities[i] *= slowdown;
     }
+
+    lm.touch();
 }

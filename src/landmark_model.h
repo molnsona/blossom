@@ -7,7 +7,9 @@
 #include <Magnum/Math/Vector2.h>
 #include <vector>
 
-struct LandmarkModel
+#include "dirty.h"
+
+struct LandmarkModel : public Dirt
 {
     size_t d;
     std::vector<float> hidim_vertices;

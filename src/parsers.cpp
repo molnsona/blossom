@@ -16,10 +16,12 @@ parse_generic(const std::string &filename, DataModel &dm)
         f(filename, dm);
 
         // TODO temporary precaution, remove later
+#if 0
         if (dm.n > 1000) {
             dm.n = 1000;
             dm.data.resize(dm.d * dm.n);
         }
+#endif
     };
 
     std::string ext = std::filesystem::path(filename).extension().string();

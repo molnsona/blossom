@@ -47,20 +47,21 @@ std::vector<Color3>
 ScatterRenderer::fill_color(const TransData &trans_data, std::size_t col_ind)
 {
     std::vector<Color3> color(trans_data.n);
+    size_t d = trans_data.dim();
 
-    float min{ std::numeric_limits<float>::max() },
-      max{ std::numeric_limits<float>::min() };
+    float min = std::numeric_limits<float>::max(),
+          max = std::numeric_limits<float>::min();
 
     for (size_t i = 0; i < trans_data.n; ++i) {
         // take second parameter
-        max = std::max(max, trans_data.data.at(i * trans_data.d + col_ind));
-        min = std::min(min, trans_data.data.at(i * trans_data.d + col_ind));
+        max = std::max(max, trans_data.data.at(i * d + col_ind));
+        min = std::min(min, trans_data.data.at(i * d + col_ind));
     }
 
     auto col_palette = colormap::palettes.at("rdbu").rescale(min, max);
 
     for (size_t i = 0; i < trans_data.n; ++i) {
-        auto c = col_palette(trans_data.data.at(i * trans_data.d + col_ind));
+        auto c = col_palette(trans_data.data.at(i * d + col_ind));
         std::vector<unsigned char> res;
         c.get_rgb(res);
         color[i] = Color3(res[0] / 255.0f, res[1] / 255.0f, res[2] / 255.0f);

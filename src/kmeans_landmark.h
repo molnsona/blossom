@@ -8,7 +8,8 @@
 #include <random>
 #include <vector>
 
-#include "trans_data.h"
+#include "landmark_model.h"
+#include "scaled_data.h"
 
 struct KMeansData
 {
@@ -17,24 +18,18 @@ struct KMeansData
 
 void
 kmeans_landmark_step(KMeansData &data,
-                     const TransData &model,
-                     size_t n_means,
-                     size_t d,
+                     const ScaledData &model,
                      size_t iters,
                      float alpha,
                      float neighbor_alpha,
-                     const std::vector<std::pair<size_t, size_t>> &neighbors,
-                     std::vector<float> &means);
+                     LandmarkModel &lm);
 
 void
 som_landmark_step(KMeansData &data,
-                  const TransData &model,
-                  size_t n_means,
-                  size_t d,
+                  const ScaledData &model,
                   size_t iters,
                   float alpha,
                   float sigma,
-                  std::vector<float> &neurons,
-                  const std::vector<Magnum::Vector2> &map);
+                  LandmarkModel &lm);
 
 #endif

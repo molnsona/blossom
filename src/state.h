@@ -9,13 +9,13 @@
 #include <vector>
 
 #include "data_model.h"
-#include "embedsom_cuda.h"
 #include "graph_layout.h"
 #include "keyboard_data.h"
 #include "kmeans_landmark.h"
 #include "knn_edges.h"
 #include "landmark_model.h"
 #include "mouse_data.h"
+#include "scaled_data.h"
 #include "scatter_model.h"
 #include "training_config.h"
 #include "trans_data.h"
@@ -34,17 +34,15 @@ struct State
     KeyboardData keyboard;
 
     DataModel data;
+    RawDataStats stats;
     TransData trans;
+    ScaledData scaled;
     LandmarkModel landmarks;
 
     GraphLayoutData layout_data;
     KMeansData kmeans_data;
     TrainingConfig training_conf;
     KnnEdgesData knn_data;
-
-#ifndef NO_CUDA
-    EsomCuda esom_cuda;
-#endif
 
     ScatterModel scatter;
 
