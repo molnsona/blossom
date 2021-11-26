@@ -2,6 +2,7 @@
 #ifndef UI_MENU_H
 #define UI_MENU_H
 
+#include "ui_color.h"
 #include "ui_data.h"
 #include "ui_load.h"
 #include "ui_scale.h"
@@ -14,6 +15,7 @@ struct uiMenu
     uiLoader loader;
     uiScaler scaler;
     uiTrainingSettings training_set;
+    uiColorSettings color_set;
 
     uiMenu();
     void render(Application &app);
@@ -25,10 +27,7 @@ struct uiMenu
 private:
     void draw_menu_window(const Vector2i &window_size, UiData &ui);
 
-    void draw_color_window(UiData &ui);
-
     bool show_menu;
-    bool show_color;
 };
 
 #include "application.h"

@@ -9,7 +9,6 @@ constexpr float WINDOW_WIDTH = 50.0f;
 
 uiMenu::uiMenu()
   : show_menu(false)
-  , show_color(false)
 {}
 
 static void
@@ -58,9 +57,7 @@ uiMenu::render(Application &app)
     loader.render(app);
     scaler.render(app, window_flags);
     training_set.render(app, window_flags);
-
-    if (show_color)
-        draw_color_window(ui);
+    color_set.render(app, window_flags);
 
     ImGui::PopStyleVar();
     ImGui::PopStyleVar();
@@ -114,38 +111,10 @@ uiMenu::draw_menu_window(const Vector2i &window_size, UiData &ui)
 
         menu_entry(ICON_FA_WRENCH, "Scale data", scaler);
         menu_entry(ICON_FA_SLIDERS_H, "Training settings", training_set);
-
-        if (ImGui::Button(ICON_FA_PALETTE, ImVec2(50.75f, 50.75f))) {
-            show_color = true;
-            show_menu = false;
-        }
-        tooltip("Color points");
+        menu_entry(ICON_FA_PALETTE, "Color points", color_set);
 
         ImGui::End();
     }
 
     ImGui::PopStyleVar();
-}
-
-void
-uiMenu::draw_color_window(UiData &ui)
-{
-    ImGuiWindowFlags window_flags = ImGuiWindowFlags_NoCollapse |
-                                    ImGuiWindowFlags_NoResize |
-                                    ImGuiWindowFlags_AlwaysAutoResize;
-    // ImGuiWindowFlags_NoTitleBar;
-
-    if (ImGui::Begin("Color", &show_color, window_flags)) {
-
-        ImGui::Text("Column:");
-        if (ui.trans_data.param_names.size() == 0)
-            ImGui::Text("No columns detected.");
-        std::size_t i = 0;
-        for (auto &&name : ui.trans_data.param_names) {
-            ImGui::RadioButton(name.data(), &ui.color_ind, i);
-            ++i;
-        }
-
-        ImGui::End();
-    }
 }
