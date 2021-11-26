@@ -11,7 +11,7 @@
 struct ColorData : public Sweeper
 {
     std::vector<Magnum::Color3> data;
-    size_t color;
+    int color;
 
     ColorData()
       : color(0)
