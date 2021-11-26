@@ -21,8 +21,8 @@ ScatterModel::update(const ScaledData &d,
     auto [ri, rn] = dirty_range(d);
     if (!rn)
         return;
-    if (rn > 100)
-        rn = 100;
+    if (rn > 1000)
+        rn = 1000;
 
     clean_range(d, rn);
 
