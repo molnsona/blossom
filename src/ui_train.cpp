@@ -41,7 +41,8 @@ uiTrainingSettings::render(Application &app, ImGuiWindowFlags window_flags)
                        ImGuiSliderFlags_AlwaysClamp);
 
     ImGui::Checkbox("Generate k-NN graph", &app.state.training_conf.knn_edges);
-    ImGui::SliderInt("kns", &app.state.training_conf.kns, 0, 10);
+    ImGui::SliderInt(
+      "Graph neighbors (k)", &app.state.training_conf.kns, 0, 10);
     ImGui::Checkbox("Layout the graph", &app.state.training_conf.graph_layout);
 
     // TODO: show parameters according to active training method

@@ -1,6 +1,7 @@
 ﻿
 set(SOURCES
     application.cpp
+    color_data.cpp
     embedsom.cpp
     embedsom_cuda.cpp
     fcs_parser.cpp
@@ -10,6 +11,7 @@ set(SOURCES
     knn_edges.cpp
     landmark_model.cpp
     parsers.cpp
+    pnorm.cpp
     scaled_data.cpp
     scatter_model.cpp
     scatter_renderer.cpp

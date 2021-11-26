@@ -46,6 +46,7 @@ State::update(float actual_time)
                           training_conf.sigma,
                           landmarks);
 
+    colors.update(trans);
     scatter.update(scaled, landmarks, training_conf);
 
 #if 0 // TODO move this to ScatterModel

@@ -8,6 +8,7 @@
 #include <string>
 #include <vector>
 
+#include "color_data.h"
 #include "data_model.h"
 #include "graph_layout.h"
 #include "keyboard_data.h"
@@ -43,6 +44,7 @@ struct State
     KMeansData kmeans_data;
     KnnEdgesData knn_data;
 
+    ColorData colors;
     ScatterModel scatter;
 
     State();
