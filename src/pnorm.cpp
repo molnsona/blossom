@@ -1,8 +1,8 @@
 
 #include "pnorm.h"
 
-#include <cmath>
 #include <cfloat>
+#include <cmath>
 
 /* pnorm() is taken and adapted from R-4.0.2, originally licensed under GPLv2,
  * compatible with BlosSOM. We whole-heartedly thank the R project for
@@ -30,8 +30,8 @@
  */
 
 #define SIXTEN 16
-#define M_1_SQRT_2PI	0.398942280401432677939946059934
-#define M_SQRT_32	5.656854249492380195206754896838
+#define M_1_SQRT_2PI 0.398942280401432677939946059934
+#define M_SQRT_32 5.656854249492380195206754896838
 
 static void
 pnorm_both(double x, double &cum, double &ccum)
@@ -106,7 +106,7 @@ pnorm_both(double x, double &cum, double &ccum)
     ccum = 1.0 - cum;
 
 #define swap_tail                                                              \
-    if (x > 0.) {                                    \
+    if (x > 0.) {                                                              \
         temp = cum;                                                            \
         if (lower)                                                             \
             cum = ccum;                                                        \
