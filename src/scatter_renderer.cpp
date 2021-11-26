@@ -1,13 +1,9 @@
 
-#include <extern/colormap/color.hpp>
-#include <extern/colormap/map.hpp>
-#include <extern/colormap/palettes.hpp>
-#include <extern/colormap/pixmap.hpp>
-
 #include "scatter_renderer.h"
 
 #include <Magnum/MeshTools/Interleave.h>
 #include <Magnum/Trade/MeshData.h>
+#include <Magnum/GL/Mesh.h>
 
 #include <algorithm>
 #include <limits>

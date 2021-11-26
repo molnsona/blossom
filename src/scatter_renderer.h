@@ -2,8 +2,6 @@
 #ifndef SCATTER_RENDERER_H
 #define SCATTER_RENDERER_H
 
-#include <Magnum/GL/Mesh.h>
-#include <Magnum/Math/Color.h>
 #include <Magnum/Shaders/FlatGL.h>
 
 #include "color_data.h"
