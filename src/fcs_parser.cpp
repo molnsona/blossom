@@ -106,7 +106,7 @@ parse_data(std::ifstream &handle,
            size_t data_begin_offset,
            size_t data_end_offset,
            size_t params_count,
-           size_t events_count,
+           size_t &events_count,
            bool is_be,
            std::vector<float> &out_data)
 {
@@ -114,6 +114,8 @@ parse_data(std::ifstream &handle,
     auto diff = data_end_offset - data_begin_offset;
     if (diff < params_count * events_count * sizeof(float))
         events_count = diff / params_count / sizeof(float);
+
+    out_data.resize(params_count * events_count);
 
     handle.seekg(data_begin_offset);
     handle.read(reinterpret_cast<char *>(out_data.data()),

@@ -17,8 +17,8 @@ ScaledData::update(const TransData &td)
     auto [ri, rn] = dirty_range(td);
     if (!rn)
         return;
-    if (rn > 100)
-        rn = 100;
+    if (rn > 5000)
+        rn = 5000;
     clean_range(td, rn);
 
     std::vector<float> means = td.sums;

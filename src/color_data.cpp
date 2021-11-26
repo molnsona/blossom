@@ -16,8 +16,8 @@ ColorData::update(const TransData &td)
     auto [ri, rn] = dirty_range(td);
     if (!rn)
         return;
-    if (rn > 100)
-        rn = 100;
+    if (rn > 1000)
+        rn = 1000;
 
     size_t n = td.n;
     size_t d = td.dim();
