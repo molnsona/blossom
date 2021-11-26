@@ -12,27 +12,25 @@ uiTrainingSettings::render(Application &app, ImGuiWindowFlags window_flags)
     if (!show_window)
         return;
 
-    if (ImGui::Begin("Training settings", &show_window, window_flags)) {
+    if (!ImGui::Begin("Training settings", &show_window, window_flags))
+        return;
 
-        ImGui::Checkbox("som", &app.state.training_conf.som_landmark);
-        ImGui::Checkbox("kmeans", &app.state.training_conf.kmeans_landmark);
-        ImGui::Checkbox("knn", &app.state.training_conf.knn_edges);
-        ImGui::Checkbox("layout", &app.state.training_conf.graph_layout);
+    ImGui::Checkbox("som", &app.state.training_conf.som_landmark);
+    ImGui::Checkbox("kmeans", &app.state.training_conf.kmeans_landmark);
+    ImGui::Checkbox("knn", &app.state.training_conf.knn_edges);
+    ImGui::Checkbox("layout", &app.state.training_conf.graph_layout);
 
-        ImGui::SliderFloat("alpha",
-                           &app.state.training_conf.alpha,
-                           0.001f,
-                           2.0f,
-                           "%.3f",
-                           ImGuiSliderFlags_AlwaysClamp);
+    ImGui::SliderFloat("alpha",
+                       &app.state.training_conf.alpha,
+                       0.001f,
+                       2.0f,
+                       "%.3f",
+                       ImGuiSliderFlags_AlwaysClamp);
 
-        ImGui::SliderFloat("sigma",
-                           &app.state.training_conf.sigma,
-                           0.1f,
-                           5.0f,
-                           "%.3f",
-                           ImGuiSliderFlags_AlwaysClamp);
-    }
-
-    ImGui::End();
+    ImGui::SliderFloat("sigma",
+                       &app.state.training_conf.sigma,
+                       0.1f,
+                       5.0f,
+                       "%.3f",
+                       ImGuiSliderFlags_AlwaysClamp);
 }
