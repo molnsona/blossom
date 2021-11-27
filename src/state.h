@@ -20,6 +20,7 @@
 #include "scatter_model.h"
 #include "training_config.h"
 #include "trans_data.h"
+#include "tsne_layout.h"
 
 #include <Magnum/Magnum.h>
 
@@ -41,6 +42,7 @@ struct State
 
     TrainingConfig training_conf;
     GraphLayoutData layout_data;
+    TSNELayoutData tsne_data;
     KMeansData kmeans_data;
     KnnEdgesData knn_data;
 

@@ -17,6 +17,7 @@ struct TrainingConfig
     bool som_landmark;
     bool knn_edges;
     bool graph_layout;
+    bool tsne_layout;
 
     TrainingConfig() { init(); }
 
@@ -33,7 +34,7 @@ struct TrainingConfig
         boost = 2.0f;
         adjust = 0.2f;
 
-        kmeans_landmark = knn_edges = graph_layout = false;
+        kmeans_landmark = knn_edges = graph_layout = tsne_layout = false;
         som_landmark = true;
     }
 };

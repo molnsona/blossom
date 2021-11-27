@@ -45,8 +45,10 @@ uiTrainingSettings::render(Application &app, ImGuiWindowFlags window_flags)
                         &app.state.training_conf.knn_edges);
         ImGui::SliderInt(
           "Graph neighbors (k)", &app.state.training_conf.kns, 0, 10);
-        ImGui::Checkbox("Layout the graph",
+        ImGui::Checkbox("Layout the graph along the edge forces",
                         &app.state.training_conf.graph_layout);
+        ImGui::Checkbox("Layout the landmarks with t-SNE",
+                        &app.state.training_conf.tsne_layout);
 
         // TODO: show parameters according to active training method
 

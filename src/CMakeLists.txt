@@ -17,6 +17,7 @@ set(SOURCES
     scatter_renderer.cpp
     state.cpp
     trans_data.cpp
+    tsne_layout.cpp
     tsv_parser.cpp
     ui_color.cpp
     ui_imgui.cpp
