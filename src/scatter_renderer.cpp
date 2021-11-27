@@ -1,9 +1,9 @@
 
 #include "scatter_renderer.h"
 
+#include <Magnum/GL/Mesh.h>
 #include <Magnum/MeshTools/Interleave.h>
 #include <Magnum/Trade/MeshData.h>
-#include <Magnum/GL/Mesh.h>
 
 #include <algorithm>
 #include <limits>

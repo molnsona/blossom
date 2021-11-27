@@ -13,7 +13,7 @@ uiScaler::render(Application &app, ImGuiWindowFlags window_flags)
         return;
 
     if (app.state.data.names.size() != app.state.trans.dim()) {
-        ImGui::Begin("Data error", nullptr, 0);
+        ImGui::Begin("Data error", nullptr, window_flags);
         ImGui::Text("Data has different dimension than transformed data.");
         if (ImGui::Button("OK")) {
             show_window = false;
@@ -23,7 +23,7 @@ uiScaler::render(Application &app, ImGuiWindowFlags window_flags)
     }
 
     if (app.state.data.names.size() != app.state.scaled.dim()) {
-        ImGui::Begin("Data error", nullptr, 0);
+        ImGui::Begin("Data error", nullptr, window_flags);
         ImGui::Text("Data has different dimension than scaled data.");
         if (ImGui::Button("OK")) {
             show_window = false;
