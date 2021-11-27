@@ -28,6 +28,7 @@ struct ScaledData
     void touch_config() { refresh(*this); }
 
     void update(const TransData &td);
+    void reset();
 };
 
 #endif
