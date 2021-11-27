@@ -13,13 +13,15 @@ struct ColorData : public Sweeper
 {
     std::vector<Magnum::Color4> data;
     int color;
-    std::string col_pallette;
+    std::string col_palette;
     float alpha;
+    bool reverse;
 
     ColorData()
       : color(0)
-      , col_pallette("rdbu")
+      , col_palette("rdbu")
       , alpha(0.5f)
+      , reverse(false)
     {}
 
     void update(const TransData &td);

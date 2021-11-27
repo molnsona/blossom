@@ -17,12 +17,12 @@ uiColorSettings::render(Application &app, ImGuiWindowFlags window_flags)
     if (ImGui::Begin("Color", &show_window, window_flags)) {
         ImGui::Text("Color palette:");
         if (ImGui::BeginCombo("##palettes",
-                              app.state.colors.col_pallette.c_str())) {
+                              app.state.colors.col_palette.c_str())) {
             bool ret = false;
             for (auto &[name, _] : colormap::palettes) {
-                bool is_selected = name == app.state.colors.col_pallette;
+                bool is_selected = name == app.state.colors.col_palette;
                 if (ImGui::Selectable(name.c_str(), &is_selected)) {
-                    app.state.colors.col_pallette = name;
+                    app.state.colors.col_palette = name;
                     ret = true;
                 }
             }
@@ -32,7 +32,9 @@ uiColorSettings::render(Application &app, ImGuiWindowFlags window_flags)
             ImGui::EndCombo();
         }
 
-        auto dim = app.state.data.names.size();
+        ImGui::Text("Reverse color palette:");
+        if (ImGui::Checkbox("##reverse", &app.state.colors.reverse))
+            app.state.colors.touch_config();
 
         ImGui::Text("Alpha:");
         if (ImGui::SliderFloat("##alpharender",
@@ -41,10 +43,10 @@ uiColorSettings::render(Application &app, ImGuiWindowFlags window_flags)
                                1.0f,
                                "%.3f",
                                ImGuiSliderFlags_AlwaysClamp))
-            app.state.trans.touch_config();
+            app.state.colors.touch_config();
 
         ImGui::Text("Column:");
-
+        auto dim = app.state.data.names.size();
         if (!dim)
             ImGui::Text("No columns are present.");
 

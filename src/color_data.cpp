@@ -25,14 +25,15 @@ ColorData::update(const TransData &td)
         return;
 
     clean_range(td, rn);
-    auto pal = colormap::palettes.at(col_pallette).rescale(0, 1);
+    auto pal = colormap::palettes.at(col_palette).rescale(0, 1);
     float mean = td.sums[color] / n;
     float sdev = sqrt(td.sqsums[color] / n - mean * mean);
 
     for (; rn-- > 0; ++ri) {
         if (ri >= n)
             ri = 0;
-        auto c = pal(pnormf(td.data[ri * d + color], mean, sdev));
+        auto c = reverse ? pal(1 - pnormf(td.data[ri * d + color], mean, sdev))
+                         : pal(pnormf(td.data[ri * d + color], mean, sdev));
         data[ri] = Magnum::Color4(c.channels[0].val / 255.0f,
                                   c.channels[1].val / 255.0f,
                                   c.channels[2].val / 255.0f,

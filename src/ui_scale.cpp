@@ -87,7 +87,7 @@ uiScaler::render(Application &app, ImGuiWindowFlags window_flags)
                                    "%.3f",
                                    ImGuiSliderFlags_AlwaysClamp))
                 app.state.trans.touch_config();
-        
+
             ImGui::TableNextColumn();
             name = "##scale" + std::to_string(i);
             if (ImGui::Checkbox(name.data(), &app.state.scaled.config[i].scale))
