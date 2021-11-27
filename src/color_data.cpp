@@ -25,7 +25,7 @@ ColorData::update(const TransData &td)
         return;
 
     clean_range(td, rn);
-    auto pal = colormap::palettes.at("rdbu").rescale(0, 1);
+    auto pal = colormap::palettes.at(col_pallette).rescale(0, 1);
     float mean = td.sums[color] / n;
     float sdev = sqrt(td.sqsums[color] / n - mean * mean);
 
