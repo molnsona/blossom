@@ -1,6 +1,7 @@
 
 #include "landmark_model.h"
 
+#include <limits>
 #include <random>
 
 LandmarkModel::LandmarkModel()
@@ -48,72 +49,63 @@ LandmarkModel::update_dim(size_t dim)
 }
 
 void
-LandmarkModel::press(const std::size_t &ind,
-                     const Magnum::Vector2i &mouse_pos,
-                     View &view)
+LandmarkModel::press(size_t ind, const Magnum::Vector2 &mouse_pos)
 {
-    lodim_vertices[ind] = view.model_mouse_coords(mouse_pos);
+    lodim_vertices[ind] = mouse_pos;
     touch();
 }
 
 void
-LandmarkModel::move(const std::size_t &ind,
-                    const Magnum::Vector2i &mouse_pos,
-                    View &view)
+LandmarkModel::move(size_t ind, const Magnum::Vector2 &mouse_pos)
 {
-    lodim_vertices[ind] = view.model_mouse_coords(mouse_pos);
+    lodim_vertices[ind] = mouse_pos;
     touch();
 }
 
 void
-LandmarkModel::duplicate(const std::size_t &ind)
+LandmarkModel::duplicate(size_t ind)
 {
     // Add new line to hidim
-    std::size_t line_idx = d * ind;
-    for (std::size_t i = 0; i < d; ++i) {
+    size_t line_idx = d * ind;
+    for (size_t i = 0; i < d; ++i) {
         hidim_vertices.emplace_back(hidim_vertices[line_idx + i]);
     }
 
     // Add new vertex to lodim
     lodim_vertices.emplace_back(
       Magnum::Vector2(lodim_vertices[ind].x() + 0.3, lodim_vertices[ind].y()));
-    std::size_t new_vert_ind = lodim_vertices.size() - 1;
 
-#if 0
-    // Find edges.
-    std::vector<std::size_t> edge_idxs;
-    for(std::size_t i = 0; i < edges.size(); ++i) {
-        if(edges[i].first == ind || edges[i].second == ind) {
-            edge_idxs.emplace_back(i);         
-        }
-    }    
-
-    // Add new edges and edge lengths
-    for(std::size_t i = 0; i < edge_idxs.size(); ++i) {
-        std::size_t edge_idx = edge_idxs[i];
-        auto edge = edges[edge_idx];
-        if(edge.first == ind)
-            edges.emplace_back(std::make_pair(new_vert_ind, edge.second));
-        else if(edge.second == ind)
-            edges.emplace_back(std::make_pair(edge.first, new_vert_ind));
-        
-        edge_lengths.emplace_back(edge_lengths[edge_idx]);
-    }
-#endif
     touch();
 }
 
 void
-LandmarkModel::remove(const std::size_t &ind)
+LandmarkModel::add(const Magnum::Vector2 &mouse_pos)
+{
+    size_t vert_ind = closest_landmark(mouse_pos);
+
+    // Add new vertex to lodim
+    lodim_vertices.emplace_back(mouse_pos);
+
+    // Add new line to hidim
+    size_t line_idx = d * vert_ind;
+    for (size_t i = 0; i < d; ++i) {
+        hidim_vertices.emplace_back(hidim_vertices[line_idx + i]);
+    }
+
+    touch();
+}
+
+void
+LandmarkModel::remove(size_t ind)
 {
     lodim_vertices.erase(lodim_vertices.begin() + ind);
-    std::size_t line_idx = d * ind;
+    size_t line_idx = d * ind;
     hidim_vertices.erase(hidim_vertices.begin() + line_idx,
                          hidim_vertices.begin() + line_idx + d);
 
     // Remove edges.
-    std::vector<std::size_t> edge_idxs;
-    std::size_t edge_ind = 0;
+    std::vector<size_t> edge_idxs;
+    size_t edge_ind = 0;
     for (auto i = edges.begin(); i != edges.end();) {
         if (i->first == ind || i->second == ind) {
             i = edges.erase(i);
@@ -136,4 +128,28 @@ LandmarkModel::remove(const std::size_t &ind)
     }
 
     touch();
+}
+
+static float
+distance(const Magnum::Vector2 &x, const Magnum::Vector2 &y)
+{
+    auto a = powf(x.x() - y.x(), 2);
+    auto b = powf(x.y() - y.y(), 2);
+    return sqrtf(a + b);
+}
+
+size_t
+LandmarkModel::closest_landmark(const Magnum::Vector2 &mouse_pos) const
+{
+    auto min_dist = std::numeric_limits<float>::max();
+    size_t vert_ind = 0;
+    for (size_t i = 0; i < lodim_vertices.size(); ++i) {
+        auto dist = distance(lodim_vertices[i], mouse_pos);
+        if (dist < min_dist) {
+            min_dist = dist;
+            vert_ind = i;
+        }
+    }
+
+    return vert_ind;
 }
