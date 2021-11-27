@@ -26,9 +26,7 @@ GraphRenderer::GraphRenderer()
 GraphRenderer::~GraphRenderer() {}
 
 void
-GraphRenderer::draw(const View &view,
-                    const LandmarkModel &model,
-                    float vertex_size)
+GraphRenderer::draw(const View &view, const LandmarkModel &model)
 {
     // TODO cache these allocations in GraphRenderer object
     // std::vector<Vector2> vertices(model.lodim_vertices.size());
@@ -75,9 +73,7 @@ GraphRenderer::draw(const View &view,
 }
 
 bool
-GraphRenderer::is_vert_pressed(Magnum::Vector2 mouse,
-                               float vertex_size,
-                               std::size_t &vert_ind)
+GraphRenderer::is_vert_pressed(Magnum::Vector2 mouse, std::size_t &vert_ind)
 {
     float radius = vertex_size;
 
