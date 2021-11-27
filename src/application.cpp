@@ -18,6 +18,9 @@ Application::Application(const Arguments &arguments)
     GL::Renderer::disable(GL::Renderer::Feature::DepthTest);
     GL::Renderer::enable(GL::Renderer::Feature::FaceCulling);
 
+    // Set white background
+    GL::Renderer::setClearColor(0xffffff_rgbf);
+
     /* Loop at 100 Hz max */
     setMinimalLoopPeriod(10);
     setSwapInterval(1);
@@ -39,7 +42,7 @@ Application::drawEvent()
                                  GL::FramebufferClear::Depth);
 
     scatter_renderer.draw(view, state.scatter, state.colors);
-    graph_renderer.draw(view, state.landmarks, vertex_size);
+    graph_renderer.draw(view, state.landmarks);
     ui_imgui.draw_event(*this);
 
     swapBuffers();
@@ -125,7 +128,6 @@ Application::mousePressEvent(MouseEvent &event)
 
             if (graph_renderer.is_vert_pressed(
                   Vector2(view.screen_mouse_coords(state.mouse.mouse_pos)),
-                  vertex_size,
                   state.mouse.vert_ind)) {
                 if (state.keyboard.ctrl_pressed) {
                     state.landmarks.duplicate(state.mouse.vert_ind);
@@ -147,7 +149,6 @@ Application::mousePressEvent(MouseEvent &event)
 
             if (graph_renderer.is_vert_pressed(
                   Vector2(view.screen_mouse_coords(state.mouse.mouse_pos)),
-                  vertex_size,
                   state.mouse.vert_ind)) {
                 if (state.keyboard.ctrl_pressed) {
                     state.landmarks.remove(state.mouse.vert_ind);

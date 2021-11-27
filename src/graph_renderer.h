@@ -17,14 +17,14 @@ struct GraphRenderer
 
     // TODO: this should not know about actual Landmarks, we should pass actual
     // vertex + edge positions as with the layouter.
-    void draw(const View &v, const LandmarkModel &m, float vertex_size);
+    void draw(const View &v, const LandmarkModel &m);
 
     // If some vertex is pressed it returns true and index of the vertex
-    bool is_vert_pressed(Magnum::Vector2 mouse,
-                         float vertex_size,
-                         std::size_t &vert_ind);
+    bool is_vert_pressed(Magnum::Vector2 mouse, std::size_t &vert_ind);
 
 private:
+    static constexpr float vertex_size = 5.0f;
+
     Magnum::GL::Mesh line_mesh;
     Magnum::GL::Mesh circle_mesh;
     Magnum::Shaders::FlatGL2D flat_shader;

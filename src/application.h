@@ -76,8 +76,6 @@ private:
     void mouseScrollEvent(MouseScrollEvent &event) override;
     void textInputEvent(TextInputEvent &event) override;
 
-    static constexpr float vertex_size = 8.0f;
-
 public:
     State state;
     Timer timer;

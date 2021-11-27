@@ -16,14 +16,17 @@ GraphRenderer::GraphRenderer()
 {
     line_mesh.setPrimitive(MeshPrimitive::Lines);
     circle_mesh = MeshTools::compile(Primitives::circle2DSolid(36));
+
+    // Setup proper blending function.
+    GL::Renderer::setBlendFunction(
+      GL::Renderer::BlendFunction::SourceAlpha,
+      GL::Renderer::BlendFunction::OneMinusSourceAlpha);
 }
 
 GraphRenderer::~GraphRenderer() {}
 
 void
-GraphRenderer::draw(const View &view,
-                    const LandmarkModel &model,
-                    float vertex_size)
+GraphRenderer::draw(const View &view, const LandmarkModel &model)
 {
     // TODO cache these allocations in GraphRenderer object
     // std::vector<Vector2> vertices(model.lodim_vertices.size());
@@ -47,8 +50,6 @@ GraphRenderer::draw(const View &view,
       Corrade::Containers::ArrayView(edge_lines.data(), edge_lines.size()));
 
     GL::Renderer::enable(GL::Renderer::Feature::Blending);
-    GL::Renderer::setBlendFunction(GL::Renderer::BlendFunction::One,
-                                   GL::Renderer::BlendFunction::One);
 
     line_mesh.setCount(edge_lines.size())
       .addVertexBuffer(std::move(buffer), 0, decltype(flat_shader)::Position{});
@@ -59,7 +60,7 @@ GraphRenderer::draw(const View &view,
       .setColor(0xc01010_rgbf)
       .draw(line_mesh);
 
-    flat_shader.setColor(0x666666_rgbf);
+    flat_shader.setColor(0x66666666_rgbaf);
     for (auto &&v : vertices) {
         flat_shader
           .setTransformationProjectionMatrix(
@@ -72,9 +73,7 @@ GraphRenderer::draw(const View &view,
 }
 
 bool
-GraphRenderer::is_vert_pressed(Magnum::Vector2 mouse,
-                               float vertex_size,
-                               std::size_t &vert_ind)
+GraphRenderer::is_vert_pressed(Magnum::Vector2 mouse, std::size_t &vert_ind)
 {
     float radius = vertex_size;
 

@@ -9,6 +9,7 @@ ScaledData::update(const TransData &td)
     if (dirty(td) && (td.dim() != dim() || td.n != n)) {
         n = td.n;
         config.resize(td.dim());
+        reset();
         touch_config();
         data.resize(n * dim());
         clean(td);
@@ -41,4 +42,12 @@ ScaledData::update(const TransData &td)
               (config[di].scale ? config[di].sdev * isds[di] : 1);
     }
     touch();
+}
+
+void
+ScaledData::reset()
+{
+    for (auto &c : config)
+        c = ScaleConfig();
+    touch_config();
 }
