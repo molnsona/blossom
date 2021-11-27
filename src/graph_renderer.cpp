@@ -60,7 +60,7 @@ GraphRenderer::draw(const View &view, const LandmarkModel &model)
       .setColor(0xc01010_rgbf)
       .draw(line_mesh);
 
-    flat_shader.setColor(0x666666_rgbf);
+    flat_shader.setColor(0x66666666_rgbaf);
     for (auto &&v : vertices) {
         flat_shader
           .setTransformationProjectionMatrix(

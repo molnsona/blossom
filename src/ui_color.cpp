@@ -34,6 +34,15 @@ uiColorSettings::render(Application &app, ImGuiWindowFlags window_flags)
 
         auto dim = app.state.data.names.size();
 
+        ImGui::Text("Alpha:");
+        if (ImGui::SliderFloat("##alpharender",
+                               &app.state.colors.alpha,
+                               0.0f,
+                               1.0f,
+                               "%.3f",
+                               ImGuiSliderFlags_AlwaysClamp))
+            app.state.trans.touch_config();
+
         ImGui::Text("Column:");
 
         if (!dim)

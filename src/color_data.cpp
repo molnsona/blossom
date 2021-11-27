@@ -9,7 +9,7 @@ void
 ColorData::update(const TransData &td)
 {
     if (td.n != data.size()) {
-        data.resize(td.n, Magnum::Color3(0, 0, 0));
+        data.resize(td.n, Magnum::Color4(0, 0, 0, 0));
         refresh(td);
     }
 
@@ -33,8 +33,9 @@ ColorData::update(const TransData &td)
         if (ri >= n)
             ri = 0;
         auto c = pal(pnormf(td.data[ri * d + color], mean, sdev));
-        data[ri] = Magnum::Color3(c.channels[0].val / 255.0f,
+        data[ri] = Magnum::Color4(c.channels[0].val / 255.0f,
                                   c.channels[1].val / 255.0f,
-                                  c.channels[2].val / 255.0f);
+                                  c.channels[2].val / 255.0f,
+                                  alpha);
     }
 }

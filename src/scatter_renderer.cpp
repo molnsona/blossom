@@ -42,7 +42,7 @@ ScatterRenderer::draw(const View &view,
     point_mesh.setCount(n).addVertexBuffer(std::move(buffer),
                                            0,
                                            decltype(flat_shader)::Position{},
-                                           decltype(flat_shader)::Color3{});
+                                           decltype(flat_shader)::Color4{});
 
     auto proj = view.projection_matrix();
 
