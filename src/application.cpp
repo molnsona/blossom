@@ -132,9 +132,14 @@ Application::mousePressEvent(MouseEvent &event)
                 } else {
                     state.mouse.vert_pressed = true;
                     state.landmarks.press(
-                      state.mouse.vert_ind, state.mouse.mouse_pos, view);
+                      state.mouse.vert_ind,
+                      view.model_mouse_coords(state.mouse.mouse_pos));
                 }
+            } else if (state.keyboard.ctrl_pressed) {
+                state.landmarks.add(
+                  view.model_mouse_coords(state.mouse.mouse_pos));
             }
+
             break;
         case MouseEvent::Button::Right:
             state.mouse.right_pressed = true;
@@ -180,7 +185,8 @@ Application::mouseMoveEvent(MouseMoveEvent &event)
 
     if (state.mouse.vert_pressed) {
         state.mouse.mouse_pos = event.position();
-        state.landmarks.move(state.mouse.vert_ind, state.mouse.mouse_pos, view);
+        state.landmarks.move(state.mouse.vert_ind,
+                             view.model_mouse_coords(state.mouse.mouse_pos));
     }
 }
 
