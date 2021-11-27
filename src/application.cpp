@@ -18,6 +18,9 @@ Application::Application(const Arguments &arguments)
     GL::Renderer::disable(GL::Renderer::Feature::DepthTest);
     GL::Renderer::enable(GL::Renderer::Feature::FaceCulling);
 
+    // Set white background
+    GL::Renderer::setClearColor(0xffffff_rgbf);
+
     /* Loop at 100 Hz max */
     setMinimalLoopPeriod(10);
     setSwapInterval(1);

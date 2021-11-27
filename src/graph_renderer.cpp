@@ -16,6 +16,11 @@ GraphRenderer::GraphRenderer()
 {
     line_mesh.setPrimitive(MeshPrimitive::Lines);
     circle_mesh = MeshTools::compile(Primitives::circle2DSolid(36));
+
+    // Setup proper blending function.
+    GL::Renderer::setBlendFunction(
+      GL::Renderer::BlendFunction::SourceAlpha,
+      GL::Renderer::BlendFunction::OneMinusSourceAlpha);
 }
 
 GraphRenderer::~GraphRenderer() {}
@@ -47,8 +52,6 @@ GraphRenderer::draw(const View &view,
       Corrade::Containers::ArrayView(edge_lines.data(), edge_lines.size()));
 
     GL::Renderer::enable(GL::Renderer::Feature::Blending);
-    GL::Renderer::setBlendFunction(GL::Renderer::BlendFunction::One,
-                                   GL::Renderer::BlendFunction::One);
 
     line_mesh.setCount(edge_lines.size())
       .addVertexBuffer(std::move(buffer), 0, decltype(flat_shader)::Position{});
