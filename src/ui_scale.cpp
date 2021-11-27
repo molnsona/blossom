@@ -36,7 +36,7 @@ uiScaler::render(Application &app, ImGuiWindowFlags window_flags)
 
     if (ImGui::Begin("Scale", &show_window, window_flags)) {
 
-        ImGui::BeginTable("##tabletrans", 5);
+        ImGui::BeginTable("##tabletrans", 7);
 
         ImGui::TableNextColumn();
         ImGui::TableNextColumn();
@@ -47,6 +47,10 @@ uiScaler::render(Application &app, ImGuiWindowFlags window_flags)
         ImGui::Text("zscale");
         ImGui::TableNextColumn();
         ImGui::Text("affine adjust");
+        ImGui::TableNextColumn();
+        ImGui::Text("scale");
+        ImGui::TableNextColumn();
+        ImGui::Text("sdev");
 
         for (size_t i = 0; i < dim; ++i) {
             ImGui::TableNextColumn();
@@ -58,6 +62,7 @@ uiScaler::render(Application &app, ImGuiWindowFlags window_flags)
                 app.state.trans.touch_config();
 
             ImGui::TableNextColumn();
+            ImGui::SetNextItemWidth(slider_width);
             name = "##asinh_cofactor" + std::to_string(i);
             if (ImGui::SliderFloat(name.data(),
                                    &app.state.trans.config[i].asinh_cofactor,
@@ -73,6 +78,7 @@ uiScaler::render(Application &app, ImGuiWindowFlags window_flags)
                 app.state.trans.touch_config();
 
             ImGui::TableNextColumn();
+            ImGui::SetNextItemWidth(slider_width);
             name = "##affine_adjust" + std::to_string(i);
             if (ImGui::SliderFloat(name.data(),
                                    &app.state.trans.config[i].affine_adjust,
@@ -81,28 +87,14 @@ uiScaler::render(Application &app, ImGuiWindowFlags window_flags)
                                    "%.3f",
                                    ImGuiSliderFlags_AlwaysClamp))
                 app.state.trans.touch_config();
-        }
-
-        ImGui::EndTable();
-
-        ImGui::BeginTable("##tablescale", 3);
-
-        ImGui::TableNextColumn();
-        ImGui::TableNextColumn();
-        ImGui::Text("scale");
-        ImGui::TableNextColumn();
-        ImGui::Text("sdev");
-
-        for (size_t i = 0; i < dim; ++i) {
+        
             ImGui::TableNextColumn();
-            ImGui::Text(app.state.data.names[i].c_str());
-
-            ImGui::TableNextColumn();
-            std::string name = "##scale" + std::to_string(i);
+            name = "##scale" + std::to_string(i);
             if (ImGui::Checkbox(name.data(), &app.state.scaled.config[i].scale))
                 app.state.scaled.touch_config();
 
             ImGui::TableNextColumn();
+            ImGui::SetNextItemWidth(slider_width);
             name = "##sdev" + std::to_string(i);
             if (ImGui::SliderFloat(name.data(),
                                    &app.state.scaled.config[i].sdev,
