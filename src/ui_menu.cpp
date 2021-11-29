@@ -105,8 +105,8 @@ uiMenu::draw_menu_window(const Vector2i &window_size)
 
         ImGui::Separator();
 
-        menu_entry(ICON_FA_WRENCH, "Scale data", scaler);
-        menu_entry(ICON_FA_SLIDERS_H, "Training settings", training_set);
+        menu_entry(ICON_FA_SLIDERS_H, "Scale data", scaler);
+        menu_entry(ICON_FA_WRENCH, "Training settings", training_set);
         menu_entry(ICON_FA_PALETTE, "Color points", color_set);
 
         ImGui::End();

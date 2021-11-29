@@ -10,6 +10,7 @@ ColorData::update(const TransData &td)
 {
     if (td.n != data.size()) {
         data.resize(td.n, Magnum::Color4(0, 0, 0, 0));
+        reset();
         refresh(td);
     }
 
@@ -39,4 +40,12 @@ ColorData::update(const TransData &td)
                                   c.channels[2].val / 255.0f,
                                   alpha);
     }
+}
+
+void
+ColorData::reset() {
+    color = 0;
+    col_palette = "rdbu";
+    alpha = 0.5f;
+    reverse = false;
 }
