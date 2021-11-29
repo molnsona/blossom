@@ -38,6 +38,9 @@ State::update(float actual_time)
     if (training_conf.graph_layout)
         graph_layout_step(layout_data, mouse, landmarks, time);
 
+    if (training_conf.tsne_layout)
+        tsne_layout_step(tsne_data, mouse, landmarks, time);
+
     if (training_conf.som_landmark)
         som_landmark_step(kmeans_data,
                           scaled,
