@@ -24,8 +24,8 @@ State::update(float actual_time)
     if (training_conf.kmeans_landmark)
         kmeans_landmark_step(kmeans_data,
                              scaled,
-                             training_conf.iters,
-                             training_conf.alpha,
+                             training_conf.kmeans_iters,
+                             training_conf.kmeans_alpha,
                              training_conf.gravity,
                              landmarks);
 
@@ -44,8 +44,8 @@ State::update(float actual_time)
     if (training_conf.som_landmark)
         som_landmark_step(kmeans_data,
                           scaled,
-                          training_conf.iters,
-                          training_conf.alpha,
+                          training_conf.som_iters,
+                          training_conf.som_alpha,
                           training_conf.sigma,
                           landmarks);
 

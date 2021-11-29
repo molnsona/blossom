@@ -26,6 +26,7 @@ struct ColorData : public Sweeper
 
     void update(const TransData &td);
     void touch_config() { refresh(data.size()); }
+    void reset();
 };
 
 #endif

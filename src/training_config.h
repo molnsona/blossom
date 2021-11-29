@@ -3,12 +3,15 @@
 
 struct TrainingConfig
 {
-    float alpha;
+    float som_alpha;
+    float kmeans_alpha;
     float sigma;
     float gravity;
 
-    int iters;
+    int som_iters;
+    int kmeans_iters;
     int kns;
+    int tsne_k;
     int topn;
     float boost;
     float adjust;
@@ -25,11 +28,12 @@ struct TrainingConfig
 
     void reset_data()
     {
-        alpha = 0.001f;
+        som_alpha = kmeans_alpha = 0.001f;
         sigma = 1.1f;
         gravity = 0.01f;
-        iters = 100;
+        som_iters = kmeans_iters = 100;
         kns = 3;
+        tsne_k = 3;
         topn = 10;
         boost = 2.0f;
         adjust = 0.2f;
