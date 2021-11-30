@@ -1,7 +1,6 @@
 
 #ifndef EMBEDSOM_CUDA_H
 #define EMBEDSOM_CUDA_H
-#ifndef NO_CUDA
 
 #include "cuda_runtime.h"
 
@@ -209,5 +208,4 @@ _cuda_check(cudaError_t status,
  */
 #define CUCH(status) _cuda_check(status, __LINE__, __FILE__, #status)
 
-#endif
-#endif
+#endif // EMBEDSOM_CUDA_H

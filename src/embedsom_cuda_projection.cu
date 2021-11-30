@@ -1,4 +1,3 @@
-#ifndef NO_CUDA
 
 #include "embedsom_cuda.h"
 
@@ -692,5 +691,3 @@ EsomCuda::runProjectionKernel(float boost, float adjust)
 
     CUCH(cudaGetLastError());
 }
-
-#endif

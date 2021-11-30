@@ -1,6 +1,6 @@
 
 #include "application.h"
-#include "extern/colormap/palettes.hpp"
+#include "vendor/colormap/palettes.hpp"
 
 #include <exception>
 

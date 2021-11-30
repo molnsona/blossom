@@ -1,4 +1,3 @@
-#ifndef NO_CUDA
 
 #include "embedsom_cuda.h"
 
@@ -283,5 +282,3 @@ EsomCuda::getAvgProcessingTime() const
         sum /= (float)mProcessingTimes.size();
     return sum;
 }
-
-#endif

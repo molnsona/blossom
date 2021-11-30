@@ -1,7 +1,7 @@
 
 #include "color_data.h"
-#include "extern/colormap/palettes.hpp"
 #include "pnorm.h"
+#include "vendor/colormap/palettes.hpp"
 
 #include <cmath>
 #include <tuple>

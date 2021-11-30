@@ -3,8 +3,7 @@
 #include <Magnum/GL/Renderer.h>
 #include <Magnum/ImageView.h>
 
-// https://github.com/juliettef/IconFontCppHeaders
-#include <IconsFontAwesome5.h>
+#include "vendor/IconsFontAwesome5.h"
 
 #include "application.h"
 

@@ -1,5 +1,3 @@
-#ifndef NO_CUDA
-
 #include "bitonic.cuh"
 #include "embedsom_cuda.h"
 
@@ -230,5 +228,3 @@ EsomCuda::runTopkBaseKernel()
                                   (std::uint32_t)mAdjustedTopK);
     CUCH(cudaGetLastError());
 }
-
-#endif
