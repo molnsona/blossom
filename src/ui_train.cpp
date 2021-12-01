@@ -74,24 +74,27 @@ uiTrainingSettings::render(Application &app, ImGuiWindowFlags window_flags)
         }
 
         if (ImGui::CollapsingHeader("EmbedSOM")) {
-            ImGui::SliderInt("k (landmark neighborhood size)",
-                             &app.state.training_conf.topn,
-                             3,
-                             32);
+            if (ImGui::SliderInt("k (landmark neighborhood size)",
+                                 &app.state.training_conf.topn,
+                                 3,
+                                 32))
+                app.state.scatter.touch_config();
 
-            ImGui::SliderFloat("Boost", // TODO: use smooth instead
-                               &app.state.training_conf.boost,
-                               0.2f,
-                               5.0f,
-                               "%.3f",
-                               ImGuiSliderFlags_AlwaysClamp);
+            if (ImGui::SliderFloat("Boost", // TODO: use smooth instead
+                                   &app.state.training_conf.boost,
+                                   0.2f,
+                                   5.0f,
+                                   "%.3f",
+                                   ImGuiSliderFlags_AlwaysClamp))
+                app.state.scatter.touch_config();
 
-            ImGui::SliderFloat("Adjust",
-                               &app.state.training_conf.adjust,
-                               0.0f,
-                               2.0f,
-                               "%.3f",
-                               ImGuiSliderFlags_AlwaysClamp);
+            if (ImGui::SliderFloat("Adjust",
+                                   &app.state.training_conf.adjust,
+                                   0.0f,
+                                   2.0f,
+                                   "%.3f",
+                                   ImGuiSliderFlags_AlwaysClamp))
+                app.state.scatter.touch_config();
         }
 
         ImGui::End();
