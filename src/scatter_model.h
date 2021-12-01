@@ -19,6 +19,8 @@ struct ScatterModel : public Sweeper
     void update(const ScaledData &d,
                 const LandmarkModel &lm,
                 const TrainingConfig &tc);
+
+    void touch_config() { refresh(points.size()); }
 };
 
 #endif
