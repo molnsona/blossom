@@ -36,7 +36,7 @@ uiScaler::render(Application &app, ImGuiWindowFlags window_flags)
 
     if (ImGui::Begin("Scale", &show_window, window_flags)) {
 
-        if(!dim){
+        if (!dim) {
             ImGui::Text("No columns were detected.");
             ImGui::End();
             return;
