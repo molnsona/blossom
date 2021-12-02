@@ -74,7 +74,7 @@ bitonic_merge_step(T *__restrict__ data)
          : blockOffset + localIdx + (unsigned)BLOCK_SIZE;
     CMP::go(data[blockOffset + localIdx], data[secondIdx]);
 
-    if (BLOCK_SIZE > 32)
+    if constexpr (BLOCK_SIZE > 32)
         __syncthreads();
     else
         __syncwarp();
@@ -121,14 +121,14 @@ template<typename T, int BLOCK_SIZE, class CMP = ComparatorPolicy<T>>
 __device__ __forceinline__ void
 bitonic_sort(T *__restrict__ data)
 {
-    if (BLOCK_SIZE < 1)
+    if constexpr (BLOCK_SIZE < 1)
         return;
 
-    if (BLOCK_SIZE > 1) {
+    if constexpr (BLOCK_SIZE > 1) {
         // recursively sort halves of the input (this will be unrolled by
         // compiler)
         bitonic_sort<T, BLOCK_SIZE / 2, CMP>(data);
-        if (BLOCK_SIZE > 32) {
+        if constexpr (BLOCK_SIZE > 32) {
             __syncthreads();
         } else {
             __syncwarp();
@@ -168,15 +168,15 @@ __device__ __forceinline__ void
 bitonic_topk_update_opt(T *__restrict__ topK, T *__restrict__ newData)
 {
     /* extra safety */
-    if (BLOCK_SIZE < 1)
+    if constexpr (BLOCK_SIZE < 1)
         return;
 
-    if (BLOCK_SIZE > 1) {
+    if constexpr (BLOCK_SIZE > 1) {
         /* recursively sort halves of the input
          * (this will be unrolled by compiler) */
         bitonic_sort<T, BLOCK_SIZE, CMP>(topK);
         bitonic_sort<T, BLOCK_SIZE, CMP>(newData);
-        if (BLOCK_SIZE > 32)
+        if constexpr (BLOCK_SIZE > 32)
             __syncthreads();
         else
             __syncwarp();
@@ -198,7 +198,7 @@ bitonic_topk_update_opt(T *__restrict__ topK, T *__restrict__ newData)
     CMP::go(topK[blockOffset + localIdx + BLOCK_SIZE],
             newData[blockOffset + ((unsigned)BLOCK_SIZE - 1) - localIdx]);
 
-    if (BLOCK_SIZE > 32)
+    if constexpr (BLOCK_SIZE > 32)
         __syncthreads();
     else
         __syncwarp();
