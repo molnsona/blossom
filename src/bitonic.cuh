@@ -4,13 +4,13 @@
 #include <cuda_runtime.h>
 #include <device_launch_parameters.h>
 
-/** \brief Wrapped ompare and swap-to-correct-order function
+/** \brief Wrapped compare and swap-to-correct-order function
  *
  * This is supposed to be used as a policy template parameter*/
 template<typename T>
 struct OrderWithCmpSwap
 {
-    static __device__ void go(T &a, T &b)
+    static __device__ void order(T &a, T &b)
     {
         if (a <= b)
             return;
@@ -26,7 +26,7 @@ struct OrderWithCmpSwap
 template<typename T>
 struct OrderWithMinMax
 {
-    static __device__ void go(T &a, T &b)
+    static __device__ void order(T &a, T &b)
     {
         T A = a;
         T B = b;
@@ -72,7 +72,7 @@ bitonic_merge_step(T *__restrict__ data)
     unsigned secondIdx =
       UP ? blockOffset + ((unsigned)BLOCK_SIZE * 2 - 1) - localIdx
          : blockOffset + localIdx + (unsigned)BLOCK_SIZE;
-    CMP::go(data[blockOffset + localIdx], data[secondIdx]);
+    CMP::order(data[blockOffset + localIdx], data[secondIdx]);
 
     if constexpr (BLOCK_SIZE > 32)
         __syncthreads();
@@ -193,10 +193,11 @@ bitonic_topk_update_opt(T *__restrict__ topK, T *__restrict__ newData)
 
     /* compare the upper and lower half of the data, producing a bitonic lower
      * half with values smaller than the upper half */
-    CMP::go(topK[blockOffset + localIdx],
-            newData[blockOffset + ((unsigned)BLOCK_SIZE * 2 - 1) - localIdx]);
-    CMP::go(topK[blockOffset + localIdx + BLOCK_SIZE],
-            newData[blockOffset + ((unsigned)BLOCK_SIZE - 1) - localIdx]);
+    CMP::order(
+      topK[blockOffset + localIdx],
+      newData[blockOffset + ((unsigned)BLOCK_SIZE * 2 - 1) - localIdx]);
+    CMP::order(topK[blockOffset + localIdx + BLOCK_SIZE],
+               newData[blockOffset + ((unsigned)BLOCK_SIZE - 1) - localIdx]);
 
     if constexpr (BLOCK_SIZE > 32)
         __syncthreads();
