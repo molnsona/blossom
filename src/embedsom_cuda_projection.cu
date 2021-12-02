@@ -13,33 +13,8 @@
 
 namespace cg = cooperative_groups;
 
-template<typename F>
-struct TopkResult
-{
-    F distance;
-    std::uint32_t index;
-};
-
-template<typename F>
-struct ArrayFloatType
-{};
-
-template<>
-struct ArrayFloatType<float>
-{
-    using Type2 = float2;
-    using Type4 = float4;
-};
-
-template<>
-struct ArrayFloatType<double>
-{
-    using Type2 = double2;
-    using Type4 = double4;
-};
-
 template<typename F = float>
-struct Constants
+struct EmbedSOMConstants
 {
 public:
     static constexpr F minBoost = F(1e-5);
@@ -55,7 +30,7 @@ public:
 template<typename F>
 struct SharedNeighborStorage
 {
-    TopkResult<F> *const __restrict__ neighbors;
+    knn_entry<F> *const __restrict__ neighbors;
     __forceinline__ __device__ F
     getNeighborDistance(const std::uint32_t idx) const
     {
@@ -81,7 +56,7 @@ template<typename F, typename ArrayF>
 __inline__ __device__ void
 readAligned(F *const __restrict__ dst,
             const F *const __restrict__ src,
-            const TopkResult<F> *const __restrict__ neighbors,
+            const knn_entry<F> *const __restrict__ neighbors,
             const std::uint32_t n,
             const std::uint32_t dim,
             const std::uint32_t groupRank,
@@ -107,12 +82,12 @@ template<typename F>
 __inline__ __device__ void
 readAlignedGrid2D(F *const __restrict__ dst,
                   const F *const __restrict__ src,
-                  const TopkResult<F> *const __restrict__ neighbors,
+                  const knn_entry<F> *const __restrict__ neighbors,
                   const std::uint32_t n,
                   const std::uint32_t groupRank,
                   const std::uint32_t groupSize)
 {
-    using ArrayT = typename ArrayFloatType<F>::Type2;
+    using ArrayT = typename V<2, F>::Type;
 
     ArrayT *const dstX = reinterpret_cast<ArrayT *>(dst);
     const ArrayT *const srcX = reinterpret_cast<const ArrayT *>(src);
@@ -131,7 +106,7 @@ storeToCache(const std::uint32_t groupRank,
              F *const __restrict__ gridCache,
              const F *const __restrict__ grid2d,
              F *const __restrict__ grid2dCache,
-             const TopkResult<F> *const __restrict__ neighbors,
+             const knn_entry<F> *const __restrict__ neighbors,
              const std::uint32_t dim,
              const std::uint32_t gridCacheLeadingDim,
              const std::uint32_t k)
@@ -155,7 +130,7 @@ storeToCache(const std::uint32_t groupRank,
 
 template<typename F>
 __inline__ __device__ void
-sortedDistsToScores(TopkResult<F> *const __restrict__ neighbors,
+sortedDistsToScores(knn_entry<F> *const __restrict__ neighbors,
                     const std::size_t adjustedK,
                     const std::size_t k,
                     const F boost)
@@ -174,14 +149,15 @@ sortedDistsToScores(TopkResult<F> *const __restrict__ neighbors,
     mean /= wsum;
     sd = boost / sqrt(sd / wsum - mean * mean);
     const F nmax =
-      Constants<F>::maxAvoidance / neighbors[adjustedK - 1].distance;
+      EmbedSOMConstants<F>::maxAvoidance / neighbors[adjustedK - 1].distance;
 
     // convert the stuff to scores
     for (std::uint32_t i = 0; i < k; ++i) {
         if (k < adjustedK)
-            neighbors[i].distance = exp((mean - neighbors[i].distance) * sd) *
-                                    (1 - exp(neighbors[i].distance * nmax -
-                                             Constants<F>::maxAvoidance));
+            neighbors[i].distance =
+              exp((mean - neighbors[i].distance) * sd) *
+              (1 - exp(neighbors[i].distance * nmax -
+                       EmbedSOMConstants<F>::maxAvoidance));
         else
             neighbors[i].distance = exp((mean - neighbors[i].distance) * sd);
     }
@@ -224,14 +200,14 @@ sortedDistsToScoresWarp(const TILE &tile,
     }
     mean /= wsum;
     sd = boost / sqrt(sd / wsum - mean * mean);
-    const F nmax = Constants<F>::maxAvoidance / lastScore;
+    const F nmax = EmbedSOMConstants<F>::maxAvoidance / lastScore;
     // convert the stuff to scores
     if (k < adjustedK)
         for (std::uint32_t i = tile.thread_rank(); i < k; i += warpSize) {
             const auto scoreIdx = i / warpSize;
             const F score = exp((mean - tmpScores[scoreIdx]) * sd) *
                             (1 - exp(tmpScores[scoreIdx] * nmax -
-                                     Constants<F>::maxAvoidance));
+                                     EmbedSOMConstants<F>::maxAvoidance));
             storage.storeScore(i, score);
         }
     else
@@ -245,7 +221,7 @@ addGravity(const F score,
            const F *const __restrict__ grid2DPoint,
            F *const __restrict__ mtx)
 {
-    const F gs = score * Constants<F>::gridGravity;
+    const F gs = score * EmbedSOMConstants<F>::gridGravity;
 
     mtx[0] += gs;
     mtx[3] += gs;
@@ -259,11 +235,10 @@ addGravity2Wise(const F score,
                 const F *const __restrict__ grid2DPoint,
                 F *const __restrict__ mtx)
 {
-    const F gs = score * Constants<F>::gridGravity;
+    const F gs = score * EmbedSOMConstants<F>::gridGravity;
 
-    const typename ArrayFloatType<F>::Type2 tmpGrid2d =
-      reinterpret_cast<const typename ArrayFloatType<F>::Type2 *>(
-        grid2DPoint)[0];
+    const typename V<2, F>::Type tmpGrid2d =
+      reinterpret_cast<const typename V<2, F>::Type *>(grid2DPoint)[0];
 
     mtx[0] += gs;
     mtx[3] += gs;
@@ -272,13 +247,13 @@ addGravity2Wise(const F score,
 }
 
 template<typename F>
-__inline__ __device__ typename ArrayFloatType<F>::Type2
+__inline__ __device__ typename V<2, F>::Type
 euclideanProjection(const F *const __restrict__ point,
                     const F *const __restrict__ gridPointI,
                     const F *const __restrict__ gridPointJ,
                     const std::uint32_t dim)
 {
-    typename ArrayFloatType<F>::Type2 result{ 0.0, 0.0 };
+    typename V<2, F>::Type result{ 0.0, 0.0 };
     for (std::uint32_t k = 0; k < dim; ++k) {
         const F tmp = gridPointJ[k] - gridPointI[k];
         result.y += tmp * tmp;
@@ -288,20 +263,20 @@ euclideanProjection(const F *const __restrict__ point,
 }
 
 template<typename F>
-__inline__ __device__ typename ArrayFloatType<F>::Type2
+__inline__ __device__ typename V<2, F>::Type
 euclideanProjection4Wise(const F *const __restrict__ point,
                          const F *const __restrict__ gridPointI,
                          const F *const __restrict__ gridPointJ,
                          const std::uint32_t dim)
 {
     const auto *const __restrict__ gridPointI4 =
-      reinterpret_cast<const typename ArrayFloatType<F>::Type4 *>(gridPointI);
+      reinterpret_cast<const typename V<4, F>::Type *>(gridPointI);
     const auto *const __restrict__ gridPointJ4 =
-      reinterpret_cast<const typename ArrayFloatType<F>::Type4 *>(gridPointJ);
+      reinterpret_cast<const typename V<4, F>::Type *>(gridPointJ);
     const auto *const __restrict__ point4 =
-      reinterpret_cast<const typename ArrayFloatType<F>::Type4 *>(point);
+      reinterpret_cast<const typename V<4, F>::Type *>(point);
 
-    typename ArrayFloatType<F>::Type2 result{ 0.0, 0.0 };
+    typename V<2, F>::Type result{ 0.0, 0.0 };
 
 #define DOIT(X)                                                                \
     tmp = tmpGridJ.X - tmpGridI.X;                                             \
@@ -346,7 +321,7 @@ addApproximation(const F scoreI,
         hp += h[i] * h[i];
     }
 
-    if (hp < Constants<F>::zeroAvoidance)
+    if (hp < EmbedSOMConstants<F>::zeroAvoidance)
         return;
 
     const F exponent = scalarProjection - .5;
@@ -374,17 +349,15 @@ addApproximation2Wise(const F scoreI,
                       const F scalarProjection,
                       F *const __restrict__ mtx)
 {
-    const typename ArrayFloatType<F>::Type2 tmpGrid2dI =
-      reinterpret_cast<const typename ArrayFloatType<F>::Type2 *>(
-        grid2DPointI)[0];
-    const typename ArrayFloatType<F>::Type2 tmpGrid2dJ =
-      reinterpret_cast<const typename ArrayFloatType<F>::Type2 *>(
-        grid2DPointJ)[0];
+    const typename V<2, F>::Type tmpGrid2dI =
+      reinterpret_cast<const typename V<2, F>::Type *>(grid2DPointI)[0];
+    const typename V<2, F>::Type tmpGrid2dJ =
+      reinterpret_cast<const typename V<2, F>::Type *>(grid2DPointJ)[0];
 
     const F h[2]{ tmpGrid2dJ.x - tmpGrid2dI.x, tmpGrid2dJ.y - tmpGrid2dI.y };
     const F hp = h[0] * h[0] + h[1] * h[1];
 
-    if (hp < Constants<F>::zeroAvoidance)
+    if (hp < EmbedSOMConstants<F>::zeroAvoidance)
         return;
 
     const F exponent = scalarProjection - .5;
@@ -444,7 +417,7 @@ __global__ void
 projectionBaseKernel(const F *__restrict__ points,
                      const F *const __restrict__ grid,
                      const F *const __restrict__ grid2d,
-                     TopkResult<F> *__restrict__ neighbors,
+                     knn_entry<F> *__restrict__ neighbors,
                      F *__restrict__ projections,
                      const std::uint32_t dim,
                      const std::uint32_t n,
@@ -505,7 +478,7 @@ __global__ void
 projectionAlignedShMemoryKernel(const F *__restrict__ points,
                                 const F *const __restrict__ grid,
                                 const F *const __restrict__ grid2d,
-                                TopkResult<F> *__restrict__ neighbors,
+                                knn_entry<F> *__restrict__ neighbors,
                                 F *__restrict__ projections,
                                 const std::uint32_t dim,
                                 const std::uint32_t n,
@@ -627,6 +600,9 @@ projectionAlignedShMemoryKernel(const F *__restrict__ points,
 /*
  * Runners
  */
+
+// TODO is this used?
+#if 0
 void
 EsomCuda::runProjectionBaseKernel(float boost, float adjust)
 {
@@ -636,7 +612,7 @@ EsomCuda::runProjectionBaseKernel(float boost, float adjust)
       mCuPoints,
       mCuLandmarksHighDim,
       mCuLandmarksLowDim,
-      reinterpret_cast<::TopkResult<float> *>(mCuTopkResult),
+      reinterpret_cast<::knn_entry<float> *>(mCuknn_entry),
       mCuEmbedding,
       mDim,
       mPointsCount,
@@ -647,12 +623,18 @@ EsomCuda::runProjectionBaseKernel(float boost, float adjust)
 
     CUCH(cudaGetLastError());
 }
+#endif
 
 void
-EsomCuda::runProjectionKernel(float boost, float adjust)
+EmbedSOMCUDAContext::runProjectionKernel(size_t d,
+                                         size_t n,
+                                         size_t g,
+                                         size_t k,
+                                         float boost,
+                                         float adjust)
 {
     constexpr size_t alignment = 16;
-    auto pointBytes = mDim * sizeof(float);
+    auto pointBytes = d * sizeof(float);
     auto dimCacheResidual = pointBytes % alignment;
     auto gridCacheLeadingDim =
       pointBytes + (dimCacheResidual == 0 ? 0 : alignment - dimCacheResidual);
@@ -661,33 +643,31 @@ EsomCuda::runProjectionKernel(float boost, float adjust)
     auto blockSize = 128;
     auto groupSize = 32;
     auto groupsPerBlock = blockSize / groupSize;
-    unsigned int blockCount =
-      (mPointsCount + groupsPerBlock - 1) / groupsPerBlock;
+    unsigned int blockCount = (n + groupsPerBlock - 1) / groupsPerBlock;
     auto warpCount = blockSize / 32;
     auto grid2dPadding =
-      (mTopK * 2) % gridCacheLeadingDim == 0
+      (k * 2) % gridCacheLeadingDim == 0
         ? 0
-        : gridCacheLeadingDim - ((mTopK * 2) % gridCacheLeadingDim);
+        : gridCacheLeadingDim - ((k * 2) % gridCacheLeadingDim);
     auto sharedMem =
       sizeof(float) * warpCount +
-      sizeof(float) * (mTopK + 1) * gridCacheLeadingDim * groupsPerBlock +
-      sizeof(float) * (mTopK * 2 + grid2dPadding) * groupsPerBlock;
+      sizeof(float) * (k + 1) * gridCacheLeadingDim * groupsPerBlock +
+      sizeof(float) * (k * 2 + grid2dPadding) * groupsPerBlock;
 
     projectionAlignedShMemoryKernel<float, RectangleIndexer>
-      <<<blockCount, blockSize, sharedMem>>>(
-        mCuPoints,
-        mCuLandmarksHighDim,
-        mCuLandmarksLowDim,
-        reinterpret_cast<::TopkResult<float> *>(mCuTopkResult),
-        mCuEmbedding,
-        mDim,
-        mPointsCount,
-        mLandmarksCount,
-        mTopK,
-        adjust,
-        boost,
-        groupSize,
-        gridCacheLeadingDim);
+      <<<blockCount, blockSize, sharedMem>>>(data,
+                                             lm_hi,
+                                             lm_lo,
+                                             knns,
+                                             points,
+                                             d,
+                                             n,
+                                             g,
+                                             k,
+                                             adjust,
+                                             boost,
+                                             groupSize,
+                                             gridCacheLeadingDim);
 
     CUCH(cudaGetLastError());
 }

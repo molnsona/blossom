@@ -3,282 +3,88 @@
 
 #include "cuda_runtime.h"
 
-#include <chrono>
-#include <exception>
-#include <sstream>
-#include <string>
-#include <vector>
-
-/*
- * Private
- */
-
 void
-EsomCuda::dimCheck()
+EmbedSOMCUDAContext::run(size_t n,
+                         size_t g,
+                         size_t d,
+                         float boost,
+                         size_t k,
+                         float adjust,
+                         const float *hidim_points,
+                         const float *hidim_landmarks,
+                         const float *lodim_landmarks,
+                         float *lodim_points)
 {
-    if (mDim < 2 || mDim > 256) {
-        throw std::runtime_error(
-          "Dimension sanity check failed. CUDA embedsom can work with dataset "
-          "with dimension in 2-256 range.");
-    }
-}
 
-void
-EsomCuda::preflightCheck()
-{
-    dimCheck();
-
-    // validate inputs
-    if (!mPointsValid) {
-        throw std::runtime_error("Dataset points must be loaded before "
-                                 "embedding computation can be started.");
-    }
-    if (!mLandmarksHighDimValid) {
-        throw std::runtime_error(
-          "Landmark coordinates in dateset space must be set before embedding "
-          "computation can be started.");
-    }
-    if (!mLandmarksLowDimValid) {
-        throw std::runtime_error(
-          "Landmark coordinates in target embedding space must be set before "
-          "embedding computation can be started.");
-    }
-
-    if (mTopK < 1 && mTopK > std::min<std::size_t>(256, mLandmarksCount)) {
-        throw std::runtime_error(
-          "The k parameter (for top-k selection) is out of range.");
-    }
-
-    mAdjustedTopK = mTopK < mLandmarksCount ? mTopK + 1 : mTopK;
-
-    // allocate missing buffers if necessary
-    std::size_t topkResultSize =
-      mAdjustedTopK * mPointsCount * sizeof(EsomCuda::TopkResult);
-    if (mCuTopkResult == nullptr || mAllocatedTopk != topkResultSize) {
-        if (mCuTopkResult != nullptr) {
-            CUCH(cudaFree(mCuTopkResult));
-            mCuTopkResult = nullptr;
-        }
-
-        CUCH(cudaMalloc(&mCuTopkResult, topkResultSize));
-        mAllocatedTopk = topkResultSize;
-    }
-
-    std::size_t embeddingSize = 2 * mPointsCount * sizeof(float);
-    if (mCuEmbedding == nullptr || mAllocatedEmbedding != embeddingSize) {
-        if (mCuEmbedding != nullptr) {
-            CUCH(cudaFree(mCuEmbedding));
-            mCuEmbedding = nullptr;
-        }
-
-        CUCH(cudaMalloc(&mCuEmbedding, embeddingSize));
-        mAllocatedEmbedding = embeddingSize;
-    }
-}
-
-/*
- * Public
- */
-
-EsomCuda::EsomCuda()
-  : mPointsCount(0)
-  , mLandmarksCount(0)
-  , mDim(0)
-  , mTopK(0)
-  , mAllocatedTopk(0)
-  , mAllocatedEmbedding(0)
-  , mCuPoints(nullptr)
-  , mCuLandmarksHighDim(nullptr)
-  , mCuLandmarksLowDim(nullptr)
-  , mCuEmbedding(nullptr)
-  , mCuTopkResult(nullptr)
-  , mPointsValid(false)
-  , mLandmarksHighDimValid(false)
-  , mLandmarksLowDimValid(false)
-{
-    CUCH(cudaSetDevice(0));
-}
-
-void
-EsomCuda::setDim(std::size_t dim)
-{
-    if (mDim == dim)
+    /* first make sure all sizes are acceptable and there's actual sensible
+     * work that can be done */
+    if (!n)
         return;
-    mDim = dim;
-
-    if (mCuPoints != nullptr) {
-        CUCH(cudaFree(mCuPoints));
-        mCuPoints = nullptr;
-        mPointsValid = false;
-    }
-    if (mCuLandmarksHighDim != nullptr) {
-        CUCH(cudaFree(mCuLandmarksHighDim));
-        mCuLandmarksHighDim = nullptr;
-        mLandmarksHighDimValid = false;
-    }
-}
-
-void
-EsomCuda::setK(std::size_t k)
-{
-    mTopK = k;
-}
-
-void
-EsomCuda::setPoints(std::size_t pointsCount, const float *pointsData)
-{
-    CUCH(cudaSetDevice(0));
-    dimCheck();
-
-    // realocate buffers if necessary
-    if (pointsCount != mPointsCount || mCuPoints == nullptr) {
-        mPointsValid = false;
-        if (mCuPoints != nullptr) {
-            CUCH(cudaFree(mCuPoints));
-            mCuPoints = nullptr;
-        }
-        if (pointsCount > 0) {
-            CUCH(cudaMalloc(&mCuPoints, pointsCount * mDim * sizeof(float)));
-        }
-    }
-
-    mPointsCount = pointsCount;
-
-    // copy data to GPU if possible
-    if (mPointsCount > 0 && pointsData != nullptr) {
-        auto startTs = std::chrono::high_resolution_clock::now();
-
-        CUCH(cudaMemcpy(mCuPoints,
-                        pointsData,
-                        mPointsCount * mDim * sizeof(float),
-                        cudaMemcpyHostToDevice));
-        mPointsValid = true;
-
-        auto endTs = std::chrono::high_resolution_clock::now();
-        std::chrono::duration<float, std::milli> duration = endTs - startTs;
-        while (mPointsUploadTimes.size() >= timeMeasurements)
-            mPointsUploadTimes.pop_front();
-        mPointsUploadTimes.push_back(duration.count());
-    }
-}
-
-void
-EsomCuda::setLandmarks(std::size_t landmarksCount,
-                       const float *highDim,
-                       const float *lowDim)
-{
-    CUCH(cudaSetDevice(0));
-    dimCheck();
-
-    // realocate buffers if necessary
-    if (landmarksCount != mLandmarksCount || mCuLandmarksHighDim == nullptr) {
-        mLandmarksHighDimValid = false;
-        if (mCuLandmarksHighDim != nullptr) {
-            CUCH(cudaFree(mCuLandmarksHighDim));
-            mCuLandmarksHighDim = nullptr;
-        }
-        if (landmarksCount > 0) {
-            CUCH(cudaMalloc(&mCuLandmarksHighDim,
-                            landmarksCount * mDim * sizeof(float)));
-        }
-    }
-
-    if (landmarksCount != mLandmarksCount || mCuLandmarksLowDim == nullptr) {
-        mLandmarksLowDimValid = false;
-        if (mCuLandmarksLowDim != nullptr) {
-            CUCH(cudaFree(mCuLandmarksLowDim));
-            mCuLandmarksLowDim = nullptr;
-        }
-        if (landmarksCount > 0) {
-            CUCH(cudaMalloc(&mCuLandmarksLowDim,
-                            landmarksCount * 2 * sizeof(float)));
-        }
-    }
-
-    mLandmarksCount = landmarksCount;
-    if (mLandmarksCount == 0)
+    if (d < 2 || d > 256)
+        return; // TODO try d=1; d>256 should warn
+    if (k > g)
+        k = g;
+    if (k < 3)
         return;
 
-    // copy data to GPU if possible
-    if (highDim != nullptr) {
-        auto startTs = std::chrono::high_resolution_clock::now();
+    /* make sure the buffers are sufficiently big. The allocations are kept as
+     * such: |data| = d*n |points| = 2*n |lm_hi| = d*g |lm_lo| = 2*g |topk| =
+     * adjusted_k()*n
+     *
+     * Because `n` and `g` is highly variable in this usecase, we _only_
+     * _increase_ the buffer sizes. Reallocation in case the sizes grow totally
+     * out of limits would help too (feel free to add into the conditions).
+     */
 
-        CUCH(cudaMemcpy(mCuLandmarksHighDim,
-                        highDim,
-                        mLandmarksCount * mDim * sizeof(float),
-                        cudaMemcpyHostToDevice));
-        mLandmarksHighDimValid = true;
-
-        auto endTs = std::chrono::high_resolution_clock::now();
-        std::chrono::duration<float, std::milli> duration = endTs - startTs;
-        while (mLandmarksUploadTimes.size() >= timeMeasurements)
-            mLandmarksUploadTimes.pop_front();
-        mLandmarksUploadTimes.push_back(duration.count());
-    }
-
-    if (lowDim != nullptr) {
-        CUCH(cudaMemcpy(mCuLandmarksLowDim,
-                        lowDim,
-                        mLandmarksCount * 2 * sizeof(float),
-                        cudaMemcpyHostToDevice));
-        mLandmarksLowDimValid = true;
-    }
-}
-
-void
-EsomCuda::embedsom(float boost, float adjust, float *embedding)
-{
     CUCH(cudaSetDevice(0));
 
-    preflightCheck();
+#define size_check(tgt, cur, buffer, type)                                     \
+    if (tgt > cur) {                                                           \
+        if (buffer)                                                            \
+            cudaFree(buffer);                                                  \
+        CUCH(cudaMalloc(&buffer, tgt * sizeof(type)));                         \
+        cur = tgt;                                                             \
+    }
 
-    auto startTs = std::chrono::high_resolution_clock::now();
+    size_check(d * n, ndata, data, float);
+    size_check(2 * n, npoints, points, float);
+    size_check(d * g, nlm_hi, lm_hi, float);
+    size_check(2 * g, nlm_lo, lm_lo, float);
 
-    runTopkBitonicOptKernel();
-    runProjectionKernel(boost, adjust);
+    size_t adjusted_k = std::min(g, k + 1);
+    size_check(adjusted_k * n, nknns, knns, knn_entry<float>);
+    CUCH(cudaGetLastError());
+#undef size_check
 
-    // this is blocking operation so it also provides host sync with GPU
-    CUCH(cudaMemcpy(embedding,
-                    mCuEmbedding,
-                    mPointsCount * 2 * sizeof(float),
-                    cudaMemcpyDeviceToHost));
+    /* all is safely allocated, transfer the data! */
+    CUCH(cudaMemcpy(
+      data, hidim_points, d * n * sizeof(float), cudaMemcpyHostToDevice));
+    CUCH(cudaMemcpy(
+      lm_hi, hidim_landmarks, d * g * sizeof(float), cudaMemcpyHostToDevice));
+    CUCH(cudaMemcpy(
+      lm_lo, lodim_landmarks, 2 * g * sizeof(float), cudaMemcpyHostToDevice));
+    CUCH(cudaGetLastError());
 
-    auto endTs = std::chrono::high_resolution_clock::now();
-    std::chrono::duration<float, std::milli> duration = endTs - startTs;
-    while (mProcessingTimes.size() >= timeMeasurements)
-        mProcessingTimes.pop_front();
-    mProcessingTimes.push_back(duration.count());
+    /* run the main embedding */
+    runKNNKernel(d, n, g, adjusted_k);
+    runProjectionKernel(d, n, g, k, boost, adjust);
+
+    /* get the results */
+    CUCH(cudaMemcpy(
+      lodim_points, points, 2 * n * sizeof(float), cudaMemcpyDeviceToHost));
+    CUCH(cudaGetLastError());
 }
 
-float
-EsomCuda::getAvgPointsUploadTime() const
+EmbedSOMCUDAContext::~EmbedSOMCUDAContext()
 {
-    float sum = 0.0f;
-    for (auto &t : mPointsUploadTimes)
-        sum += t;
-    if (!mPointsUploadTimes.empty())
-        sum /= (float)mPointsUploadTimes.size();
-    return sum;
-}
-
-float
-EsomCuda::getAvgLandmarksUploadTime() const
-{
-    float sum = 0.0f;
-    for (auto &t : mLandmarksUploadTimes)
-        sum += t;
-    if (!mLandmarksUploadTimes.empty())
-        sum /= (float)mLandmarksUploadTimes.size();
-    return sum;
-}
-
-float
-EsomCuda::getAvgProcessingTime() const
-{
-    float sum = 0.0f;
-    for (auto &t : mProcessingTimes)
-        sum += t;
-    if (!mProcessingTimes.empty())
-        sum /= (float)mProcessingTimes.size();
-    return sum;
+    if (data)
+        cudaFree(data);
+    if (points)
+        cudaFree(points);
+    if (lm_hi)
+        cudaFree(lm_hi);
+    if (lm_lo)
+        cudaFree(lm_lo);
+    if (knns)
+        cudaFree(knns);
 }

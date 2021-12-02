@@ -1,5 +1,7 @@
-#include "bitonic.cuh"
+
 #include "embedsom_cuda.h"
+
+#include "bitonic.cuh"
 
 #include "cooperative_groups.h"
 #include "cuda_runtime.h"
@@ -25,10 +27,10 @@ distance(const F *__restrict__ lhs,
 
 template<typename F = float>
 __inline__ __device__ void
-bubbleUp(EsomCuda::TopkResult *const __restrict__ topK, std::uint32_t idx)
+bubbleUp(knn_entry<F> *const __restrict__ topK, std::uint32_t idx)
 {
     while (idx > 0 && topK[idx - 1].distance > topK[idx].distance) {
-        const typename EsomCuda::TopkResult tmp = topK[idx];
+        const knn_entry<F> tmp = topK[idx];
         topK[idx] = topK[idx - 1];
         topK[idx - 1] = tmp;
         --idx;
@@ -43,7 +45,7 @@ template<typename F>
 __global__ void
 topkBaseKernel(const F *__restrict__ points,
                const F *const __restrict__ grid,
-               EsomCuda::TopkResult *__restrict__ topKs,
+               knn_entry<F> *__restrict__ topKs,
                const std::uint32_t dim,
                const std::uint32_t n,
                const std::uint32_t gridSize,
@@ -92,21 +94,20 @@ template<typename F, int K>
 __global__ void
 topkBitonicOptKernel(const F *__restrict__ points,
                      const F *const __restrict__ grid,
-                     EsomCuda::TopkResult *__restrict__ topKs,
+                     knn_entry<F> *__restrict__ topKs,
                      const std::uint32_t dim,
                      const std::uint32_t n,
                      const std::uint32_t gridSize,
                      const std::uint32_t actualK)
 {
     extern __shared__ char sharedMemory[];
-    EsomCuda::TopkResult *const shmTopk =
-      (EsomCuda::TopkResult *)(sharedMemory);
-    EsomCuda::TopkResult *const shmTopkBlock =
+    knn_entry<F> *const shmTopk = (knn_entry<F> *)(sharedMemory);
+    knn_entry<F> *const shmTopkBlock =
       shmTopk +
       K * (threadIdx.x / (K / 2)); // topk chunk that belongs to this thread
-    EsomCuda::TopkResult *const shmNewData =
+    knn_entry<F> *const shmNewData =
       shmTopk + (blockDim.x * 2); // every thread works on two items at a time
-    EsomCuda::TopkResult *const shmNewDataBlock =
+    knn_entry<F> *const shmNewDataBlock =
       shmNewData +
       K * (threadIdx.x / (K / 2)); // newData chunk that belongs to this thread
     // assign correct point and topK pointers for a thread (K/2 threads
@@ -137,12 +138,11 @@ topkBitonicOptKernel(const F *__restrict__ points,
         __syncthreads(); // actually, whole block should be synced as the
                          // bitonic update operates on the whole block
         // merge them with intermediate topk
-        bitonic_topk_update_opt<EsomCuda::TopkResult, K / 2>(shmTopk,
-                                                             shmNewData);
+        bitonic_topk_update_opt<knn_entry<F>, K / 2>(shmTopk, shmNewData);
         __syncthreads();
     }
     // final sorting of the topk result
-    bitonic_sort<EsomCuda::TopkResult, K / 2>(shmTopk);
+    bitonic_sort<knn_entry<F>, K / 2>(shmTopk);
     __syncthreads();
     // copy topk results from shm to global memory
     for (std::uint32_t i = threadIdx.x % (K / 2); i < actualK;
@@ -156,14 +156,15 @@ template<typename F, int K = 2>
 void
 runnerWrapperBitonicOpt(const F *points,
                         const F *grid,
-                        EsomCuda::TopkResult *topKs,
+                        knn_entry<F> *topKs,
                         std::uint32_t dim,
                         std::uint32_t pointsCount,
                         std::uint32_t gridSize,
                         std::uint32_t actualK)
 {
     if constexpr (K > 256) {
-        // a fallback (better run something slowly, than nothing at all)
+        // TODO make a fallback (better run something slowly, than nothing at
+        // all)
         throw std::runtime_error("Ooops, this should never happen. Bitonic "
                                  "kernel wrapper was invoked with k > 256.");
     } else if (K < 2 || K < actualK) {
@@ -173,6 +174,7 @@ runnerWrapperBitonicOpt(const F *points,
     } else {
         unsigned int blockSize = 256;
 
+        // TODO convert to static assert
         // we found the right nearest power of two using template
         // meta-programming
         if (blockSize * 2 != (blockSize | (blockSize - 1)) + 1) {
@@ -188,8 +190,8 @@ runnerWrapperBitonicOpt(const F *points,
           ((pointsCount * K / 2) + blockSize - 1) / blockSize;
         unsigned int shmSize =
           blockSize * 4 *
-          sizeof(EsomCuda::TopkResult); // 2 items per thread in topk and 2 more
-                                        // in tmp for new data
+          sizeof(knn_entry<F>); // 2 items per thread in topk and 2 more
+                                // in tmp for new data
         topkBitonicOptKernel<F, K><<<blockCount, blockSize, shmSize>>>(
           points, grid, topKs, dim, pointsCount, gridSize, actualK);
     }
@@ -197,34 +199,29 @@ runnerWrapperBitonicOpt(const F *points,
 
 // runner wrapped in a class
 void
-EsomCuda::runTopkBitonicOptKernel()
+EmbedSOMCUDAContext::runKNNKernel(size_t d,
+                                  size_t n,
+                                  size_t g,
+                                  size_t adjusted_k)
 {
-    if (mAdjustedTopK > 256) {
-        runTopkBaseKernel(); // k was limitted to 256 now, but lets make sure we
-                             // are ready for larger k...
-    } else {
-        runnerWrapperBitonicOpt<float, 2>(mCuPoints,
-                                          mCuLandmarksHighDim,
-                                          mCuTopkResult,
-                                          (std::uint32_t)mDim,
-                                          (std::uint32_t)mPointsCount,
-                                          (std::uint32_t)mLandmarksCount,
-                                          (std::uint32_t)mAdjustedTopK);
-    }
-}
-
-void
-EsomCuda::runTopkBaseKernel()
-{
-    constexpr unsigned int blockSize = 256;
-    unsigned int blockCount = (mPointsCount + blockSize - 1) / blockSize;
-    topkBaseKernel<float>
-      <<<blockCount, blockSize>>>(mCuPoints,
-                                  mCuLandmarksHighDim,
-                                  mCuTopkResult,
-                                  (std::uint32_t)mDim,
-                                  (std::uint32_t)mPointsCount,
-                                  (std::uint32_t)mLandmarksCount,
-                                  (std::uint32_t)mAdjustedTopK);
-    CUCH(cudaGetLastError());
+    if (adjusted_k > 256) {
+        /* If k is too high, fallback to the base kernel. Fortunately no one
+         * ever would like to use such a high k, right? */
+        constexpr unsigned blockSize = 256;
+        unsigned blockCount = (n + blockSize - 1) / blockSize;
+        topkBaseKernel<float><<<blockCount, blockSize>>>(data,
+                                                         lm_hi,
+                                                         knns,
+                                                         uint32_t(d),
+                                                         uint32_t(n),
+                                                         uint32_t(g),
+                                                         uint32_t(adjusted_k));
+    } else
+        runnerWrapperBitonicOpt<float, 2>(data,
+                                          lm_hi,
+                                          knns,
+                                          uint32_t(d),
+                                          uint32_t(n),
+                                          uint32_t(g),
+                                          uint32_t(adjusted_k));
 }

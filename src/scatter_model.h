@@ -20,7 +20,7 @@ struct ScatterModel : public Sweeper
     std::vector<Magnum::Vector2> points;
 
 #if ENABLE_CUDA
-    EsomCuda embedsom_cuda;
+    EmbedSOMCUDAContext embedsom_cuda;
 #endif
 
     Cleaner lm_watch;

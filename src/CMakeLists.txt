@@ -29,7 +29,7 @@ set(BLOSSOM_SOURCES
 )
 
 set(CUDA_SOURCES
-    embedsom_cuda_topk.cu
+    embedsom_cuda_knn.cu
     embedsom_cuda_projection.cu
     embedsom_cuda.cpp
 )
@@ -98,7 +98,7 @@ if (BUILD_CUDA)
             $<$<COMPILE_LANGUAGE:CXX>:/external:W0>
         )
     else (MSVC)
-        target_compile_options(blossom_cuda BEFORE PUBLIC $<$<COMPILE_LANGUAGE:CXX>:-Wall>)
+        target_compile_options(blossom_cuda BEFORE PUBLIC -g $<$<COMPILE_LANGUAGE:CXX>:-Wall>)
     endif (MSVC)
     
     target_include_directories(blossom_cuda PUBLIC include "${CUDA_INCLUDE_DIRS}")
