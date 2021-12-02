@@ -17,7 +17,7 @@ distance(const F *__restrict__ lhs,
          const F *__restrict__ rhs,
          const std::uint32_t dim)
 {
-    F sum = (F)0.0;
+    F sum(0.0);
     for (std::uint32_t d = 0; d < dim; ++d) {
         F diff = *lhs++ - *rhs++;
         sum += diff * diff;
