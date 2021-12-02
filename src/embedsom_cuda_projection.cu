@@ -87,7 +87,7 @@ readAlignedGrid2D(F *const __restrict__ dst,
                   const std::uint32_t groupRank,
                   const std::uint32_t groupSize)
 {
-    using ArrayT = typename V<2, F>::Type;
+    using ArrayT = typename Vec<2, F>::Type;
 
     ArrayT *const dstX = reinterpret_cast<ArrayT *>(dst);
     const ArrayT *const srcX = reinterpret_cast<const ArrayT *>(src);
@@ -237,8 +237,8 @@ addGravity2Wise(const F score,
 {
     const F gs = score * EmbedSOMConstants<F>::gridGravity;
 
-    const typename V<2, F>::Type tmpGrid2d =
-      reinterpret_cast<const typename V<2, F>::Type *>(grid2DPoint)[0];
+    const typename Vec<2, F>::Type tmpGrid2d =
+      reinterpret_cast<const typename Vec<2, F>::Type *>(grid2DPoint)[0];
 
     mtx[0] += gs;
     mtx[3] += gs;
@@ -247,13 +247,13 @@ addGravity2Wise(const F score,
 }
 
 template<typename F>
-__inline__ __device__ typename V<2, F>::Type
+__inline__ __device__ typename Vec<2, F>::Type
 euclideanProjection(const F *const __restrict__ point,
                     const F *const __restrict__ gridPointI,
                     const F *const __restrict__ gridPointJ,
                     const std::uint32_t dim)
 {
-    typename V<2, F>::Type result{ 0.0, 0.0 };
+    typename Vec<2, F>::Type result{ 0.0, 0.0 };
     for (std::uint32_t k = 0; k < dim; ++k) {
         const F tmp = gridPointJ[k] - gridPointI[k];
         result.y += tmp * tmp;
@@ -263,20 +263,20 @@ euclideanProjection(const F *const __restrict__ point,
 }
 
 template<typename F>
-__inline__ __device__ typename V<2, F>::Type
+__inline__ __device__ typename Vec<2, F>::Type
 euclideanProjection4Wise(const F *const __restrict__ point,
                          const F *const __restrict__ gridPointI,
                          const F *const __restrict__ gridPointJ,
                          const std::uint32_t dim)
 {
     const auto *const __restrict__ gridPointI4 =
-      reinterpret_cast<const typename V<4, F>::Type *>(gridPointI);
+      reinterpret_cast<const typename Vec<4, F>::Type *>(gridPointI);
     const auto *const __restrict__ gridPointJ4 =
-      reinterpret_cast<const typename V<4, F>::Type *>(gridPointJ);
+      reinterpret_cast<const typename Vec<4, F>::Type *>(gridPointJ);
     const auto *const __restrict__ point4 =
-      reinterpret_cast<const typename V<4, F>::Type *>(point);
+      reinterpret_cast<const typename Vec<4, F>::Type *>(point);
 
-    typename V<2, F>::Type result{ 0.0, 0.0 };
+    typename Vec<2, F>::Type result{ 0.0, 0.0 };
 
 #define DOIT(X)                                                                \
     tmp = tmpGridJ.X - tmpGridI.X;                                             \
@@ -349,10 +349,10 @@ addApproximation2Wise(const F scoreI,
                       const F scalarProjection,
                       F *const __restrict__ mtx)
 {
-    const typename V<2, F>::Type tmpGrid2dI =
-      reinterpret_cast<const typename V<2, F>::Type *>(grid2DPointI)[0];
-    const typename V<2, F>::Type tmpGrid2dJ =
-      reinterpret_cast<const typename V<2, F>::Type *>(grid2DPointJ)[0];
+    const typename Vec<2, F>::Type tmpGrid2dI =
+      reinterpret_cast<const typename Vec<2, F>::Type *>(grid2DPointI)[0];
+    const typename Vec<2, F>::Type tmpGrid2dJ =
+      reinterpret_cast<const typename Vec<2, F>::Type *>(grid2DPointJ)[0];
 
     const F h[2]{ tmpGrid2dJ.x - tmpGrid2dI.x, tmpGrid2dJ.y - tmpGrid2dI.y };
     const F hp = h[0] * h[0] + h[1] * h[1];

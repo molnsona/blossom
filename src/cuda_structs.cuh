@@ -40,25 +40,25 @@ struct knn_entry
 };
 
 template<unsigned N, typename T>
-struct V
+struct Vec
 {};
 template<>
-struct V<2, float>
+struct Vec<2, float>
 {
     using Type = float2;
 };
 template<>
-struct V<4, float>
+struct Vec<4, float>
 {
     using Type = float4;
 };
 template<>
-struct V<2, double>
+struct Vec<2, double>
 {
     using Type = double2;
 };
 template<>
-struct V<4, double>
+struct Vec<4, double>
 {
     using Type = double4;
 };
