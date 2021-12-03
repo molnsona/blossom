@@ -2,7 +2,6 @@
 #include "application.h"
 
 #include <exception>
-#include <iostream>
 
 uiExporter::uiExporter()
   : show_window(false)
