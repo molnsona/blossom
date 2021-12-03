@@ -55,7 +55,7 @@ uiMenu::render(Application &app)
         draw_menu_window(app.view.fb_size);
 
     loader.render(app);
-    storer.render(app);
+    exporter.render(app, window_flags);
     scaler.render(app, window_flags);
     training_set.render(app, window_flags);
     color_set.render(app, window_flags);
@@ -101,7 +101,7 @@ uiMenu::draw_menu_window(const Vector2i &window_size)
         };
 
         menu_entry(ICON_FA_FOLDER_OPEN, "Open file", loader);
-        menu_entry(ICON_FA_SAVE, "Save", storer);
+        menu_entry(ICON_FA_SAVE, "Export", exporter);
 
         ImGui::Separator();
 

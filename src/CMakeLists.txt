@@ -4,6 +4,7 @@ set(SOURCES
     color_data.cpp
     embedsom.cpp
     embedsom_cuda.cpp
+    exporter.cpp
     fcs_parser.cpp
     graph_layout.cpp
     graph_renderer.cpp
@@ -20,11 +21,11 @@ set(SOURCES
     tsne_layout.cpp
     tsv_parser.cpp
     ui_color.cpp
+    ui_export.cpp
     ui_imgui.cpp
     ui_load.cpp
     ui_menu.cpp
     ui_scale.cpp
-    ui_store.cpp
     ui_train.cpp
     view.cpp
 )
