@@ -4,6 +4,7 @@
 #include "cuda_runtime.h"
 
 #include <cstdint>
+#include <limits>
 
 #ifdef __CUDACC__
 #define CUDA_CALLABLE_MEMBER __host__ __device__
@@ -62,5 +63,11 @@ struct Vec<4, double>
 {
     using Type = double4;
 };
+
+template <typename F>
+constexpr F valueMax;
+
+template <> constexpr float valueMax<float> = FLT_MAX;
+template <> constexpr double valueMax<double> = DBL_MAX;
 
 #endif
