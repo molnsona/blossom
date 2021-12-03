@@ -27,7 +27,10 @@ struct Exporter
 
     Exporter();
 
-    void export_points(const State &state, const std::string &dir_name);
+    void export_data(const State &state, const std::string &dir_name);
+    void write(Exporter::Types type,
+               const State &state,
+               const std::string &dir_name);
 };
 
 #endif // #ifndef EXPORTER_H

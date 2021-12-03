@@ -22,7 +22,7 @@ uiExporter::render(Application &app, ImGuiWindowFlags window_flags)
 
     if (opener.HasSelected()) {
         try {
-            exporter.export_points(app.state, opener.GetSelected().string());
+            exporter.export_data(app.state, opener.GetSelected().string());
         } catch (std::exception &e) {
             loading_error = e.what();
         }
