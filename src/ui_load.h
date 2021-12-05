@@ -3,7 +3,7 @@
 #define UI_LOAD_H
 
 #include "application.h"
-#include "extern/imfilebrowser.h"
+#include "vendor/imfilebrowser.h"
 #include <string>
 
 struct uiLoader

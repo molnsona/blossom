@@ -1,7 +1,7 @@
 
 #include "application.h"
 
-#include <IconsFontAwesome5.h>
+#include "vendor/IconsFontAwesome5.h"
 
 constexpr float WINDOW_PADDING = 100.0f;
 constexpr float TOOLS_HEIGHT = 325.0f;

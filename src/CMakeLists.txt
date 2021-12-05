@@ -1,9 +1,8 @@
 ﻿
-set(SOURCES
+set(BLOSSOM_SOURCES
     application.cpp
     color_data.cpp
     embedsom.cpp
-    embedsom_cuda.cpp
     fcs_parser.cpp
     graph_layout.cpp
     graph_renderer.cpp
@@ -30,16 +29,28 @@ set(SOURCES
 )
 
 set(CUDA_SOURCES
-    embedsom_cuda_topk.cu
+    embedsom_cuda_knn.cu
     embedsom_cuda_projection.cu
+    embedsom_cuda.cpp
 )
 
+set(BLOSSOM_LIBRARIES
+    Corrade::Main
+    Magnum::Application
+    Magnum::GL
+    Magnum::Magnum
+    Magnum::MeshTools
+    Magnum::Primitives
+    Magnum::SceneGraph
+    Magnum::Shaders
+    Magnum::Trade
+    MagnumIntegration::ImGui
+)
+    
 # Regular (CPU-only target)
 add_executable(blossom
-    ${SOURCES}
+    ${BLOSSOM_SOURCES}
 )
-
-include_directories(.)
 
 set_target_properties(blossom PROPERTIES
     CXX_STANDARD 17
@@ -57,29 +68,18 @@ else (MSVC)
 endif (MSVC)
 
 target_link_libraries(blossom PRIVATE
-    Corrade::Main
-    Magnum::Application
-    Magnum::GL
-    Magnum::Magnum
-    Magnum::MeshTools
-    Magnum::Primitives
-    Magnum::SceneGraph
-    Magnum::Shaders
-    Magnum::Trade
-    MagnumIntegration::ImGui
-    Threads::Threads
+    ${BLOSSOM_LIBRARIES}
 )
-
-target_compile_definitions(blossom PRIVATE NO_CUDA)
-
 
 # CUDA-accelerated target is compiled only if CUDA is available
 if (BUILD_CUDA)
     find_package(CUDA)
     add_executable(blossom_cuda
-        ${SOURCES}
+        ${BLOSSOM_SOURCES}
         ${CUDA_SOURCES}
     )
+
+    target_compile_definitions(blossom_cuda PRIVATE ENABLE_CUDA)
 
     set_target_properties(blossom_cuda PROPERTIES
         CXX_STANDARD 17
@@ -104,16 +104,7 @@ if (BUILD_CUDA)
     target_include_directories(blossom_cuda PUBLIC include "${CUDA_INCLUDE_DIRS}")
     
     target_link_libraries(blossom_cuda PRIVATE
-        Corrade::Main
-        Magnum::Application
-        Magnum::GL
-        Magnum::Magnum
-        Magnum::MeshTools
-        Magnum::Primitives
-        Magnum::SceneGraph
-        Magnum::Shaders
-        Magnum::Trade
-        MagnumIntegration::ImGui
+        ${BLOSSOM_LIBRARIES}
     )
 
     install(TARGETS blossom blossom_cuda)

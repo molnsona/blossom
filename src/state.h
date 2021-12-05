@@ -1,7 +1,6 @@
 #ifndef STATE_H
 #define STATE_H
 
-//#define NO_CUDA
 #include <Magnum/Magnum.h>
 
 #include <memory>

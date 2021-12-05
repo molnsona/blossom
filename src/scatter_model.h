@@ -11,9 +11,17 @@
 #include "scaled_data.h"
 #include "training_config.h"
 
+#if ENABLE_CUDA
+#include "embedsom_cuda.h"
+#endif
+
 struct ScatterModel : public Sweeper
 {
     std::vector<Magnum::Vector2> points;
+
+#if ENABLE_CUDA
+    EmbedSOMCUDAContext embedsom_cuda;
+#endif
 
     Cleaner lm_watch;
     void update(const ScaledData &d,
