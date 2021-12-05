@@ -64,10 +64,12 @@ struct Vec<4, double>
     using Type = double4;
 };
 
-template <typename F>
+template<typename F>
 constexpr F valueMax;
 
-template <> constexpr float valueMax<float> = FLT_MAX;
-template <> constexpr double valueMax<double> = DBL_MAX;
+template<>
+constexpr float valueMax<float> = FLT_MAX;
+template<>
+constexpr double valueMax<double> = DBL_MAX;
 
 #endif

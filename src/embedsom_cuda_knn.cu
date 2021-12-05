@@ -1,5 +1,5 @@
-#include <limits>
 #include "embedsom_cuda.h"
+#include <limits>
 
 #include "bitonic.cuh"
 
@@ -123,21 +123,24 @@ topkBitonicOptKernel(const F *__restrict__ points,
     // fill in initial topk intermediate result
     for (std::uint32_t i = threadIdx.x % (K / 2); i < K;
          i += (K / 2)) { // yes, this loop should go off exactly twice
-            shmTopkBlock[i] = {
-                i < gridSize ? distance<F>(points, grid + dim * i, dim) : valueMax<F>,
-                i
-            };
+        shmTopkBlock[i] = { i < gridSize
+                              ? distance<F>(points, grid + dim * i, dim)
+                              : valueMax<F>,
+                            i };
     }
     // process the grid points in K-sized blocks
     const std::uint32_t gridSizeRoundedToK = ((gridSize + K - 1) / K) * K;
-    for (std::uint32_t gridOffset = K; gridOffset < gridSizeRoundedToK; gridOffset += K) {
+    for (std::uint32_t gridOffset = K; gridOffset < gridSizeRoundedToK;
+         gridOffset += K) {
         // compute another K new distances
         for (std::uint32_t i = threadIdx.x % (K / 2); i < K;
              i += (K / 2)) { // yes, this loop should go off exactly twice
-                shmNewDataBlock[i] = {
-                    (gridOffset + i) < gridSize ? distance<F>(points, grid + dim * (gridOffset + i), dim) : valueMax<F>,
-                    gridOffset + i
-                };
+            shmNewDataBlock[i] = {
+                (gridOffset + i) < gridSize
+                  ? distance<F>(points, grid + dim * (gridOffset + i), dim)
+                  : valueMax<F>,
+                gridOffset + i
+            };
         }
         __syncthreads(); // actually, whole block should be synced as the
                          // bitonic update operates on the whole block
