@@ -20,28 +20,27 @@ public:
     static constexpr F gridGravity = F(1e-5);
 };
 
-/**
- * Helper structure to help transform neighbor distances to scores.
+/** Helper structure to transform neighbor distances to scores.
+ *
  * Shares `distance` field for storing scores and loading distances.
  */
 template<typename F>
 struct SharedNeighborStorage
 {
     knn_entry<F> *const __restrict__ neighbors;
-    __forceinline__ __device__ F
-    getNeighborDistance(const std::uint32_t idx) const
+    __forceinline__ __device__ F getNeighborDistance(const uint32_t idx) const
     {
         return neighbors[idx].distance;
     }
-    __forceinline__ __device__ void storeScore(const std::uint32_t idx,
+    __forceinline__ __device__ void storeScore(const uint32_t idx,
                                                const F score)
     {
         neighbors[idx].distance = score;
     }
 };
 
-/**
- * Helper structure to help transform neighbor distances to scores.
+/** Helper structure to help transform neighbor distances to scores.
+ *
  * Separate arrays for distances and scores.
  */
 template<typename F>
@@ -50,19 +49,19 @@ struct NeighborScoreStorage
     const knn_entry<F> *const __restrict__ neighbors;
     F *const __restrict__ scores;
 
-    __forceinline__ __device__ F
-    getNeighborDistance(const std::uint32_t idx) const
+    __forceinline__ __device__ F getNeighborDistance(const uint32_t idx) const
     {
         return neighbors[idx].distance;
     }
 
-    __forceinline__ __device__ void storeScore(const std::uint32_t idx,
+    __forceinline__ __device__ void storeScore(const uint32_t idx,
                                                const F score)
     {
         scores[idx] = score;
     }
 };
 
+/** Sum a value across the warp */
 template<typename F>
 __inline__ __device__ F
 warpReduceSum(F val)
@@ -72,20 +71,21 @@ warpReduceSum(F val)
     return val;
 }
 
+/** Read aligned data entries for EmbedSOM projection */
 template<typename F, typename ArrayF>
 __inline__ __device__ void
 readAligned(F *const __restrict__ dst,
             const F *const __restrict__ src,
             const knn_entry<F> *const __restrict__ neighbors,
-            const std::uint32_t n,
-            const std::uint32_t dim,
-            const std::uint32_t groupRank,
-            const std::uint32_t groupSize)
+            const uint32_t n,
+            const uint32_t dim,
+            const uint32_t groupRank,
+            const uint32_t groupSize)
 {
     constexpr auto size = sizeof(ArrayF) / sizeof(F);
 
-    const std::uint32_t loadsCount = dim / size;
-    const std::uint32_t dimX = dim / size;
+    const uint32_t loadsCount = dim / size;
+    const uint32_t dimX = dim / size;
 
     ArrayF *const dstX = reinterpret_cast<ArrayF *>(dst);
     const ArrayF *const srcX = reinterpret_cast<const ArrayF *>(src);
@@ -98,14 +98,15 @@ readAligned(F *const __restrict__ dst,
     }
 }
 
+/** Version of readAligned() for the 2D grid */
 template<typename F>
 __inline__ __device__ void
 readAlignedGrid2D(F *const __restrict__ dst,
                   const F *const __restrict__ src,
                   const knn_entry<F> *const __restrict__ neighbors,
-                  const std::uint32_t n,
-                  const std::uint32_t groupRank,
-                  const std::uint32_t groupSize)
+                  const uint32_t n,
+                  const uint32_t groupRank,
+                  const uint32_t groupSize)
 {
     using ArrayT = typename Vec<2, F>::Type;
 
@@ -116,10 +117,11 @@ readAlignedGrid2D(F *const __restrict__ dst,
         dstX[i] = srcX[neighbors[i].index];
 }
 
+/** Load data into shared memory cache */
 template<typename F>
 __inline__ __device__ void
-storeToCache(const std::uint32_t groupRank,
-             const std::uint32_t groupSize,
+storeToCache(const uint32_t groupRank,
+             const uint32_t groupSize,
              const F *const __restrict__ points,
              F *const __restrict__ pointsCache,
              const F *const __restrict__ grid,
@@ -127,9 +129,9 @@ storeToCache(const std::uint32_t groupRank,
              const F *const __restrict__ grid2d,
              F *const __restrict__ grid2dCache,
              const knn_entry<F> *const __restrict__ neighbors,
-             const std::uint32_t dim,
-             const std::uint32_t gridCacheLeadingDim,
-             const std::uint32_t k)
+             const uint32_t dim,
+             const uint32_t gridCacheLeadingDim,
+             const uint32_t k)
 {
     auto copyIdx = groupRank;
     for (; copyIdx < dim; copyIdx += groupSize)
@@ -148,6 +150,7 @@ storeToCache(const std::uint32_t groupRank,
       grid2dCache, grid2d, neighbors, k, groupRank, groupSize);
 }
 
+/** Compute scores for a vector of sorted distances */
 template<typename F>
 __inline__ __device__ void
 sortedDistsToScores(knn_entry<F> *const __restrict__ neighbors,
@@ -157,7 +160,7 @@ sortedDistsToScores(knn_entry<F> *const __restrict__ neighbors,
 {
     // compute the distance distribution for the scores
     F mean = 0, sd = 0, wsum = 0;
-    for (std::uint32_t i = 0; i < adjustedK; ++i) {
+    for (uint32_t i = 0; i < adjustedK; ++i) {
         const F tmp = sqrt(neighbors[i].distance);
         const F w = 1 / F(i + 1);
         mean += tmp * w;
@@ -172,7 +175,7 @@ sortedDistsToScores(knn_entry<F> *const __restrict__ neighbors,
       EmbedSOMConstants<F>::maxAvoidance / neighbors[adjustedK - 1].distance;
 
     // convert the stuff to scores
-    for (std::uint32_t i = 0; i < k; ++i) {
+    for (uint32_t i = 0; i < k; ++i) {
         if (k < adjustedK)
             neighbors[i].distance =
               exp((mean - neighbors[i].distance) * sd) *
@@ -183,8 +186,8 @@ sortedDistsToScores(knn_entry<F> *const __restrict__ neighbors,
     }
 }
 
-/**
- * Uses thread_block_tile and its built in functions for reduction and shuffle.
+/** Convert the distances to scores using thread_block_tile and its built in
+ * functions for reduction and shuffle.
  */
 template<typename F, class SCORE_STORAGE, class TILE>
 __inline__ __device__ void
@@ -194,15 +197,14 @@ sortedDistsToScoresGroup(const TILE &tile,
                          const std::size_t k,
                          const F boost)
 {
-    // if k is big enough and tile is small enough, this array can overflow...
-    // should be MAX_K / tile.size()
+    // TRICKY: if k is big enough and tile is small enough, this array may
+    // overflow. Should be MAX_K / tile.size()
     F tmpScores[10];
     F lastScore;
 
     // compute the distance distribution for the scores
     F mean = 0, sd = 0, wsum = 0;
-    for (std::uint32_t i = tile.thread_rank(); i < adjustedK;
-         i += tile.size()) {
+    for (uint32_t i = tile.thread_rank(); i < adjustedK; i += tile.size()) {
         const F tmp = sqrt(storage.getNeighborDistance(i));
         const F w = 1 / F(i + 1);
         mean += tmp * w;
@@ -217,8 +219,7 @@ sortedDistsToScoresGroup(const TILE &tile,
 
     mean /= wsum;
 
-    for (std::uint32_t i = tile.thread_rank(); i < adjustedK;
-         i += tile.size()) {
+    for (uint32_t i = tile.thread_rank(); i < adjustedK; i += tile.size()) {
         const F tmp = tmpScores[i / tile.size()] - mean;
         const F w = 1 / F(i + 1);
         sd += tmp * tmp * w;
@@ -237,7 +238,7 @@ sortedDistsToScoresGroup(const TILE &tile,
 
     // convert the stuff to scores
     if (k < adjustedK)
-        for (std::uint32_t i = tile.thread_rank(); i < k; i += tile.size()) {
+        for (uint32_t i = tile.thread_rank(); i < k; i += tile.size()) {
             const auto scoreIdx = i / tile.size();
             const F score = exp((mean - tmpScores[scoreIdx]) * sd) *
                             (1 - exp(tmpScores[scoreIdx] * nmax -
@@ -245,11 +246,12 @@ sortedDistsToScoresGroup(const TILE &tile,
             storage.storeScore(i, score);
         }
     else
-        for (std::uint32_t i = tile.thread_rank(); i < k; i += tile.size())
+        for (uint32_t i = tile.thread_rank(); i < k; i += tile.size())
             storage.storeScore(i,
                                exp((mean - tmpScores[i / tile.size()]) * sd));
 }
 
+/** Add single-point approximation to the matrix */
 template<typename F>
 __inline__ __device__ void
 addGravity(const F score,
@@ -264,6 +266,7 @@ addGravity(const F score,
     mtx[5] += gs * grid2DPoint[1];
 }
 
+/** Add single-point approximation to the matrix, on 2-vectors */
 template<typename F>
 __inline__ __device__ void
 addGravity2Wise(const F score,
@@ -281,15 +284,16 @@ addGravity2Wise(const F score,
     mtx[5] += gs * tmpGrid2d.y;
 }
 
+/** Compute a projection of the point to a line defined by points I and J */
 template<typename F>
 __inline__ __device__ typename Vec<2, F>::Type
 euclideanProjection(const F *const __restrict__ point,
                     const F *const __restrict__ gridPointI,
                     const F *const __restrict__ gridPointJ,
-                    const std::uint32_t dim)
+                    const uint32_t dim)
 {
     typename Vec<2, F>::Type result{ 0.0, 0.0 };
-    for (std::uint32_t k = 0; k < dim; ++k) {
+    for (uint32_t k = 0; k < dim; ++k) {
         const F tmp = gridPointJ[k] - gridPointI[k];
         result.y += tmp * tmp;
         result.x += tmp * (point[k] - gridPointI[k]);
@@ -297,12 +301,13 @@ euclideanProjection(const F *const __restrict__ point,
     return result;
 }
 
+/** Run the projection on 4-vectors */
 template<typename F>
 __inline__ __device__ typename Vec<2, F>::Type
 euclideanProjection4Wise(const F *const __restrict__ point,
                          const F *const __restrict__ gridPointI,
                          const F *const __restrict__ gridPointJ,
-                         const std::uint32_t dim)
+                         const uint32_t dim)
 {
     const auto *const __restrict__ gridPointI4 =
       reinterpret_cast<const typename Vec<4, F>::Type *>(gridPointI);
@@ -318,7 +323,7 @@ euclideanProjection4Wise(const F *const __restrict__ point,
     result.y += tmp * tmp;                                                     \
     result.x += tmp * (tmpPoint.X - tmpGridI.X)
 
-    for (std::uint32_t k = 0; k < dim / 4; ++k) {
+    for (uint32_t k = 0; k < dim / 4; ++k) {
         const auto tmpGridI = gridPointI4[k];
         const auto tmpGridJ = gridPointJ4[k];
         const auto tmpPoint = point4[k];
@@ -329,8 +334,9 @@ euclideanProjection4Wise(const F *const __restrict__ point,
         DOIT(z);
         DOIT(w);
     }
+#undef DOIT
 
-    for (std::uint32_t k = dim - (dim % 4); k < dim; ++k) {
+    for (uint32_t k = dim - (dim % 4); k < dim; ++k) {
         const F tmp = gridPointJ[k] - gridPointI[k];
         result.y += tmp * tmp;
         result.x += tmp * (point[k] - gridPointI[k]);
@@ -339,6 +345,7 @@ euclideanProjection4Wise(const F *const __restrict__ point,
     return result;
 }
 
+/** Add the result of projections to the approximation matrix */
 template<typename F>
 __inline__ __device__ void
 addApproximation(const F scoreI,
@@ -351,7 +358,7 @@ addApproximation(const F scoreI,
 {
     F h[2], hp = 0;
 #pragma unroll
-    for (std::uint32_t i = 0; i < 2; ++i) {
+    for (uint32_t i = 0; i < 2; ++i) {
         h[i] = grid2DPointJ[i] - grid2DPointI[i];
         hp += h[i] * h[i];
     }
@@ -374,6 +381,7 @@ addApproximation(const F scoreI,
     mtx[5] += h[1] * rhsc;
 }
 
+/** Same as addApproximation(), on 2-vectors. */
 template<typename F>
 __inline__ __device__ void
 addApproximation2Wise(const F scoreI,
@@ -410,7 +418,8 @@ addApproximation2Wise(const F scoreI,
     mtx[5] += h[1] * rhsc;
 }
 
-/**
+/** Type tag for indexing by small rectangles.
+ *
  * "Concatenates" 2 columns into one (1. and k-1., 2. and k-2., ...) and
  * creates indexing on top of k * k/2 rectangle.
  * No branch divergence.
@@ -426,27 +435,27 @@ addApproximation2Wise(const F scoreI,
 struct RectangleIndexer
 {};
 
+/** Function template for getting indexes */
 template<typename INDEXER>
 __inline__ __device__ uint2
-getIndices(std::uint32_t plainIndex, std::uint32_t k)
+getIndices(uint32_t plainIndex, uint32_t k)
 {}
 
+/** Specialization of getIndices for the rectangle indexing. */
 template<>
 __inline__ __device__ uint2
-getIndices<RectangleIndexer>(std::uint32_t plainIndex, std::uint32_t k)
+getIndices<RectangleIndexer>(uint32_t plainIndex, uint32_t k)
 {
     uint2 indices;
-    const std::uint32_t tempI = plainIndex / k;
-    const std::uint32_t tempJ = plainIndex % k;
+    const uint32_t tempI = plainIndex / k;
+    const uint32_t tempJ = plainIndex % k;
     const auto invertedI = k - 1 - tempI;
     indices.x = tempJ < invertedI ? tempI : invertedI - 1;
     indices.y = (tempJ < invertedI ? tempJ : tempJ - invertedI) + indices.x + 1;
     return indices;
 }
 
-/**
- * One thread computes embedding for one point.
- */
+/** Base projection kernel (each thread does everything for a single point). */
 template<typename F>
 __global__ void
 projectionBaseKernel(const F *__restrict__ points,
@@ -454,17 +463,17 @@ projectionBaseKernel(const F *__restrict__ points,
                      const F *const __restrict__ grid2d,
                      knn_entry<F> *__restrict__ neighbors,
                      F *__restrict__ projections,
-                     const std::uint32_t dim,
-                     const std::uint32_t n,
-                     const std::uint32_t gridSize,
-                     const std::uint32_t k,
+                     const uint32_t dim,
+                     const uint32_t n,
+                     const uint32_t gridSize,
+                     const uint32_t k,
                      const F adjust,
                      const F boost)
 {
     // assign defaults and generate scores
     {
-        const std::uint32_t adjustedK = k < gridSize ? k + 1 : k;
-        const std::uint32_t pointIdx = blockIdx.x * blockDim.x + threadIdx.x;
+        const uint32_t adjustedK = k < gridSize ? k + 1 : k;
+        const uint32_t pointIdx = blockIdx.x * blockDim.x + threadIdx.x;
         if (pointIdx >= n)
             return;
         points = points + pointIdx * dim;
@@ -475,12 +484,12 @@ projectionBaseKernel(const F *__restrict__ points,
 
     F mtx[6];
     memset(mtx, 0, 6 * sizeof(F));
-    for (std::uint32_t i = 0; i < k; ++i) {
-        const std::uint32_t idxI = neighbors[i].index;
+    for (uint32_t i = 0; i < k; ++i) {
+        const uint32_t idxI = neighbors[i].index;
         const F scoreI = neighbors[i].distance;
         addGravity(scoreI, grid2d + idxI * 2, mtx);
-        for (std::uint32_t j = i + 1; j < k; ++j) {
-            const std::uint32_t idxJ = neighbors[j].index;
+        for (uint32_t j = i + 1; j < k; ++j) {
+            const uint32_t idxJ = neighbors[j].index;
             const F scoreJ = neighbors[j].distance;
             const auto result = euclideanProjection<F>(
               points, grid + idxI * dim, grid + idxJ * dim, dim);
@@ -504,9 +513,10 @@ projectionBaseKernel(const F *__restrict__ points,
     projections[1] = (mtx[0] * mtx[5] - mtx[1] * mtx[4]) / det;
 }
 
-/**
- * One block computes embedding for one point, using CUB block reduce for matrix
- * reduction.
+/** Aligned-shared-memory projection kernel.
+ *
+ * One block computes embedding for one point, using CUB block reduce for
+ * matrix reduction.
  */
 template<typename F, typename INDEXER, size_t tileSize>
 __global__ void
@@ -515,20 +525,20 @@ projectionAlignedShMemoryKernel(const F *__restrict__ points,
                                 const F *const __restrict__ grid2d,
                                 knn_entry<F> *__restrict__ neighbors,
                                 F *__restrict__ projections,
-                                const std::uint32_t dim,
-                                const std::uint32_t n,
-                                const std::uint32_t gridSize,
-                                const std::uint32_t k,
+                                const uint32_t dim,
+                                const uint32_t n,
+                                const uint32_t gridSize,
+                                const uint32_t k,
                                 const F adjust,
                                 const F boost,
-                                const std::uint32_t groupSize,
-                                const std::uint32_t cacheLeadingDim)
+                                const uint32_t groupSize,
+                                const uint32_t cacheLeadingDim)
 {
     extern __shared__ char sharedMemory[];
 
-    const std::uint32_t groupRank = threadIdx.x % groupSize;
-    const std::uint32_t groupIdx = threadIdx.x / groupSize;
-    const std::uint32_t groupsCount = blockDim.x / groupSize;
+    const uint32_t groupRank = threadIdx.x % groupSize;
+    const uint32_t groupIdx = threadIdx.x / groupSize;
+    const uint32_t groupsCount = blockDim.x / groupSize;
 
     const auto grid2dPadding =
       (k * 3) % cacheLeadingDim == 0
@@ -552,7 +562,7 @@ projectionAlignedShMemoryKernel(const F *__restrict__ points,
 
     // assign defaults and generate scores
     {
-        const std::uint32_t adjustedK = k < gridSize ? k + 1 : k;
+        const uint32_t adjustedK = k < gridSize ? k + 1 : k;
 
         const auto workIdx = blockIdx.x * groupsCount + groupIdx;
 
@@ -604,11 +614,11 @@ projectionAlignedShMemoryKernel(const F *__restrict__ points,
     F mtx[6];
     memset(mtx, 0, 6 * sizeof(F));
 
-    for (std::uint32_t i = groupRank; i < k; i += groupSize)
+    for (uint32_t i = groupRank; i < k; i += groupSize)
         addGravity2Wise(scoreCache[i], grid2dCache + i * 2, mtx);
 
-    const std::uint32_t neighborPairs = (k * (k - 1)) / 2;
-    for (std::uint32_t i = groupRank; i < neighborPairs; i += groupSize) {
+    const uint32_t neighborPairs = (k * (k - 1)) / 2;
+    for (uint32_t i = groupRank; i < neighborPairs; i += groupSize) {
         const auto indices = getIndices<INDEXER>(i, k);
 
         const auto I = indices.x;
@@ -648,7 +658,7 @@ projectionAlignedShMemoryKernel(const F *__restrict__ points,
         __syncthreads();
 
         if (groupRank == 0) {
-            for (std::uint32_t j = 1; j < groupSize / warpSize; ++j) {
+            for (uint32_t j = 1; j < groupSize / warpSize; ++j) {
                 mtx[i] += reduceFinishStorage[warpId + j];
             }
         }
@@ -661,11 +671,7 @@ projectionAlignedShMemoryKernel(const F *__restrict__ points,
     }
 }
 
-/*
- * Runners
- */
-
-// TODO is this used?
+// TODO this might be used as a backup solution for extreme params
 #if 0
 void
 EsomCuda::runProjectionBaseKernel(float boost, float adjust)

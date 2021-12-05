@@ -13,7 +13,8 @@
 
 #include "cuda_structs.cuh"
 
-/**
+/** Data context wrapper for CUDA EmbedSOM
+ *
  * A compound "context" object for the EmbedSOM computation in CUDA, mainly
  * holding some required preallocated memory buffers.
  */
@@ -39,6 +40,7 @@ struct EmbedSOMCUDAContext
 
     ~EmbedSOMCUDAContext();
 
+    /** Run EmbedSOM on the given data. */
     void run(size_t n,
              size_t g,
              size_t d,
@@ -51,7 +53,10 @@ struct EmbedSOMCUDAContext
              float *lodim_points);
 
 private:
+    /** Execute the CUDA kNN within the context */
     void runKNNKernel(size_t d, size_t n, size_t g, size_t adjusted_k);
+
+    /** Execute the CUDA projection kernel atop the context */
     void runProjectionKernel(size_t d,
                              size_t n,
                              size_t g,

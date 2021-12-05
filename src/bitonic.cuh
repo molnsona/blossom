@@ -4,7 +4,7 @@
 #include <cuda_runtime.h>
 #include <device_launch_parameters.h>
 
-/** \brief Wrapped compare and swap-to-correct-order function
+/** Wrapped compare and swap-to-correct-order function
  *
  * This is supposed to be used as a policy template parameter*/
 template<typename T>
@@ -20,7 +20,7 @@ struct OrderWithCmpSwap
     }
 };
 
-/** \brief Min-max-into-ordering function
+/** Min-max-into-ordering function
  *
  * This is supposed to be used as a policy template parameter*/
 template<typename T>
@@ -44,7 +44,7 @@ template<>
 struct ComparatorPolicy<float> : OrderWithMinMax<float>
 {};
 
-/** \brief A single "layer" of the parallel bitonic comparator. */
+/** A single "layer" of the parallel bitonic comparator. */
 template<typename T,
          int BLOCK_SIZE,
          class CMP = ComparatorPolicy<T>,
@@ -80,7 +80,7 @@ bitonic_merge_step(T *__restrict__ data)
         __syncwarp();
 }
 
-/** \brief Parallel bitonic merge.
+/** Parallel bitonic merge.
  *
  * This runs several layers of the parallel bitonic comparators. */
 template<typename T,
@@ -138,7 +138,7 @@ bitonic_sort(T *__restrict__ data)
     bitonic_merge<T, BLOCK_SIZE, CMP>(data);
 }
 
-/** \brief Perform one update step of bitonic topk algorithm.
+/** Perform one update step of bitonic topk algorithm.
  *
  * The algorith takes two inputs: current topk sub-result and new data (e.g.,
  * newly computed distances). It sorts inputs and runs a bitonic merge on

@@ -3,6 +3,7 @@
 
 #include "cuda_runtime.h"
 
+#include <cfloat>
 #include <cstdint>
 #include <limits>
 
@@ -12,6 +13,7 @@
 #define CUDA_CALLABLE_MEMBER
 #endif
 
+/** A structure for packing neighbor index and distance for kNN search. */
 template<typename F>
 struct knn_entry
 {
