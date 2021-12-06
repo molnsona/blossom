@@ -3,8 +3,8 @@
 #define UI_MENU_H
 
 #include "ui_color.h"
-#include "ui_export.h"
 #include "ui_load.h"
+#include "ui_save.h"
 #include "ui_scale.h"
 #include "ui_train.h"
 
@@ -13,7 +13,7 @@ class Application;
 struct uiMenu
 {
     uiLoader loader;
-    uiExporter exporter;
+    uiSaver saver;
     uiScaler scaler;
     uiTrainingSettings training_set;
     uiColorSettings color_set;
