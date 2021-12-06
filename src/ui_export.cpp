@@ -1,6 +1,7 @@
 
 #include "application.h"
 
+#include <algorithm>
 #include <exception>
 
 uiExporter::uiExporter()
@@ -38,40 +39,34 @@ uiExporter::render(Application &app, ImGuiWindowFlags window_flags)
     }
 
     if (ImGui::Begin("Export##window", &show_window, window_flags)) {
-        auto export_line = [&](const char *text, int type, bool &flag) {
+        auto export_line = [&](const char *text, int type) {
             ImGui::Text(text);
             std::string name = "##export_checkbox" + std::to_string(type);
-            ImGui::Checkbox(name.data(), &flag);
+            ImGui::Checkbox(name.data(), &exporter.data_flags[type]);
             ImGui::SameLine();
             name = "file name##export" + std::to_string(type);
             ImGui::InputText(
               name.data(), exporter.file_names[type].data(), file_name_size);
         };
 
-        export_line("Export hidim points:",
-                    Exporter::Types::POINTS_HD,
-                    exporter.points_hd);
+        export_line("Export hidim points:", Exporter::Types::POINTS_HD);
 
-        export_line("Export hidim landmarks:",
-                    Exporter::Types::LAND_HD,
-                    exporter.landmarks_hd);
+        export_line("Export hidim landmarks:", Exporter::Types::LAND_HD);
 
-        export_line(
-          "Export 2D points:", Exporter::Types::POINTS_2D, exporter.points_2d);
+        export_line("Export 2D points:", Exporter::Types::POINTS_2D);
 
-        export_line("Export 2D landmarks:",
-                    Exporter::Types::LAND_2D,
-                    exporter.landmarks_2d);
+        export_line("Export 2D landmarks:", Exporter::Types::LAND_2D);
 
         ImGui::NewLine();
 
         if (ImGui::Checkbox("Export all", &exporter.all))
             if (exporter.all)
-                exporter.points_hd = exporter.landmarks_hd =
-                  exporter.points_2d = exporter.landmarks_2d = true;
+                std::fill(
+                  exporter.data_flags.begin(), exporter.data_flags.end(), true);
             else
-                exporter.points_hd = exporter.landmarks_hd =
-                  exporter.points_2d = exporter.landmarks_2d = false;
+                std::fill(exporter.data_flags.begin(),
+                          exporter.data_flags.end(),
+                          false);
 
         ImGui::NewLine();
 

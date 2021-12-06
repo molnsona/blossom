@@ -17,12 +17,8 @@ struct Exporter
         COUNT // Number of possible export types
     };
 
-    bool points_hd;
-    bool landmarks_hd;
-    bool points_2d;
-    bool landmarks_2d;
     bool all;
-
+    std::array<bool, Types::COUNT> data_flags;
     std::array<std::string, Types::COUNT> file_names;
 
     Exporter();

@@ -4,11 +4,8 @@
 #include <fstream>
 
 Exporter::Exporter()
-  : points_hd(false)
-  , landmarks_hd(false)
-  , points_2d(false)
-  , landmarks_2d(false)
-  , all(false)
+  : all(false)
+  , data_flags{ false, false, false, false }
   , file_names{ "points_hd.tsv",
                 "landmarks_hd.tsv",
                 "points_2d.tsv",
@@ -18,16 +15,16 @@ Exporter::Exporter()
 void
 Exporter::export_data(const State &state, const std::string &dir_name)
 {
-    if (points_hd)
+    if (data_flags[Exporter::Types::POINTS_HD])
         write(Exporter::Types::POINTS_HD, state, dir_name);
 
-    if (landmarks_hd)
+    if (data_flags[Exporter::Types::LAND_HD])
         write(Exporter::Types::LAND_HD, state, dir_name);
 
-    if (points_2d)
+    if (data_flags[Exporter::Types::POINTS_2D])
         write(Exporter::Types::POINTS_2D, state, dir_name);
 
-    if (landmarks_2d)
+    if (data_flags[Exporter::Types::LAND_2D])
         write(Exporter::Types::LAND_2D, state, dir_name);
 }
 
