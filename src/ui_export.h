@@ -14,7 +14,7 @@ struct uiExporter
 
     bool show_window;
     ImGui::FileBrowser opener;
-    std::string loading_error;
+    std::string saving_error;
 
     Exporter exporter;
 

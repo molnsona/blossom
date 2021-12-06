@@ -24,17 +24,17 @@ uiExporter::render(Application &app, ImGuiWindowFlags window_flags)
         try {
             exporter.export_data(app.state, opener.GetSelected().string());
         } catch (std::exception &e) {
-            loading_error = e.what();
+            saving_error = e.what();
         }
 
         opener.ClearSelected();
     }
 
-    if (!loading_error.empty()) {
+    if (!saving_error.empty()) {
         ImGui::Begin("Loading error", nullptr, 0);
-        ImGui::Text(loading_error.c_str());
+        ImGui::Text(saving_error.c_str());
         if (ImGui::Button("OK"))
-            loading_error = "";
+            saving_error = "";
         ImGui::End();
     }
 
