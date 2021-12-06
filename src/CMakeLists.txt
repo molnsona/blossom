@@ -22,8 +22,8 @@ set(BLOSSOM_SOURCES
     ui_imgui.cpp
     ui_load.cpp
     ui_menu.cpp
+    ui_save.cpp
     ui_scale.cpp
-    ui_store.cpp
     ui_train.cpp
     view.cpp
 )
