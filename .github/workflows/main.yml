@@ -16,7 +16,6 @@ jobs:
     container: exaexa/blossom-builder
     steps:
       - uses: snickerbockers/submodules-init@v4
-        run: git submodule init; git submodule update
       
   build:
     runs-on: ubuntu-latest
