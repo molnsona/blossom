@@ -15,6 +15,7 @@ jobs:
     runs-on: ubuntu-latest
     container: exaexa/blossom-builder
     steps:
+      - uses: actions/checkout@v2
       - uses: snickerbockers/submodules-init@v4
       
   # build:
