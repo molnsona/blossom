@@ -1,0 +1,21 @@
+
+name: CI
+
+on:
+  pull_request:
+    branches: master
+
+  push:
+    tags: '*'
+
+jobs:
+  ci:
+    runs-on: ubuntu-latest
+    container: exaexa/blossom-builder
+    steps:
+      - name: fetch
+        uses: actions/checkout@v2
+      - name: submodules
+        run: git submodule update --init --recursive
+      - name: build
+        run: pwd; ls -l; mkdir build; cd build; cmake ..; make install
