@@ -1,0 +1,9 @@
+<map id="View::lookat_screen" name="View::lookat_screen">
+<area shape="rect" id="node1" title="Variant of lookat() that accepts &quot;screen&quot; coordinates." alt="" coords="5,33,145,60"/>
+<area shape="rect" id="node2" href="$structView.html#a5d4f50ceac7a2fb4a574308e095c595f" title="Cause the camera to look at the specified point." alt="" coords="239,8,334,35"/>
+<area shape="rect" id="node3" href="$structView.html#a95359311949d1c95157bc249527dde5f" title="Computes model coordinates of the mouse cursor." alt="" coords="193,59,380,85"/>
+<area shape="rect" id="node4" href="$structView.html#a7d8893a312546f47b14e5e2f1925e607" title="Compute model coordinates from screen coordinates." alt="" coords="430,29,570,56"/>
+<area shape="rect" id="node7" href="$structView.html#af46c08c148ff70f6a85ebbb85ab4df57" title="Computes screen coordinates of the mouse cursor." alt="" coords="428,81,572,122"/>
+<area shape="rect" id="node5" href="$structView.html#aa85f82cf8052060b4132b775a2a889c0" title="Compute and return the view size in model coordinates." alt="" coords="620,29,737,56"/>
+<area shape="rect" id="node6" href="$structView.html#abd0f2a00303de5267af98d7eae97952b" title="Return the vertical size of the viewed part in model space." alt="" coords="785,29,915,56"/>
+</map>

@@ -1,0 +1,27 @@
+var searchData=
+[
+  ['saver_815',['saver',['../structuiSaver.html#a1c1a091807311fdbd8f91eea21560679',1,'uiSaver::saver()'],['../structuiMenu.html#a4ba71a93eb29a7bbb754d97fcad646ab',1,'uiMenu::saver()']]],
+  ['saving_5ferror_816',['saving_error',['../structuiSaver.html#a2bb53560edf458dce8e3dc0dc5d12ffb',1,'uiSaver']]],
+  ['scale_817',['scale',['../structScaleConfig.html#a0ec27c9913af0a764bd7c548c0502b70',1,'ScaleConfig']]],
+  ['scaled_818',['scaled',['../structState.html#a2e0012a88180d167eb34259794769227',1,'State']]],
+  ['scaler_819',['scaler',['../structuiMenu.html#a779c3c46727a19f71a68a80fbf1c0bd0',1,'uiMenu']]],
+  ['scatter_820',['scatter',['../structState.html#a4aef2680a3950185c46ff8f062d4468e',1,'State']]],
+  ['scatter_5frenderer_821',['scatter_renderer',['../classApplication.html#a356131bfeaa6381de9301095886bdf57',1,'Application']]],
+  ['scores_822',['scores',['../structNeighborScoreStorage.html#ab6ffb10733ac786b8e13d1bdbdbe2103',1,'NeighborScoreStorage']]],
+  ['sdev_823',['sdev',['../structScaleConfig.html#a7c2719ab0f4173681a494627b9d49fcf',1,'ScaleConfig']]],
+  ['sds_824',['sds',['../structRawDataStats.html#aa43ddb1c8d895dae7f3da3fe6f7457f6',1,'RawDataStats']]],
+  ['select_5flandmarks_825',['select_landmarks',['../structLabelModel.html#a93a9299ae888705ea1af3addd2c6ab8b',1,'LabelModel']]],
+  ['show_5fmenu_826',['show_menu',['../structuiMenu.html#a01a4ce2007d61b46550000b305a9da13',1,'uiMenu']]],
+  ['show_5fwindow_827',['show_window',['../structuiSaver.html#a379f2df5d6bdec3ced4a09636c8b412a',1,'uiSaver::show_window()'],['../structuiTrainingSettings.html#a92f9e47c2ac4bf8bfb23539d55e04546',1,'uiTrainingSettings::show_window()'],['../structuiScaler.html#ad4fc325e36dce21099f79f1035e7883a',1,'uiScaler::show_window()'],['../structuiColorSettings.html#a99493118dce5211eeea9e7bc0ac29f83',1,'uiColorSettings::show_window()']]],
+  ['sigma_828',['sigma',['../structTrainingConfig.html#a1858d9649e613546ad481dcc16dfb400',1,'TrainingConfig']]],
+  ['slider_5fwidth_829',['slider_width',['../structuiScaler.html#a4d480615078af7f48a97447e75d75142',1,'uiScaler']]],
+  ['som_5falpha_830',['som_alpha',['../structTrainingConfig.html#a3fd01dc7284e6583f1b496fa320c11b6',1,'TrainingConfig']]],
+  ['som_5fiters_831',['som_iters',['../structTrainingConfig.html#a6d016ed06df1f0a74560cd0a18c829cb',1,'TrainingConfig']]],
+  ['som_5flandmark_832',['som_landmark',['../structTrainingConfig.html#acb5616d626a4ea957efee2f15867f0f3',1,'TrainingConfig']]],
+  ['sqsums_833',['sqsums',['../structTransData.html#ad1564d356c23fee338acb5222d6e818f',1,'TransData']]],
+  ['stat_5fwatch_834',['stat_watch',['../structTransData.html#a356b467f14d1ba33c8fe9658cfbbc683',1,'TransData']]],
+  ['state_835',['state',['../classApplication.html#a9c7ed6a48fa68eb2810787ed116fa873',1,'Application']]],
+  ['stats_836',['stats',['../structState.html#ab4092ea10a7bef3c1db0d9b2c5680691',1,'State']]],
+  ['status_837',['status',['../structCudaError.html#a62a2659df4ab469b4bd83e04d813ac54',1,'CudaError']]],
+  ['sums_838',['sums',['../structTransData.html#a87e215284a2c39cdb41ad38989821cd7',1,'TransData']]]
+];

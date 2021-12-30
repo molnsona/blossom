@@ -1,0 +1,4 @@
+<map id="addApproximation" name="addApproximation">
+<area shape="rect" id="node1" title="Add the result of projections to the approximation matrix." alt="" coords="199,5,325,32"/>
+<area shape="rect" id="node2" href="$embedsom__cuda__projection_8cu.html#a5941879f44776cd703fee97c694cd0a7" title="Base projection kernel (each thread does everything for a single point)." alt="" coords="5,5,151,32"/>
+</map>

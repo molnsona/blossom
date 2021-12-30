@@ -1,0 +1,7 @@
+<map id="ScaledData" name="ScaledData">
+<area shape="rect" id="node1" title="Storage of the scaled data." alt="" coords="39,155,130,181"/>
+<area shape="rect" id="node2" href="$structSweeper.html" title="A piece of multi&#45;object cache." alt="" coords="5,80,79,107"/>
+<area shape="rect" id="node3" href="$structCleaner.html" title="A piece of cache that keeps track of the dirty status." alt="" coords="9,5,75,32"/>
+<area shape="rect" id="node4" href="$structDirts.html" title="Multi&#45;piece cache&#45;dirtying object." alt="" coords="103,80,154,107"/>
+<area shape="rect" id="node5" href="$structDirt.html" title="A piece of dirt for dirtying the caches." alt="" coords="107,5,150,32"/>
+</map>

@@ -1,0 +1,9 @@
+<map id="View::screen_mouse_coords" name="View::screen_mouse_coords">
+<area shape="rect" id="node1" title="Computes screen coordinates of the mouse cursor." alt="" coords="736,157,880,199"/>
+<area shape="rect" id="node2" href="$structView.html#a95359311949d1c95157bc249527dde5f" title="Computes model coordinates of the mouse cursor." alt="" coords="501,114,688,141"/>
+<area shape="rect" id="node4" href="$classApplication.html#a3cddf38d5f8d146e983c3210f394516c" title=" " alt="" coords="5,114,207,141"/>
+<area shape="rect" id="node3" href="$structView.html#a0ffd842bb99d366d6a750ec67ac570bf" title="Variant of lookat() that accepts &quot;screen&quot; coordinates." alt="" coords="284,63,424,90"/>
+<area shape="rect" id="node5" href="$classApplication.html#add226230c784ac971c92f71646226b8e" title=" " alt="" coords="255,165,453,191"/>
+<area shape="rect" id="node6" href="$structView.html#a707240827855862a0d6aad6b72583127" title="Cause a zoom in response to user action." alt="" coords="309,13,399,39"/>
+<area shape="rect" id="node7" href="$classApplication.html#afa5d65cbf244fd8791cc688b91c39a50" title=" " alt="" coords="23,5,189,47"/>
+</map>

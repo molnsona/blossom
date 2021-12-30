@@ -1,0 +1,18 @@
+<map id="View::zoom_scale" name="View::zoom_scale">
+<area shape="rect" id="node1" title="Return the vertical size of the viewed part in model space." alt="" coords="1132,208,1261,235"/>
+<area shape="rect" id="node2" href="$structView.html#aa85f82cf8052060b4132b775a2a889c0" title="Compute and return the view size in model coordinates." alt="" coords="967,132,1084,159"/>
+<area shape="rect" id="node10" href="$structView.html#a707240827855862a0d6aad6b72583127" title="Cause a zoom in response to user action." alt="" coords="309,259,399,285"/>
+<area shape="rect" id="node3" href="$structView.html#aa19a078852577984a48632fab2f7a643" title="Compute the view rectangle coordinates." alt="" coords="781,56,873,83"/>
+<area shape="rect" id="node4" href="$classApplication.html#a71683e7cfcde2b3f6b9012265beb56e3" title=" " alt="" coords="736,107,919,133"/>
+<area shape="rect" id="node5" href="$structView.html#a7d8893a312546f47b14e5e2f1925e607" title="Compute model coordinates from screen coordinates." alt="" coords="757,208,897,235"/>
+<area shape="rect" id="node12" href="$structView.html#a9ab51495f9b8df4cdda2e9bff90810b7" title="Compute the projection matrix for drawing into the &quot;model&quot; coordinates." alt="" coords="748,157,907,184"/>
+<area shape="rect" id="node15" href="$structView.html#a83cd476d51bd8330a652b8de53eeec45" title="Computes screen coordinates from model coordinates." alt="" coords="755,5,899,32"/>
+<area shape="rect" id="node6" href="$structView.html#a95359311949d1c95157bc249527dde5f" title="Computes model coordinates of the mouse cursor." alt="" coords="501,208,688,235"/>
+<area shape="rect" id="node7" href="$structView.html#a0ffd842bb99d366d6a750ec67ac570bf" title="Variant of lookat() that accepts &quot;screen&quot; coordinates." alt="" coords="284,107,424,133"/>
+<area shape="rect" id="node8" href="$classApplication.html#a3cddf38d5f8d146e983c3210f394516c" title=" " alt="" coords="5,132,207,159"/>
+<area shape="rect" id="node9" href="$classApplication.html#add226230c784ac971c92f71646226b8e" title=" " alt="" coords="255,208,453,235"/>
+<area shape="rect" id="node11" href="$classApplication.html#afa5d65cbf244fd8791cc688b91c39a50" title=" " alt="" coords="23,251,189,293"/>
+<area shape="rect" id="node13" href="$structScatterRenderer.html#a37c7029cc2506b81c420691bcff3b207" title="Draw event of the 2D data points." alt="" coords="518,107,671,133"/>
+<area shape="rect" id="node14" href="$classApplication.html#acd8a806728407b347f2aa4e8e8b6d110" title="Main drawing event calling all other updates and drawing events." alt="" coords="276,31,432,57"/>
+<area shape="rect" id="node16" href="$structGraphRenderer.html#a5035b51f22a5d28314566fbb13dd7b23" title="Draw event of the 2D landmark graph." alt="" coords="521,19,668,45"/>
+</map>

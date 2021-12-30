@@ -1,0 +1,7 @@
+<map id="ScatterModel::touch_config" name="ScatterModel::touch_config">
+<area shape="rect" id="node1" title="Notifies Sweeper that the parameters of the embedsom algorithm has been modified and that the coordin..." alt="" coords="731,5,869,47"/>
+<area shape="rect" id="node2" href="$structuiTrainingSettings.html#a8cbd4a5f765b99fac641ccb8f7b9fe1a" title="Renders window with corresponding training settings widgets." alt="" coords="556,5,683,47"/>
+<area shape="rect" id="node3" href="$structuiMenu.html#a17092b6fb9899750d59b86bc0068fdd5" title="Renders main menu window, the plus button and currently opened menu item windows." alt="" coords="400,13,508,39"/>
+<area shape="rect" id="node4" href="$classUiImgui.html#abfcd1f9aa36eabb146b19b0d7d08b821" title=" " alt="" coords="209,13,352,39"/>
+<area shape="rect" id="node5" href="$classApplication.html#acd8a806728407b347f2aa4e8e8b6d110" title="Main drawing event calling all other updates and drawing events." alt="" coords="5,13,161,39"/>
+</map>

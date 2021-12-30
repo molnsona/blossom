@@ -1,0 +1,9 @@
+<map id="distance" name="distance">
+<area shape="rect" id="node1" title=" " alt="" coords="657,93,728,120"/>
+<area shape="rect" id="node2" href="$embedsom__cuda__knn_8cu.html#ae7291d357523ee3c143ab1a34db44f51" title="Bubble a knn&#45;entry up a list, insertsort&#45;style." alt="" coords="489,5,566,32"/>
+<area shape="rect" id="node3" href="$structLandmarkModel.html#a8d51666b1e532a499ef16be014f20b74" title="Counts closest landmark to the given position." alt="" coords="445,57,609,98"/>
+<area shape="rect" id="node6" href="$embedsom__cuda__projection_8cu.html#a032cc0d823d81b0e9b74bebf933cb3ae" title="Compute scores for a vector of sorted distances." alt="" coords="455,123,599,149"/>
+<area shape="rect" id="node7" href="$embedsom__cuda__knn_8cu.html#a908236600c6a295e81c94a00ba891ab4" title="Base kernel for kNN computation." alt="" coords="470,173,585,200"/>
+<area shape="rect" id="node4" href="$structLandmarkModel.html#a88188e1443f6d7dbab7c4d6e74a37e8b" title="Creates new landmark with the two&#45; and high&#45;dimensional coordinates as the closeset landmark." alt="" coords="255,64,397,91"/>
+<area shape="rect" id="node5" href="$classApplication.html#a3cddf38d5f8d146e983c3210f394516c" title=" " alt="" coords="5,64,207,91"/>
+</map>

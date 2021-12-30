@@ -1,0 +1,7 @@
+<map id="LandmarkModel::init_grid" name="LandmarkModel::init_grid">
+<area shape="rect" id="node1" title="Creates squared landmarks layout, without edges." alt="" coords="620,31,787,57"/>
+<area shape="rect" id="node2" href="$structLandmarkModel.html#ac685e6d8d7d52ccc2e7675e8d6cc3c98" title="Creates empty landmarks with dimension 0." alt="" coords="357,5,572,32"/>
+<area shape="rect" id="node3" href="$structLandmarkModel.html#ad0f46ebf55af946fbd2f1329cfd19fe0" title="Updates current dimension and calls init_grid()." alt="" coords="370,56,559,83"/>
+<area shape="rect" id="node4" href="$structState.html#adcd0d835af130aa668bcc5799e8bb0c7" title="Performs simulation steps of all active algorithms and updates data according to the user interaction..." alt="" coords="209,56,309,83"/>
+<area shape="rect" id="node5" href="$classApplication.html#acd8a806728407b347f2aa4e8e8b6d110" title="Main drawing event calling all other updates and drawing events." alt="" coords="5,56,161,83"/>
+</map>

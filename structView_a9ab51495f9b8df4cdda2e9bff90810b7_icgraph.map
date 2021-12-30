@@ -1,0 +1,5 @@
+<map id="View::projection_matrix" name="View::projection_matrix">
+<area shape="rect" id="node1" title="Compute the projection matrix for drawing into the &quot;model&quot; coordinates." alt="" coords="411,5,569,32"/>
+<area shape="rect" id="node2" href="$structScatterRenderer.html#a37c7029cc2506b81c420691bcff3b207" title="Draw event of the 2D data points." alt="" coords="209,5,363,32"/>
+<area shape="rect" id="node3" href="$classApplication.html#acd8a806728407b347f2aa4e8e8b6d110" title="Main drawing event calling all other updates and drawing events." alt="" coords="5,5,161,32"/>
+</map>

@@ -1,0 +1,12 @@
+<map id="ScaledData::update" name="ScaledData::update">
+<area shape="rect" id="node1" title="Recomputes the data if any of the config has been touched." alt="" coords="5,173,143,200"/>
+<area shape="rect" id="node2" href="$structCleaner.html#a0ab2a86910726bba3cadd22dec4e00ec" title="Call this when the cache is refreshed." alt="" coords="418,9,525,36"/>
+<area shape="rect" id="node3" href="$structSweeper.html#ac14e4c576c9a3d24a777d1e44102c483" title="Clean a range of the cache." alt="" coords="201,199,352,225"/>
+<area shape="rect" id="node4" href="$structScaledData.html#aa7e5813c44782202475c66cb6a968ad1" title="Returns dimension of the scaled data." alt="" coords="217,249,336,276"/>
+<area shape="rect" id="node5" href="$structTransData.html#a3208334ef7d269f3bcee47a3f7d91860" title="Returns dimension of the transformed data." alt="" coords="221,300,333,327"/>
+<area shape="rect" id="node6" href="$structCleaner.html#a1c6ef6eb6c37d12f318a53f720f93bae" title="Returns true if the cache needs to be refreshed." alt="" coords="421,72,521,99"/>
+<area shape="rect" id="node7" href="$structSweeper.html#ae682327df6cda19ac35ae064815e075b" title="Find the range to refresh." alt="" coords="204,47,349,73"/>
+<area shape="rect" id="node9" href="$structDirt.html#a6753e4542f5254af6366b36b5864a37e" title="Make the cache dirty." alt="" coords="235,351,318,377"/>
+<area shape="rect" id="node10" href="$structScaledData.html#a560537cca7b501d390ba54111b6ae30d" title="Notifies Sweeper that the config has been modified and that the data has to be recomputed." alt="" coords="191,148,363,175"/>
+<area shape="rect" id="node8" href="$structSweeper.html#af8cbe558ba3a09298813c9a0d8ee7234" title="Force&#45;refresh the whole range." alt="" coords="411,123,532,149"/>
+</map>

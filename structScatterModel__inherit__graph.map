@@ -1,0 +1,5 @@
+<map id="ScatterModel" name="ScatterModel">
+<area shape="rect" id="node1" title="Model of the two&#45;dimensional data points." alt="" coords="5,155,104,181"/>
+<area shape="rect" id="node2" href="$structSweeper.html" title="A piece of multi&#45;object cache." alt="" coords="18,80,91,107"/>
+<area shape="rect" id="node3" href="$structCleaner.html" title="A piece of cache that keeps track of the dirty status." alt="" coords="21,5,88,32"/>
+</map>

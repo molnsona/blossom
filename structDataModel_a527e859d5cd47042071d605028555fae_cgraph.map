@@ -1,0 +1,4 @@
+<map id="DataModel::clear" name="DataModel::clear">
+<area shape="rect" id="node1" title="Clears all DataModel data to their default values." alt="" coords="5,5,127,32"/>
+<area shape="rect" id="node2" href="$structDirt.html#a6753e4542f5254af6366b36b5864a37e" title="Make the cache dirty." alt="" coords="175,5,257,32"/>
+</map>

@@ -1,0 +1,23 @@
+<map id="Sweeper::refresh" name="Sweeper::refresh">
+<area shape="rect" id="node1" title="Force&#45;refresh the whole range." alt="" coords="1173,183,1295,209"/>
+<area shape="rect" id="node2" href="$structSweeper.html#ae682327df6cda19ac35ae064815e075b" title="Find the range to refresh." alt="" coords="967,107,1112,133"/>
+<area shape="rect" id="node3" href="$structTransData.html#a0a3c117b336b787215a5603274615cff" title="Recomputes the data if any of the config has been touched." alt="" coords="767,107,897,133"/>
+<area shape="rect" id="node6" href="$structScatterModel.html#aedfea70c9bace6079f6f20a9e6736694" title="Recomputes the coordinates if any of the the parameters of the embedsom algorithm has changed." alt="" coords="759,5,905,32"/>
+<area shape="rect" id="node7" href="$structColorData.html#ab7e8d8eb653ca730e188ca4691d16635" title="Recomputes color of the 2D data points if user has changed any of the color settings." alt="" coords="768,56,896,83"/>
+<area shape="rect" id="node9" href="$structColorData.html#a92a579faa57018d8fd3c4b4bf3cabb02" title="Notifies Sweeper that the color settings has been modified and that the data has to be recomputed." alt="" coords="958,411,1121,437"/>
+<area shape="rect" id="node15" href="$structScaledData.html#a560537cca7b501d390ba54111b6ae30d" title="Notifies Sweeper that the config has been modified and that the data has to be recomputed." alt="" coords="953,208,1125,235"/>
+<area shape="rect" id="node18" href="$structScatterModel.html#aa46123a613a27654d982ea8064af3aa9" title="Notifies Sweeper that the parameters of the embedsom algorithm has been modified and that the coordin..." alt="" coords="970,483,1109,525"/>
+<area shape="rect" id="node20" href="$structTransData.html#a2512c0013845428f93030cfe9f7fa5f4" title="Notifies Sweeper that the config has been modified and that the data has to be recomputed." alt="" coords="957,309,1122,336"/>
+<area shape="rect" id="node8" href="$structScaledData.html#ae18b964a4a04746001f816c072761d10" title="Recomputes the data if any of the config has been touched." alt="" coords="763,157,901,184"/>
+<area shape="rect" id="node4" href="$structState.html#adcd0d835af130aa668bcc5799e8bb0c7" title="Performs simulation steps of all active algorithms and updates data according to the user interaction..." alt="" coords="583,107,683,133"/>
+<area shape="rect" id="node5" href="$classApplication.html#acd8a806728407b347f2aa4e8e8b6d110" title="Main drawing event calling all other updates and drawing events." alt="" coords="5,228,161,255"/>
+<area shape="rect" id="node10" href="$structuiColorSettings.html#add04d547cd0697b31aed53c6b43d37b5" title="Renders window with corresponding color settings widgets." alt="" coords="556,408,711,435"/>
+<area shape="rect" id="node13" href="$structColorData.html#a0c2ffb8cf9b6cbcce28c928af3b3d624" title="Resets color settings to their initial values." alt="" coords="773,461,891,488"/>
+<area shape="rect" id="node11" href="$structuiMenu.html#a17092b6fb9899750d59b86bc0068fdd5" title="Renders main menu window, the plus button and currently opened menu item windows." alt="" coords="400,377,508,404"/>
+<area shape="rect" id="node12" href="$classUiImgui.html#abfcd1f9aa36eabb146b19b0d7d08b821" title=" " alt="" coords="209,253,352,280"/>
+<area shape="rect" id="node14" href="$structColorData.html#accf4e0c0d4549051a46783e964c95164" title="Calls reset() method to set initial values." alt="" coords="559,459,707,485"/>
+<area shape="rect" id="node16" href="$structuiScaler.html#a1b2818167795de3b4999a9a8c3ef78d9" title="Renders window with corresponding scale&amp;transform widgets." alt="" coords="577,309,690,336"/>
+<area shape="rect" id="node17" href="$structScaledData.html#acc02a74e8bddb74341e2460d80b6d14e" title="Resets configurations to their initial values." alt="" coords="769,208,895,235"/>
+<area shape="rect" id="node19" href="$structuiTrainingSettings.html#a8cbd4a5f765b99fac641ccb8f7b9fe1a" title="Renders window with corresponding training settings widgets." alt="" coords="570,510,697,551"/>
+<area shape="rect" id="node21" href="$structTransData.html#a3bb8c43160e60c239458d205d5cae545" title="Resets configurations to their initial values." alt="" coords="772,360,892,387"/>
+</map>

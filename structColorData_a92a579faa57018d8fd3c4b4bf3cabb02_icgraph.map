@@ -1,0 +1,9 @@
+<map id="ColorData::touch_config" name="ColorData::touch_config">
+<area shape="rect" id="node1" title="Notifies Sweeper that the color settings has been modified and that the data has to be recomputed." alt="" coords="925,31,1088,57"/>
+<area shape="rect" id="node2" href="$structuiColorSettings.html#add04d547cd0697b31aed53c6b43d37b5" title="Renders window with corresponding color settings widgets." alt="" coords="556,5,711,32"/>
+<area shape="rect" id="node6" href="$structColorData.html#a0c2ffb8cf9b6cbcce28c928af3b3d624" title="Resets color settings to their initial values." alt="" coords="759,56,877,83"/>
+<area shape="rect" id="node3" href="$structuiMenu.html#a17092b6fb9899750d59b86bc0068fdd5" title="Renders main menu window, the plus button and currently opened menu item windows." alt="" coords="400,5,508,32"/>
+<area shape="rect" id="node4" href="$classUiImgui.html#abfcd1f9aa36eabb146b19b0d7d08b821" title=" " alt="" coords="209,5,352,32"/>
+<area shape="rect" id="node5" href="$classApplication.html#acd8a806728407b347f2aa4e8e8b6d110" title="Main drawing event calling all other updates and drawing events." alt="" coords="5,5,161,32"/>
+<area shape="rect" id="node7" href="$structColorData.html#accf4e0c0d4549051a46783e964c95164" title="Calls reset() method to set initial values." alt="" coords="559,56,707,83"/>
+</map>

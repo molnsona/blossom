@@ -1,0 +1,11 @@
+<map id="uiScaler::render" name="uiScaler::render">
+<area shape="rect" id="node1" title="Renders window with corresponding scale&amp;transform widgets." alt="" coords="5,157,119,184"/>
+<area shape="rect" id="node2" href="$structScaledData.html#aa7e5813c44782202475c66cb6a968ad1" title="Returns dimension of the scaled data." alt="" coords="171,5,289,32"/>
+<area shape="rect" id="node3" href="$structTransData.html#a3208334ef7d269f3bcee47a3f7d91860" title="Returns dimension of the transformed data." alt="" coords="174,56,286,83"/>
+<area shape="rect" id="node4" href="$structScaledData.html#acc02a74e8bddb74341e2460d80b6d14e" title="Resets configurations to their initial values." alt="" coords="167,107,293,133"/>
+<area shape="rect" id="node5" href="$structScaledData.html#a560537cca7b501d390ba54111b6ae30d" title="Notifies Sweeper that the config has been modified and that the data has to be recomputed." alt="" coords="341,157,513,184"/>
+<area shape="rect" id="node7" href="$structTransData.html#a3bb8c43160e60c239458d205d5cae545" title="Resets configurations to their initial values." alt="" coords="170,208,290,235"/>
+<area shape="rect" id="node8" href="$structTransData.html#a2512c0013845428f93030cfe9f7fa5f4" title="Notifies Sweeper that the config has been modified and that the data has to be recomputed." alt="" coords="345,208,510,235"/>
+<area shape="rect" id="node9" href="$utils__imgui_8hpp.html#a7198a716c578110d3a308c526f8f17c3" title="ImGUI wrapper for reset button." alt="" coords="183,309,277,336"/>
+<area shape="rect" id="node6" href="$structSweeper.html#af8cbe558ba3a09298813c9a0d8ee7234" title="Force&#45;refresh the whole range." alt="" coords="561,183,683,209"/>
+</map>

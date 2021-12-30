@@ -1,0 +1,4 @@
+<map id="addApproximation2Wise" name="addApproximation2Wise">
+<area shape="rect" id="node1" title="Same as addApproximation(), on 2&#45;vectors." alt="" coords="237,13,400,39"/>
+<area shape="rect" id="node2" href="$embedsom__cuda__projection_8cu.html#a15d1224a3e2802ae53b7eb3f3f2a38c5" title="Aligned&#45;shared&#45;memory projection kernel." alt="" coords="5,5,189,47"/>
+</map>

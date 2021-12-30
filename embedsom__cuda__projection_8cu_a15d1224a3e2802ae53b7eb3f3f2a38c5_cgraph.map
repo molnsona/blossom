@@ -1,0 +1,6 @@
+<map id="projectionAlignedShMemoryKernel" name="projectionAlignedShMemoryKernel">
+<area shape="rect" id="node1" title="Aligned&#45;shared&#45;memory projection kernel." alt="" coords="5,49,189,90"/>
+<area shape="rect" id="node2" href="$embedsom__cuda__projection_8cu.html#a5c367f2ec055679e7a2382b1b8046379" title="Same as addApproximation(), on 2&#45;vectors." alt="" coords="237,5,400,32"/>
+<area shape="rect" id="node3" href="$embedsom__cuda__projection_8cu.html#a3bb728202131aed555d3f721e736356f" title="Add single&#45;point approximation to the matrix, on 2&#45;vectors." alt="" coords="257,56,380,83"/>
+<area shape="rect" id="node4" href="$embedsom__cuda__projection_8cu.html#a23b951cf617d3d39e0f1bcc871183c45" title="Load data into shared memory cache." alt="" coords="267,107,370,133"/>
+</map>

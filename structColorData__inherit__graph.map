@@ -1,0 +1,5 @@
+<map id="ColorData" name="ColorData">
+<area shape="rect" id="node1" title="Storage of the color data." alt="" coords="5,155,87,181"/>
+<area shape="rect" id="node2" href="$structSweeper.html" title="A piece of multi&#45;object cache." alt="" coords="9,80,83,107"/>
+<area shape="rect" id="node3" href="$structCleaner.html" title="A piece of cache that keeps track of the dirty status." alt="" coords="13,5,79,32"/>
+</map>

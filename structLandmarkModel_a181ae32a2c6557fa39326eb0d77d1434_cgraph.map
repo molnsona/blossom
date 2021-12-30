@@ -1,0 +1,4 @@
+<map id="LandmarkModel::duplicate" name="LandmarkModel::duplicate">
+<area shape="rect" id="node1" title="Creates new landmark with the same two&#45; and high&#45;dimensional coordinates as the given landmark." alt="" coords="5,5,180,32"/>
+<area shape="rect" id="node2" href="$structDirt.html#a6753e4542f5254af6366b36b5864a37e" title="Make the cache dirty." alt="" coords="228,5,311,32"/>
+</map>

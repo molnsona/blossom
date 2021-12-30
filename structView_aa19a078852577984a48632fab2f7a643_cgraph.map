@@ -1,0 +1,5 @@
+<map id="View::frame" name="View::frame">
+<area shape="rect" id="node1" title="Compute the view rectangle coordinates." alt="" coords="5,29,97,56"/>
+<area shape="rect" id="node2" href="$structView.html#aa85f82cf8052060b4132b775a2a889c0" title="Compute and return the view size in model coordinates." alt="" coords="145,29,263,56"/>
+<area shape="rect" id="node3" href="$structView.html#abd0f2a00303de5267af98d7eae97952b" title="Return the vertical size of the viewed part in model space." alt="" coords="311,29,440,56"/>
+</map>

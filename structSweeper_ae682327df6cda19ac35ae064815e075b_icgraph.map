@@ -1,0 +1,9 @@
+<map id="Sweeper::dirty_range" name="Sweeper::dirty_range">
+<area shape="rect" id="node1" title="Find the range to refresh." alt="" coords="552,81,697,108"/>
+<area shape="rect" id="node2" href="$structTransData.html#a0a3c117b336b787215a5603274615cff" title="Recomputes the data if any of the config has been touched." alt="" coords="365,5,496,32"/>
+<area shape="rect" id="node5" href="$structScatterModel.html#aedfea70c9bace6079f6f20a9e6736694" title="Recomputes the coordinates if any of the the parameters of the embedsom algorithm has changed." alt="" coords="357,56,504,83"/>
+<area shape="rect" id="node6" href="$structColorData.html#ab7e8d8eb653ca730e188ca4691d16635" title="Recomputes color of the 2D data points if user has changed any of the color settings." alt="" coords="367,107,495,133"/>
+<area shape="rect" id="node7" href="$structScaledData.html#ae18b964a4a04746001f816c072761d10" title="Recomputes the data if any of the config has been touched." alt="" coords="362,157,499,184"/>
+<area shape="rect" id="node3" href="$structState.html#adcd0d835af130aa668bcc5799e8bb0c7" title="Performs simulation steps of all active algorithms and updates data according to the user interaction..." alt="" coords="209,81,309,108"/>
+<area shape="rect" id="node4" href="$classApplication.html#acd8a806728407b347f2aa4e8e8b6d110" title="Main drawing event calling all other updates and drawing events." alt="" coords="5,81,161,108"/>
+</map>

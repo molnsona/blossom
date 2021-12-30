@@ -1,0 +1,10 @@
+<map id="Cleaner" name="Cleaner">
+<area shape="rect" id="node1" title="A piece of cache that keeps track of the dirty status." alt="" coords="178,5,245,32"/>
+<area shape="rect" id="node2" href="$structRawDataStats.html" title="Statistics from the untransformed dataset." alt="" coords="100,80,208,107"/>
+<area shape="rect" id="node3" href="$structSweeper.html" title="A piece of multi&#45;object cache." alt="" coords="232,80,305,107"/>
+<area shape="rect" id="node4" href="$structColorData.html" title="Storage of the color data." alt="" coords="5,155,87,181"/>
+<area shape="rect" id="node5" href="$structLabelModel.html" title=" " alt="" coords="111,155,199,181"/>
+<area shape="rect" id="node6" href="$structScaledData.html" title="Storage of the scaled data." alt="" coords="223,155,314,181"/>
+<area shape="rect" id="node7" href="$structScatterModel.html" title="Model of the two&#45;dimensional data points." alt="" coords="338,155,437,181"/>
+<area shape="rect" id="node8" href="$structTransData.html" title="Storage of the transformed data." alt="" coords="461,155,543,181"/>
+</map>

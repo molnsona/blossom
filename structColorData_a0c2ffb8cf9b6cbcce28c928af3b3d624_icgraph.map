@@ -1,0 +1,8 @@
+<map id="ColorData::reset" name="ColorData::reset">
+<area shape="rect" id="node1" title="Resets color settings to their initial values." alt="" coords="759,31,877,57"/>
+<area shape="rect" id="node2" href="$structColorData.html#accf4e0c0d4549051a46783e964c95164" title="Calls reset() method to set initial values." alt="" coords="559,5,707,32"/>
+<area shape="rect" id="node3" href="$structuiColorSettings.html#add04d547cd0697b31aed53c6b43d37b5" title="Renders window with corresponding color settings widgets." alt="" coords="556,56,711,83"/>
+<area shape="rect" id="node4" href="$structuiMenu.html#a17092b6fb9899750d59b86bc0068fdd5" title="Renders main menu window, the plus button and currently opened menu item windows." alt="" coords="400,56,508,83"/>
+<area shape="rect" id="node5" href="$classUiImgui.html#abfcd1f9aa36eabb146b19b0d7d08b821" title=" " alt="" coords="209,56,352,83"/>
+<area shape="rect" id="node6" href="$classApplication.html#acd8a806728407b347f2aa4e8e8b6d110" title="Main drawing event calling all other updates and drawing events." alt="" coords="5,56,161,83"/>
+</map>

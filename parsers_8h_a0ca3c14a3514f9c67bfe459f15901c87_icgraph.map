@@ -1,0 +1,7 @@
+<map id="parse_generic" name="parse_generic">
+<area shape="rect" id="node1" title="Parses data from input file." alt="" coords="719,5,821,32"/>
+<area shape="rect" id="node2" href="$structuiLoader.html#a42afa586cc363a93e81cfe93b7dc7b0d" title="Renders open file dialog window." alt="" coords="556,5,671,32"/>
+<area shape="rect" id="node3" href="$structuiMenu.html#a17092b6fb9899750d59b86bc0068fdd5" title="Renders main menu window, the plus button and currently opened menu item windows." alt="" coords="400,5,508,32"/>
+<area shape="rect" id="node4" href="$classUiImgui.html#abfcd1f9aa36eabb146b19b0d7d08b821" title=" " alt="" coords="209,5,352,32"/>
+<area shape="rect" id="node5" href="$classApplication.html#acd8a806728407b347f2aa4e8e8b6d110" title="Main drawing event calling all other updates and drawing events." alt="" coords="5,5,161,32"/>
+</map>

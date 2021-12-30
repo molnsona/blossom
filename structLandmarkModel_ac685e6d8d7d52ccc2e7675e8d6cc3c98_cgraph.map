@@ -1,0 +1,5 @@
+<map id="LandmarkModel::LandmarkModel" name="LandmarkModel::LandmarkModel">
+<area shape="rect" id="node1" title="Creates empty landmarks with dimension 0." alt="" coords="5,5,220,32"/>
+<area shape="rect" id="node2" href="$structLandmarkModel.html#ae12323b91a1255e730072f437e82331d" title="Creates squared landmarks layout, without edges." alt="" coords="268,5,435,32"/>
+<area shape="rect" id="node3" href="$structDirt.html#a6753e4542f5254af6366b36b5864a37e" title="Make the cache dirty." alt="" coords="483,5,565,32"/>
+</map>

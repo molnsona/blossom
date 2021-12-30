@@ -1,0 +1,5 @@
+<map id="ScaledData::reset" name="ScaledData::reset">
+<area shape="rect" id="node1" title="Resets configurations to their initial values." alt="" coords="5,5,132,32"/>
+<area shape="rect" id="node2" href="$structScaledData.html#a560537cca7b501d390ba54111b6ae30d" title="Notifies Sweeper that the config has been modified and that the data has to be recomputed." alt="" coords="180,5,352,32"/>
+<area shape="rect" id="node3" href="$structSweeper.html#af8cbe558ba3a09298813c9a0d8ee7234" title="Force&#45;refresh the whole range." alt="" coords="400,5,521,32"/>
+</map>

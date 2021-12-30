@@ -1,0 +1,9 @@
+<map id="parse_info" name="parse_info">
+<area shape="rect" id="node1" title="Parses info from FCS header." alt="" coords="1005,5,1088,32"/>
+<area shape="rect" id="node2" href="$fcs__parser_8cpp.html#ae00e5fbd7e5a0e9db28302423191c6ed" title="Parses FCS file and fills DataModel data." alt="" coords="869,5,957,32"/>
+<area shape="rect" id="node3" href="$parsers_8cpp.html#a88aceee0c94640e06327d9ca6c171369" title="Parses data from input file." alt="" coords="719,5,821,32"/>
+<area shape="rect" id="node4" href="$structuiLoader.html#a42afa586cc363a93e81cfe93b7dc7b0d" title="Renders open file dialog window." alt="" coords="556,5,671,32"/>
+<area shape="rect" id="node5" href="$structuiMenu.html#a17092b6fb9899750d59b86bc0068fdd5" title="Renders main menu window, the plus button and currently opened menu item windows." alt="" coords="400,5,508,32"/>
+<area shape="rect" id="node6" href="$classUiImgui.html#abfcd1f9aa36eabb146b19b0d7d08b821" title=" " alt="" coords="209,5,352,32"/>
+<area shape="rect" id="node7" href="$classApplication.html#acd8a806728407b347f2aa4e8e8b6d110" title="Main drawing event calling all other updates and drawing events." alt="" coords="5,5,161,32"/>
+</map>

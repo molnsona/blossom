@@ -1,0 +1,10 @@
+<map id="ScaledData::touch_config" name="ScaledData::touch_config">
+<area shape="rect" id="node1" title="Notifies Sweeper that the config has been modified and that the data has to be recomputed." alt="" coords="903,22,1075,49"/>
+<area shape="rect" id="node2" href="$structuiScaler.html#a1b2818167795de3b4999a9a8c3ef78d9" title="Renders window with corresponding scale&amp;transform widgets." alt="" coords="556,22,669,49"/>
+<area shape="rect" id="node6" href="$structScaledData.html#acc02a74e8bddb74341e2460d80b6d14e" title="Resets configurations to their initial values." alt="" coords="723,22,849,49"/>
+<area shape="rect" id="node7" href="$structScaledData.html#ae18b964a4a04746001f816c072761d10" title="Recomputes the data if any of the config has been touched." alt="" coords="717,73,855,100"/>
+<area shape="rect" id="node3" href="$structuiMenu.html#a17092b6fb9899750d59b86bc0068fdd5" title="Renders main menu window, the plus button and currently opened menu item windows." alt="" coords="400,22,508,49"/>
+<area shape="rect" id="node4" href="$classUiImgui.html#abfcd1f9aa36eabb146b19b0d7d08b821" title=" " alt="" coords="209,22,352,49"/>
+<area shape="rect" id="node5" href="$classApplication.html#acd8a806728407b347f2aa4e8e8b6d110" title="Main drawing event calling all other updates and drawing events." alt="" coords="5,48,161,74"/>
+<area shape="rect" id="node8" href="$structState.html#adcd0d835af130aa668bcc5799e8bb0c7" title="Performs simulation steps of all active algorithms and updates data according to the user interaction..." alt="" coords="404,73,504,100"/>
+</map>

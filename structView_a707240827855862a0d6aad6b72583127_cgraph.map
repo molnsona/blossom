@@ -1,0 +1,8 @@
+<map id="View::zoom" name="View::zoom">
+<area shape="rect" id="node1" title="Cause a zoom in response to user action." alt="" coords="5,93,96,120"/>
+<area shape="rect" id="node2" href="$structView.html#a95359311949d1c95157bc249527dde5f" title="Computes model coordinates of the mouse cursor." alt="" coords="144,64,331,91"/>
+<area shape="rect" id="node5" href="$structView.html#abd0f2a00303de5267af98d7eae97952b" title="Return the vertical size of the viewed part in model space." alt="" coords="736,97,865,124"/>
+<area shape="rect" id="node3" href="$structView.html#a7d8893a312546f47b14e5e2f1925e607" title="Compute model coordinates from screen coordinates." alt="" coords="381,5,521,32"/>
+<area shape="rect" id="node6" href="$structView.html#af46c08c148ff70f6a85ebbb85ab4df57" title="Computes screen coordinates of the mouse cursor." alt="" coords="379,57,523,98"/>
+<area shape="rect" id="node4" href="$structView.html#aa85f82cf8052060b4132b775a2a889c0" title="Compute and return the view size in model coordinates." alt="" coords="571,39,688,65"/>
+</map>

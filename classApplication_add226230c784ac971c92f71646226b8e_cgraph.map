@@ -1,0 +1,11 @@
+<map id="Application::mouseMoveEvent" name="Application::mouseMoveEvent">
+<area shape="rect" id="node1" title=" " alt="" coords="5,117,204,144"/>
+<area shape="rect" id="node2" href="$structView.html#a95359311949d1c95157bc249527dde5f" title="Computes model coordinates of the mouse cursor." alt="" coords="252,59,439,85"/>
+<area shape="rect" id="node7" href="$classUiImgui.html#a028306d5f251db97915a3108f78a22af" title=" " alt="" coords="269,110,422,151"/>
+<area shape="rect" id="node8" href="$structLandmarkModel.html#afb51b2d87d6e1492b16cfd5578c3ec75" title="Sets two&#45;dimensional position of the pressed landmark to mouse position." alt="" coords="268,176,423,203"/>
+<area shape="rect" id="node3" href="$structView.html#a7d8893a312546f47b14e5e2f1925e607" title="Compute model coordinates from screen coordinates." alt="" coords="489,29,629,56"/>
+<area shape="rect" id="node6" href="$structView.html#af46c08c148ff70f6a85ebbb85ab4df57" title="Computes screen coordinates of the mouse cursor." alt="" coords="487,81,631,122"/>
+<area shape="rect" id="node4" href="$structView.html#aa85f82cf8052060b4132b775a2a889c0" title="Compute and return the view size in model coordinates." alt="" coords="679,29,796,56"/>
+<area shape="rect" id="node5" href="$structView.html#abd0f2a00303de5267af98d7eae97952b" title="Return the vertical size of the viewed part in model space." alt="" coords="844,29,973,56"/>
+<area shape="rect" id="node9" href="$structDirt.html#a6753e4542f5254af6366b36b5864a37e" title="Make the cache dirty." alt="" coords="517,176,600,203"/>
+</map>

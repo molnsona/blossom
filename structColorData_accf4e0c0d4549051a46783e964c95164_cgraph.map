@@ -1,0 +1,6 @@
+<map id="ColorData::ColorData" name="ColorData::ColorData">
+<area shape="rect" id="node1" title="Calls reset() method to set initial values." alt="" coords="5,5,153,32"/>
+<area shape="rect" id="node2" href="$structColorData.html#a0c2ffb8cf9b6cbcce28c928af3b3d624" title="Resets color settings to their initial values." alt="" coords="201,5,320,32"/>
+<area shape="rect" id="node3" href="$structColorData.html#a92a579faa57018d8fd3c4b4bf3cabb02" title="Notifies Sweeper that the color settings has been modified and that the data has to be recomputed." alt="" coords="368,5,531,32"/>
+<area shape="rect" id="node4" href="$structSweeper.html#af8cbe558ba3a09298813c9a0d8ee7234" title="Force&#45;refresh the whole range." alt="" coords="579,5,700,32"/>
+</map>

@@ -1,0 +1,5 @@
+<map id="View::screen_coords" name="View::screen_coords">
+<area shape="rect" id="node1" title="Computes screen coordinates from model coordinates." alt="" coords="404,5,548,32"/>
+<area shape="rect" id="node2" href="$structGraphRenderer.html#a5035b51f22a5d28314566fbb13dd7b23" title="Draw event of the 2D landmark graph." alt="" coords="209,5,356,32"/>
+<area shape="rect" id="node3" href="$classApplication.html#acd8a806728407b347f2aa4e8e8b6d110" title="Main drawing event calling all other updates and drawing events." alt="" coords="5,5,161,32"/>
+</map>

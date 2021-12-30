@@ -1,0 +1,10 @@
+<map id="Dirt" name="Dirt">
+<area shape="rect" id="node1" title="A piece of dirt for dirtying the caches." alt="" coords="300,5,343,32"/>
+<area shape="rect" id="node2" href="$structDirts.html" title="Multi&#45;piece cache&#45;dirtying object." alt="" coords="189,80,240,107"/>
+<area shape="rect" id="node7" href="$structLandmarkModel.html" title="Model of the high&#45; and low&#45;dimensional landmarks." alt="" coords="264,80,379,107"/>
+<area shape="rect" id="node8" href="$structRawDataStats.html" title="Statistics from the untransformed dataset." alt="" coords="403,80,511,107"/>
+<area shape="rect" id="node3" href="$structDataModel.html" title="Storage of data from loaded input file." alt="" coords="5,155,91,181"/>
+<area shape="rect" id="node4" href="$structLabelModel.html" title=" " alt="" coords="115,155,203,181"/>
+<area shape="rect" id="node5" href="$structScaledData.html" title="Storage of the scaled data." alt="" coords="227,155,317,181"/>
+<area shape="rect" id="node6" href="$structTransData.html" title="Storage of the transformed data." alt="" coords="341,155,424,181"/>
+</map>
