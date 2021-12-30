@@ -1,0 +1,7 @@
+.vscode/*
+build/*
+imgui.ini
+magnum/*
+magnum-integration/*
+imgui/*
+corrade/*
