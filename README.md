@@ -47,9 +47,10 @@ tools are provided to manage the landmarks; a quick overview follows:
 
 ## Compiling and running BlosSOM
 
-For CUDA EmbedSOM to work, you need the [NVIDIA CUDA
-toolkit](https://developer.nvidia.com/cuda-zone). You also need
-[cmake](https://cmake.org/) build system and [SDL2](https://www.libsdl.org/).
+You will need [cmake](https://cmake.org/) build system and [SDL2](https://www.libsdl.org/).
+
+For CUDA EmbedSOM to work, you need the [NVIDIA CUDA toolkit](https://developer.nvidia.com/cuda-zone).
+Append `-DBUILD_CUDA=1` to `cmake` options to enable the CUDA version.
 
 ### Windows (Visual Studio 2019)
 
@@ -99,8 +100,7 @@ make install                              # use -j option to speed up the build
 
 #### Running
 ```sh
-./inst/bin/blossom        # this runs the slower (but compatible) CPU version
-./inst/bin/blossom_cuda   # this runs the fast CUDA GPU version
+./inst/bin/blossom
 ```
 
 ## Documentation
@@ -117,15 +117,17 @@ make install                              # use -j option to speed up the build
 
 See the [HOWTO](./HOWTO.md) for more details and hints.
 
-### Performance
+### Performance and CUDA
 
-The 2 versions of BlosSOM executable (`blossom` and `blossom_cuda`) differ
-mainly in the performance of EmbedSOM projection, which is more than 100×
-faster on GPUs than on CPUs. If the dataset gets large, only a fixed-size slice
-of the dataset gets processed each frame (e.g., at most 1000 points in case of
-CPU) to keep the framerate in a usable range. The defaults in BlosSOM should
-work smoothly for many use-cases (defaulting at 1k points per frame on CPU and
-50k points per frame on GPU).
+If you pass `-DBUILD_CUDA=1` to the `cmake` commands, you will get extra
+executable called `blossom_cuda` (or `blossom_cuda.exe`, on Windows).
+
+The 2 versions of BlosSOM executable differ mainly in the performance of
+EmbedSOM projection, which is more than 100× faster on GPUs than on CPUs. If
+the dataset gets large, only a fixed-size slice of the dataset gets processed
+each frame (e.g., at most 1000 points in case of CPU) to keep the framerate in
+a usable range. The defaults in BlosSOM should work smoothly for many use-cases
+(defaulting at 1k points per frame on CPU and 50k points per frame on GPU).
 
 If required (e.g., if you have a really fast GPU), you may modify the constants
 in the corresponding source files, around the call sites of `clean_range()`,
