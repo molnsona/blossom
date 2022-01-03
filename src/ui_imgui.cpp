@@ -45,8 +45,7 @@ UiImgui::UiImgui(const Application &app)
         ImageView2D image{ GL::PixelFormat::RGBA,
                            GL::PixelType::UnsignedByte,
                            { width, height },
-                           { pixels,
-                             size_t(pixelSize * width * height) } };
+                           { pixels, size_t(pixelSize * width * height) } };
 
         font_texture.setMagnificationFilter(GL::SamplerFilter::Linear)
           .setMinificationFilter(GL::SamplerFilter::Linear)

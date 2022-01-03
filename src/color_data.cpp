@@ -122,7 +122,7 @@ ColorData::update(const TransData &td)
 
     clean_range(td, rn);
     switch (coloring) {
-        case (int)ColorData::Coloring::EXPR: {
+        case int(ColorData::Coloring::EXPR): {
             if (expr_col >= d)
                 expr_col = 0;
 

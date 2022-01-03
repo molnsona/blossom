@@ -150,7 +150,9 @@ write_data_2d(const std::vector<Magnum::Vector2> &data, std::ofstream &handle)
 };
 
 void
-uiSaver::write(Types type, const State &state, const std::string &dir_name) const
+uiSaver::write(Types type,
+               const State &state,
+               const std::string &dir_name) const
 {
     std::string path = dir_name + "/" + file_names[type];
     std::ofstream handle(path, std::ios::out);

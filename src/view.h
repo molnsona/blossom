@@ -44,7 +44,8 @@ struct View
     Vector2 mid;
     /** Intended middle point of the view (camera will move there). */
     Vector2 mid_target;
-    /** Negative-log2-vertical-size of the on-screen part of the model space (aka zoom). */
+    /** Negative-log2-vertical-size of the on-screen part of the model space
+     * (aka zoom). */
     float view_logv;
     /** Intended zoom. */
     float view_logv_target;
@@ -64,7 +65,8 @@ struct View
     inline float zoom_scale() const { return zoom_scale(view_logv); }
 
     /**
-     * @brief Move the current midpoint and zoom a bit closer to the target midpoint and zoom.
+     * @brief Move the current midpoint and zoom a bit closer to the target
+     * midpoint and zoom.
      *
      * @param dt Time difference
      */
@@ -92,7 +94,8 @@ struct View
     /**
      * @brief Compute the view rectangle coordinates
      *
-     * @return Tuple of two Vector2, with the lower-left view corner and size of the view.
+     * @return Tuple of two Vector2, with the lower-left view corner and size of
+     * the view.
      */
     inline std::tuple<Vector2, Vector2> frame() const
     {
@@ -166,7 +169,8 @@ struct View
     }
 
     /**
-     * @brief Compute the projection matrix for drawing into the "model" coordinates.
+     * @brief Compute the projection matrix for drawing into the "model"
+     * coordinates.
      *
      * This view is transformed along with camera position an zoom.
      */
@@ -206,9 +210,7 @@ struct View
     void lookat(Vector2 tgt) { mid_target = tgt; }
 
     /** Reset the framebuffer size to the specified value */
-    void set_fb_size(Vector2i s) {
-        fb_size = s;
-    }
+    void set_fb_size(Vector2i s) { fb_size = s; }
 
     /** Variant of lookat() that accepts "screen" coordinates. */
     void lookat_screen(Vector2i mouse) { lookat(model_mouse_coords(mouse)); }
