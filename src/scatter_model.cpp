@@ -40,11 +40,19 @@ ScatterModel::update(const ScaledData &d,
         lm_watch.clean(lm);
     }
 
+    const size_t max_points =
+#ifndef ENABLE_CUDA
+      1000
+#else
+      50000
+#endif
+      ;
+
     auto [ri, rn] = dirty_range(d);
     if (!rn)
         return;
-    if (rn > 1000)
-        rn = 1000;
+    if (rn > max_points)
+        rn = max_points;
 
     if (lm.d != d.dim())
         return;

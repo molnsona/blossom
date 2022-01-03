@@ -5,7 +5,9 @@ reduction with [EmbedSOM](https://github.com/exaexa/EmbedSOM). You can use it
 to explore multidimensional datasets, and produce great-looking 2-dimensional
 visualizations.
 
-**Warning: BlosSOM is still under development**, things will magically improve without notice.
+**WARNING: BlosSOM is still under development**, some stuff may not work right,
+but things will magically improve without notice.  Feel free to open an issue
+if something looks wrong.
 
 - :question: [Overview](#overview)
 - :wrench: [Compiling and running](#compiling-and-running-blossom)
@@ -114,3 +116,24 @@ make install                              # use -j option to speed up the build
 4. Use the tools and settings available under the "plus" button to optimize the landmark positions and get a better visualization.
 
 See the [HOWTO](./HOWTO.md) for more details and hints.
+
+### Performance
+
+The 2 versions of BlosSOM executable (`blossom` and `blossom_cuda`) differ
+mainly in the performance of EmbedSOM projection, which is more than 100×
+faster on GPUs than on CPUs. If the dataset gets large, only a fixed-size slice
+of the dataset gets processed each frame (e.g., at most 1000 points in case of
+CPU) to keep the framerate in a usable range. The defaults in BlosSOM should
+work smoothly for many use-cases (defaulting at 1k points per frame on CPU and
+50k points per frame on GPU).
+
+If required (e.g., if you have a really fast GPU), you may modify the constants
+in the corresponding source files, around the call sites of `clean_range()`,
+which is the function that manages the round-robin refreshing of the data.
+Functionality that dynamically chooses the best data-crunching rate is being
+implemented and should be available soon.
+
+## License
+
+BlosSOM is licensed under GPLv3 or later.
+Several small libraries bundled in the repository are licensed with MIT-style licenses.

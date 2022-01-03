@@ -32,11 +32,19 @@ ScaledData::update(const TransData &td)
         clean(td);
     }
 
+    const size_t max_points =
+#ifndef ENABLE_CUDA
+      10000
+#else
+      50000
+#endif
+      ;
+
     auto [ri, rn] = dirty_range(td);
     if (!rn)
         return;
-    if (rn > 5000)
-        rn = 5000;
+    if (rn > max_points)
+        rn = max_points;
     clean_range(td, rn);
 
     std::vector<float> means = td.sums;

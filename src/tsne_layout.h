@@ -39,7 +39,8 @@ struct TSNELayoutData
     std::vector<Vector2> updates;
 };
 
-/** Optimize the positions of low-dimensional landmarks using the t-SNE algorithm. */
+/** Optimize the positions of low-dimensional landmarks using the t-SNE
+ * algorithm. */
 void
 tsne_layout_step(TSNELayoutData &data,
                  const MouseData &mouse,

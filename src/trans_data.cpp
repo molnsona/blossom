@@ -70,13 +70,20 @@ TransData::update(const DataModel &dm, const RawDataStats &s)
         stat_watch.clean(s);
     }
 
+    const size_t max_points =
+#ifndef ENABLE_CUDA
+      10000
+#else
+      50000
+#endif
+      ;
+
     // make sure we're the right size
     auto [ri, rn] = dirty_range(dm);
     if (!rn)
         return;
-    // TODO: make this constant configurable (and much bigger)
-    if (rn > 10000)
-        rn = 10000;
+    if (rn > max_points)
+        rn = max_points;
 
     clean_range(dm, rn);
     const size_t d = dim();

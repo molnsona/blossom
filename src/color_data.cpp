@@ -103,18 +103,26 @@ ColorData::update(const TransData &td)
         refresh(td);
     }
 
+    const size_t max_points =
+#ifndef ENABLE_CUDA
+      1000
+#else
+      10000
+#endif
+      ;
+
     auto [ri, rn] = dirty_range(td);
     if (!rn)
         return;
-    if (rn > 1000)
-        rn = 1000;
+    if (rn > max_points)
+        rn = max_points;
 
     size_t n = td.n;
     size_t d = td.dim();
 
     clean_range(td, rn);
     switch (coloring) {
-        case (int)ColorData::Coloring::EXPR: {
+        case int(ColorData::Coloring::EXPR): {
             if (expr_col >= d)
                 expr_col = 0;
 
