@@ -189,7 +189,7 @@ parse_data(std::ifstream &handle,
 void
 parse_FCS(const std::string &filename, DataModel &dm)
 {
-    std::ifstream handle(filename, std::ios::in);
+    std::ifstream handle(filename, std::ios::in | std::ios::binary);
     if (!handle)
         throw std::domain_error("Can not open file");
 
