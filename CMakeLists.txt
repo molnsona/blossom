@@ -3,7 +3,12 @@
 project(BlosSOM VERSION 0.0.1)
 
 # Set project name
-project(${PROJECT_NAME} LANGUAGES CXX CUDA)
+if (BUILD_CUDA)
+    project(${PROJECT_NAME} LANGUAGES CXX CUDA)
+else (BUILD_CUDA)
+    project(${PROJECT_NAME} LANGUAGES CXX)
+endif (BUILD_CUDA)
+
 
 # Set the correct macro directory path
 set(CMAKE_MODULE_PATH "${PROJECT_SOURCE_DIR}/modules/" ${CMAKE_MODULE_PATH})
