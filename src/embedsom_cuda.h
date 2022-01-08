@@ -123,12 +123,12 @@ _cuda_check(cudaError_t status,
             const char *errMsg = nullptr)
 {
     if (status != cudaSuccess) {
-        throw(CudaError((std::stringstream()
-                         << "CUDA Error (" << status
-                         << "): " << cudaGetErrorString(status) << "\n"
-                         << "at " << srcFile << "[" << line << "]: " << errMsg)
-                          .str(),
-                        status));
+        std::stringstream str_s;
+        str_s << "CUDA Error (" << status << "): " << cudaGetErrorString(status)
+              << "\n"
+              << "at " << srcFile << "[" << line << "]: " << errMsg;
+
+        throw(CudaError(str_s.str(), status));
     }
 }
 
