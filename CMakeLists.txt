@@ -1,55 +1,17 @@
-﻿cmake_minimum_required(VERSION 3.11)
+cmake_minimum_required(VERSION 3.11)
 
-project(BlosSOM VERSION 0.0.1)
+project(BlosSOM VERSION 0.0.2)
 
-# Set project name
-if (BUILD_CUDA)
-    project(${PROJECT_NAME} LANGUAGES CXX CUDA)
-else (BUILD_CUDA)
-    project(${PROJECT_NAME} LANGUAGES CXX)
-endif (BUILD_CUDA)
+set(GLFW_BUILD_DOCS OFF CACHE BOOL "" FORCE)
+set(GLFW_BUILD_TESTS OFF CACHE BOOL "" FORCE)
+set(GLFW_BUILD_EXAMPLES OFF CACHE BOOL "" FORCE)
 
+add_subdirectory(./glfw-3.3.8)
 
-# Set the correct macro directory path
-set(CMAKE_MODULE_PATH "${PROJECT_SOURCE_DIR}/modules/" ${CMAKE_MODULE_PATH})
+add_executable(blossom app.cpp)
 
-# Use solution folders.
-set_property(GLOBAL PROPERTY USE_FOLDERS ON)
-set_property(GLOBAL PROPERTY PREDEFINED_TARGETS_FOLDER "BUILD ACTIONS")
+target_link_libraries(blossom glfw)
 
-set(CMAKE_CXX_STANDARD 17)
+find_package(OpenGL REQUIRED)
 
-if (MSVC)
-  add_compile_options($<$<COMPILE_LANGUAGE:CXX>:/W0> $<$<COMPILE_LANGUAGE:CXX>:/MP> $<$<COMPILE_LANGUAGE:CXX>:/DNOMINMAX>)
-else (MSVC)
-  add_compile_options($<$<COMPILE_LANGUAGE:CXX>:-w> $<$<COMPILE_LANGUAGE:CXX>:-g>)
-endif (MSVC)
-
-# setup magnum
-set(BUILD_STATIC ON CACHE BOOL "" FORCE)
-set(WITH_SDL2APPLICATION ON CACHE BOOL "" FORCE)
-set(WITH_IMGUI ON CACHE BOOL "" FORCE)
-set(IMGUI_DIR ${CMAKE_CURRENT_SOURCE_DIR}/imgui)
-
-# add magnum
-add_subdirectory(corrade EXCLUDE_FROM_ALL)
-add_subdirectory(magnum EXCLUDE_FROM_ALL)
-add_subdirectory(magnum-integration EXCLUDE_FROM_ALL)
-
-# find magnum libraries
-find_package(Corrade REQUIRED Main)
-find_package(Magnum REQUIRED GL Sdl2Application)
-find_package(MagnumIntegration REQUIRED ImGui)
-#set_directory_properties(PROPERTIES CORRADE_USE_PEDANTIC_FLAGS ON)
-
-# data files
-add_subdirectory(data)
-add_compile_definitions(BLOSSOM_DATA_DIR="${BLOSSOM_DATA_DIR}")
-
-# using threads
-set(THREADS_PREFER_PTHREAD_FLAG ON)
-find_package(Threads REQUIRED)
-
-# program sources
-add_subdirectory(src)
-
+target_link_libraries(blossom OpenGL::GL)
