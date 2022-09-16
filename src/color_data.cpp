@@ -107,7 +107,7 @@ ColorData::update(const TransData &td)
 #ifndef ENABLE_CUDA
       1000
 #else
-      10000
+      50000
 #endif
       ;
 

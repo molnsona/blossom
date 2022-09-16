@@ -20,6 +20,8 @@
 #include "application.h"
 #include <Magnum/Shaders/Flat.h>
 
+#define DEBUG 1
+
 using namespace Magnum;
 
 Application::Application(const Arguments &arguments)
@@ -52,6 +54,14 @@ Application::Application(const Arguments &arguments)
 void
 Application::drawEvent()
 {
+#if DEBUG
+    float framerate = 1 / timer.frametime;
+    char time[10];
+    sprintf(time, "%.2f", framerate);
+    std::string time2(time);
+    setWindowTitle("BlosSOM FPS: " + time2);
+#endif // DEBUG
+
     timer.tick();
 
     view.update(timer.frametime);
