@@ -41,8 +41,22 @@ endif()
 if(NOT EXISTS "${PROJECT_SOURCE_DIR}/glfw/CMakeLists.txt")
     message(FATAL_ERROR "The glfw submodule was not downloaded! GIT_SUBMODULE was turned off or failed.")
 endif()
+if(NOT EXISTS "${PROJECT_SOURCE_DIR}/imgui")
+    message(FATAL_ERROR "The imgui submodule was not downloaded! GIT_SUBMODULE was turned off or failed.")
+endif()
 
 find_package(OpenGL REQUIRED)
 
 add_subdirectory(glfw)
+
 add_subdirectory(src)
+
+target_include_directories(blossom
+    PUBLIC imgui
+    PUBLIC imgui/backends
+)
+
+target_link_directories(blossom
+    PRIVATE imgui
+    PRIVATE imgui/backends
+)

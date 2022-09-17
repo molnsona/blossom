@@ -3,4 +3,3 @@ build/*
 imgui.ini
 glfw/*
 imgui/*
-glfw-3.3.8/*
