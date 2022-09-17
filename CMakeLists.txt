@@ -46,10 +46,3 @@ find_package(OpenGL REQUIRED)
 
 add_subdirectory(glfw)
 add_subdirectory(src)
-#add_executable(blossom app.cpp)
-
-#target_link_libraries(blossom glfw)
-
-
-
-#target_link_libraries(blossom OpenGL::GL)
