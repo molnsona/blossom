@@ -3,8 +3,9 @@ set(BLOSSOM_SOURCES
 )
 
 set(BLOSSOM_LIBRARIES
+    imgui
     glfw
-    OpenGL::GL
+    glad
 )
 
 add_executable(blossom

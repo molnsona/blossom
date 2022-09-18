@@ -2,4 +2,4 @@
 build/*
 imgui.ini
 glfw/*
-imgui/*
+imgui-wrapper/imgui/*
