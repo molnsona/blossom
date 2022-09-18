@@ -4,11 +4,11 @@
 ```sh
 mkdir build
 cd build
-cmake ..
-make
+cmake .. -DCMAKE_INSTALL_PREFIX=./inst
+make install
 ```
 
 #### Running
 ```sh
-./blossom
+./inst/bin/blossom
 ```

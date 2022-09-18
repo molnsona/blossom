@@ -49,4 +49,8 @@ add_subdirectory(glfw)
 add_subdirectory(glad)
 add_subdirectory(imgui-wrapper)
 
+# data files
+add_subdirectory(data)
+add_compile_definitions(BLOSSOM_DATA_DIR="${BLOSSOM_DATA_DIR}")
+
 add_subdirectory(src)

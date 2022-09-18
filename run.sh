@@ -1,3 +1,3 @@
 #! /bin/sh/
 
-./build/src/blossom
+./build/inst/bin/blossom

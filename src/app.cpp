@@ -1,32 +1,50 @@
 
 #define GLFW_INCLUDE_NONE
+#include <GLFW/glfw3.h>
+#include <glad/gl.h>
+
+#include <iostream>
 
 #include "imgui.h"
 #include "imgui_impl_glfw.h"
 #include "imgui_impl_opengl3.h"
 
-#include <glad/gl.h>
-#include <GLFW/glfw3.h>
+#include "vendor/IconsFontAwesome5.h"
 
-#include <chrono>
-#include <iostream>
-#include <thread>
+void error_callback(int error, const char* description)
+{
+    std::cerr << "Error: " << description << std::endl;
+}
+
+static void key_callback(GLFWwindow* window, int key, int scancode, int action, int mods)
+{
+    if (key == GLFW_KEY_ESCAPE && action == GLFW_PRESS)
+        glfwSetWindowShouldClose(window, GLFW_TRUE);
+}
 
 int main()
 {
-    glfwInit();
+    glfwSetErrorCallback(error_callback);
+
+    if (!glfwInit())
+    {
+        return -1;
+    }
+
     glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 4);
     glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 5);
-    glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
-
-    auto window = glfwCreateWindow(800, 600, "Example", nullptr, nullptr);
+    GLFWwindow* window = glfwCreateWindow(640, 480, "BlosSOM", NULL, NULL);
     if (!window)
-        throw std::runtime_error("Error creating glfw window");
-    glfwMakeContextCurrent(window);
-    glfwSwapInterval(1);
+    {
+        glfwTerminate();
+        return -1;
+    }
 
-    if (!gladLoaderLoadGL())
-        throw std::runtime_error("Error initializing glad");
+    glfwSetKeyCallback(window, key_callback);
+
+    glfwMakeContextCurrent(window);
+    gladLoadGL(glfwGetProcAddress);
+    glfwSwapInterval(1);
 
     /**
      * Initialize ImGui
@@ -35,21 +53,29 @@ int main()
     ImGui::CreateContext();
     ImGui_ImplGlfw_InitForOpenGL(window, true);
     ImGui_ImplOpenGL3_Init("#version 450 core");
-    ImGui::StyleColorsClassic();
+    ImGui::StyleColorsLight();
 
-    glEnable(GL_CULL_FACE);
-    glEnable(GL_DEBUG_OUTPUT);
+    ImGuiIO& io = ImGui::GetIO();
+    io.Fonts->AddFontFromFileTTF(
+          BLOSSOM_DATA_DIR "/SourceSansPro-Regular.ttf", 16);
+    
+    ImFontConfig config;
+    config.MergeMode = true;
+    static const ImWchar icon_ranges[] = { ICON_MIN_FA, ICON_MAX_FA, 0 };
+    io.Fonts->AddFontFromFileTTF(
+          BLOSSOM_DATA_DIR "/fa-solid-900.ttf", 16.0f, &config, icon_ranges);
+    
+    glClearColor(1.0f, 1.0f, 1.0f, 1.0f);
 
-    while (!glfwWindowShouldClose(window)) {
-        glfwPollEvents();
-
+    while (!glfwWindowShouldClose(window))
+    {
         ImGui_ImplOpenGL3_NewFrame();
         ImGui_ImplGlfw_NewFrame();
         ImGui::NewFrame();
-
+        
         static bool showDemo = false;
         ImGui::Begin("Example");
-        if (ImGui::Button("Show/Hide ImGui demo"))
+        if (ImGui::Button(ICON_FA_SEARCH " Show/Hide ImGui demo"))
         showDemo = !showDemo;
         ImGui::End();
         if (showDemo)
@@ -61,7 +87,7 @@ int main()
         glfwSwapBuffers(window);
         glClear(GL_COLOR_BUFFER_BIT);
 
-        std::this_thread::sleep_for(std::chrono::milliseconds(1));
+        glfwPollEvents();
     }
 
     ImGui_ImplOpenGL3_Shutdown();

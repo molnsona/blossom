@@ -3,5 +3,5 @@
 rm -rf build
 mkdir build
 cd build
-cmake ..
-make
+cmake .. -DCMAKE_INSTALL_PREFIX=./inst
+make install
