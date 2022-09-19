@@ -1,6 +1,4 @@
 
-#include <glm/glm.hpp>
-
 #include <iostream>
 
 #include "shaders.h"
