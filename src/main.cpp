@@ -1,7 +1,7 @@
 
 #define GLFW_INCLUDE_NONE
-#include <GLFW/glfw3.h>
-#include <glad/gl.h>
+// #include <GLFW/glfw3.h>
+// #include <glad/gl.h>
 #include <glm/glm.hpp>
 
 #include <iostream>
@@ -21,7 +21,7 @@
 int main()
 {
     GlfwWrapper glfw;
-    // GladWrapper glad;
+    GladWrapper glad;
     // ImGuiWrapper imgui;
 
     if(!glfw.init("BlosSOM"))
@@ -30,10 +30,10 @@ int main()
         return -1;
     }
     
-    if(!gladLoadGL(glfwGetProcAddress))
+    if(!glad.init()) 
     {
-        std::cout << "Failed to initialize GLAD" << std::endl;
-        glfwTerminate();
+        std::cout << "GLAD initialization failed." << std::endl;
+        glfw.destroy();
         return -1;
     }
 
