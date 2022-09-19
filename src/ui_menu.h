@@ -23,7 +23,7 @@
 #include "state.h"
 // #include "ui_color.h"
 #include "ui_load.h"
-// #include "ui_save.h"
+#include "ui_save.h"
 // #include "ui_scale.h"
 // #include "ui_train.h"
 
@@ -37,8 +37,8 @@ struct UiMenu
 {
     /** Open file dialog window handler. */
     UiLoader loader;
-    // /** Save file dialog window handler.*/
-    // uiSaver saver;
+    /** Save file dialog window handler.*/
+    UiSaver saver;
     // /** Scale&transform data window handler. */
     // uiScaler scaler;
     // /** Training settings window handler. */

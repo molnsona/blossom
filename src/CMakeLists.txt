@@ -1,13 +1,25 @@
 set(BLOSSOM_SOURCES
+    color_data.cpp
+    embedsom.cpp
     fcs_parser.cpp
+    graph_layout.cpp
+    kmeans_landmark.cpp
+    knn_edges.cpp
+    landmark_model.cpp
     main.cpp
     parsers.cpp
+    pnorm.cpp
     renderer.cpp
+    scaled_data.cpp
+    scatter_model.cpp
     shader.cpp
     state.cpp
+    trans_data.cpp
+    tsne_layout.cpp
     tsv_parser.cpp
     ui_load.cpp
     ui_menu.cpp
+    ui_save.cpp
     wrapper_glad.cpp
     wrapper_glfw.cpp
     wrapper_imgui.cpp

@@ -25,19 +25,19 @@
 #include <string>
 #include <vector>
 
-// #include "color_data.h"
+#include "color_data.h"
 #include "data_model.h"
-// #include "graph_layout.h"
-// #include "keyboard_data.h"
-// #include "kmeans_landmark.h"
-// #include "knn_edges.h"
-// #include "landmark_model.h"
-// #include "mouse_data.h"
-// #include "scaled_data.h"
-// #include "scatter_model.h"
-// #include "training_config.h"
-// #include "trans_data.h"
-// #include "tsne_layout.h"
+#include "graph_layout.h"
+#include "keyboard_data.h"
+#include "kmeans_landmark.h"
+#include "knn_edges.h"
+#include "landmark_model.h"
+#include "mouse_data.h"
+#include "scaled_data.h"
+#include "scatter_model.h"
+#include "training_config.h"
+#include "trans_data.h"
+#include "tsne_layout.h"
 
 /**
  * @brief Storage of data of used algorithms and input events.
@@ -48,23 +48,23 @@
  */
 struct State
 {
-    // MouseData mouse;
-    // KeyboardData keyboard;
+    MouseData mouse;
+    KeyboardData keyboard;
 
     DataModel data;
-    // RawDataStats stats;
-    // TransData trans;
-    // ScaledData scaled;
-    // LandmarkModel landmarks;
+    RawDataStats stats;
+    TransData trans;
+    ScaledData scaled;
+    LandmarkModel landmarks;
 
-    // TrainingConfig training_conf;
-    // GraphLayoutData layout_data;
-    // TSNELayoutData tsne_data;
-    // KMeansData kmeans_data;
-    // KnnEdgesData knn_data;
+    TrainingConfig training_conf;
+    GraphLayoutData layout_data;
+    TSNELayoutData tsne_data;
+    KMeansData kmeans_data;
+    KnnEdgesData knn_data;
 
-    // ColorData colors;
-    // ScatterModel scatter;
+    ColorData colors;
+    ScatterModel scatter;
 
     /**
      * @brief Performs simulation steps of all active algorithms and updates

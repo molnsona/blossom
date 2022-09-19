@@ -76,7 +76,7 @@ UiMenu::render(int fb_width, int fb_height, State state)
         draw_menu_window(fb_width, fb_height, state);
 
     loader.render(state, window_flags);
-    // saver.render(app, window_flags);
+    saver.render(state, window_flags);
     // scaler.render(app, window_flags);
     // training_set.render(app, window_flags);
     // color_set.render(app, window_flags);
@@ -109,7 +109,7 @@ UiMenu::draw_menu_window(int fb_width, int fb_height, State state)
         };
 
         menu_entry(ICON_FA_FOLDER_OPEN, "Open file", loader);
-        // menu_entry(ICON_FA_SAVE, "Save", saver);
+        menu_entry(ICON_FA_SAVE, "Save", saver);
 
         ImGui::Separator();
 
