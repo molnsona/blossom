@@ -6,6 +6,7 @@ set(BLOSSOM_LIBRARIES
     imgui
     glfw
     glad
+    glm
 )
 
 add_executable(blossom
