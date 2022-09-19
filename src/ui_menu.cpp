@@ -22,6 +22,8 @@
 #include "imgui.h"
 #include "vendor/IconsFontAwesome5.h"
 
+#include "utils_imgui.hpp"
+
 constexpr float WINDOW_PADDING = 100.0f;
 constexpr float TOOLS_HEIGHT = 271.0f;
 constexpr float WINDOW_WIDTH = 50.0f;
@@ -103,7 +105,7 @@ UiMenu::draw_menu_window(int fb_width, int fb_height)
                 x.show();
                 show_menu = false;
             }
-            //tooltip(label);
+            tooltip(label);
         };
 
         // menu_entry(ICON_FA_FOLDER_OPEN, "Open file", loader);
