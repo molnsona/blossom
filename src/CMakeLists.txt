@@ -2,6 +2,7 @@ set(BLOSSOM_SOURCES
     main.cpp
     renderer.cpp
     shader.cpp
+    ui_menu.cpp
     wrapper_glad.cpp
     wrapper_glfw.cpp
     wrapper_imgui.cpp

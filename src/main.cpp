@@ -41,12 +41,12 @@ int main()
         return -1;
     }
 
+    int x, y, width, height;
     while (!glfw.window_should_close())
     {            
         renderer.render();
 
-        imgui.compose_frame();
-        imgui.render();
+        imgui.render(glfw.callbacks);
 
         glfw.end_frame();
     }

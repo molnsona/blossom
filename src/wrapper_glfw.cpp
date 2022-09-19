@@ -33,6 +33,10 @@ bool GlfwWrapper::init(const std::string& window_name)
     glfwSetKeyCallback(window, key_callback);
     glfwSetFramebufferSizeCallback(window, framebuffer_size_callback);
 
+    // Set the user pointer tied to the window used for 
+    // storing values in callbacks.
+    glfwSetWindowUserPointer(window, (void*)this);
+
     return true;
 }
 
@@ -61,6 +65,9 @@ void GlfwWrapper::error_callback(int error, const char* description)
 
 void GlfwWrapper::framebuffer_size_callback(GLFWwindow* window, int width, int height)
 {
+    GlfwWrapper* glfw_inst = (GlfwWrapper*)glfwGetWindowUserPointer(window);
+    glfw_inst->callbacks.fb_width = width;
+    glfw_inst->callbacks.fb_height = height;
     glViewport(0, 0, width, height);
 } 
 

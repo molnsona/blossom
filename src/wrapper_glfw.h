@@ -7,6 +7,11 @@
 
 #include <string>
 
+struct CallbackValues {
+    int fb_width = 800;
+    int fb_height = 600;
+};
+
 class GlfwWrapper {
 public:
     GlfwWrapper();
@@ -16,6 +21,7 @@ public:
     void destroy();
 
     GLFWwindow* window;
+    CallbackValues callbacks;
 private:
     static void error_callback(int error, const char* description);
     static void framebuffer_size_callback(GLFWwindow* window, int width, int height);

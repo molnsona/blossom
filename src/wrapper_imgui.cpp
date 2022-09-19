@@ -25,26 +25,26 @@ bool ImGuiWrapper::init(GLFWwindow* window)
     io.Fonts->AddFontFromFileTTF(
           BLOSSOM_DATA_DIR "/fa-solid-900.ttf", 16.0f, &config, icon_ranges);
 
+    ImGui::GetStyle().WindowRounding = 10.0f;
+
     return true;
 }
 
-void ImGuiWrapper::compose_frame()
+void ImGuiWrapper::render(CallbackValues callbacks)
 {
     ImGui_ImplOpenGL3_NewFrame();
     ImGui_ImplGlfw_NewFrame();
     ImGui::NewFrame();
     
-    static bool showDemo = false;
-    ImGui::Begin("Example");
-    if (ImGui::Button(ICON_FA_SEARCH " Show/Hide ImGui demo"))
-    showDemo = !showDemo;
-    ImGui::End();
-    if (showDemo)
-    ImGui::ShowDemoWindow(&showDemo);
-}
+    menu.render(callbacks.fb_width, callbacks.fb_height);
+    // static bool showDemo = false;
+    // ImGui::Begin("Example");
+    // if (ImGui::Button(ICON_FA_SEARCH " Show/Hide ImGui demo"))
+    // showDemo = !showDemo;
+    // ImGui::End();
+    // if (showDemo)
+    // ImGui::ShowDemoWindow(&showDemo);
 
-void ImGuiWrapper::render()
-{
     ImGui::Render();
     ImGui_ImplOpenGL3_RenderDrawData(ImGui::GetDrawData());    
 }
