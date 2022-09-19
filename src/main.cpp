@@ -2,6 +2,8 @@
 #include <iostream>
 
 #include "renderer.h"
+#include "state.h"
+#include "timer.h"
 #include "wrapper_glad.h"
 #include "wrapper_glfw.h"
 #include "wrapper_imgui.h"
@@ -12,6 +14,9 @@ int main()
     GladWrapper glad;
     ImGuiWrapper imgui;
     Renderer renderer;
+
+    Timer timer;
+    State state;
 
     if(!glfw.init("BlosSOM"))
     {
@@ -43,10 +48,14 @@ int main()
 
     int x, y, width, height;
     while (!glfw.window_should_close())
-    {            
+    {          
+        timer.tick();
+
+        state.update(timer.frametime);
+
         renderer.render();
 
-        imgui.render(glfw.callbacks);
+        imgui.render(glfw.callbacks, state);
 
         glfw.end_frame();
     }

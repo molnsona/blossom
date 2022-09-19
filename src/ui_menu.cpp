@@ -62,7 +62,7 @@ draw_menu_button(bool &show_menu, int fb_width, int fb_height)
 }
 
 void
-UiMenu::render(int fb_width, int fb_height)
+UiMenu::render(int fb_width, int fb_height, State state)
 {
     ImGuiWindowFlags window_flags = ImGuiWindowFlags_NoCollapse |
                                     ImGuiWindowFlags_NoResize |
@@ -73,9 +73,9 @@ UiMenu::render(int fb_width, int fb_height)
 
     draw_menu_button(show_menu, fb_width, fb_height);
     if (show_menu)
-        draw_menu_window(fb_width, fb_height);
+        draw_menu_window(fb_width, fb_height, state);
 
-    // loader.render(app, window_flags);
+    loader.render(state, window_flags);
     // saver.render(app, window_flags);
     // scaler.render(app, window_flags);
     // training_set.render(app, window_flags);
@@ -86,7 +86,7 @@ UiMenu::render(int fb_width, int fb_height)
 }
 
 void
-UiMenu::draw_menu_window(int fb_width, int fb_height)
+UiMenu::draw_menu_window(int fb_width, int fb_height, State state)
 {
     ImGuiWindowFlags window_flags = ImGuiWindowFlags_NoTitleBar |
                                     ImGuiWindowFlags_NoResize |
@@ -108,7 +108,7 @@ UiMenu::draw_menu_window(int fb_width, int fb_height)
             tooltip(label);
         };
 
-        // menu_entry(ICON_FA_FOLDER_OPEN, "Open file", loader);
+        menu_entry(ICON_FA_FOLDER_OPEN, "Open file", loader);
         // menu_entry(ICON_FA_SAVE, "Save", saver);
 
         ImGui::Separator();

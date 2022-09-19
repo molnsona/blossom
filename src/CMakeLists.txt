@@ -1,7 +1,12 @@
 set(BLOSSOM_SOURCES
+    fcs_parser.cpp
     main.cpp
+    parsers.cpp
     renderer.cpp
     shader.cpp
+    state.cpp
+    tsv_parser.cpp
+    ui_load.cpp
     ui_menu.cpp
     wrapper_glad.cpp
     wrapper_glfw.cpp
