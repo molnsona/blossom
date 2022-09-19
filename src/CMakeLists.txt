@@ -1,5 +1,5 @@
 set(BLOSSOM_SOURCES
-    app.cpp
+    main.cpp
     shader.cpp
 )
 
