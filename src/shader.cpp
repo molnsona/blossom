@@ -4,14 +4,15 @@
 #include <glm/gtc/type_ptr.hpp>
 #include <iostream>
 
-Shader::Shader(const std::string &vs, 
+Shader::Shader() {}
+
+void Shader::build(const std::string &vs, 
         const std::string &fs)
 {
     // compile shaders
     unsigned int vertex, fragment;
     int success;
     char infoLog[512];
-    
     // vertex Shader
     vertex = glCreateShader(GL_VERTEX_SHADER);
     const char* vsc = vs.c_str();
@@ -37,7 +38,6 @@ Shader::Shader(const std::string &vs,
         glGetShaderInfoLog(fragment, 512, NULL, infoLog);
         std::cout << "ERROR::SHADER::FRAGMENT::COMPILATION_FAILED\n" << infoLog << std::endl;
     };
-    
     
     // shader Program
     ID = glCreateProgram();

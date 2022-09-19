@@ -1,5 +1,6 @@
 set(BLOSSOM_SOURCES
     main.cpp
+    renderer.cpp
     shader.cpp
     wrapper_glad.cpp
     wrapper_glfw.cpp

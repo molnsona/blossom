@@ -1,8 +1,7 @@
 
 #include <iostream>
 
-#include "shaders.h"
-#include "shader.h"
+#include "renderer.h"
 #include "wrapper_glad.h"
 #include "wrapper_glfw.h"
 #include "wrapper_imgui.h"
@@ -12,6 +11,7 @@ int main()
     GlfwWrapper glfw;
     GladWrapper glad;
     ImGuiWrapper imgui;
+    Renderer renderer;
 
     if(!glfw.init("BlosSOM"))
     {
@@ -33,35 +33,18 @@ int main()
         return -1;
     }
 
-    // OPENGL code
-    float vertices[] = {
-        -0.5f, -0.5f, 0.0f,
-        0.5f, -0.5f, 0.0f,
-        0.0f,  0.5f, 0.0f
-    }; 
-
-    unsigned int VAO;
-    glGenVertexArrays(1, &VAO);  
-    glBindVertexArray(VAO);
-
-    unsigned int VBO;
-    glGenBuffers(1, &VBO);  
-    glBindBuffer(GL_ARRAY_BUFFER, VBO);  
-    glBufferData(GL_ARRAY_BUFFER, sizeof(vertices), vertices, GL_STATIC_DRAW);
-    glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 3 * sizeof(float), (void*)0);
-    glEnableVertexAttribArray(0);  
-    
-    Shader scatter_shader(scatter_vs, scatter_fs);
+    if(!renderer.init())
+    {
+        std::cout << "Renderer initialization failed." << std::endl;
+        imgui.destroy();
+        glfw.destroy();
+        return -1;
+    }
 
     while (!glfw.window_should_close())
     {            
-        glClearColor(0.2f, 0.3f, 0.3f, 1.0f);
-        glClear(GL_COLOR_BUFFER_BIT);
+        renderer.render();
 
-        scatter_shader.use();
-        glBindVertexArray(VAO);
-        glDrawArrays(GL_POINTS, 0, 3);
-        
         imgui.compose_frame();
         imgui.render();
 
