@@ -14,64 +14,39 @@
 
 #include "shaders.h"
 #include "shader.h"
-
-void error_callback(int error, const char* description)
-{
-    std::cerr << "Error: " << description << std::endl;
-}
-
-void framebuffer_size_callback(GLFWwindow* window, int width, int height)
-{
-    glViewport(0, 0, width, height);
-} 
-
-static void key_callback(GLFWwindow* window, int key, int scancode, int action, int mods)
-{
-    if (key == GLFW_KEY_ESCAPE && action == GLFW_PRESS)
-        glfwSetWindowShouldClose(window, GLFW_TRUE);
-}
+#include "wrapper_glad.h"
+#include "wrapper_glfw.h"
+#include "wrapper_imgui.h"
 
 int main()
 {
-    glfwSetErrorCallback(error_callback);
+    GlfwWrapper glfw;
+    // GladWrapper glad;
+    // ImGuiWrapper imgui;
 
-    if (!glfwInit())
+    if(!glfw.init("BlosSOM"))
     {
+        std::cout << "GLFW initialization failed." << std::endl;
         return -1;
     }
-
-    glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 3);
-    glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 3);
-    GLFWwindow* window = glfwCreateWindow(800, 600, "BlosSOM", NULL, NULL);
-    if (!window)
-    {
-        std::cout << "Failed to create GLFW window" << std::endl;
-        glfwTerminate();
-        return -1;
-    }
-
-    glfwMakeContextCurrent(window);    
-
+    
     if(!gladLoadGL(glfwGetProcAddress))
     {
         std::cout << "Failed to initialize GLAD" << std::endl;
         glfwTerminate();
         return -1;
     }
-    
-    glfwSwapInterval(1);
-
-    glfwSetKeyCallback(window, key_callback);
-    glfwSetFramebufferSizeCallback(window, framebuffer_size_callback);
 
     /**
      * Initialize ImGui
      */
     IMGUI_CHECKVERSION();
     ImGui::CreateContext();
-    ImGui_ImplGlfw_InitForOpenGL(window, true);
+    ImGui_ImplGlfw_InitForOpenGL(glfw.window, true);
+    std::cout << "here" << std::endl;
     ImGui_ImplOpenGL3_Init("#version 330 core");
     ImGui::StyleColorsLight();
+        
 
     ImGuiIO& io = ImGui::GetIO();
     io.Fonts->AddFontFromFileTTF(
@@ -103,8 +78,8 @@ int main()
     
     Shader scatter_shader(scatter_vs, scatter_fs);
 
-    while (!glfwWindowShouldClose(window))
-    {
+    while (!glfw.window_should_close())
+    {            
         glClearColor(0.2f, 0.3f, 0.3f, 1.0f);
         glClear(GL_COLOR_BUFFER_BIT);
 
@@ -127,17 +102,13 @@ int main()
         ImGui::Render();
         ImGui_ImplOpenGL3_RenderDrawData(ImGui::GetDrawData());
 
-        glfwSwapBuffers(window);
-
-        // Calls registered callbacks if any events were triggered
-        glfwPollEvents();
+        glfw.end_frame();
     }
 
     ImGui_ImplOpenGL3_Shutdown();
     ImGui_ImplGlfw_Shutdown();
     ImGui::DestroyContext();
 
-    glfwDestroyWindow(window);
-    glfwTerminate();
+    glfw.destroy();
     return 0;
 }
