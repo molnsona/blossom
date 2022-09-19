@@ -3,6 +3,7 @@ set(BLOSSOM_SOURCES
     shader.cpp
     wrapper_glad.cpp
     wrapper_glfw.cpp
+    wrapper_imgui.cpp
 )
 
 set(BLOSSOM_LIBRARIES

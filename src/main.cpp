@@ -1,16 +1,7 @@
 
-#define GLFW_INCLUDE_NONE
-// #include <GLFW/glfw3.h>
-// #include <glad/gl.h>
 #include <glm/glm.hpp>
 
 #include <iostream>
-
-#include "imgui.h"
-#include "imgui_impl_glfw.h"
-#include "imgui_impl_opengl3.h"
-
-#include "vendor/IconsFontAwesome5.h"
 
 #include "shaders.h"
 #include "shader.h"
@@ -22,7 +13,7 @@ int main()
 {
     GlfwWrapper glfw;
     GladWrapper glad;
-    // ImGuiWrapper imgui;
+    ImGuiWrapper imgui;
 
     if(!glfw.init("BlosSOM"))
     {
@@ -37,26 +28,12 @@ int main()
         return -1;
     }
 
-    /**
-     * Initialize ImGui
-     */
-    IMGUI_CHECKVERSION();
-    ImGui::CreateContext();
-    ImGui_ImplGlfw_InitForOpenGL(glfw.window, true);
-    std::cout << "here" << std::endl;
-    ImGui_ImplOpenGL3_Init("#version 330 core");
-    ImGui::StyleColorsLight();
-        
-
-    ImGuiIO& io = ImGui::GetIO();
-    io.Fonts->AddFontFromFileTTF(
-          BLOSSOM_DATA_DIR "/SourceSansPro-Regular.ttf", 16);
-    
-    ImFontConfig config;
-    config.MergeMode = true;
-    static const ImWchar icon_ranges[] = { ICON_MIN_FA, ICON_MAX_FA, 0 };
-    io.Fonts->AddFontFromFileTTF(
-          BLOSSOM_DATA_DIR "/fa-solid-900.ttf", 16.0f, &config, icon_ranges);
+    if(!imgui.init(glfw.window))
+    {
+        std::cout << "Dear ImGui initialization failed." << std::endl;
+        glfw.destroy();
+        return -1;
+    }
 
     // OPENGL code
     float vertices[] = {
@@ -86,29 +63,14 @@ int main()
         scatter_shader.use();
         glBindVertexArray(VAO);
         glDrawArrays(GL_POINTS, 0, 3);
-
-        ImGui_ImplOpenGL3_NewFrame();
-        ImGui_ImplGlfw_NewFrame();
-        ImGui::NewFrame();
         
-        static bool showDemo = false;
-        ImGui::Begin("Example");
-        if (ImGui::Button(ICON_FA_SEARCH " Show/Hide ImGui demo"))
-        showDemo = !showDemo;
-        ImGui::End();
-        if (showDemo)
-        ImGui::ShowDemoWindow(&showDemo);
-
-        ImGui::Render();
-        ImGui_ImplOpenGL3_RenderDrawData(ImGui::GetDrawData());
+        imgui.compose_frame();
+        imgui.render();
 
         glfw.end_frame();
     }
 
-    ImGui_ImplOpenGL3_Shutdown();
-    ImGui_ImplGlfw_Shutdown();
-    ImGui::DestroyContext();
-
+    imgui.destroy();
     glfw.destroy();
     return 0;
 }
