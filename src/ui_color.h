@@ -16,40 +16,30 @@
  * BlosSOM. If not, see <https://www.gnu.org/licenses/>.
  */
 
-#ifndef UI_LOAD_H
-#define UI_LOAD_H
-
-#include "imgui.h"
-#include "vendor/imfilebrowser.h"
-
-#include <string>
+#ifndef UI_COLOR_H
+#define UI_COLOR_H
 
 #include "state.h"
 
+#include "imgui.h"
+
 /**
- * @brief ImGUI handler for rendering the open file dialog window.
+ * @brief ImGUI handler for rendering the color settings window.
  *
  */
-struct UiLoader
+struct uiColorSettings
 {
-    /** ImGui file system dialog window handler.*/
-    ImGui::FileBrowser opener;
-    /** Error message of the loading file that will be shown in the error
-     * window. */
-    std::string loading_error;
+    /** If the color settings window should be rendered. */
+    bool show_window;
 
-    /**
-     * @brief Initializes \p opener settings.
-     *
-     */
-    UiLoader();
+    uiColorSettings();
     /**
      * @brief Enables window to render.
      *
      */
-    void show() { opener.Open(); }
+    void show() { show_window = true; }
     /**
-     * @brief Renders open file dialog window.
+     * @brief Renders window with corresponding color settings widgets.
      *
      * @param app Application context.
      * @param window_flags Flags used for rendered window.

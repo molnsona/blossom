@@ -17,9 +17,12 @@ set(BLOSSOM_SOURCES
     trans_data.cpp
     tsne_layout.cpp
     tsv_parser.cpp
+    ui_color.cpp
     ui_load.cpp
     ui_menu.cpp
     ui_save.cpp
+    ui_scale.cpp
+    ui_train.cpp
     wrapper_glad.cpp
     wrapper_glfw.cpp
     wrapper_imgui.cpp

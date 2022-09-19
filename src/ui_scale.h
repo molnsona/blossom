@@ -1,6 +1,7 @@
 /* This file is part of BlosSOM.
  *
  * Copyright (C) 2021 Mirek Kratochvil
+ *                    Sona Molnarova
  *
  * BlosSOM is free software: you can redistribute it and/or modify it under
  * the terms of the GNU General Public License as published by the Free
@@ -16,40 +17,33 @@
  * BlosSOM. If not, see <https://www.gnu.org/licenses/>.
  */
 
-#ifndef UI_LOAD_H
-#define UI_LOAD_H
+#ifndef UI_SCALE_H
+#define UI_SCALE_H
 
 #include "imgui.h"
-#include "vendor/imfilebrowser.h"
-
-#include <string>
 
 #include "state.h"
 
 /**
- * @brief ImGUI handler for rendering the open file dialog window.
+ * @brief ImGUI handler for rendering the scale&transform window.
  *
  */
-struct UiLoader
+struct UiScaler
 {
-    /** ImGui file system dialog window handler.*/
-    ImGui::FileBrowser opener;
-    /** Error message of the loading file that will be shown in the error
-     * window. */
-    std::string loading_error;
+    /** If the scale&transform window should be rendered. */
+    bool show_window;
 
-    /**
-     * @brief Initializes \p opener settings.
-     *
-     */
-    UiLoader();
+    /** Width of the sliders in the table. */
+    static constexpr float slider_width = 150.0f;
+
+    UiScaler();
     /**
      * @brief Enables window to render.
      *
      */
-    void show() { opener.Open(); }
+    void show() { show_window = true; }
     /**
-     * @brief Renders open file dialog window.
+     * @brief Renders window with corresponding scale&transform widgets.
      *
      * @param app Application context.
      * @param window_flags Flags used for rendered window.

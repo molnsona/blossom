@@ -21,11 +21,11 @@
 #define UI_MENU_H
 
 #include "state.h"
-// #include "ui_color.h"
+#include "ui_color.h"
 #include "ui_load.h"
 #include "ui_save.h"
-// #include "ui_scale.h"
-// #include "ui_train.h"
+#include "ui_scale.h"
+#include "ui_train.h"
 
 /**
  * @brief ImGUI handler for rendering main menu window.
@@ -39,12 +39,12 @@ struct UiMenu
     UiLoader loader;
     /** Save file dialog window handler.*/
     UiSaver saver;
-    // /** Scale&transform data window handler. */
-    // uiScaler scaler;
-    // /** Training settings window handler. */
-    // uiTrainingSettings training_set;
-    // /** Color setting window handler. */
-    // uiColorSettings color_set;
+    /** Scale&transform data window handler. */
+    UiScaler scaler;
+    /** Training settings window handler. */
+    UiTrainingSettings training_set;
+    /** Color setting window handler. */
+    uiColorSettings color_set;
 
     UiMenu();
     /**
@@ -53,7 +53,7 @@ struct UiMenu
      *
      * @param app Application context.
      */
-    void render(int fb_width, int fb_height, State state);
+    void render(int fb_width, int fb_height, State& state);
     /**
      * @brief Closes main menu window.
      *
@@ -67,7 +67,7 @@ private:
      * @param window_size Size of the main application window used for placement
      * of the main menu window.
      */
-    void draw_menu_window(int fb_width, int fb_height, State state);
+    void draw_menu_window(int fb_width, int fb_height, State& state);
 
     /** If the main menu window should be rendered. */
     bool show_menu;

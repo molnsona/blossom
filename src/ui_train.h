@@ -1,6 +1,6 @@
 /* This file is part of BlosSOM.
  *
- * Copyright (C) 2021 Mirek Kratochvil
+ * Copyright (C) 2021 Sona Molnarova
  *
  * BlosSOM is free software: you can redistribute it and/or modify it under
  * the terms of the GNU General Public License as published by the Free
@@ -16,40 +16,30 @@
  * BlosSOM. If not, see <https://www.gnu.org/licenses/>.
  */
 
-#ifndef UI_LOAD_H
-#define UI_LOAD_H
+#ifndef UI_TRAIN_H
+#define UI_TRAIN_H
 
 #include "imgui.h"
-#include "vendor/imfilebrowser.h"
-
-#include <string>
 
 #include "state.h"
 
 /**
- * @brief ImGUI handler for rendering the open file dialog window.
+ * @brief ImGUI handler for rendering the training settings window.
  *
  */
-struct UiLoader
+struct UiTrainingSettings
 {
-    /** ImGui file system dialog window handler.*/
-    ImGui::FileBrowser opener;
-    /** Error message of the loading file that will be shown in the error
-     * window. */
-    std::string loading_error;
+    /** If the training settings window should be rendered. */
+    bool show_window;
 
-    /**
-     * @brief Initializes \p opener settings.
-     *
-     */
-    UiLoader();
+    UiTrainingSettings();
     /**
      * @brief Enables window to render.
      *
      */
-    void show() { opener.Open(); }
+    void show() { show_window = true; }
     /**
-     * @brief Renders open file dialog window.
+     * @brief Renders window with corresponding training settings widgets.
      *
      * @param app Application context.
      * @param window_flags Flags used for rendered window.

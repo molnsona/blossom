@@ -85,7 +85,7 @@ struct UiSaver
      * @param app Application context.
      * @param window_flags Flags used for rendered window.
      */
-    void render(State state, ImGuiWindowFlags window_flags);
+    void render(State& state, ImGuiWindowFlags window_flags);
 
     /**
      * @brief Calls @ref write() for selected export data types.

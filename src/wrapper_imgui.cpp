@@ -30,7 +30,7 @@ bool ImGuiWrapper::init(GLFWwindow* window)
     return true;
 }
 
-void ImGuiWrapper::render(CallbackValues callbacks, State state)
+void ImGuiWrapper::render(CallbackValues callbacks, State& state)
 {
     ImGui_ImplOpenGL3_NewFrame();
     ImGui_ImplGlfw_NewFrame();

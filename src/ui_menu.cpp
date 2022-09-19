@@ -62,7 +62,7 @@ draw_menu_button(bool &show_menu, int fb_width, int fb_height)
 }
 
 void
-UiMenu::render(int fb_width, int fb_height, State state)
+UiMenu::render(int fb_width, int fb_height, State& state)
 {
     ImGuiWindowFlags window_flags = ImGuiWindowFlags_NoCollapse |
                                     ImGuiWindowFlags_NoResize |
@@ -77,16 +77,16 @@ UiMenu::render(int fb_width, int fb_height, State state)
 
     loader.render(state, window_flags);
     saver.render(state, window_flags);
-    // scaler.render(app, window_flags);
-    // training_set.render(app, window_flags);
-    // color_set.render(app, window_flags);
+    scaler.render(state, window_flags);
+    training_set.render(state, window_flags);
+    color_set.render(state, window_flags);
 
     ImGui::PopStyleVar();
     ImGui::PopStyleVar();
 }
 
 void
-UiMenu::draw_menu_window(int fb_width, int fb_height, State state)
+UiMenu::draw_menu_window(int fb_width, int fb_height, State& state)
 {
     ImGuiWindowFlags window_flags = ImGuiWindowFlags_NoTitleBar |
                                     ImGuiWindowFlags_NoResize |
@@ -113,9 +113,9 @@ UiMenu::draw_menu_window(int fb_width, int fb_height, State state)
 
         ImGui::Separator();
 
-        // menu_entry(ICON_FA_SLIDERS_H, "Scale data", scaler);
-        // menu_entry(ICON_FA_WRENCH, "Training settings", training_set);
-        // menu_entry(ICON_FA_PALETTE, "Color points", color_set);
+        menu_entry(ICON_FA_SLIDERS_H, "Scale data", scaler);
+        menu_entry(ICON_FA_WRENCH, "Training settings", training_set);
+        menu_entry(ICON_FA_PALETTE, "Color points", color_set);
 
         ImGui::End();
     }
