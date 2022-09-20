@@ -26,8 +26,6 @@ ScatterRenderer::ScatterRenderer() {}
 void
 ScatterRenderer::init()
 {
-    glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
-
     glGenVertexArrays(1, &VAO);
     glGenBuffers(1, &VBO_pos);
     glGenBuffers(1, &VBO_col);

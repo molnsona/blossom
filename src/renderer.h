@@ -1,6 +1,7 @@
 #ifndef RENDERER_H
 #define RENDERER_H
 
+#include "graph_renderer.h"
 #include "scatter_renderer.h"
 #include "state.h"
 
@@ -13,6 +14,7 @@ public:
 
 private:
     ScatterRenderer scatter_renderer;
+    GraphRenderer graph_renderer;
 };
 
 #endif // RENDERER_H

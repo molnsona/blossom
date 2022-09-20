@@ -3,6 +3,7 @@ set(BLOSSOM_SOURCES
     embedsom.cpp
     fcs_parser.cpp
     graph_layout.cpp
+    graph_renderer.cpp
     kmeans_landmark.cpp
     knn_edges.cpp
     landmark_model.cpp

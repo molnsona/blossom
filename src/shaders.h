@@ -21,4 +21,19 @@ const std::string scatter_fs = "#version 330 core\n"
                                "   FragColor = outColor;\n"
                                "}\0";
 
+const std::string graph_vs =
+  "#version 330 core\n"
+  "layout (location = 0) in vec2 aPos;\n"
+  "void main()\n"
+  "{\n"
+  "   gl_PointSize = 10;\n"
+  "   gl_Position = vec4(aPos.x, aPos.y, 0.0, 1.0);\n"
+  "}\0";
+const std::string graph_fs = "#version 330 core\n"
+                               "out vec4 FragColor;\n"
+                               "void main()\n"
+                               "{\n"
+                               "   FragColor = vec4(0.4, 0.4, 0.4, 0.6);\n"
+                               "}\0";
+
 #endif // SHADERS_H

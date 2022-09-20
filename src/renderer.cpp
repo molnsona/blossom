@@ -7,7 +7,10 @@ Renderer::Renderer() {}
 bool
 Renderer::init()
 {
+    glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+    
     scatter_renderer.init();
+    graph_renderer.init();
 
     return true;
 }
@@ -19,4 +22,5 @@ Renderer::render(State &state)
     glClear(GL_COLOR_BUFFER_BIT);
 
     scatter_renderer.draw(state.scatter, state.colors);
+    graph_renderer.draw(state.landmarks);
 }
