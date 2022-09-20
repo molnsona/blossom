@@ -56,7 +56,7 @@ GraphRenderer::draw(const View &view, const LandmarkModel &model)
     glm::mat4 view_matrix = glm::mat4(1.0f);
     view_matrix = glm::translate(view_matrix, glm::vec3(0.5f, 0.5f, 0.0f));
 
-    glm::mat4 proj;
+    glm::mat4 proj = glm::mat4(1.0f);
     proj = glm::ortho(0.0f, 800.0f, 0.0f, 600.0f, 0.1f, 100.0f);
 
     shader.use();
