@@ -20,6 +20,7 @@
 #include "graph_renderer.h"
 
 #include <cmath>
+#include <iostream>
 
 #include "shaders.h"
 
@@ -133,6 +134,7 @@ GraphRenderer::prepare_data(const LandmarkModel &model)
 
     for (size_t i = 0; i < vertices.size(); ++i) {
         vertices[i] = /*view.screen_coords(*/model.lodim_vertices[i]/*)*/;
+        std::cout << vertices[i].x << vertices[i].y << std::endl;
     }
 
     // std::vector<glm::vec2> edge_lines(2 * model.edges.size());
@@ -140,6 +142,8 @@ GraphRenderer::prepare_data(const LandmarkModel &model)
     //     edge_lines[2 * i + 0] = vertices[model.edges[i].first];
     //     edge_lines[2 * i + 1] = vertices[model.edges[i].second];
     // }
+
+    glBindVertexArray(VAO);
 
     glBufferData(GL_ARRAY_BUFFER,
               vertices.size() * sizeof(glm::vec2),
