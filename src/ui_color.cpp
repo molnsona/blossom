@@ -23,12 +23,12 @@
 
 #include "utils_imgui.hpp"
 
-uiColorSettings::uiColorSettings()
+UiColorSettings::UiColorSettings()
   : show_window(false)
 {}
 
 void
-uiColorSettings::render(State &state, ImGuiWindowFlags window_flags)
+UiColorSettings::render(State &state, ImGuiWindowFlags window_flags)
 {
     if (!show_window)
         return;

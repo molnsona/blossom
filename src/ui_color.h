@@ -27,12 +27,12 @@
  * @brief ImGUI handler for rendering the color settings window.
  *
  */
-struct uiColorSettings
+struct UiColorSettings
 {
     /** If the color settings window should be rendered. */
     bool show_window;
 
-    uiColorSettings();
+    UiColorSettings();
     /**
      * @brief Enables window to render.
      *

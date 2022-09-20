@@ -44,7 +44,7 @@ struct UiMenu
     /** Training settings window handler. */
     UiTrainingSettings training_set;
     /** Color setting window handler. */
-    uiColorSettings color_set;
+    UiColorSettings color_set;
 
     UiMenu();
     /**
