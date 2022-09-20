@@ -24,7 +24,7 @@
 
 #include "landmark_model.h"
 #include "shader.h"
-//#include "view.h"
+#include "view.h"
 
 /**
  * @brief Renderer of the 2D landmark graph.
@@ -49,7 +49,7 @@ struct GraphRenderer
      * \todo TODO: this should not know about actual Landmarks, we should pass
      * actual vertex + edge positions as with the layouter.
      */
-    void draw(/*const View &v, */const LandmarkModel &m);
+    void draw(const View &v, const LandmarkModel &m);
 
     /**
      * @brief Checks if some vertex was pressed.
@@ -82,7 +82,7 @@ private:
     unsigned int VAO;
     unsigned int VBO;
 
-    void prepare_data(const LandmarkModel &model);
+    void prepare_data(const View &view, const LandmarkModel &model);
 };
 
 #endif // #ifndef GRAPH_RENDERER_H

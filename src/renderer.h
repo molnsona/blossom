@@ -4,13 +4,14 @@
 #include "graph_renderer.h"
 #include "scatter_renderer.h"
 #include "state.h"
+#include "view.h"
 
 class Renderer
 {
 public:
     Renderer();
     bool init();
-    void render(State &state);
+    void render(State &state, View &view);
 
 private:
     ScatterRenderer scatter_renderer;

@@ -22,7 +22,7 @@
 
 #include "color_data.h"
 #include "scatter_model.h"
-//#include "view.h"
+#include "view.h"
 
 #include "shader.h"
 
@@ -45,7 +45,7 @@ struct ScatterRenderer
      * @param m Model that contains 2D coordinates.
      * @param colors Data that contains colors of the points.
      */
-    void draw(/*const View &v, */ const ScatterModel &m,
+    void draw(const View &v, const ScatterModel &m,
               const ColorData &colors);
 
 private:

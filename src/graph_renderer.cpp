@@ -19,6 +19,8 @@
 
 #include "graph_renderer.h"
 
+#include "glm/gtc/matrix_transform.hpp"
+
 #include <cmath>
 #include <iostream>
 
@@ -45,13 +47,22 @@ void GraphRenderer::init()
 }
 
 void
-GraphRenderer::draw(/*const View &view, */const LandmarkModel &model)
+GraphRenderer::draw(const View &view, const LandmarkModel &model)
 {
     glEnable(GL_BLEND);
 
-    prepare_data(model);
+    prepare_data(view, model);
+    
+    glm::mat4 view_matrix = glm::mat4(1.0f);
+    view_matrix = glm::translate(view_matrix, glm::vec3(0.5f, 0.5f, 0.0f));
+
+    glm::mat4 proj;
+    proj = glm::ortho(0.0f, 800.0f, 0.0f, 600.0f, 0.1f, 100.0f);
 
     shader.use();
+    shader.setMat4("view", view_matrix);
+    shader.setMat4("proj", proj);
+    //shader.setMat4("proj", view.screen_projection_matrix());
 
     glBindVertexArray(VAO);
     
@@ -106,7 +117,7 @@ GraphRenderer::draw(/*const View &view, */const LandmarkModel &model)
 }
 
 void
-GraphRenderer::prepare_data(const LandmarkModel &model)
+GraphRenderer::prepare_data(const View &view, const LandmarkModel &model)
 {
     // float landmarks[] = {-0.5, 0.5,
     //                     0.5, 0.5,
@@ -134,7 +145,7 @@ GraphRenderer::prepare_data(const LandmarkModel &model)
 
     for (size_t i = 0; i < vertices.size(); ++i) {
         vertices[i] = /*view.screen_coords(*/model.lodim_vertices[i]/*)*/;
-        std::cout << vertices[i].x << vertices[i].y << std::endl;
+        //std::cout << vertices[i].x << vertices[i].y << std::endl;
     }
 
     // std::vector<glm::vec2> edge_lines(2 * model.edges.size());
