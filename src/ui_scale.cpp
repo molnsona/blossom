@@ -26,7 +26,7 @@ UiScaler::UiScaler()
 {}
 
 void
-UiScaler::render(State& state, ImGuiWindowFlags window_flags)
+UiScaler::render(State &state, ImGuiWindowFlags window_flags)
 {
     if (!show_window)
         return;

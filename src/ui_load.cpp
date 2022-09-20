@@ -30,7 +30,7 @@ UiLoader::UiLoader()
 }
 
 void
-UiLoader::render(State& state, ImGuiWindowFlags window_flags)
+UiLoader::render(State &state, ImGuiWindowFlags window_flags)
 {
     opener.Display();
 

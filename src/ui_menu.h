@@ -53,7 +53,7 @@ struct UiMenu
      *
      * @param app Application context.
      */
-    void render(int fb_width, int fb_height, State& state);
+    void render(int fb_width, int fb_height, State &state);
     /**
      * @brief Closes main menu window.
      *
@@ -67,7 +67,7 @@ private:
      * @param window_size Size of the main application window used for placement
      * of the main menu window.
      */
-    void draw_menu_window(int fb_width, int fb_height, State& state);
+    void draw_menu_window(int fb_width, int fb_height, State &state);
 
     /** If the main menu window should be rendered. */
     bool show_menu;

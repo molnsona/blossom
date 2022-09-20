@@ -12,6 +12,7 @@ set(BLOSSOM_SOURCES
     renderer.cpp
     scaled_data.cpp
     scatter_model.cpp
+    scatter_renderer.cpp
     shader.cpp
     state.cpp
     trans_data.cpp

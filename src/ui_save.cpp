@@ -40,7 +40,7 @@ UiSaver::UiSaver()
 }
 
 void
-UiSaver::render(State& state, ImGuiWindowFlags window_flags)
+UiSaver::render(State &state, ImGuiWindowFlags window_flags)
 {
     if (!show_window)
         return;

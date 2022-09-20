@@ -129,8 +129,9 @@ som_landmark_step(KMeansData &data,
 
         // move the rest according to the neighborhood function
         for (size_t ni = 0; ni < n_neurons; ++ni) {
-            float r = alpha * exp(glm::dot(map[best] - map[ni], map[best] - map[ni]) 
-                * nisqsigma);
+            float r =
+              alpha * exp(glm::dot(map[best] - map[ni], map[best] - map[ni]) *
+                          nisqsigma);
 
             for (size_t di = 0; di < d; ++di)
                 neurons[di + d * ni] +=

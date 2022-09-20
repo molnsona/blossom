@@ -7,11 +7,11 @@
 
 #include <iostream>
 
-bool GladWrapper::init()
+bool
+GladWrapper::init()
 {
-    if(!gladLoadGL(glfwGetProcAddress))
-    {
-        std::cout << "Failed to initialize GLAD." << std::endl;        
+    if (!gladLoadGL(glfwGetProcAddress)) {
+        std::cout << "Failed to initialize GLAD." << std::endl;
         return false;
     }
 

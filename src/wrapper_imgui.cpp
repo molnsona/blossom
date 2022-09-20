@@ -6,36 +6,39 @@
 
 #include "vendor/IconsFontAwesome5.h"
 
-bool ImGuiWrapper::init(GLFWwindow* window)
+bool
+ImGuiWrapper::init(GLFWwindow *window)
 {
     IMGUI_CHECKVERSION();
     ImGui::CreateContext();
-    if(!ImGui_ImplGlfw_InitForOpenGL(window, true)) return false;
-    if(!ImGui_ImplOpenGL3_Init("#version 330 core")) return false;
+    if (!ImGui_ImplGlfw_InitForOpenGL(window, true))
+        return false;
+    if (!ImGui_ImplOpenGL3_Init("#version 330 core"))
+        return false;
     ImGui::StyleColorsLight();
-        
 
-    ImGuiIO& io = ImGui::GetIO();
-    io.Fonts->AddFontFromFileTTF(
-          BLOSSOM_DATA_DIR "/SourceSansPro-Regular.ttf", 16);
-    
+    ImGuiIO &io = ImGui::GetIO();
+    io.Fonts->AddFontFromFileTTF(BLOSSOM_DATA_DIR "/SourceSansPro-Regular.ttf",
+                                 16);
+
     ImFontConfig config;
     config.MergeMode = true;
     static const ImWchar icon_ranges[] = { ICON_MIN_FA, ICON_MAX_FA, 0 };
     io.Fonts->AddFontFromFileTTF(
-          BLOSSOM_DATA_DIR "/fa-solid-900.ttf", 16.0f, &config, icon_ranges);
+      BLOSSOM_DATA_DIR "/fa-solid-900.ttf", 16.0f, &config, icon_ranges);
 
     ImGui::GetStyle().WindowRounding = 10.0f;
 
     return true;
 }
 
-void ImGuiWrapper::render(CallbackValues callbacks, State& state)
+void
+ImGuiWrapper::render(CallbackValues callbacks, State &state)
 {
     ImGui_ImplOpenGL3_NewFrame();
     ImGui_ImplGlfw_NewFrame();
     ImGui::NewFrame();
-    
+
     menu.render(callbacks.fb_width, callbacks.fb_height, state);
     // static bool showDemo = false;
     // ImGui::Begin("Example");
@@ -46,10 +49,11 @@ void ImGuiWrapper::render(CallbackValues callbacks, State& state)
     // ImGui::ShowDemoWindow(&showDemo);
 
     ImGui::Render();
-    ImGui_ImplOpenGL3_RenderDrawData(ImGui::GetDrawData());    
+    ImGui_ImplOpenGL3_RenderDrawData(ImGui::GetDrawData());
 }
 
-void ImGuiWrapper::destroy()
+void
+ImGuiWrapper::destroy()
 {
     ImGui_ImplOpenGL3_Shutdown();
     ImGui_ImplGlfw_Shutdown();

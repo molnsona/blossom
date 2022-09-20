@@ -1,18 +1,18 @@
 #ifndef RENDERER_H
 #define RENDERER_H
 
-#include "shader.h"
+#include "scatter_renderer.h"
+#include "state.h"
 
-#include <GLFW/glfw3.h>
-
-class Renderer {
+class Renderer
+{
 public:
     Renderer();
     bool init();
-    void render();
+    void render(State &state);
+
 private:
-    Shader scatter_shader;
-    unsigned int VAO;
+    ScatterRenderer scatter_renderer;
 };
 
 #endif // RENDERER_H

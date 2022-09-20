@@ -17,38 +17,44 @@
  * BlosSOM. If not, see <https://www.gnu.org/licenses/>.
  */
 
-#ifndef UI_SCALE_H
-#define UI_SCALE_H
+#ifndef SCATTER_RENDERER_H
+#define SCATTER_RENDERER_H
 
-#include "imgui.h"
+#include "color_data.h"
+#include "scatter_model.h"
+//#include "view.h"
 
-#include "state.h"
+#include "shader.h"
 
 /**
- * @brief ImGUI handler for rendering the scale&transform window.
+ * @brief Renderer of the 2D data points.
  *
  */
-struct UiScaler
+struct ScatterRenderer
 {
-    /** If the scale&transform window should be rendered. */
-    bool show_window;
+    ScatterRenderer();
 
-    /** Width of the sliders in the table. */
-    static constexpr float slider_width = 150.0f;
+    void init();
 
-    UiScaler();
     /**
-     * @brief Enables window to render.
+     * @brief Draw event of the 2D data points.
      *
-     */
-    void show() { show_window = true; }
-    /**
-     * @brief Renders window with corresponding scale&transform widgets.
+     * Renders data points at given positions.
      *
-     * @param app Application context.
-     * @param window_flags Flags used for rendered window.
+     * @param v View of the whole window.
+     * @param m Model that contains 2D coordinates.
+     * @param colors Data that contains colors of the points.
      */
-    void render(State &state, ImGuiWindowFlags window_flags);
+    void draw(/*const View &v, */ const ScatterModel &m,
+              const ColorData &colors);
+
+private:
+    Shader shader;
+    unsigned int VAO;
+    unsigned int VBO_pos;
+    unsigned int VBO_col;
+
+    void prepare_data(const ScatterModel &model, const ColorData &colors);
 };
 
 #endif

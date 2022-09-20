@@ -44,7 +44,7 @@ struct UiColorSettings
      * @param app Application context.
      * @param window_flags Flags used for rendered window.
      */
-    void render(State& state, ImGuiWindowFlags window_flags);
+    void render(State &state, ImGuiWindowFlags window_flags);
 };
 
 #endif

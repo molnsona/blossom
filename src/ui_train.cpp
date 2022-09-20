@@ -26,7 +26,7 @@ UiTrainingSettings::UiTrainingSettings()
 {}
 
 void
-UiTrainingSettings::render(State& state, ImGuiWindowFlags window_flags)
+UiTrainingSettings::render(State &state, ImGuiWindowFlags window_flags)
 {
     if (!show_window)
         return;
@@ -37,8 +37,7 @@ UiTrainingSettings::render(State& state, ImGuiWindowFlags window_flags)
         }
 
         if (ImGui::CollapsingHeader("SOM")) {
-            ImGui::Checkbox("SOM##checkbox",
-                            &state.training_conf.som_landmark);
+            ImGui::Checkbox("SOM##checkbox", &state.training_conf.som_landmark);
             ImGui::SliderInt(
               "Iterations##SOM", &state.training_conf.som_iters, 0, 200);
 
@@ -58,10 +57,8 @@ UiTrainingSettings::render(State& state, ImGuiWindowFlags window_flags)
         if (ImGui::CollapsingHeader("k-means")) {
             ImGui::Checkbox("k-means##checkbox",
                             &state.training_conf.kmeans_landmark);
-            ImGui::SliderInt("Iterations##k-means",
-                             &state.training_conf.kmeans_iters,
-                             0,
-                             200);
+            ImGui::SliderInt(
+              "Iterations##k-means", &state.training_conf.kmeans_iters, 0, 200);
             ImGui::SliderFloat("Alpha##k-means", // TODO: logarithmically
                                &state.training_conf.kmeans_alpha,
                                0.001f,

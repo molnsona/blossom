@@ -8,7 +8,8 @@
 #include "wrapper_glfw.h"
 #include "wrapper_imgui.h"
 
-int main()
+int
+main()
 {
     GlfwWrapper glfw;
     GladWrapper glad;
@@ -18,28 +19,24 @@ int main()
     Timer timer;
     State state;
 
-    if(!glfw.init("BlosSOM"))
-    {
+    if (!glfw.init("BlosSOM")) {
         std::cout << "GLFW initialization failed." << std::endl;
         return -1;
     }
-    
-    if(!glad.init()) 
-    {
+
+    if (!glad.init()) {
         std::cout << "GLAD initialization failed." << std::endl;
         glfw.destroy();
         return -1;
     }
 
-    if(!imgui.init(glfw.window))
-    {
+    if (!imgui.init(glfw.window)) {
         std::cout << "Dear ImGui initialization failed." << std::endl;
         glfw.destroy();
         return -1;
     }
 
-    if(!renderer.init())
-    {
+    if (!renderer.init()) {
         std::cout << "Renderer initialization failed." << std::endl;
         imgui.destroy();
         glfw.destroy();
@@ -47,13 +44,12 @@ int main()
     }
 
     int x, y, width, height;
-    while (!glfw.window_should_close())
-    {          
+    while (!glfw.window_should_close()) {
         timer.tick();
 
         state.update(timer.frametime);
 
-        renderer.render();
+        renderer.render(state);
 
         imgui.render(glfw.callbacks, state);
 

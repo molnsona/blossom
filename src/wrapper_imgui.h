@@ -5,10 +5,11 @@
 #include "ui_menu.h"
 #include "wrapper_glfw.h"
 
-class ImGuiWrapper {
+class ImGuiWrapper
+{
 public:
-    bool init(GLFWwindow* window);
-    void render(CallbackValues callbacks, State& state);
+    bool init(GLFWwindow *window);
+    void render(CallbackValues callbacks, State &state);
     void destroy();
 
 private:

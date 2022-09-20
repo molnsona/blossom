@@ -45,8 +45,8 @@ draw_menu_button(bool &show_menu, int fb_width, int fb_height)
     ImGui::PushStyleVar(ImGuiStyleVar_WindowPadding, ImVec2(0, 0));
 
     if (ImGui::Begin("Plus", nullptr, window_flags)) {
-        ImGui::SetWindowPos(ImVec2(fb_width - WINDOW_PADDING,
-                                   fb_height - WINDOW_PADDING));
+        ImGui::SetWindowPos(
+          ImVec2(fb_width - WINDOW_PADDING, fb_height - WINDOW_PADDING));
         ImGui::SetWindowSize(ImVec2(WINDOW_WIDTH, WINDOW_WIDTH));
 
         if (ImGui::Button(ICON_FA_PLUS, ImVec2(50.75f, 50.75f))) {
@@ -62,7 +62,7 @@ draw_menu_button(bool &show_menu, int fb_width, int fb_height)
 }
 
 void
-UiMenu::render(int fb_width, int fb_height, State& state)
+UiMenu::render(int fb_width, int fb_height, State &state)
 {
     ImGuiWindowFlags window_flags = ImGuiWindowFlags_NoCollapse |
                                     ImGuiWindowFlags_NoResize |
@@ -86,7 +86,7 @@ UiMenu::render(int fb_width, int fb_height, State& state)
 }
 
 void
-UiMenu::draw_menu_window(int fb_width, int fb_height, State& state)
+UiMenu::draw_menu_window(int fb_width, int fb_height, State &state)
 {
     ImGuiWindowFlags window_flags = ImGuiWindowFlags_NoTitleBar |
                                     ImGuiWindowFlags_NoResize |
@@ -95,9 +95,8 @@ UiMenu::draw_menu_window(int fb_width, int fb_height, State& state)
     ImGui::PushStyleVar(ImGuiStyleVar_WindowPadding, ImVec2(0, 0));
 
     if (ImGui::Begin("Tools", &show_menu, window_flags)) {
-        ImGui::SetWindowPos(
-          ImVec2(fb_width - WINDOW_PADDING,
-                 fb_height - WINDOW_PADDING - TOOLS_HEIGHT));
+        ImGui::SetWindowPos(ImVec2(fb_width - WINDOW_PADDING,
+                                   fb_height - WINDOW_PADDING - TOOLS_HEIGHT));
         ImGui::SetWindowSize(ImVec2(WINDOW_WIDTH, TOOLS_HEIGHT));
 
         auto menu_entry = [&](auto icon, const char *label, auto &x) {

@@ -138,9 +138,9 @@ ColorData::update(const TransData &td)
                     ? pal(1 - pnormf(td.data[ri * d + expr_col], mean, sdev))
                     : pal(pnormf(td.data[ri * d + expr_col], mean, sdev));
                 data[ri] = glm::vec4(c.channels[0].val / 255.0f,
-                                          c.channels[1].val / 255.0f,
-                                          c.channels[2].val / 255.0f,
-                                          alpha);
+                                     c.channels[1].val / 255.0f,
+                                     c.channels[2].val / 255.0f,
+                                     alpha);
             }
         } break;
 
@@ -165,8 +165,7 @@ ColorData::update(const TransData &td)
                                       unsigned char,
                                       unsigned char>(128, 128, 128)
                     : pal[(int)roundf(cluster) % (cluster_cnt)];
-                data[ri] =
-                  glm::vec4(r / 255.0f, g / 255.0f, b / 255.0f, alpha);
+                data[ri] = glm::vec4(r / 255.0f, g / 255.0f, b / 255.0f, alpha);
             }
             break;
     }
