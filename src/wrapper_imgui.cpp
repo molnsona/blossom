@@ -33,13 +33,13 @@ ImGuiWrapper::init(GLFWwindow *window)
 }
 
 void
-ImGuiWrapper::render(CallbackValues callbacks, State &state)
+ImGuiWrapper::render(/*CallbackValues callbacks, */int width, int height, State &state)
 {
     ImGui_ImplOpenGL3_NewFrame();
     ImGui_ImplGlfw_NewFrame();
     ImGui::NewFrame();
 
-    menu.render(callbacks.fb_width, callbacks.fb_height, state);
+    menu.render(/*callbacks.fb_width, callbacks.fb_height, */width, height, state);
     // static bool showDemo = false;
     // ImGui::Begin("Example");
     // if (ImGui::Button(ICON_FA_SEARCH " Show/Hide ImGui demo"))

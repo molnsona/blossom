@@ -50,17 +50,18 @@ void
 GraphRenderer::draw(const View &view, const LandmarkModel &model)
 {
     glEnable(GL_BLEND);
-
+//    glEnable(GL_DEPTH_TEST);
+    
     prepare_data(view, model);
     
-    glm::mat4 view_matrix = glm::mat4(1.0f);
-    view_matrix = glm::translate(view_matrix, glm::vec3(0.5f, 0.5f, 0.0f));
+    // glm::mat4 view_matrix = glm::mat4(1.0f);
+    // view_matrix = glm::translate(view_matrix, glm::vec3(0.5f, 0.5f, 0.0f));
 
-    glm::mat4 proj = glm::mat4(1.0f);
-    proj = glm::ortho(0.0f, 800.0f, 0.0f, 600.0f, 0.1f, 100.0f);
+    glm::mat4 proj = glm::perspective(glm::radians(45.0f), (float)800 / (float)600, 0.1f, 100.0f);
+    //proj = glm::ortho(0.0f, 800.0f, 0.0f, 600.0f, 0.1f, 100.0f);
 
     shader.use();
-    shader.setMat4("view", view_matrix);
+    shader.setMat4("view", view.GetViewMatrix());
     shader.setMat4("proj", proj);
     //shader.setMat4("proj", view.screen_projection_matrix());
 

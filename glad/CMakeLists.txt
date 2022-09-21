@@ -1,7 +1,7 @@
 add_library(
         glad
-        src/gl.c
-        include/glad/gl.h
+        src/glad.c
+        include/glad/glad.h
         include/KHR/khrplatform.h
 )
 
