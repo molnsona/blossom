@@ -17,6 +17,14 @@ struct CallbackValues
 
     double xoffset;
     double yoffset;
+
+    // Raw mouse cursor position([0,0] in the upper left corner).
+    // Have to convert it to coordinates with [0,0] in
+    // the middle of the screen.
+    double xpos;
+    double ypos;
+    int button;
+    int mouse_action;
 };
 
 class GlfwWrapper
@@ -42,6 +50,7 @@ private:
                              int action,
                              int mods);
     static void scroll_callback(GLFWwindow* window, double xoffset, double yoffset);
+    static void mouse_button_callback(GLFWwindow* window, int button, int action, int mods);
 };
 
 #endif // WRAPPER_GLFW_H

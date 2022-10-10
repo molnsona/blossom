@@ -33,7 +33,8 @@ GlfwWrapper::init(const std::string &window_name)
     glfwSetKeyCallback(window, key_callback);
     glfwSetFramebufferSizeCallback(window, framebuffer_size_callback);
     glfwSetScrollCallback(window, scroll_callback);
-    
+    glfwSetMouseButtonCallback(window, mouse_button_callback);
+
     // Set the user pointer tied to the window used for
     // storing values in callbacks.
     glfwSetWindowUserPointer(window, (void *)this);
@@ -106,4 +107,26 @@ void GlfwWrapper::scroll_callback(GLFWwindow* window, double xoffset, double yof
     GlfwWrapper *glfw_inst = (GlfwWrapper *)glfwGetWindowUserPointer(window);
     glfw_inst->callbacks.xoffset = xoffset;
     glfw_inst->callbacks.yoffset = yoffset;
+}
+
+void GlfwWrapper::mouse_button_callback(GLFWwindow* window, int button, int action, int mods)
+{
+    // Ignore callback if io is used by imgui window or gadget
+    ImGuiIO &io = ImGui::GetIO();
+    if(io.WantCaptureMouse) return;
+
+    GlfwWrapper *glfw_inst = (GlfwWrapper *)glfwGetWindowUserPointer(window);
+    double xpos, ypos;
+    glfwGetCursorPos(window, &xpos, &ypos);
+    glfw_inst->callbacks.xpos = xpos;
+    glfw_inst->callbacks.ypos = ypos;
+    glfw_inst->callbacks.button = button;
+    glfw_inst->callbacks.mouse_action = action;
+
+    if (button == GLFW_MOUSE_BUTTON_RIGHT && action == GLFW_PRESS)
+    {
+        double xpos, ypos;
+        glfwGetCursorPos(window, &xpos, &ypos);
+        std::cout << "xpos: " << xpos << "ypos: " << ypos << std::endl;
+    }
 }
