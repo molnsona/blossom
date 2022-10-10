@@ -11,6 +11,8 @@ struct CallbackValues
 {
     int fb_width = 800;
     int fb_height = 600;
+    int key;
+    int key_action;
 };
 
 class GlfwWrapper
@@ -35,6 +37,7 @@ private:
                              int scancode,
                              int action,
                              int mods);
+    static void scroll_callback(GLFWwindow* window, double xoffset, double yoffset);
 };
 
 #endif // WRAPPER_GLFW_H

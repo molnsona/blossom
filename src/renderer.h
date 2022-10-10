@@ -19,7 +19,7 @@ private:
     ScatterRenderer scatter_renderer;
     GraphRenderer graph_renderer;
 
-    Shader ex_shader;
+    // Shader ex_shader;
 };
 
 #endif // RENDERER_H

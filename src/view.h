@@ -32,6 +32,8 @@
 
 #include <vector>
 
+#include "wrapper_glfw.h"
+
 // Defines several possible options for View movement. Used as abstraction to stay away from window-system specific input methods
 enum View_Movement {
     FORWARD,
@@ -62,35 +64,54 @@ public:
     float MouseSensitivity;
     float Zoom;
 
+    // Framebuffer size
+    int width;
+    int height;
+
     // constructor with vectors
-    View(glm::vec3 position = glm::vec3(0.0f, 0.0f, 3.0f), glm::vec3 up = glm::vec3(0.0f, 1.0f, 0.0f)) : Front(glm::vec3(0.0f, 0.0f, -1.0f)), MovementSpeed(SPEED), MouseSensitivity(SENSITIVITY), Zoom(ZOOM)
+    View(int width = 800, int height = 600,
+    glm::vec3 position = glm::vec3(0.0f, 0.0f,  10.0f), 
+    glm::vec3 up = glm::vec3(0.0f, 1.0f, 0.0f)) : 
+        Front(glm::vec3(0.0f, 0.0f, -1.0f)), 
+        MovementSpeed(SPEED), 
+        MouseSensitivity(SENSITIVITY), 
+        Zoom(ZOOM)
     {
         Position = position;
         WorldUp = up;
         updateViewVectors();
     }
     // constructor with scalar values
-    View(float posX, float posY, float posZ, float upX, float upY, float upZ) : Front(glm::vec3(0.0f, 0.0f, -1.0f)), MovementSpeed(SPEED), MouseSensitivity(SENSITIVITY), Zoom(ZOOM)
+    View(float posX, float posY, float posZ, float upX, float upY, float upZ,
+    int width = 800, int height = 600) : Front(glm::vec3(0.0f, 0.0f, -1.0f)), MovementSpeed(SPEED), MouseSensitivity(SENSITIVITY), Zoom(ZOOM)
     {
         Position = glm::vec3(posX, posY, posZ);
         WorldUp = glm::vec3(upX, upY, upZ);
         updateViewVectors();
     }
 
-    void update(float dt)
+    void update(float dt, const CallbackValues &callbacks)
     {
-        const float radius = 10.0f;
-        float camX = sin(glfwGetTime()) * radius;
-        float camZ = cos(glfwGetTime()) * radius;
-        Position = glm::vec3(camX, 0.0, camZ);
-        updateViewVectors();
+        width = callbacks.fb_width;
+        height = callbacks.fb_width;
+
+        // const float radius = 10.0f;
+        // float camX = sin(glfwGetTime()) * radius;
+        // float camZ = cos(glfwGetTime()) * radius;
+        // Position = glm::vec3(camX, 0.0, camZ);
+        // updateViewVectors();
     }
 
     // returns the view matrix calculated using Euler Angles and the LookAt Matrix
     glm::mat4 GetViewMatrix() const
     {
-        //return glm::lookAt(Position, Position + Front, Up);
-        return glm::lookAt(Position, glm::vec3(0.0, 0.0, 0.0), glm::vec3(0.0, 1.0, 0.0));
+        return glm::lookAt(Position, Position + Front, Up);
+        //return glm::lookAt(Position, glm::vec3(0.0, 0.0, 0.0), glm::vec3(0.0, 1.0, 0.0));
+    }
+
+    glm::mat4 GetProjMatrix() const
+    {
+        return glm::perspective(glm::radians(Zoom), (float)width / (float)height, 0.1f, 100.0f);       
     }
 
     // processes input received from any keyboard-like input system. Accepts input parameter in the form of View defined ENUM (to abstract it from windowing systems)

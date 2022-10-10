@@ -16,6 +16,7 @@ GlfwWrapper::init(const std::string &window_name)
 
     glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 3);
     glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 3);
+    glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
     window = glfwCreateWindow(800, 600, window_name.c_str(), NULL, NULL);
     if (!window) {
         std::cout << "Failed to create GLFW window." << std::endl;
@@ -82,6 +83,9 @@ GlfwWrapper::key_callback(GLFWwindow *window,
                           int action,
                           int mods)
 {
-    if (key == GLFW_KEY_ESCAPE && action == GLFW_PRESS)
-        glfwSetWindowShouldClose(window, GLFW_TRUE);
+    GlfwWrapper *glfw_inst = (GlfwWrapper *)glfwGetWindowUserPointer(window);
+    glfw_inst->callbacks.key = key;
+    glfw_inst->callbacks.key_action = action;
+    // if (key == GLFW_KEY_ESCAPE && action == GLFW_PRESS)
+    //     glfwSetWindowShouldClose(window, GLFW_TRUE);
 }

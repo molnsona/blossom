@@ -14,6 +14,8 @@
 #include "state.h"
 #include "timer.h"
 #include "view.h"
+#include "wrapper_glad.h"
+#include "wrapper_glfw.h"
 #include "wrapper_imgui.h"
 
 #include <iostream>
@@ -39,162 +41,102 @@ float lastFrame = 0.0f;
 
 int main()
 {
+    GlfwWrapper glfw;
+    GladWrapper glad;
     ImGuiWrapper imgui;
     Renderer renderer;
     Timer timer;
     View view;
     State state;
 
+    if (!glfw.init("BlosSOM")) {
+        std::cout << "GLFW initialization failed." << std::endl;
+        return -1;
+    }
+
     // glfw: initialize and configure
     // ------------------------------
-    glfwInit();
-    glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 3);
-    glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 3);
-    glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
+//     glfwInit();
+//     glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 3);
+//     glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 3);
+//     glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
 
-#ifdef __APPLE__
-    glfwWindowHint(GLFW_OPENGL_FORWARD_COMPAT, GL_TRUE);
-#endif
+// #ifdef __APPLE__
+//     glfwWindowHint(GLFW_OPENGL_FORWARD_COMPAT, GL_TRUE);
+// #endif
 
-    // glfw window creation
-    // --------------------
-    GLFWwindow* window = glfwCreateWindow(SCR_WIDTH, SCR_HEIGHT, "LearnOpenGL", NULL, NULL);
-    if (window == NULL)
-    {
-        std::cout << "Failed to create GLFW window" << std::endl;
-        glfwTerminate();
+//     // glfw window creation
+//     // --------------------
+//     GLFWwindow* window = glfwCreateWindow(SCR_WIDTH, SCR_HEIGHT, "LearnOpenGL", NULL, NULL);
+//     if (window == NULL)
+//     {
+//         std::cout << "Failed to create GLFW window" << std::endl;
+//         glfwTerminate();
+//         return -1;
+//     }
+//     glfwMakeContextCurrent(window);
+//     glfwSetFramebufferSizeCallback(window, framebuffer_size_callback);
+//     glfwSetScrollCallback(window, scroll_callback);
+
+    if (!glad.init()) {
+        std::cout << "GLAD initialization failed." << std::endl;
+        glfw.destroy();
         return -1;
     }
-    glfwMakeContextCurrent(window);
-    glfwSetFramebufferSizeCallback(window, framebuffer_size_callback);
-    glfwSetScrollCallback(window, scroll_callback);
 
-    // glad: load all OpenGL function pointers
-    // ---------------------------------------
-    if (!gladLoadGLLoader((GLADloadproc)glfwGetProcAddress))
-    {
-        std::cout << "Failed to initialize GLAD" << std::endl;
-        return -1;
-    }
+    // // glad: load all OpenGL function pointers
+    // // ---------------------------------------
+    // if (!gladLoadGLLoader((GLADloadproc)glfwGetProcAddress))
+    // {
+    //     std::cout << "Failed to initialize GLAD" << std::endl;
+    //     return -1;
+    // }
 
-    if (!imgui.init(window)) {
+    if (!imgui.init(glfw.window)) {
         std::cout << "Dear ImGui initialization failed." << std::endl;
-        glfwTerminate();
+        glfw.destroy();
         return -1;
     }
 
-    renderer.init();
+    if (!renderer.init()) {
+        std::cout << "Renderer initialization failed." << std::endl;
+        imgui.destroy();
+        glfw.destroy();
+        return -1;
+    }
+    //renderer.init();
 
     // configure global opengl state
     // -----------------------------
-    glEnable(GL_DEPTH_TEST);
+    //glEnable(GL_DEPTH_TEST);
 
     // build and compile our shader zprogram
     // ------------------------------------
-    Shader ourShader;
-    ourShader.build(example_vs, example_fs);
-
-    Shader pointShader;
-    pointShader.build(graph_vs, graph_fs);
+    // Shader pointShader;
+    // pointShader.build(graph_vs, graph_fs);
 
     // set up vertex data (and buffer(s)) and configure vertex attributes
-    // ------------------------------------------------------------------
-    float vertices[] = {
-        -0.5f, -0.5f, -0.5f,  0.0f, 0.0f,
-         0.5f, -0.5f, -0.5f,  1.0f, 0.0f,
-         0.5f,  0.5f, -0.5f,  1.0f, 1.0f,
-         0.5f,  0.5f, -0.5f,  1.0f, 1.0f,
-        -0.5f,  0.5f, -0.5f,  0.0f, 1.0f,
-        -0.5f, -0.5f, -0.5f,  0.0f, 0.0f,
+    // ------------------------------------------------------------------ 
+    // float point[] = {0.0f, 0.0f, 0.0f,
+    //                 1.0f, 0.0f, 0.0f,
+    //                 0.0f, 1.0f, 0.0f,
+    //                 1.0f, 1.0f, 0.0f};
+    // unsigned int VBO2, VAO2;
+    // glGenVertexArrays(1, &VAO2);
+    // glGenBuffers(1, &VBO2);
 
-        -0.5f, -0.5f,  0.5f,  0.0f, 0.0f,
-         0.5f, -0.5f,  0.5f,  1.0f, 0.0f,
-         0.5f,  0.5f,  0.5f,  1.0f, 1.0f,
-         0.5f,  0.5f,  0.5f,  1.0f, 1.0f,
-        -0.5f,  0.5f,  0.5f,  0.0f, 1.0f,
-        -0.5f, -0.5f,  0.5f,  0.0f, 0.0f,
+    // glBindVertexArray(VAO2);
 
-        -0.5f,  0.5f,  0.5f,  1.0f, 0.0f,
-        -0.5f,  0.5f, -0.5f,  1.0f, 1.0f,
-        -0.5f, -0.5f, -0.5f,  0.0f, 1.0f,
-        -0.5f, -0.5f, -0.5f,  0.0f, 1.0f,
-        -0.5f, -0.5f,  0.5f,  0.0f, 0.0f,
-        -0.5f,  0.5f,  0.5f,  1.0f, 0.0f,
+    // glBindBuffer(GL_ARRAY_BUFFER, VBO2);
+    // glBufferData(GL_ARRAY_BUFFER, sizeof(point), point, GL_STATIC_DRAW);
 
-         0.5f,  0.5f,  0.5f,  1.0f, 0.0f,
-         0.5f,  0.5f, -0.5f,  1.0f, 1.0f,
-         0.5f, -0.5f, -0.5f,  0.0f, 1.0f,
-         0.5f, -0.5f, -0.5f,  0.0f, 1.0f,
-         0.5f, -0.5f,  0.5f,  0.0f, 0.0f,
-         0.5f,  0.5f,  0.5f,  1.0f, 0.0f,
-
-        -0.5f, -0.5f, -0.5f,  0.0f, 1.0f,
-         0.5f, -0.5f, -0.5f,  1.0f, 1.0f,
-         0.5f, -0.5f,  0.5f,  1.0f, 0.0f,
-         0.5f, -0.5f,  0.5f,  1.0f, 0.0f,
-        -0.5f, -0.5f,  0.5f,  0.0f, 0.0f,
-        -0.5f, -0.5f, -0.5f,  0.0f, 1.0f,
-
-        -0.5f,  0.5f, -0.5f,  0.0f, 1.0f,
-         0.5f,  0.5f, -0.5f,  1.0f, 1.0f,
-         0.5f,  0.5f,  0.5f,  1.0f, 0.0f,
-         0.5f,  0.5f,  0.5f,  1.0f, 0.0f,
-        -0.5f,  0.5f,  0.5f,  0.0f, 0.0f,
-        -0.5f,  0.5f, -0.5f,  0.0f, 1.0f
-    };
-    // world space positions of our cubes
-    glm::vec3 cubePositions[] = {
-        glm::vec3( 0.0f,  0.0f,  0.0f),
-        glm::vec3( 2.0f,  5.0f, -15.0f),
-        glm::vec3(-1.5f, -2.2f, -2.5f),
-        glm::vec3(-3.8f, -2.0f, -12.3f),
-        glm::vec3 (2.4f, -0.4f, -3.5f),
-        glm::vec3(-1.7f,  3.0f, -7.5f),
-        glm::vec3( 1.3f, -2.0f, -2.5f),
-        glm::vec3( 1.5f,  2.0f, -2.5f),
-        glm::vec3( 1.5f,  0.2f, -1.5f),
-        glm::vec3(-1.3f,  1.0f, -1.5f)
-    };
-    unsigned int VBO, VAO;
-    glGenVertexArrays(1, &VAO);
-    glGenBuffers(1, &VBO);
-
-    glBindVertexArray(VAO);
-
-    glBindBuffer(GL_ARRAY_BUFFER, VBO);
-    glBufferData(GL_ARRAY_BUFFER, sizeof(vertices), vertices, GL_STATIC_DRAW);
-
-    // position attribute
-    glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 5 * sizeof(float), (void*)0);
-    glEnableVertexAttribArray(0);
-    // texture coord attribute
-    glVertexAttribPointer(1, 2, GL_FLOAT, GL_FALSE, 5 * sizeof(float), (void*)(3 * sizeof(float)));
-    glEnableVertexAttribArray(1);
-
-    float point[] = {0.0f, 0.0f, 0.0f,
-                    1.0f, 0.0f, 0.0f,
-                    0.0f, 1.0f, 0.0f,
-                    1.0f, 1.0f, 0.0f};
-    unsigned int VBO2, VAO2;
-    glGenVertexArrays(1, &VAO2);
-    glGenBuffers(1, &VBO2);
-
-    glBindVertexArray(VAO2);
-
-    glBindBuffer(GL_ARRAY_BUFFER, VBO2);
-    glBufferData(GL_ARRAY_BUFFER, sizeof(point), point, GL_STATIC_DRAW);
-
-    // position attribute
-    glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 3 * sizeof(float), (void*)0);
-    glEnableVertexAttribArray(0);
-
-    // tell opengl for each sampler to which texture unit it belongs to (only has to be done once)
-    // -------------------------------------------------------------------------------------------
-    ourShader.use();
+    // // position attribute
+    // glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 3 * sizeof(float), (void*)0);
+    // glEnableVertexAttribArray(0);
 
     // render loop
     // -----------
-    while (!glfwWindowShouldClose(window))
+    while (!glfw.window_should_close())
     {
         // per-frame time logic
         // --------------------
@@ -204,72 +146,59 @@ int main()
 
         // input
         // -----
-        processInput(window);
+        processInput(glfw.window);
 
         // render
         // ------
-        glClearColor(1.0f, 1.0f, 1.0f, 1.0f);
-        glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT); 
-
-        // activate shader
-        ourShader.use();
+        // glClearColor(1.0f, 1.0f, 1.0f, 1.0f);
+        // glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT); 
 
         // pass projection matrix to shader (as projection matrix rarely changes there's no need to do this per frame)
         // -----------------------------------------------------------------------------------------------------------
-        glm::mat4 projection = glm::perspective(glm::radians(fov), (float)SCR_WIDTH / (float)SCR_HEIGHT, 0.1f, 100.0f);
-        ourShader.setMat4("projection", projection); 
+        // glm::mat4 projection = glm::perspective(glm::radians(fov), (float)SCR_WIDTH / (float)SCR_HEIGHT, 0.1f, 100.0f);
         
-        // camera/view transformation
-        glm::mat4 view_mat = glm::lookAt(cameraPos, cameraPos + cameraFront, cameraUp);
-        ourShader.setMat4("view", view_mat);
-
-        // render boxes
-        glBindVertexArray(VAO);
-        for (unsigned int i = 0; i < 10; i++)
-        {
-            // calculate the model matrix for each object and pass it to shader before drawing
-            glm::mat4 model = glm::mat4(1.0f);
-            model = glm::translate(model, cubePositions[i]);
-            float angle = 20.0f * i;
-            model = glm::rotate(model, glm::radians(angle), glm::vec3(1.0f, 0.3f, 0.5f));
-            ourShader.setMat4("model", model);
-
-            //glDrawArrays(GL_TRIANGLES, 0, 36);
-        }
+        // // camera/view transformation
+        // glm::mat4 view_mat = glm::lookAt(cameraPos, cameraPos + cameraFront, cameraUp);
         
-        pointShader.use();
-        pointShader.setMat4("model", glm::mat4(1.0f));
-        pointShader.setMat4("view", view_mat);
-        pointShader.setMat4("proj", projection);
+        // pointShader.use();
+        // pointShader.setMat4("model", glm::mat4(1.0f));
+        // pointShader.setMat4("view", view_mat);
+        // pointShader.setMat4("proj", projection);
 
-        //ourShader.setMat4("model", glm::mat4(1.0f));
-
-        glBindVertexArray(VAO2);        
-        glEnable(GL_PROGRAM_POINT_SIZE);
-        glDrawArrays(GL_POINTS, 0, 4);
-        glDisable(GL_PROGRAM_POINT_SIZE);
+        // glBindVertexArray(VAO2);        
+        // glEnable(GL_PROGRAM_POINT_SIZE);
+        // glDrawArrays(GL_POINTS, 0, 4);
+        // glDisable(GL_PROGRAM_POINT_SIZE);
         
         timer.tick();
-        view.update(timer.frametime);
+        
+        view.update(timer.frametime, glfw.callbacks);
         state.update(timer.frametime);
-        imgui.render(SCR_WIDTH, SCR_HEIGHT, state);
+        
+        renderer.render(state, view);
+        
+        // glfw.callbacks.fb_width = SCR_WIDTH;
+        // glfw.callbacks.fb_height = SCR_HEIGHT;
+        imgui.render(glfw.callbacks, state);
 
-        //renderer.render(state, view);
-
+        glfw.end_frame();
         // glfw: swap buffers and poll IO events (keys pressed/released, mouse moved etc.)
         // -------------------------------------------------------------------------------
-        glfwSwapBuffers(window);
-        glfwPollEvents();
+        // glfwSwapBuffers(glfw.window);
+        // glfwPollEvents();
     }
 
-    // optional: de-allocate all resources once they've outlived their purpose:
-    // ------------------------------------------------------------------------
-    glDeleteVertexArrays(1, &VAO);
-    glDeleteBuffers(1, &VBO);
+    // // optional: de-allocate all resources once they've outlived their purpose:
+    // // ------------------------------------------------------------------------
+    // glDeleteVertexArrays(1, &VAO2);
+    // glDeleteBuffers(1, &VBO2);
 
-    // glfw: terminate, clearing all previously allocated GLFW resources.
-    // ------------------------------------------------------------------
-    glfwTerminate();
+    // // glfw: terminate, clearing all previously allocated GLFW resources.
+    // // ------------------------------------------------------------------
+    // glfwTerminate();
+
+    imgui.destroy();
+    glfw.destroy();
     return 0;
 }
 
@@ -277,8 +206,8 @@ int main()
 // ---------------------------------------------------------------------------------------------------------
 void processInput(GLFWwindow *window)
 {
-    if (glfwGetKey(window, GLFW_KEY_ESCAPE) == GLFW_PRESS)
-        glfwSetWindowShouldClose(window, true);
+    // if (glfwGetKey(window, GLFW_KEY_ESCAPE) == GLFW_PRESS)
+    //     glfwSetWindowShouldClose(window, true);
 
     float cameraSpeed = static_cast<float>(2.5 * deltaTime);
     if (glfwGetKey(window, GLFW_KEY_W) == GLFW_PRESS)
@@ -364,7 +293,6 @@ void scroll_callback(GLFWwindow* window, double xoffset, double yoffset)
 //         return -1;
 //     }
 
-//     int x, y, width, height;
 //     while (!glfw.window_should_close()) {
 //         timer.tick();
 

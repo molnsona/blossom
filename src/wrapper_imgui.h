@@ -9,7 +9,7 @@ class ImGuiWrapper
 {
 public:
     bool init(GLFWwindow *window);
-    void render(/*CallbackValues callbacks, */int width, int height, State &state);
+    void render(CallbackValues callbacks, State &state);
     void destroy();
 
 private:
