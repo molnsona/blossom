@@ -9,13 +9,14 @@
 
 struct CallbackValues
 {
-    bool fb_callback = false;
     int fb_width = 800;
     int fb_height = 600;
-    
-    bool key_callback = false;
+
     int key;
     int key_action;
+
+    double xoffset;
+    double yoffset;
 };
 
 class GlfwWrapper

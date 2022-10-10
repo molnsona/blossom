@@ -94,12 +94,13 @@ public:
     {
        // if(callbacks.fb_callback) {
             width = callbacks.fb_width;
-            height = callbacks.fb_width;
+            height = callbacks.fb_height;
       //  }
 
        // if(callbacks.key_callback)
-            ProcessKeyboard(callbacks.key, callbacks.key_action, dt);
+        ProcessKeyboard(callbacks.key, callbacks.key_action, dt);
 
+        ProcessMouseScroll(callbacks.yoffset);
         // const float radius = 10.0f;
         // float camX = sin(glfwGetTime()) * radius;
         // float camZ = cos(glfwGetTime()) * radius;
@@ -145,13 +146,20 @@ public:
     }
 
     // processes input received from a mouse scroll-wheel event. Only requires input on the vertical wheel-axis
-    void ProcessMouseScroll(float yoffset)
+    void ProcessMouseScroll(float yoffset/*, float deltaTime*/)
     {
+        // float velocity = MovementSpeed * deltaTime;
+
+        // if(yoffset > 0)
+        //     Position += velocity * Front;
+        // else if(yoffset < 0)
+        //     Position -= velocity * Front;
+        
         Zoom -= (float)yoffset;
         if (Zoom < 1.0f)
             Zoom = 1.0f;
         if (Zoom > 45.0f)
-            Zoom = 45.0f; 
+            Zoom = 45.0f;         
     }
 
 private:
