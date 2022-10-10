@@ -92,27 +92,20 @@ public:
 
     void update(float dt, const CallbackValues &callbacks)
     {
-       // if(callbacks.fb_callback) {
-            width = callbacks.fb_width;
-            height = callbacks.fb_height;
-      //  }
+        width = callbacks.fb_width;
+        height = callbacks.fb_height;
 
-       // if(callbacks.key_callback)
         ProcessKeyboard(callbacks.key, callbacks.key_action, dt);
 
         ProcessMouseScroll(callbacks.yoffset);
-        // const float radius = 10.0f;
-        // float camX = sin(glfwGetTime()) * radius;
-        // float camZ = cos(glfwGetTime()) * radius;
-        // Position = glm::vec3(camX, 0.0, camZ);
-        // updateViewVectors();
+
+        updateViewVectors();
     }
 
     // returns the view matrix calculated using Euler Angles and the LookAt Matrix
     glm::mat4 GetViewMatrix() const
     {
         return glm::lookAt(Position, Position + Front, Up);
-        //return glm::lookAt(Position, glm::vec3(0.0, 0.0, 0.0), glm::vec3(0.0, 1.0, 0.0));
     }
 
     glm::mat4 GetProjMatrix() const

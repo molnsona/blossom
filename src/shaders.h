@@ -33,7 +33,7 @@ const std::string graph_vs =
   "void main()\n"
   "{\n"
   "   gl_PointSize = 10;\n"
-  "   gl_Position = proj * view * model * vec4(aPos, 1.0, 1.0);\n"
+  "   gl_Position = proj * view * model * vec4(aPos, 0.1, 1.0);\n"
   "}\0";
 const std::string graph_fs = "#version 330 core\n"
                                "out vec4 FragColor;\n"

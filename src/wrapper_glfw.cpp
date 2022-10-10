@@ -123,10 +123,10 @@ void GlfwWrapper::mouse_button_callback(GLFWwindow* window, int button, int acti
     glfw_inst->callbacks.button = button;
     glfw_inst->callbacks.mouse_action = action;
 
-    if (button == GLFW_MOUSE_BUTTON_RIGHT && action == GLFW_PRESS)
-    {
-        double xpos, ypos;
-        glfwGetCursorPos(window, &xpos, &ypos);
-        std::cout << "xpos: " << xpos << "ypos: " << ypos << std::endl;
-    }
+    // if (button == GLFW_MOUSE_BUTTON_RIGHT && action == GLFW_PRESS)
+    // {
+    //     double xpos, ypos;
+    //     glfwGetCursorPos(window, &xpos, &ypos);
+    //     std::cout << "xpos: " << xpos << "ypos: " << ypos << std::endl;
+    // }
 }
