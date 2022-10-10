@@ -13,7 +13,7 @@ const std::string scatter_vs =
   "out vec4 outColor;\n"
   "void main()\n"
   "{\n"
-  "   gl_Position = proj * view * model * vec4(aPos.x, aPos.y, 1.0, 1.0);\n"
+  "   gl_Position = proj * view * model * vec4(aPos, 0.0, 1.0);\n"
   "   outColor = aCol;\n"
   "}\0";
 const std::string scatter_fs = "#version 330 core\n"
@@ -33,7 +33,7 @@ const std::string graph_vs =
   "void main()\n"
   "{\n"
   "   gl_PointSize = 10;\n"
-  "   gl_Position = proj * view * model * vec4(aPos, 0.0, 1.0);\n"
+  "   gl_Position = proj * view * model * vec4(aPos, 1.0, 1.0);\n"
   "}\0";
 const std::string graph_fs = "#version 330 core\n"
                                "out vec4 FragColor;\n"

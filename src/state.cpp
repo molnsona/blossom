@@ -22,7 +22,7 @@
 #include "fcs_parser.h"
 #include "tsv_parser.h"
 
-#define DEBUG
+//#define DEBUG
 
 void
 State::update(float actual_time)

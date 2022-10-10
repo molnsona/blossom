@@ -49,16 +49,10 @@ ScatterRenderer::draw(const View &view,
 
     prepare_data(model, colors);
 
-    glm::mat4 view_matrix = glm::mat4(1.0f);
-    view_matrix = glm::translate(view_matrix, glm::vec3(1.0f, 1.0f, 0.0f));
-
-    glm::mat4 proj = glm::mat4(1.0f);
-    proj = glm::ortho(0.0f, 800.0f, 0.0f, 600.0f, 0.1f, 100.0f);
-
     shader.use();
-    shader.setMat4("view", view_matrix);
-    shader.setMat4("proj", proj);
-    //shader.setMat4("proj", view.projection_matrix());
+    shader.setMat4("model", glm::mat4(1.0f));
+    shader.setMat4("view", view.GetViewMatrix());
+    shader.setMat4("proj", view.GetProjMatrix());
 
     glBindVertexArray(VAO);
     glDrawArrays(GL_POINTS, 0, n);
@@ -71,10 +65,6 @@ ScatterRenderer::prepare_data(const ScatterModel &model,
                               const ColorData &colors)
 {
     glBindVertexArray(VAO);
-
-    // for (size_t i = 0; i < model.points.size(); ++i) {
-    //     std::cout << model.points[i].x << ", " << model.points[i].y << std::endl;
-    // }
 
     glBindBuffer(GL_ARRAY_BUFFER, VBO_pos);
     glBufferData(GL_ARRAY_BUFFER,
