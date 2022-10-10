@@ -47,6 +47,10 @@ GlfwWrapper::window_should_close()
 void
 GlfwWrapper::end_frame()
 {
+    // Reset flags before new-coming callbacks
+    callbacks.fb_callback = false;
+    callbacks.key_callback = false;
+
     glfwSwapBuffers(window);
     // Calls registered callbacks if any events were triggered
     glfwPollEvents();
@@ -69,8 +73,9 @@ void
 GlfwWrapper::framebuffer_size_callback(GLFWwindow *window,
                                        int width,
                                        int height)
-{
+{    
     GlfwWrapper *glfw_inst = (GlfwWrapper *)glfwGetWindowUserPointer(window);
+    glfw_inst->callbacks.fb_callback = true;
     glfw_inst->callbacks.fb_width = width;
     glfw_inst->callbacks.fb_height = height;
     glViewport(0, 0, width, height);
@@ -84,6 +89,7 @@ GlfwWrapper::key_callback(GLFWwindow *window,
                           int mods)
 {
     GlfwWrapper *glfw_inst = (GlfwWrapper *)glfwGetWindowUserPointer(window);
+    glfw_inst->callbacks.key_callback = true;
     glfw_inst->callbacks.key = key;
     glfw_inst->callbacks.key_action = action;
     // if (key == GLFW_KEY_ESCAPE && action == GLFW_PRESS)

@@ -138,15 +138,15 @@ int main()
     // -----------
     while (!glfw.window_should_close())
     {
-        // per-frame time logic
-        // --------------------
-        float currentFrame = static_cast<float>(glfwGetTime());
-        deltaTime = currentFrame - lastFrame;
-        lastFrame = currentFrame;
+        // // per-frame time logic
+        // // --------------------
+        // float currentFrame = static_cast<float>(glfwGetTime());
+        // deltaTime = currentFrame - lastFrame;
+        // lastFrame = currentFrame;
 
         // input
         // -----
-        processInput(glfw.window);
+        //processInput(glfw.window);
 
         // render
         // ------
@@ -180,7 +180,7 @@ int main()
         // glfw.callbacks.fb_width = SCR_WIDTH;
         // glfw.callbacks.fb_height = SCR_HEIGHT;
         imgui.render(glfw.callbacks, state);
-
+        
         glfw.end_frame();
         // glfw: swap buffers and poll IO events (keys pressed/released, mouse moved etc.)
         // -------------------------------------------------------------------------------

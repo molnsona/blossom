@@ -92,8 +92,13 @@ public:
 
     void update(float dt, const CallbackValues &callbacks)
     {
-        width = callbacks.fb_width;
-        height = callbacks.fb_width;
+       // if(callbacks.fb_callback) {
+            width = callbacks.fb_width;
+            height = callbacks.fb_width;
+      //  }
+
+       // if(callbacks.key_callback)
+            ProcessKeyboard(callbacks.key, callbacks.key_action, dt);
 
         // const float radius = 10.0f;
         // float camX = sin(glfwGetTime()) * radius;
@@ -114,18 +119,19 @@ public:
         return glm::perspective(glm::radians(Zoom), (float)width / (float)height, 0.1f, 100.0f);       
     }
 
-    // processes input received from any keyboard-like input system. Accepts input parameter in the form of View defined ENUM (to abstract it from windowing systems)
-    void ProcessKeyboard(View_Movement direction, float deltaTime)
+    // // processes input received from any keyboard-like input system. Accepts input parameter in the form of View defined ENUM (to abstract it from windowing systems)
+    // void ProcessKeyboard(View_Movement direction, float deltaTime)
+    void ProcessKeyboard(int key, int action, float deltaTime)
     {
         float velocity = MovementSpeed * deltaTime;
-        if (direction == FORWARD)
-            Position += Front * velocity;
-        if (direction == BACKWARD)
-            Position -= Front * velocity;
-        if (direction == LEFT)
-            Position -= Right * velocity;
-        if (direction == RIGHT)
-            Position += Right * velocity;
+        if (key == GLFW_KEY_W && (action == GLFW_PRESS || action == GLFW_REPEAT))
+            Position += Up * velocity;
+        if (key == GLFW_KEY_S && (action == GLFW_PRESS || action == GLFW_REPEAT))
+            Position -= Up * velocity;
+        if (key == GLFW_KEY_A && (action == GLFW_PRESS || action == GLFW_REPEAT))
+            Position -= glm::normalize(glm::cross(Front, Up)) * velocity;
+        if (key == GLFW_KEY_D && (action == GLFW_PRESS || action == GLFW_REPEAT))
+            Position += glm::normalize(glm::cross(Front, Up)) * velocity;
     }
 
     // processes input received from a mouse input system. Expects the offset value in both the x and y direction.
