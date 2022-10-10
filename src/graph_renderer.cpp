@@ -49,33 +49,19 @@ void GraphRenderer::init()
 void
 GraphRenderer::draw(const View &view, const LandmarkModel &model)
 {
-    glm::vec3 cameraPos   = glm::vec3(0.0f, 0.0f,  10.0f);
-    glm::vec3 cameraFront = glm::vec3(0.0f, 0.0f, -1.0f);
-    glm::vec3 cameraUp    = glm::vec3(0.0f, 1.0f,  0.0f);
-    
     glEnable(GL_BLEND);
     
     prepare_data(view, model);
-    
-    // glm::mat4 view_matrix = glm::mat4(1.0f);
-    // view_matrix = glm::translate(view_matrix, glm::vec3(0.5f, 0.5f, 0.0f));
-
-    glm::mat4 proj = glm::perspective(glm::radians(45.0f), (float)800 / (float)600, 0.1f, 100.0f);
-    ////proj = glm::ortho(0.0f, 800.0f, 0.0f, 600.0f, 0.1f, 100.0f);
-    glm::mat4 view_mat = glm::lookAt(cameraPos, cameraPos + cameraFront, cameraUp);
-
-    glm::mat4 model_mat = glm::mat4(1.0f);
 
     shader.use();
-    shader.setMat4("model", model_mat);
-    shader.setMat4("view", view.GetViewMatrix());//view_mat);//view.GetViewMatrix());
-    shader.setMat4("proj", view.GetProjMatrix());//proj);
-    //shader.setMat4("proj", view.screen_projection_matrix());
+    shader.setMat4("model", glm::mat4(1.0f));
+    shader.setMat4("view", view.GetViewMatrix());
+    shader.setMat4("proj", view.GetProjMatrix());
 
     glBindVertexArray(VAO);
     
     glEnable(GL_PROGRAM_POINT_SIZE);
-    glDrawArrays(GL_POINTS, 0, 4); //model.lodim_vertices.size());
+    glDrawArrays(GL_POINTS, 0, model.lodim_vertices.size());
     glDisable(GL_PROGRAM_POINT_SIZE);
 
     glDisable(GL_BLEND);
@@ -127,64 +113,32 @@ GraphRenderer::draw(const View &view, const LandmarkModel &model)
 void
 GraphRenderer::prepare_data(const View &view, const LandmarkModel &model)
 {
-    float point[] = {0.0f, 0.0f,
-                    1.0f, 0.0f,
-                    0.0f, 1.0f,
-                    1.0f, 1.0f};
+    if (vertices.size() != model.lodim_vertices.size()) {
+        vertices.clear();
+        vertices.resize(model.lodim_vertices.size());
+    }
+
+    for (size_t i = 0; i < vertices.size(); ++i) {
+        vertices[i] = /*view.screen_coords(*/model.lodim_vertices[i]/*)*/;
+        //std::cout << vertices[i].x << vertices[i].y << std::endl;
+    }
+
+    // std::vector<glm::vec2> edge_lines(2 * model.edges.size());
+    // for (size_t i = 0; i < model.edges.size(); ++i) {
+    //     edge_lines[2 * i + 0] = vertices[model.edges[i].first];
+    //     edge_lines[2 * i + 1] = vertices[model.edges[i].second];
+    // }
 
     glBindVertexArray(VAO);
 
     glBindBuffer(GL_ARRAY_BUFFER, VBO);
-    glBufferData(GL_ARRAY_BUFFER, sizeof(point), point, GL_DYNAMIC_DRAW);
-
-    // position attribute
-    glVertexAttribPointer(0, 2, GL_FLOAT, GL_FALSE, 2 * sizeof(float), (void*)0);
+    glBufferData(GL_ARRAY_BUFFER,
+              vertices.size() * sizeof(glm::vec2),//2 * sizeof(float),
+              &vertices[0],
+              GL_DYNAMIC_DRAW);
+    glVertexAttribPointer(
+      0, 2, GL_FLOAT, GL_FALSE, /*2 * sizeof(float)*/sizeof(glm::vec2), (void *)0);
     glEnableVertexAttribArray(0);
-
-    // float landmarks[] = {0.0f, 0.0f,
-    //                 1.0f, 0.0f,
-    //                 0.0f, 1.0f,
-    //                 1.0f, 1.0f,};
-
-    // glBindVertexArray(VAO);
-
-    // glBindBuffer(GL_ARRAY_BUFFER, VBO);
-    // glBufferData(GL_ARRAY_BUFFER,
-    //              sizeof(landmarks),
-    //              landmarks,
-    //              GL_STATIC_DRAW);//GL_DYNAMIC_DRAW);
-    // glVertexAttribPointer(
-    //   0, 2, GL_FLOAT, GL_FALSE, 2 * sizeof(float), (void *)0);
-    // glEnableVertexAttribArray(0);
-
-
-
-
-    // if (vertices.size() != model.lodim_vertices.size()) {
-    //     vertices.clear();
-    //     vertices.resize(model.lodim_vertices.size());
-    // }
-
-    // for (size_t i = 0; i < vertices.size(); ++i) {
-    //     vertices[i] = /*view.screen_coords(*/model.lodim_vertices[i]/*)*/;
-    //     //std::cout << vertices[i].x << vertices[i].y << std::endl;
-    // }
-
-    // // std::vector<glm::vec2> edge_lines(2 * model.edges.size());
-    // // for (size_t i = 0; i < model.edges.size(); ++i) {
-    // //     edge_lines[2 * i + 0] = vertices[model.edges[i].first];
-    // //     edge_lines[2 * i + 1] = vertices[model.edges[i].second];
-    // // }
-
-    // glBindVertexArray(VAO);
-
-    // glBufferData(GL_ARRAY_BUFFER,
-    //           vertices.size() * 2 * sizeof(float),//sizeof(glm::vec2),
-    //           &vertices[0],
-    //           GL_DYNAMIC_DRAW);
-    // glVertexAttribPointer(
-    //   0, 2, GL_FLOAT, GL_FALSE, 2 * sizeof(float)/*sizeof(glm::vec2)*/, (void *)0);
-    // glEnableVertexAttribArray(0);
 }
 
 // bool

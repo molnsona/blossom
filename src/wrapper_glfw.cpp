@@ -95,8 +95,6 @@ GlfwWrapper::key_callback(GLFWwindow *window,
     GlfwWrapper *glfw_inst = (GlfwWrapper *)glfwGetWindowUserPointer(window);
     glfw_inst->callbacks.key = key;
     glfw_inst->callbacks.key_action = action;
-    // if (key == GLFW_KEY_ESCAPE && action == GLFW_PRESS)
-    //     glfwSetWindowShouldClose(window, GLFW_TRUE);
 }
 
 void GlfwWrapper::scroll_callback(GLFWwindow* window, double xoffset, double yoffset)

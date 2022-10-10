@@ -22,6 +22,8 @@
 #include "fcs_parser.h"
 #include "tsv_parser.h"
 
+#define DEBUG
+
 void
 State::update(float actual_time)
 {
@@ -36,7 +38,11 @@ State::update(float actual_time)
 
     // TODO only run this on data reset, ideally from trans or from a common
     // trigger
+#ifdef DEBUG // TODO remove
+    landmarks.update_dim(3);
+#else
     landmarks.update_dim(scaled.dim());
+#endif
 
     if (training_conf.kmeans_landmark)
         kmeans_landmark_step(kmeans_data,
