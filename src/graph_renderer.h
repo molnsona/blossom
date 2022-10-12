@@ -60,7 +60,7 @@ struct GraphRenderer
      * @return true If a vertex was pressed.
      * @return false If no vertex was pressed.
      */
-    //bool is_vert_pressed(glm::vec2 mouse, size_t &vert_ind) const;
+    bool is_vert_pressed(const View &view, glm::vec2 mouse, size_t &vert_ind) const;
 
 private:
     /** Radius of the vertex for rendering.

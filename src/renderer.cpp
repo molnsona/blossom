@@ -43,7 +43,12 @@ void Renderer::process_mouse(const View &view, const CallbackValues &cb)
     if (cb.button == GLFW_MOUSE_BUTTON_LEFT && cb.mouse_action == GLFW_PRESS)
     {
         glm::vec2 screen_mouse = view.screen_mouse_coords(glm::vec2(cb.xpos, cb.ypos));
+        size_t point_ind;
         // std::cout << "xpos: " << cb.xpos << "ypos: " << cb.ypos << std::endl;
-        // std::cout << "screen_mouse: " << screen_mouse.x << ", " << screen_mouse.y << std::endl;
+        //std::cout << "screen_mouse: " << screen_mouse.x << ", " << screen_mouse.y << std::endl;
+        if(graph_renderer.is_vert_pressed(view, screen_mouse, point_ind))
+        {
+            std::cout << "point_ind: " << point_ind << std::endl;
+        }        
     }
 }

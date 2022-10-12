@@ -70,12 +70,12 @@ public:
 
     // constructor with vectors
     View(int width = 800, int height = 600,
-    glm::vec3 position = glm::vec3(0.0f, 0.0f,  10.0f), 
+    glm::vec3 position = glm::vec3(0.0f, 0.0f,  12.0f), 
     glm::vec3 up = glm::vec3(0.0f, 1.0f, 0.0f)) : 
         Front(glm::vec3(0.0f, 0.0f, -1.0f)), 
         MovementSpeed(SPEED), 
         MouseSensitivity(SENSITIVITY), 
-        Zoom(ZOOM)
+        Zoom(ZOOM)   
     {
         Position = position;
         WorldUp = up;
@@ -117,7 +117,7 @@ public:
     // void ProcessKeyboard(View_Movement direction, float deltaTime)
     void ProcessKeyboard(int key, int action, float deltaTime)
     {
-        float velocity = MovementSpeed * deltaTime;
+        float velocity = MovementSpeed * deltaTime * (Zoom / 20);
         if (key == GLFW_KEY_W && (action == GLFW_PRESS || action == GLFW_REPEAT))
             Position += Up * velocity;
         if (key == GLFW_KEY_S && (action == GLFW_PRESS || action == GLFW_REPEAT))
@@ -148,7 +148,7 @@ public:
         // else if(yoffset < 0)
         //     Position -= velocity * Front;
         
-        Zoom -= (float)yoffset;
+        Zoom -= (float)yoffset * 2 * (Zoom / 20);
         if (Zoom < 1.0f)
             Zoom = 1.0f;
         if (Zoom > 45.0f)
@@ -166,6 +166,18 @@ public:
     {
         return glm::vec2(mouse.x - width / 2.0f, height / 2.0f - mouse.y);
     }
+
+    /**
+     * @brief Converts point to screen cordinates([0,0] in the middle of the screen).
+     * 
+     * @param point Input point in original not projected coordinates.
+     * @return glm::vec2 Point in screen coordinates.
+     */
+    glm::vec2 screen_coords(glm::vec2 point) const
+    {
+        glm::vec3 res = glm::project(glm::vec3(point, 0.1f), GetViewMatrix(), GetProjMatrix(), glm::vec4(0.0f, 0.0f, width, height));
+        return screen_point_coords(glm::vec2(res.x, res.y));
+    }
     
 private:
     // calculates the front vector from the View's (updated) Euler Angles
@@ -175,6 +187,19 @@ private:
         Right = glm::normalize(glm::cross(Front, WorldUp));  // normalize the vectors, because their length gets closer to 0 the more you look up or down which results in slower movement.
         Up    = glm::normalize(glm::cross(Right, Front));
     }
+
+    /**
+     * @brief Convert point coordinates ([0,0] in the upper left corner),
+     * to screen coordinates ([0,0] in the middle of the screen).
+     * 
+     * @param point Point coordinates ([0,0] in the upper left corner)
+     * @return glm::vec2 Screen coordinates ([0,0] in the middle of the screen)
+     */
+    glm::vec2 screen_point_coords(glm::vec2 point) const
+    {
+        return glm::vec2(point.x - width / 2.0f, point.y - height / 2.0f);
+    }
+
 };
 
 // /**

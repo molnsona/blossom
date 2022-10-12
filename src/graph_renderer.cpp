@@ -141,21 +141,27 @@ GraphRenderer::prepare_data(const View &view, const LandmarkModel &model)
     glEnableVertexAttribArray(0);
 }
 
-// bool
-// GraphRenderer::is_vert_pressed(Magnum::Vector2 mouse, size_t &vert_ind) const
-// {
-//     float radius = vertex_size;
+bool
+GraphRenderer::is_vert_pressed(const View &view, glm::vec2 mouse, size_t &vert_ind) const
+{
+    float radius = vertex_size;
 
-//     for (size_t i = 0; i < vertices.size(); ++i) {
-//         auto vert = vertices[i];
-//         if ((mouse.x() >= roundf(vert.x()) - radius) &&
-//             (mouse.x() <= roundf(vert.x()) + radius) &&
-//             (mouse.y() >= roundf(vert.y()) - radius) &&
-//             (mouse.y() <= roundf(vert.y()) + radius)) {
-//             vert_ind = i;
-//             return true;
-//         }
-//     }
+    for (size_t i = 0; i < vertices.size(); ++i) {
+        glm::vec2 vert = view.screen_coords(vertices[i]);
+        // glm::vec2 vert = vertices[i];
+        //glm::vec2 res = view.screen_coords(vertices[i]);//view.GetProjMatrix() * view.GetViewMatrix() * glm::vec4(1.0) * vert;
+        
+        // std::cout << "vert: " << vert.x << ", " << vert.y << std::endl;
+        // std::cout << "res: " << res.x << ", " << res.y << std::endl;
 
-//     return false;
-// }
+        if ((mouse.x >= roundf(vert.x) - radius) &&
+            (mouse.x <= roundf(vert.x) + radius) &&
+            (mouse.y >= roundf(vert.y) - radius) &&
+            (mouse.y <= roundf(vert.y) + radius)) {
+            vert_ind = i;
+            return true;
+        }
+    }
+
+    return false;
+}
