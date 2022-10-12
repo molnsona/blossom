@@ -50,7 +50,7 @@ int main()
         view.update(timer.frametime, glfw.callbacks);
         state.update(timer.frametime);
         
-        renderer.render(state, view);
+        renderer.update(state, view, glfw.callbacks);
         
         imgui.render(glfw.callbacks, state);
         

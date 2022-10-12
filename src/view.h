@@ -155,6 +155,18 @@ public:
             Zoom = 45.0f;         
     }
 
+    /**
+     * @brief Convert mouse coordinates ([0,0] in the upper left corner),
+     * to screen coordinates ([0,0] in the middle of the screen).
+     * 
+     * @param mouse Mouse coordinates ([0,0] in the upper left corner)
+     * @return glm::vec2 Screen coordinates ([0,0] in the middle of the screen)
+     */
+    glm::vec2 screen_mouse_coords(glm::vec2 mouse) const
+    {
+        return glm::vec2(mouse.x - width / 2.0f, height / 2.0f - mouse.y);
+    }
+    
 private:
     // calculates the front vector from the View's (updated) Euler Angles
     void updateViewVectors()

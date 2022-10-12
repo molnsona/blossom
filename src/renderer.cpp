@@ -19,6 +19,15 @@ Renderer::init()
     return true;
 }
 
+
+void
+Renderer::update(State &state, View &view, const CallbackValues &callbacks)
+{
+    process_mouse(view, callbacks);
+
+    render(state, view);
+}
+
 void
 Renderer::render(State &state, View &view)
 {
@@ -27,4 +36,14 @@ Renderer::render(State &state, View &view)
 
     scatter_renderer.draw(view, state.scatter, state.colors);
     graph_renderer.draw(view, state.landmarks);
+}
+
+void Renderer::process_mouse(const View &view, const CallbackValues &cb)
+{
+    if (cb.button == GLFW_MOUSE_BUTTON_LEFT && cb.mouse_action == GLFW_PRESS)
+    {
+        glm::vec2 screen_mouse = view.screen_mouse_coords(glm::vec2(cb.xpos, cb.ypos));
+        // std::cout << "xpos: " << cb.xpos << "ypos: " << cb.ypos << std::endl;
+        // std::cout << "screen_mouse: " << screen_mouse.x << ", " << screen_mouse.y << std::endl;
+    }
 }

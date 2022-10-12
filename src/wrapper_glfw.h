@@ -24,7 +24,7 @@ struct CallbackValues
     double xpos;
     double ypos;
     int button;
-    int mouse_action;
+    int mouse_action;    
 };
 
 class GlfwWrapper

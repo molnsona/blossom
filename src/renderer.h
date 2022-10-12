@@ -11,11 +11,16 @@ class Renderer
 public:
     Renderer();
     bool init();
-    void render(State &state, View &view);
+    void update(State &state, View &view, const CallbackValues &callbacks);
+
 
 private:
     ScatterRenderer scatter_renderer;
     GraphRenderer graph_renderer;
+
+    void render(State &state, View &view);
+
+    void process_mouse(const View &view, const CallbackValues &callbacks);
 };
 
 #endif // RENDERER_H
