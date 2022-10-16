@@ -49,7 +49,7 @@ const std::string graph_e_vs =
   "uniform mat4 view;\n"
   "uniform mat4 proj;\n"
   "void main()\n"
-  "{\n"  
+  "{\n"
   "   gl_Position = proj * view * model * vec4(aPos, 0.1, 1.0);\n"
   "}\0";
 const std::string graph_e_fs = "#version 330 core\n"
@@ -57,6 +57,6 @@ const std::string graph_e_fs = "#version 330 core\n"
                                "void main()\n"
                                "{\n"
                                "   FragColor = vec4(1.0, 0.0, 0.0, 0.6);\n"
-                               "}\0";                               
+                               "}\0";
 
 #endif // SHADERS_H

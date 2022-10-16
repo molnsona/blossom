@@ -76,7 +76,7 @@ void
 GlfwWrapper::framebuffer_size_callback(GLFWwindow *window,
                                        int width,
                                        int height)
-{    
+{
     GlfwWrapper *glfw_inst = (GlfwWrapper *)glfwGetWindowUserPointer(window);
     glfw_inst->callbacks.fb_width = width;
     glfw_inst->callbacks.fb_height = height;
@@ -92,29 +92,37 @@ GlfwWrapper::key_callback(GLFWwindow *window,
 {
     // Ignore callback if io is used by imgui window or gadget
     ImGuiIO &io = ImGui::GetIO();
-    if(io.WantCaptureKeyboard) return;
+    if (io.WantCaptureKeyboard)
+        return;
 
     GlfwWrapper *glfw_inst = (GlfwWrapper *)glfwGetWindowUserPointer(window);
     glfw_inst->callbacks.key = key;
     glfw_inst->callbacks.key_action = action;
 }
 
-void GlfwWrapper::scroll_callback(GLFWwindow* window, double xoffset, double yoffset)
+void
+GlfwWrapper::scroll_callback(GLFWwindow *window, double xoffset, double yoffset)
 {
     // Ignore callback if io is used by imgui window or gadget
     ImGuiIO &io = ImGui::GetIO();
-    if(io.WantCaptureMouse) return;
+    if (io.WantCaptureMouse)
+        return;
 
     GlfwWrapper *glfw_inst = (GlfwWrapper *)glfwGetWindowUserPointer(window);
     glfw_inst->callbacks.xoffset = xoffset;
     glfw_inst->callbacks.yoffset = yoffset;
 }
 
-void GlfwWrapper::mouse_button_callback(GLFWwindow* window, int button, int action, int mods)
+void
+GlfwWrapper::mouse_button_callback(GLFWwindow *window,
+                                   int button,
+                                   int action,
+                                   int mods)
 {
     // Ignore callback if io is used by imgui window or gadget
     ImGuiIO &io = ImGui::GetIO();
-    if(io.WantCaptureMouse) return;
+    if (io.WantCaptureMouse)
+        return;
 
     GlfwWrapper *glfw_inst = (GlfwWrapper *)glfwGetWindowUserPointer(window);
     double xpos, ypos;
@@ -125,7 +133,10 @@ void GlfwWrapper::mouse_button_callback(GLFWwindow* window, int button, int acti
     glfw_inst->callbacks.mouse_action = action;
 }
 
-void GlfwWrapper::cursor_position_callback(GLFWwindow* window, double xpos, double ypos)
+void
+GlfwWrapper::cursor_position_callback(GLFWwindow *window,
+                                      double xpos,
+                                      double ypos)
 {
     GlfwWrapper *glfw_inst = (GlfwWrapper *)glfwGetWindowUserPointer(window);
     glfw_inst->callbacks.xpos = xpos;

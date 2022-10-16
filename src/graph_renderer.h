@@ -33,7 +33,7 @@
 struct GraphRenderer
 {
     GraphRenderer();
-    
+
     void init();
 
     // TODO: this should not know about actual Landmarks, we should pass actual
@@ -60,20 +60,15 @@ struct GraphRenderer
      * @return true If a vertex was pressed.
      * @return false If no vertex was pressed.
      */
-    bool is_vert_pressed(const View &view, glm::vec2 mouse, size_t &vert_ind) const;
+    bool is_vert_pressed(const View &view,
+                         glm::vec2 mouse,
+                         size_t &vert_ind) const;
 
 private:
     /** Radius of the vertex for rendering.
      * \todo TODO: Make dynamic according to the depth of the zoom.
      */
     static constexpr float vertex_size = 5.0f;
-
-    // /** Mesh of the edge used to draw all edges. */
-    // Magnum::GL::Mesh line_mesh;
-    // /** Mesh of the vertex used to draw all vertices. */
-    // Magnum::GL::Mesh circle_mesh;
-    // /** Shader used for rendering both - edges and vertices. */
-    // Magnum::Shaders::FlatGL2D flat_shader;
 
     /** Cached screen coordinates of the vertices. */
     std::vector<glm::vec2> vertices;

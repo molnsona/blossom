@@ -9,7 +9,8 @@
 #include "wrapper_glfw.h"
 #include "wrapper_imgui.h"
 
-int main()
+int
+main()
 {
     GlfwWrapper glfw;
     GladWrapper glad;
@@ -42,18 +43,17 @@ int main()
         glfw.destroy();
         return -1;
     }
- 
-    while (!glfw.window_should_close())
-    {
+
+    while (!glfw.window_should_close()) {
         timer.tick();
-        
+
         view.update(timer.frametime, glfw.callbacks);
         state.update(timer.frametime);
-        
+
         renderer.update(state, view, glfw.callbacks);
-        
+
         imgui.render(glfw.callbacks, state);
-        
+
         glfw.end_frame();
     }
 
