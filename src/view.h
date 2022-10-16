@@ -44,7 +44,7 @@ enum View_Movement {
 };
 
 // Default View values
-const float SPEED       =  2.5f;
+const float SPEED       =  0.1f;
 const float SENSITIVITY =  0.1f;
 const float ZOOM        =  0.009f;//45.0f;
 
@@ -121,7 +121,7 @@ public:
     // void ProcessKeyboard(View_Movement direction, float deltaTime)
     void ProcessKeyboard(int key, int action, float deltaTime)
     {
-        float velocity = MovementSpeed * deltaTime;
+        float velocity = MovementSpeed * (Zoom * 100);
         if (key == GLFW_KEY_W && (action == GLFW_PRESS || action == GLFW_REPEAT))
             Position += Up * velocity;
         if (key == GLFW_KEY_S && (action == GLFW_PRESS || action == GLFW_REPEAT))
@@ -145,13 +145,16 @@ public:
     // processes input received from a mouse scroll-wheel event. Only requires input on the vertical wheel-axis
     void ProcessMouseScroll(float yoffset, float deltaTime)
     {
-        float cameraSpeed = static_cast<float>(2.5 * deltaTime);
+        //float cameraSpeed = static_cast<float>(2.5 * deltaTime);
+        float velocity = 0.0005 * (Zoom * 100);
 
         if(yoffset > 0)
-            Zoom -= 0.0005;
+            Zoom -= velocity;
         else if(yoffset < 0)
-            Zoom += 0.0005;
+            Zoom += velocity;
             
+        
+
         // float velocity = MovementSpeed * deltaTime * (Zoom / 20);
 
         // if(yoffset > 0)
