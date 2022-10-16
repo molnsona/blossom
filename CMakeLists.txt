@@ -2,6 +2,13 @@ cmake_minimum_required(VERSION 3.11)
 
 project(BlosSOM VERSION 0.0.2)
 
+# Set project name
+if (BUILD_CUDA)
+    project(${PROJECT_NAME} LANGUAGES CXX CUDA)
+else (BUILD_CUDA)
+    project(${PROJECT_NAME} LANGUAGES CXX)
+endif (BUILD_CUDA)
+
 # Set the correct macro directory path
 set(CMAKE_MODULE_PATH "${PROJECT_SOURCE_DIR}/modules/" ${CMAKE_MODULE_PATH})
 
