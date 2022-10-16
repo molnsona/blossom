@@ -52,7 +52,7 @@ GlfwWrapper::window_should_close()
 void
 GlfwWrapper::end_frame()
 {
-    callbacks.yoffset = 0;
+    callbacks.reset();
 
     glfwSwapBuffers(window);
     // Calls registered callbacks if any events were triggered

@@ -25,7 +25,15 @@ struct CallbackValues
     double ypos;
     int button;
     int mouse_action;
-    bool left_click = false;    
+    bool left_click = false;  
+
+    void reset()
+    {
+        key = 0;
+        xoffset = 0;
+        yoffset = 0;
+        button = -1;        
+    }
 };
 
 class GlfwWrapper
