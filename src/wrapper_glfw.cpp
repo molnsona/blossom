@@ -34,6 +34,7 @@ GlfwWrapper::init(const std::string &window_name)
     glfwSetFramebufferSizeCallback(window, framebuffer_size_callback);
     glfwSetScrollCallback(window, scroll_callback);
     glfwSetMouseButtonCallback(window, mouse_button_callback);
+    glfwSetCursorPosCallback(window, cursor_position_callback);
 
     // Set the user pointer tied to the window used for
     // storing values in callbacks.
@@ -122,11 +123,11 @@ void GlfwWrapper::mouse_button_callback(GLFWwindow* window, int button, int acti
     glfw_inst->callbacks.ypos = ypos;
     glfw_inst->callbacks.button = button;
     glfw_inst->callbacks.mouse_action = action;
+}
 
-    // if (button == GLFW_MOUSE_BUTTON_RIGHT && action == GLFW_PRESS)
-    // {
-    //     double xpos, ypos;
-    //     glfwGetCursorPos(window, &xpos, &ypos);
-    //     std::cout << "xpos: " << xpos << "ypos: " << ypos << std::endl;
-    // }
+void GlfwWrapper::cursor_position_callback(GLFWwindow* window, double xpos, double ypos)
+{
+    GlfwWrapper *glfw_inst = (GlfwWrapper *)glfwGetWindowUserPointer(window);
+    glfw_inst->callbacks.xpos = xpos;
+    glfw_inst->callbacks.ypos = ypos;
 }

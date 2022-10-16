@@ -31,6 +31,7 @@
 #include <glm/gtc/matrix_transform.hpp>
 
 #include <vector>
+#include <iostream>
 
 #include "wrapper_glfw.h"
 
@@ -45,7 +46,7 @@ enum View_Movement {
 // Default View values
 const float SPEED       =  2.5f;
 const float SENSITIVITY =  0.1f;
-const float ZOOM        =  45.0f;
+const float ZOOM        =  0.009f;//45.0f;
 
 
 // An abstract View class that processes input and calculates the corresponding Euler Angles, Vectors and Matrices for use in OpenGL
@@ -70,7 +71,7 @@ public:
 
     // constructor with vectors
     View(int width = 800, int height = 600,
-    glm::vec3 position = glm::vec3(0.0f, 0.0f,  12.0f), 
+    glm::vec3 position = glm::vec3(0.0f, 0.0f,  1.0f), 
     glm::vec3 up = glm::vec3(0.0f, 1.0f, 0.0f)) : 
         Front(glm::vec3(0.0f, 0.0f, -1.0f)), 
         MovementSpeed(SPEED), 
@@ -97,7 +98,7 @@ public:
 
         ProcessKeyboard(callbacks.key, callbacks.key_action, dt);
 
-        ProcessMouseScroll(callbacks.yoffset);
+        ProcessMouseScroll(callbacks.yoffset, dt);
 
         updateViewVectors();
     }
@@ -110,14 +111,17 @@ public:
 
     glm::mat4 GetProjMatrix() const
     {
-        return glm::perspective(glm::radians(Zoom), (float)width / (float)height, 0.1f, 100.0f);       
+        float half_w = width / 2.0f;
+        float half_h = height / 2.0f;
+        return glm::ortho(-half_w*Zoom, half_w*Zoom,-half_h*Zoom, half_h*Zoom, 0.1f, 100.0f);
+        //return glm::perspective(glm::radians(Zoom), (float)width / (float)height, 0.1f, 100.0f);       
     }
 
     // // processes input received from any keyboard-like input system. Accepts input parameter in the form of View defined ENUM (to abstract it from windowing systems)
     // void ProcessKeyboard(View_Movement direction, float deltaTime)
     void ProcessKeyboard(int key, int action, float deltaTime)
     {
-        float velocity = MovementSpeed * deltaTime * (Zoom / 20);
+        float velocity = MovementSpeed * deltaTime;
         if (key == GLFW_KEY_W && (action == GLFW_PRESS || action == GLFW_REPEAT))
             Position += Up * velocity;
         if (key == GLFW_KEY_S && (action == GLFW_PRESS || action == GLFW_REPEAT))
@@ -139,20 +143,31 @@ public:
     }
 
     // processes input received from a mouse scroll-wheel event. Only requires input on the vertical wheel-axis
-    void ProcessMouseScroll(float yoffset/*, float deltaTime*/)
+    void ProcessMouseScroll(float yoffset, float deltaTime)
     {
-        // float velocity = MovementSpeed * deltaTime;
+        float cameraSpeed = static_cast<float>(2.5 * deltaTime);
+
+        if(yoffset > 0)
+            Zoom -= 0.0005;
+        else if(yoffset < 0)
+            Zoom += 0.0005;
+            
+        // float velocity = MovementSpeed * deltaTime * (Zoom / 20);
 
         // if(yoffset > 0)
         //     Position += velocity * Front;
         // else if(yoffset < 0)
         //     Position -= velocity * Front;
         
-        Zoom -= (float)yoffset * 2 * (Zoom / 20);
-        if (Zoom < 1.0f)
-            Zoom = 1.0f;
-        if (Zoom > 45.0f)
-            Zoom = 45.0f;         
+        // if(Position.z < 0.2) Position.z = 0.2;
+        
+        // //Zoom -= (float)yoffset * 2;
+
+        // Zoom -= (float)yoffset * 2 * (Zoom / 20);
+        // if (Zoom < 1.0f)
+        //     Zoom = 1.0f;
+        // if (Zoom > 45.0f)
+        //     Zoom = 45.0f;         
     }
 
     /**
@@ -168,7 +183,25 @@ public:
     }
 
     /**
-     * @brief Converts point to screen cordinates([0,0] in the middle of the screen).
+     * @brief Convert mouse coordinates ([0,0] in the upper left corner),
+     * to model coordinates ([0,0] in the middle of the screen).
+     * 
+     * @param mouse Mouse coordinates ([0,0] in the upper left corner)
+     * @return glm::vec2 Model coordinates ([0,0] in the middle of the screen)
+     */
+    glm::vec2 model_mouse_coords(glm::vec2 mouse) const
+    {
+        glm::vec3 res = glm::unProject(
+            glm::vec3(mouse.x, height - mouse.y, 0.1f), 
+            GetViewMatrix(), 
+            GetProjMatrix(), 
+            glm::vec4(0.0f, 0.0f, width, height));
+
+        return glm::vec2(res.x, res.y);
+    }
+
+    /**
+     * @brief Converts point to screen coordinates([0,0] in the middle of the screen).
      * 
      * @param point Input point in original not projected coordinates.
      * @return glm::vec2 Point in screen coordinates.

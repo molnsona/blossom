@@ -148,11 +148,6 @@ GraphRenderer::is_vert_pressed(const View &view, glm::vec2 mouse, size_t &vert_i
 
     for (size_t i = 0; i < vertices.size(); ++i) {
         glm::vec2 vert = view.screen_coords(vertices[i]);
-        // glm::vec2 vert = vertices[i];
-        //glm::vec2 res = view.screen_coords(vertices[i]);//view.GetProjMatrix() * view.GetViewMatrix() * glm::vec4(1.0) * vert;
-        
-        // std::cout << "vert: " << vert.x << ", " << vert.y << std::endl;
-        // std::cout << "res: " << res.x << ", " << res.y << std::endl;
 
         if ((mouse.x >= roundf(vert.x) - radius) &&
             (mouse.x <= roundf(vert.x) + radius) &&

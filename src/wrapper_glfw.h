@@ -24,7 +24,8 @@ struct CallbackValues
     double xpos;
     double ypos;
     int button;
-    int mouse_action;    
+    int mouse_action;
+    bool left_click = false;    
 };
 
 class GlfwWrapper
@@ -51,6 +52,7 @@ private:
                              int mods);
     static void scroll_callback(GLFWwindow* window, double xoffset, double yoffset);
     static void mouse_button_callback(GLFWwindow* window, int button, int action, int mods);
+    static void cursor_position_callback(GLFWwindow* window, double xpos, double ypos);
 };
 
 #endif // WRAPPER_GLFW_H

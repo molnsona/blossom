@@ -20,7 +20,7 @@ private:
 
     void render(State &state, View &view);
 
-    void process_mouse(const View &view, const CallbackValues &callbacks);
+    void process_mouse(State &state, const View &view, const CallbackValues &callbacks);
 };
 
 #endif // RENDERER_H

@@ -23,7 +23,7 @@ Renderer::init()
 void
 Renderer::update(State &state, View &view, const CallbackValues &callbacks)
 {
-    process_mouse(view, callbacks);
+    process_mouse(state, view, callbacks);
 
     render(state, view);
 }
@@ -38,17 +38,28 @@ Renderer::render(State &state, View &view)
     graph_renderer.draw(view, state.landmarks);
 }
 
-void Renderer::process_mouse(const View &view, const CallbackValues &cb)
-{
+void Renderer::process_mouse(State &state, const View &view, const CallbackValues &cb)
+{        
     if (cb.button == GLFW_MOUSE_BUTTON_LEFT && cb.mouse_action == GLFW_PRESS)
     {
-        glm::vec2 screen_mouse = view.screen_mouse_coords(glm::vec2(cb.xpos, cb.ypos));
-        size_t point_ind;
-        // std::cout << "xpos: " << cb.xpos << "ypos: " << cb.ypos << std::endl;
-        //std::cout << "screen_mouse: " << screen_mouse.x << ", " << screen_mouse.y << std::endl;
-        if(graph_renderer.is_vert_pressed(view, screen_mouse, point_ind))
-        {
-            std::cout << "point_ind: " << point_ind << std::endl;
-        }        
+        if(!state.mouse.vert_pressed) {
+            glm::vec2 screen_mouse = view.screen_mouse_coords(glm::vec2(cb.xpos, cb.ypos));
+            if(graph_renderer.is_vert_pressed(view, screen_mouse, state.mouse.vert_ind))
+            {
+                state.mouse.vert_pressed = true;
+            }
+        }
     }
+
+    if (cb.button == GLFW_MOUSE_BUTTON_LEFT && cb.mouse_action == GLFW_RELEASE)
+    {
+        state.mouse.vert_pressed = false;
+    }
+
+    if(state.mouse.vert_pressed)
+    {
+        glm::vec2 model_mouse = view.model_mouse_coords(glm::vec2(cb.xpos, cb.ypos));
+
+        state.landmarks.move(state.mouse.vert_ind, model_mouse);
+    }   
 }

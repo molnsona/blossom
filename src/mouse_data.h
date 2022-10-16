@@ -28,7 +28,7 @@
 struct MouseData
 {
     /** Raw coordinates on the screen (upper left [0,0]). */
-    glm::ivec2 mouse_pos;
+    glm::vec2 mouse_pos;
 
     /** Flag indicating if left mouse button was pressed. */
     bool left_pressed;
