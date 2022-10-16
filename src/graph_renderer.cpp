@@ -40,10 +40,15 @@ GraphRenderer::GraphRenderer()
 
 void GraphRenderer::init()
 {
-    glGenVertexArrays(1, &VAO);
-    glGenBuffers(1, &VBO);
+    glGenVertexArrays(1, &VAO_v);
+    glGenBuffers(1, &VBO_v);
     
-    shader.build(graph_vs, graph_fs);
+    shader_v.build(graph_v_vs, graph_v_fs);
+
+    glGenVertexArrays(1, &VAO_e);
+    glGenBuffers(1, &VBO_e);
+    
+    shader_e.build(graph_e_vs, graph_e_fs);
 }
 
 void
@@ -53,16 +58,24 @@ GraphRenderer::draw(const View &view, const LandmarkModel &model)
     
     prepare_data(view, model);
 
-    shader.use();
-    shader.setMat4("model", glm::mat4(1.0f));
-    shader.setMat4("view", view.GetViewMatrix());
-    shader.setMat4("proj", view.GetProjMatrix());
+    shader_v.use();
+    shader_v.setMat4("model", glm::mat4(1.0f));
+    shader_v.setMat4("view", view.GetViewMatrix());
+    shader_v.setMat4("proj", view.GetProjMatrix());
 
-    glBindVertexArray(VAO);
+    glBindVertexArray(VAO_v);
     
     glEnable(GL_PROGRAM_POINT_SIZE);
     glDrawArrays(GL_POINTS, 0, model.lodim_vertices.size());
     glDisable(GL_PROGRAM_POINT_SIZE);
+
+    shader_e.use();
+    shader_e.setMat4("model", glm::mat4(1.0f));
+    shader_e.setMat4("view", view.GetViewMatrix());
+    shader_e.setMat4("proj", view.GetProjMatrix());
+
+    glBindVertexArray(VAO_e);
+    glDrawArrays(GL_LINES, 0, 2 * model.edges.size());
 
     glDisable(GL_BLEND);
 
@@ -113,25 +126,25 @@ GraphRenderer::draw(const View &view, const LandmarkModel &model)
 void
 GraphRenderer::prepare_data(const View &view, const LandmarkModel &model)
 {
+    prepare_vertices(view, model);
+    prepare_edges(view, model);   
+}
+
+void
+GraphRenderer::prepare_vertices(const View &view, const LandmarkModel &model)
+{
     if (vertices.size() != model.lodim_vertices.size()) {
         vertices.clear();
         vertices.resize(model.lodim_vertices.size());
     }
 
     for (size_t i = 0; i < vertices.size(); ++i) {
-        vertices[i] = /*view.screen_coords(*/model.lodim_vertices[i]/*)*/;
-        //std::cout << vertices[i].x << vertices[i].y << std::endl;
+        vertices[i] = model.lodim_vertices[i];
     }
 
-    // std::vector<glm::vec2> edge_lines(2 * model.edges.size());
-    // for (size_t i = 0; i < model.edges.size(); ++i) {
-    //     edge_lines[2 * i + 0] = vertices[model.edges[i].first];
-    //     edge_lines[2 * i + 1] = vertices[model.edges[i].second];
-    // }
+    glBindVertexArray(VAO_v);
 
-    glBindVertexArray(VAO);
-
-    glBindBuffer(GL_ARRAY_BUFFER, VBO);
+    glBindBuffer(GL_ARRAY_BUFFER, VBO_v);
     glBufferData(GL_ARRAY_BUFFER,
               vertices.size() * sizeof(glm::vec2),//2 * sizeof(float),
               &vertices[0],
@@ -139,6 +152,27 @@ GraphRenderer::prepare_data(const View &view, const LandmarkModel &model)
     glVertexAttribPointer(
       0, 2, GL_FLOAT, GL_FALSE, /*2 * sizeof(float)*/sizeof(glm::vec2), (void *)0);
     glEnableVertexAttribArray(0);
+}
+
+void
+GraphRenderer::prepare_edges(const View &view, const LandmarkModel &model)
+{
+    std::vector<glm::vec2> edge_lines(2 * model.edges.size());
+    for (size_t i = 0; i < model.edges.size(); ++i) {
+        edge_lines[2 * i + 0] = vertices[model.edges[i].first];
+        edge_lines[2 * i + 1] = vertices[model.edges[i].second];
+    }
+
+    glBindVertexArray(VAO_e);
+
+    glBindBuffer(GL_ARRAY_BUFFER, VBO_e);
+    glBufferData(GL_ARRAY_BUFFER,
+              edge_lines.size() * sizeof(glm::vec2),//2 * sizeof(float),
+              &edge_lines[0],
+              GL_DYNAMIC_DRAW);
+    glVertexAttribPointer(
+      0, 2, GL_FLOAT, GL_FALSE, /*2 * sizeof(float)*/sizeof(glm::vec2), (void *)0);
+    glEnableVertexAttribArray(0); 
 }
 
 bool

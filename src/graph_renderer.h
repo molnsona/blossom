@@ -78,11 +78,17 @@ private:
     /** Cached screen coordinates of the vertices. */
     std::vector<glm::vec2> vertices;
 
-    Shader shader;
-    unsigned int VAO;
-    unsigned int VBO;
+    Shader shader_v;
+    unsigned int VAO_v;
+    unsigned int VBO_v;
+
+    Shader shader_e;
+    unsigned int VAO_e;
+    unsigned int VBO_e;
 
     void prepare_data(const View &view, const LandmarkModel &model);
+    void prepare_vertices(const View &view, const LandmarkModel &model);
+    void prepare_edges(const View &view, const LandmarkModel &model);
 };
 
 #endif // #ifndef GRAPH_RENDERER_H
