@@ -36,11 +36,15 @@ set(CUDA_SOURCES
     embedsom_cuda.cpp
 )
 
+find_package(PkgConfig)
+pkg_check_modules(glfw3 REQUIRED glfw3)
+pkg_check_modules(glm REQUIRED glm)
+
 set(BLOSSOM_LIBRARIES
-    imgui
-    glfw
+    imgui    
     glad
-    glm
+    ${glfw3_LIBRARIES}
+    ${glm_LIBRARIES}
 )
 
 add_executable(blossom
@@ -62,9 +66,8 @@ else (MSVC)
     target_compile_options(blossom BEFORE PUBLIC $<$<COMPILE_LANGUAGE:CXX>:-Wall>)
 endif (MSVC)
 
-target_link_libraries(blossom PRIVATE
-    ${BLOSSOM_LIBRARIES}
-)
+target_link_libraries(blossom PRIVATE ${BLOSSOM_LIBRARIES})
+target_include_directories(blossom PUBLIC include ${glfw3_INCLUDE_DIRS} ${glm_INCLUDE_DIRS})
 
 # CUDA-accelerated target is compiled only if CUDA is available
 if (BUILD_CUDA)
@@ -96,7 +99,7 @@ if (BUILD_CUDA)
         target_compile_options(blossom_cuda BEFORE PUBLIC $<$<COMPILE_LANGUAGE:CXX>:-Wall>)
     endif (MSVC)
     
-    target_include_directories(blossom_cuda PUBLIC include "${CUDA_INCLUDE_DIRS}")
+    target_include_directories(blossom_cuda PUBLIC include ${CUDA_INCLUDE_DIRS} ${glfw3_INCLUDE_DIRS} ${glm_INCLUDE_DIRS})
     
     target_link_libraries(blossom_cuda PRIVATE
         ${BLOSSOM_LIBRARIES}
