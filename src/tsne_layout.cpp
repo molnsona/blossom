@@ -139,11 +139,11 @@ tsne_layout_step(TSNELayoutData &data,
             auto a = vji * pji[i * n + j] * wij;
             ups[i] -= a;
             ups[j] += a;
-            update_weight += a.length();
+            update_weight += glm::length(a);
             a = vji * Z * wij * wij;
             ups[i] += a;
             ups[j] -= a;
-            update_weight += a.length();
+            update_weight += glm::length(a);
         }
 
     update_weight = 100 / update_weight;
