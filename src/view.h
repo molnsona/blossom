@@ -30,6 +30,7 @@
 #include <glm/glm.hpp>
 #include <glm/gtc/matrix_transform.hpp>
 
+#include <cmath>
 #include <iostream>
 #include <vector>
 
@@ -46,7 +47,8 @@ enum View_Movement
 };
 
 // Default View values
-const float SPEED = 0.1f;
+const float SPEED = 0.2f;
+const float SMOOTH_SPEED = 0.005f;
 const float SENSITIVITY = 0.1f;
 const float ZOOM = 0.009f; // 45.0f;
 
@@ -56,7 +58,8 @@ class View
 {
 public:
     // View Attributes
-    glm::vec3 Position;
+    glm::vec3 target_pos;
+    glm::vec3 current_pos;
     glm::vec3 Front;
     glm::vec3 Up;
     glm::vec3 Right;
@@ -65,7 +68,8 @@ public:
     // View options
     float MovementSpeed;
     float MouseSensitivity;
-    float Zoom;
+    float target_zoom;
+    float current_zoom;
 
     // Framebuffer size
     int width;
@@ -79,11 +83,13 @@ public:
       : Front(glm::vec3(0.0f, 0.0f, -1.0f))
       , MovementSpeed(SPEED)
       , MouseSensitivity(SENSITIVITY)
-      , Zoom(ZOOM)
+      , target_zoom(ZOOM)
+      , current_zoom(ZOOM)
     {
-        Position = position;
+        target_pos = position;
+        current_pos = position;
         WorldUp = up;
-        updateViewVectors();
+        updateViewVectors();        
     }
     // constructor with scalar values
     View(float posX,
@@ -97,9 +103,11 @@ public:
       : Front(glm::vec3(0.0f, 0.0f, -1.0f))
       , MovementSpeed(SPEED)
       , MouseSensitivity(SENSITIVITY)
-      , Zoom(ZOOM)
+      , target_zoom(ZOOM)
+      , current_zoom(ZOOM)
     {
-        Position = glm::vec3(posX, posY, posZ);
+        target_pos = glm::vec3(posX, posY, posZ);
+        current_pos = glm::vec3(posX, posY, posZ);
         WorldUp = glm::vec3(upX, upY, upZ);
         updateViewVectors();
     }
@@ -113,6 +121,11 @@ public:
 
         ProcessMouseScroll(callbacks.yoffset, dt);
 
+        float power = std::pow(SMOOTH_SPEED, dt);
+        float r = 1 - power;
+        current_pos = power * current_pos + r * target_pos;
+        current_zoom = power * current_zoom + r * target_zoom;
+
         updateViewVectors();
     }
 
@@ -120,21 +133,19 @@ public:
     // Matrix
     glm::mat4 GetViewMatrix() const
     {
-        return glm::lookAt(Position, Position + Front, Up);
+        return glm::lookAt(current_pos, current_pos + Front, Up);
     }
 
     glm::mat4 GetProjMatrix() const
     {
         float half_w = width / 2.0f;
         float half_h = height / 2.0f;
-        return glm::ortho(-half_w * Zoom,
-                          half_w * Zoom,
-                          -half_h * Zoom,
-                          half_h * Zoom,
+        return glm::ortho(-half_w * current_zoom,
+                          half_w * current_zoom,
+                          -half_h * current_zoom,
+                          half_h * current_zoom,
                           0.1f,
                           100.0f);
-        // return glm::perspective(glm::radians(Zoom), (float)width /
-        // (float)height, 0.1f, 100.0f);
     }
 
     // // processes input received from any keyboard-like input system. Accepts
@@ -143,19 +154,20 @@ public:
     // deltaTime)
     void ProcessKeyboard(int key, int action, float deltaTime)
     {
-        float velocity = MovementSpeed * (Zoom * 100);
+        float half_h = height / 2.0f;
+        float velocity = half_h * target_zoom * MovementSpeed;
         if (key == GLFW_KEY_W &&
             (action == GLFW_PRESS || action == GLFW_REPEAT))
-            Position += Up * velocity;
+            target_pos.y += velocity;
         if (key == GLFW_KEY_S &&
             (action == GLFW_PRESS || action == GLFW_REPEAT))
-            Position -= Up * velocity;
+            target_pos.y -= velocity;
         if (key == GLFW_KEY_A &&
             (action == GLFW_PRESS || action == GLFW_REPEAT))
-            Position -= glm::normalize(glm::cross(Front, Up)) * velocity;
+            target_pos.x -= velocity;
         if (key == GLFW_KEY_D &&
             (action == GLFW_PRESS || action == GLFW_REPEAT))
-            Position += glm::normalize(glm::cross(Front, Up)) * velocity;
+            target_pos.x += velocity;
     }
 
     // processes input received from a mouse input system. Expects the offset
@@ -173,30 +185,12 @@ public:
     // input on the vertical wheel-axis
     void ProcessMouseScroll(float yoffset, float deltaTime)
     {
-        // float cameraSpeed = static_cast<float>(2.5 * deltaTime);
-        float velocity = 0.0005 * (Zoom * 100);
+        float velocity = deltaTime / 20 * (target_zoom * 100);
 
         if (yoffset > 0)
-            Zoom -= velocity;
+            target_zoom -= velocity;
         else if (yoffset < 0)
-            Zoom += velocity;
-
-        // float velocity = MovementSpeed * deltaTime * (Zoom / 20);
-
-        // if(yoffset > 0)
-        //     Position += velocity * Front;
-        // else if(yoffset < 0)
-        //     Position -= velocity * Front;
-
-        // if(Position.z < 0.2) Position.z = 0.2;
-
-        // //Zoom -= (float)yoffset * 2;
-
-        // Zoom -= (float)yoffset * 2 * (Zoom / 20);
-        // if (Zoom < 1.0f)
-        //     Zoom = 1.0f;
-        // if (Zoom > 45.0f)
-        //     Zoom = 45.0f;
+            target_zoom += velocity;
     }
 
     /**

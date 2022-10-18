@@ -9,6 +9,8 @@
 
 struct CallbackValues
 {
+    CallbackValues() {reset();}
+    
     int fb_width = 800;
     int fb_height = 600;
 
