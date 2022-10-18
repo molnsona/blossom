@@ -117,9 +117,9 @@ public:
         width = callbacks.fb_width;
         height = callbacks.fb_height;
 
-        ProcessKeyboard(callbacks.key, callbacks.key_action, dt);
+        ProcessKeyboard(callbacks.key, callbacks.key_action);
 
-        ProcessMouseScroll(callbacks.yoffset, dt);
+        ProcessMouseScroll(callbacks.yoffset);
 
         float power = std::pow(SMOOTH_SPEED, dt);
         float r = 1 - power;
@@ -152,7 +152,7 @@ public:
     // input parameter in the form of View defined ENUM (to abstract it from
     // windowing systems) void ProcessKeyboard(View_Movement direction, float
     // deltaTime)
-    void ProcessKeyboard(int key, int action, float deltaTime)
+    void ProcessKeyboard(int key, int action)
     {
         float half_h = height / 2.0f;
         float velocity = half_h * target_zoom * MovementSpeed;
@@ -183,9 +183,9 @@ public:
 
     // processes input received from a mouse scroll-wheel event. Only requires
     // input on the vertical wheel-axis
-    void ProcessMouseScroll(float yoffset, float deltaTime)
+    void ProcessMouseScroll(float yoffset)
     {
-        float velocity = deltaTime / 20 * (target_zoom * 100);
+        float velocity = fabs(yoffset / 1500.0f) * (target_zoom * 100);
 
         if (yoffset > 0)
             target_zoom -= velocity;
