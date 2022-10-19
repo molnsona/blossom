@@ -119,9 +119,9 @@ public:
 
         ProcessKeyboard(callbacks.key, callbacks.key_action);
 
-        ProcessMouseScroll(callbacks.yoffset);
+        ProcessMouseScroll(callbacks.yoffset, glm::vec2(callbacks.xpos, callbacks.ypos));
 
-        float power = std::pow(SMOOTH_SPEED, dt);
+        float power = pow(SMOOTH_SPEED, dt);
         float r = 1 - power;
         current_pos = power * current_pos + r * target_pos;
         current_zoom = power * current_zoom + r * target_zoom;
@@ -183,14 +183,16 @@ public:
 
     // processes input received from a mouse scroll-wheel event. Only requires
     // input on the vertical wheel-axis
-    void ProcessMouseScroll(float yoffset)
+    void ProcessMouseScroll(float yoffset, glm::vec2 mouse)
     {
-        float velocity = fabs(yoffset / 1500.0f) * (target_zoom * 100);
+        if(yoffset > -0.0001 && yoffset < 0.0001) return;
 
-        if (yoffset > 0)
-            target_zoom -= velocity;
-        else if (yoffset < 0)
-            target_zoom += velocity;
+        float velocity = -1 * yoffset / 1500.0f * (target_zoom * 100);
+        auto zoom_around = model_mouse_coords(mouse);             
+
+        target_zoom += velocity;
+        target_pos = glm::vec3(zoom_around + powf(2.0f, target_zoom * 400) * (glm::vec2(current_pos) - zoom_around) /
+            powf(2.0f, current_zoom * 400), target_pos.z);      
     }
 
     /**
