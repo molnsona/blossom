@@ -49,17 +49,6 @@ GraphRenderer::draw(const View &view, const LandmarkModel &model)
 
     prepare_data(view, model);
 
-    shader_v.use();
-    shader_v.setMat4("model", glm::mat4(1.0f));
-    shader_v.setMat4("view", view.GetViewMatrix());
-    shader_v.setMat4("proj", view.GetProjMatrix());
-
-    glBindVertexArray(VAO_v);
-
-    glEnable(GL_PROGRAM_POINT_SIZE);
-    glDrawArrays(GL_POINTS, 0, model.lodim_vertices.size());
-    glDisable(GL_PROGRAM_POINT_SIZE);
-
     shader_e.use();
     shader_e.setMat4("model", glm::mat4(1.0f));
     shader_e.setMat4("view", view.GetViewMatrix());
@@ -67,6 +56,21 @@ GraphRenderer::draw(const View &view, const LandmarkModel &model)
 
     glBindVertexArray(VAO_e);
     glDrawArrays(GL_LINES, 0, 2 * model.edges.size());
+
+
+    shader_v.use();
+    shader_v.setMat4("model", glm::mat4(1.0f));
+    shader_v.setMat4("view", view.GetViewMatrix());
+    shader_v.setMat4("proj", view.GetProjMatrix());
+
+    glBindVertexArray(VAO_v);
+    
+    for (size_t i = 0; i < model.lodim_vertices.size(); ++i)
+    {
+        glDrawArrays(GL_TRIANGLE_FAN, 
+            i * num_all_vtxs, 
+            num_all_vtxs);        
+    }
 
     glDisable(GL_BLEND);
 }
@@ -78,27 +82,50 @@ GraphRenderer::prepare_data(const View &view, const LandmarkModel &model)
     prepare_edges(view, model);
 }
 
+
+void 
+GraphRenderer::add_circle(float middle_x, float middle_y, float zoom, std::vector<float> &all_vtxs)
+{
+    int sides = 12;
+    float radius = 0.05f;
+    num_all_vtxs = sides + 2;
+    
+    double two_pi = 2.0f * M_PI;
+
+    all_vtxs.emplace_back(middle_x);
+    all_vtxs.emplace_back(middle_y);
+
+    for ( int i = 1; i < num_all_vtxs; i++ )
+    {
+        all_vtxs.emplace_back(middle_x + ( radius * cos( i *  two_pi / sides ) ) * zoom * 130);
+        all_vtxs.emplace_back(middle_y + ( radius * sin( i * two_pi / sides ) ) * zoom * 130);        
+    }    
+}
+
 void
 GraphRenderer::prepare_vertices(const View &view, const LandmarkModel &model)
-{
+{  
     if (vertices.size() != model.lodim_vertices.size()) {
         vertices.clear();
         vertices.resize(model.lodim_vertices.size());
     }
 
+    std::vector<float> all_vtxs;
+
     for (size_t i = 0; i < vertices.size(); ++i) {
         vertices[i] = model.lodim_vertices[i];
+        add_circle(vertices[i].x, vertices[i].y, view.current_zoom, all_vtxs);        
     }
-
+    
     glBindVertexArray(VAO_v);
 
     glBindBuffer(GL_ARRAY_BUFFER, VBO_v);
     glBufferData(GL_ARRAY_BUFFER,
-                 vertices.size() * sizeof(glm::vec2),
-                 &vertices[0],
+                 all_vtxs.size() * sizeof(float),
+                 &all_vtxs[0],
                  GL_DYNAMIC_DRAW);
     glVertexAttribPointer(
-      0, 2, GL_FLOAT, GL_FALSE, sizeof(glm::vec2), (void *)0);
+      0, 2, GL_FLOAT, GL_FALSE, 2 * sizeof(float), (void *)0);
     glEnableVertexAttribArray(0);
 }
 

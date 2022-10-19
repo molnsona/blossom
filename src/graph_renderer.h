@@ -26,6 +26,8 @@
 #include "shader.h"
 #include "view.h"
 
+#include <vector>
+
 /**
  * @brief Renderer of the 2D landmark graph.
  *
@@ -81,9 +83,13 @@ private:
     unsigned int VAO_e;
     unsigned int VBO_e;
 
+    int num_all_vtxs;
+
     void prepare_data(const View &view, const LandmarkModel &model);
     void prepare_vertices(const View &view, const LandmarkModel &model);
     void prepare_edges(const View &view, const LandmarkModel &model);
+
+    void add_circle(float middle_x, float middle_y, float zoom, std::vector<float> &all_vtxs);
 };
 
 #endif // #ifndef GRAPH_RENDERER_H

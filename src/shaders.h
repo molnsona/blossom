@@ -32,14 +32,13 @@ const std::string graph_v_vs =
   "uniform mat4 proj;\n"
   "void main()\n"
   "{\n"
-  "   gl_PointSize = 10;\n"
   "   gl_Position = proj * view * model * vec4(aPos, 0.1, 1.0);\n"
   "}\0";
 const std::string graph_v_fs = "#version 330 core\n"
                                "out vec4 FragColor;\n"
                                "void main()\n"
                                "{\n"
-                               "   FragColor = vec4(0.4, 0.4, 0.4, 0.6);\n"
+                               "   FragColor = vec4(0.4, 0.4, 0.4, 0.4);\n"
                                "}\0";
 
 const std::string graph_e_vs =
