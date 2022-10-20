@@ -42,7 +42,7 @@ ScatterRenderer::draw(const View &view,
                       const ScatterModel &model,
                       const ColorData &colors)
 {
-    
+
     size_t n =
       std::min(model.points.size(),
                colors.data.size()); // misalignment aborts it, be careful
@@ -50,9 +50,9 @@ ScatterRenderer::draw(const View &view,
     prepare_data(model, colors);
 
     shader.use();
-    shader.setMat4("model", glm::mat4(1.0f));
-    shader.setMat4("view", view.get_view_matrix());
-    shader.setMat4("proj", view.get_proj_matrix());
+    shader.set_mat4("model", glm::mat4(1.0f));
+    shader.set_mat4("view", view.get_view_matrix());
+    shader.set_mat4("proj", view.get_proj_matrix());
 
     glBindVertexArray(VAO);
     glEnable(GL_BLEND);

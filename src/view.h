@@ -51,7 +51,7 @@ public:
     glm::vec3 up;
     glm::vec3 right;
     glm::vec3 world_up;
-    
+
     float target_zoom;
     float current_zoom;
 
@@ -70,7 +70,7 @@ public:
         target_pos = position;
         current_pos = position;
         world_up = up;
-        update_view_vectors();        
+        update_view_vectors();
     }
 
     /**
@@ -87,7 +87,8 @@ public:
 
         process_keyboard(callbacks.key, callbacks.key_action);
 
-        process_mouse_scroll(callbacks.yoffset, glm::vec2(callbacks.xpos, callbacks.ypos));
+        process_mouse_scroll(callbacks.yoffset,
+                             glm::vec2(callbacks.xpos, callbacks.ypos));
 
         float power = pow(smooth_speed, dt);
         float r = 1 - power;
@@ -96,10 +97,10 @@ public:
 
         update_view_vectors();
     }
-    
+
     /**
      * @brief Compute view matrix for drawing into the "view" space.
-     * 
+     *
      * @return glm::mat4 View matrix
      */
     glm::mat4 get_view_matrix() const
@@ -109,7 +110,7 @@ public:
 
     /**
      * @brief Compute projection matrix for orthographic projection.
-     * 
+     *
      * @return glm::mat4 Projection matrix
      */
     glm::mat4 get_proj_matrix() const
@@ -170,23 +171,24 @@ public:
         return screen_point_coords(glm::vec2(res.x, res.y));
     }
 
-private:    
+private:
     /**
-     * @brief Re-calculates the right and up vector from the View's updated vectors.
-     * 
+     * @brief Re-calculates the right and up vector from the View's updated
+     * vectors.
+     *
      */
     void update_view_vectors()
     {
         right = glm::normalize(glm::cross(
           front, world_up)); // normalize the vectors, because their length gets
-                            // closer to 0 the more you look up or down which
-                            // results in slower movement.
+                             // closer to 0 the more you look up or down which
+                             // results in slower movement.
         up = glm::normalize(glm::cross(right, front));
     }
 
     /**
      * @brief Process keyboard input and move the "camera" accordingly.
-     * 
+     *
      * @param key Name of the used key.
      * @param action Pressed, released or hold key.
      */
@@ -210,20 +212,24 @@ private:
 
     /**
      * @brief Process mouse scroll and adjust zoom accordingly.
-     * 
+     *
      * @param yoffset Direction of the scroll (-1, 0, 1).
      * @param mouse Mouse coordinates ([0,0] in the upper left corner).
      */
     void process_mouse_scroll(float yoffset, glm::vec2 mouse)
     {
-        if(yoffset > -0.0001 && yoffset < 0.0001) return;
+        if (yoffset > -0.0001 && yoffset < 0.0001)
+            return;
 
         float velocity = -1 * yoffset / 1500.0f * (target_zoom * 100);
-        auto zoom_around = model_mouse_coords(mouse);             
+        auto zoom_around = model_mouse_coords(mouse);
 
         target_zoom += velocity;
-        target_pos = glm::vec3(zoom_around + powf(2.0f, target_zoom * 400) * (glm::vec2(current_pos) - zoom_around) /
-            powf(2.0f, current_zoom * 400), target_pos.z);      
+        target_pos =
+          glm::vec3(zoom_around + powf(2.0f, target_zoom * 400) *
+                                    (glm::vec2(current_pos) - zoom_around) /
+                                    powf(2.0f, current_zoom * 400),
+                    target_pos.z);
     }
 
     /**

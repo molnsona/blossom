@@ -66,11 +66,13 @@ struct OrderWithMinMax
 /** Comparator policy that automatically chooses a good implementation */
 template<typename T>
 struct ComparatorPolicy : OrderWithCmpSwap<T>
-{};
+{
+};
 
 template<>
 struct ComparatorPolicy<float> : OrderWithMinMax<float>
-{};
+{
+};
 
 /** A single "layer" of the parallel bitonic comparator. */
 template<typename T,

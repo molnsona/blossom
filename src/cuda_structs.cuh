@@ -72,7 +72,8 @@ struct knn_entry
 
 template<unsigned N, typename T>
 struct Vec
-{};
+{
+};
 template<>
 struct Vec<2, float>
 {

@@ -23,7 +23,8 @@
 
 UiTrainingSettings::UiTrainingSettings()
   : show_window(false)
-{}
+{
+}
 
 void
 UiTrainingSettings::render(State &state, ImGuiWindowFlags window_flags)

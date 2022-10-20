@@ -53,6 +53,14 @@ private:
     unsigned int VBO_pos;
     unsigned int VBO_col;
 
+    /**
+     * @brief Prepare data to render scatterplot with colors.
+     *
+     * Fill VBOs and VAO.
+     *
+     * @param model Data source
+     * @param colors Source of the color data.
+     */
     void prepare_data(const ScatterModel &model, const ColorData &colors);
 };
 

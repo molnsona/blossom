@@ -28,7 +28,8 @@ struct KnnEdgesData
 
     KnnEdgesData()
       : last_point(0)
-    {}
+    {
+    }
 };
 
 void

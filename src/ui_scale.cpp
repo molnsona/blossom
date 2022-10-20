@@ -23,7 +23,8 @@
 
 UiScaler::UiScaler()
   : show_window(false)
-{}
+{
+}
 
 void
 UiScaler::render(State &state, ImGuiWindowFlags window_flags)

@@ -44,7 +44,8 @@ struct MouseData
       , right_pressed(false)
       , vert_pressed(false)
       , vert_ind(0)
-    {}
+    {
+    }
 };
 
 #endif // #ifndef MOUSE_DATA_H

@@ -30,7 +30,8 @@ struct KeyboardData
 
     KeyboardData()
       : ctrl_pressed(false)
-    {}
+    {
+    }
 };
 
 #endif // #ifndef KEYBOARD_DATA_H

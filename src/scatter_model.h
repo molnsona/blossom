@@ -66,7 +66,10 @@ struct ScatterModel : public Sweeper
      * recomputed.
      *
      */
-    void touch_config() { refresh(points.size()); }
+    void touch_config()
+    {
+        refresh(points.size());
+    }
 };
 
 #endif

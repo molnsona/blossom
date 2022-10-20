@@ -30,7 +30,8 @@ constexpr float WINDOW_WIDTH = 50.0f;
 
 UiMenu::UiMenu()
   : show_menu(false)
-{}
+{
+}
 
 static void
 draw_menu_button(bool &show_menu, int fb_width, int fb_height)

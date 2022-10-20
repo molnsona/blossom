@@ -83,13 +83,45 @@ private:
     unsigned int VAO_e;
     unsigned int VBO_e;
 
+    /** Number of all vertices for rendering circles(graph vertices).*/
     int num_all_vtxs;
 
-    void prepare_data(const View &view, const LandmarkModel &model);
-    void prepare_vertices(const View &view, const LandmarkModel &model);
-    void prepare_edges(const View &view, const LandmarkModel &model);
+    /**
+     * @brief Prepare data to render vertices and edges.
+     *
+     * Fill VBOs and VAOs.
+     *
+     * @param current_zoom Current zoom of the "camera".
+     * @param model Data source
+     */
+    void prepare_data(float current_zoom, const LandmarkModel &model);
+    /**
+     * @brief Prepare graph vertices that are rendered as circles.
+     *
+     * @param current_zoom Current zoom of the "camera".
+     * @param model Data source
+     */
+    void prepare_vertices(float current_zoom, const LandmarkModel &model);
+    /**
+     * @brief Prepare graph edges that are rendered as lines.
+     *
+     * @param model Data source
+     */
+    void prepare_edges(const LandmarkModel &model);
 
-    void add_circle(float middle_x, float middle_y, float zoom, std::vector<float> &all_vtxs);
+    /**
+     * @brief Add vertices for TRIANGLE_FAN that creates circle
+     * at given position.
+     *
+     * @param middle_x x position of the middle of the circle.
+     * @param middle_y y position of the middle of the circle.
+     * @param zoom Current zoom level used to adjust the size of the circle.
+     * @param all_vtxs Storage of the vertices that will be filled.
+     */
+    void add_circle(float middle_x,
+                    float middle_y,
+                    float zoom,
+                    std::vector<float> &all_vtxs);
 };
 
 #endif // #ifndef GRAPH_RENDERER_H

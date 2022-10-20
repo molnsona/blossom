@@ -40,13 +40,6 @@ ImGuiWrapper::render(CallbackValues callbacks, State &state)
     ImGui::NewFrame();
 
     menu.render(callbacks.fb_width, callbacks.fb_height, state);
-    // static bool showDemo = false;
-    // ImGui::Begin("Example");
-    // if (ImGui::Button(ICON_FA_SEARCH " Show/Hide ImGui demo"))
-    // showDemo = !showDemo;
-    // ImGui::End();
-    // if (showDemo)
-    // ImGui::ShowDemoWindow(&showDemo);
 
     ImGui::Render();
     ImGui_ImplOpenGL3_RenderDrawData(ImGui::GetDrawData());
