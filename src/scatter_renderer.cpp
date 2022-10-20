@@ -51,8 +51,8 @@ ScatterRenderer::draw(const View &view,
 
     shader.use();
     shader.setMat4("model", glm::mat4(1.0f));
-    shader.setMat4("view", view.GetViewMatrix());
-    shader.setMat4("proj", view.GetProjMatrix());
+    shader.setMat4("view", view.get_view_matrix());
+    shader.setMat4("proj", view.get_proj_matrix());
 
     glBindVertexArray(VAO);
     glEnable(GL_BLEND);

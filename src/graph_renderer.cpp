@@ -51,8 +51,8 @@ GraphRenderer::draw(const View &view, const LandmarkModel &model)
 
     shader_e.use();
     shader_e.setMat4("model", glm::mat4(1.0f));
-    shader_e.setMat4("view", view.GetViewMatrix());
-    shader_e.setMat4("proj", view.GetProjMatrix());
+    shader_e.setMat4("view", view.get_view_matrix());
+    shader_e.setMat4("proj", view.get_proj_matrix());
 
     glBindVertexArray(VAO_e);
     glDrawArrays(GL_LINES, 0, 2 * model.edges.size());
@@ -60,8 +60,8 @@ GraphRenderer::draw(const View &view, const LandmarkModel &model)
 
     shader_v.use();
     shader_v.setMat4("model", glm::mat4(1.0f));
-    shader_v.setMat4("view", view.GetViewMatrix());
-    shader_v.setMat4("proj", view.GetProjMatrix());
+    shader_v.setMat4("view", view.get_view_matrix());
+    shader_v.setMat4("proj", view.get_proj_matrix());
 
     glBindVertexArray(VAO_v);
     

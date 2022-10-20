@@ -20,10 +20,6 @@
 #ifndef VIEW_H
 #define VIEW_H
 
-//#include <glm/glm.hpp>
-
-//#include <tuple>
-
 #define GLFW_INCLUDE_NONE
 #include <GLFW/glfw3.h>
 #include <glad/glad.h>
@@ -36,38 +32,26 @@
 
 #include "wrapper_glfw.h"
 
-// Defines several possible options for View movement. Used as abstraction to
-// stay away from window-system specific input methods
-enum View_Movement
-{
-    FORWARD,
-    BACKWARD,
-    LEFT,
-    RIGHT
-};
-
-// Default View values
-const float SPEED = 0.2f;
-const float SMOOTH_SPEED = 0.005f;
-const float SENSITIVITY = 0.1f;
-const float ZOOM = 0.009f; // 45.0f;
-
-// An abstract View class that processes input and calculates the corresponding
-// Euler Angles, Vectors and Matrices for use in OpenGL
+/**
+ * @brief A small utility class that manages the viewport coordinates, together
+ * with the virtual "camera" position and zoom.
+ */
 class View
 {
 public:
-    // View Attributes
+    // Default View values
+    const float movement_speed = 0.2f;
+    const float smooth_speed = 0.005f;
+    const float zoom_depth = 0.009f;
+
+    // View vectors
     glm::vec3 target_pos;
     glm::vec3 current_pos;
-    glm::vec3 Front;
-    glm::vec3 Up;
-    glm::vec3 Right;
-    glm::vec3 WorldUp;
-
-    // View options
-    float MovementSpeed;
-    float MouseSensitivity;
+    glm::vec3 front;
+    glm::vec3 up;
+    glm::vec3 right;
+    glm::vec3 world_up;
+    
     float target_zoom;
     float current_zoom;
 
@@ -75,68 +59,60 @@ public:
     int width;
     int height;
 
-    // constructor with vectors
     View(int width = 800,
          int height = 600,
          glm::vec3 position = glm::vec3(0.0f, 0.0f, 1.0f),
          glm::vec3 up = glm::vec3(0.0f, 1.0f, 0.0f))
-      : Front(glm::vec3(0.0f, 0.0f, -1.0f))
-      , MovementSpeed(SPEED)
-      , MouseSensitivity(SENSITIVITY)
-      , target_zoom(ZOOM)
-      , current_zoom(ZOOM)
+      : front(glm::vec3(0.0f, 0.0f, -1.0f))
+      , target_zoom(zoom_depth)
+      , current_zoom(zoom_depth)
     {
         target_pos = position;
         current_pos = position;
-        WorldUp = up;
-        updateViewVectors();        
-    }
-    // constructor with scalar values
-    View(float posX,
-         float posY,
-         float posZ,
-         float upX,
-         float upY,
-         float upZ,
-         int width = 800,
-         int height = 600)
-      : Front(glm::vec3(0.0f, 0.0f, -1.0f))
-      , MovementSpeed(SPEED)
-      , MouseSensitivity(SENSITIVITY)
-      , target_zoom(ZOOM)
-      , current_zoom(ZOOM)
-    {
-        target_pos = glm::vec3(posX, posY, posZ);
-        current_pos = glm::vec3(posX, posY, posZ);
-        WorldUp = glm::vec3(upX, upY, upZ);
-        updateViewVectors();
+        world_up = up;
+        update_view_vectors();        
     }
 
+    /**
+     * @brief Move the current position and zoom a bit closer to the target
+     * position and zoom.
+     *
+     * @param dt Time difference.
+     * @param callbacks Values collected by event callbacks.
+     */
     void update(float dt, const CallbackValues &callbacks)
     {
         width = callbacks.fb_width;
         height = callbacks.fb_height;
 
-        ProcessKeyboard(callbacks.key, callbacks.key_action);
+        process_keyboard(callbacks.key, callbacks.key_action);
 
-        ProcessMouseScroll(callbacks.yoffset, glm::vec2(callbacks.xpos, callbacks.ypos));
+        process_mouse_scroll(callbacks.yoffset, glm::vec2(callbacks.xpos, callbacks.ypos));
 
-        float power = pow(SMOOTH_SPEED, dt);
+        float power = pow(smooth_speed, dt);
         float r = 1 - power;
         current_pos = power * current_pos + r * target_pos;
         current_zoom = power * current_zoom + r * target_zoom;
 
-        updateViewVectors();
+        update_view_vectors();
     }
-
-    // returns the view matrix calculated using Euler Angles and the LookAt
-    // Matrix
-    glm::mat4 GetViewMatrix() const
+    
+    /**
+     * @brief Compute view matrix for drawing into the "view" space.
+     * 
+     * @return glm::mat4 View matrix
+     */
+    glm::mat4 get_view_matrix() const
     {
-        return glm::lookAt(current_pos, current_pos + Front, Up);
+        return glm::lookAt(current_pos, current_pos + front, up);
     }
 
-    glm::mat4 GetProjMatrix() const
+    /**
+     * @brief Compute projection matrix for orthographic projection.
+     * 
+     * @return glm::mat4 Projection matrix
+     */
+    glm::mat4 get_proj_matrix() const
     {
         float half_w = width / 2.0f;
         float half_h = height / 2.0f;
@@ -146,53 +122,6 @@ public:
                           half_h * current_zoom,
                           0.1f,
                           100.0f);
-    }
-
-    // // processes input received from any keyboard-like input system. Accepts
-    // input parameter in the form of View defined ENUM (to abstract it from
-    // windowing systems) void ProcessKeyboard(View_Movement direction, float
-    // deltaTime)
-    void ProcessKeyboard(int key, int action)
-    {
-        float half_h = height / 2.0f;
-        float velocity = half_h * target_zoom * MovementSpeed;
-        if (key == GLFW_KEY_W &&
-            (action == GLFW_PRESS || action == GLFW_REPEAT))
-            target_pos.y += velocity;
-        if (key == GLFW_KEY_S &&
-            (action == GLFW_PRESS || action == GLFW_REPEAT))
-            target_pos.y -= velocity;
-        if (key == GLFW_KEY_A &&
-            (action == GLFW_PRESS || action == GLFW_REPEAT))
-            target_pos.x -= velocity;
-        if (key == GLFW_KEY_D &&
-            (action == GLFW_PRESS || action == GLFW_REPEAT))
-            target_pos.x += velocity;
-    }
-
-    // processes input received from a mouse input system. Expects the offset
-    // value in both the x and y direction.
-    void ProcessMouseMovement(float xoffset, float yoffset)
-    {
-        xoffset *= MouseSensitivity;
-        yoffset *= MouseSensitivity;
-
-        // update Front, Right and Up Vectors using the updated Euler angles
-        updateViewVectors();
-    }
-
-    // processes input received from a mouse scroll-wheel event. Only requires
-    // input on the vertical wheel-axis
-    void ProcessMouseScroll(float yoffset, glm::vec2 mouse)
-    {
-        if(yoffset > -0.0001 && yoffset < 0.0001) return;
-
-        float velocity = -1 * yoffset / 1500.0f * (target_zoom * 100);
-        auto zoom_around = model_mouse_coords(mouse);             
-
-        target_zoom += velocity;
-        target_pos = glm::vec3(zoom_around + powf(2.0f, target_zoom * 400) * (glm::vec2(current_pos) - zoom_around) /
-            powf(2.0f, current_zoom * 400), target_pos.z);      
     }
 
     /**
@@ -218,8 +147,8 @@ public:
     {
         glm::vec3 res =
           glm::unProject(glm::vec3(mouse.x, height - mouse.y, 0.1f),
-                         GetViewMatrix(),
-                         GetProjMatrix(),
+                         get_view_matrix(),
+                         get_proj_matrix(),
                          glm::vec4(0.0f, 0.0f, width, height));
 
         return glm::vec2(res.x, res.y);
@@ -235,22 +164,66 @@ public:
     glm::vec2 screen_coords(glm::vec2 point) const
     {
         glm::vec3 res = glm::project(glm::vec3(point, 0.1f),
-                                     GetViewMatrix(),
-                                     GetProjMatrix(),
+                                     get_view_matrix(),
+                                     get_proj_matrix(),
                                      glm::vec4(0.0f, 0.0f, width, height));
         return screen_point_coords(glm::vec2(res.x, res.y));
     }
 
-private:
-    // calculates the front vector from the View's (updated) Euler Angles
-    void updateViewVectors()
+private:    
+    /**
+     * @brief Re-calculates the right and up vector from the View's updated vectors.
+     * 
+     */
+    void update_view_vectors()
     {
-        // also re-calculate the Right and Up vector
-        Right = glm::normalize(glm::cross(
-          Front, WorldUp)); // normalize the vectors, because their length gets
+        right = glm::normalize(glm::cross(
+          front, world_up)); // normalize the vectors, because their length gets
                             // closer to 0 the more you look up or down which
                             // results in slower movement.
-        Up = glm::normalize(glm::cross(Right, Front));
+        up = glm::normalize(glm::cross(right, front));
+    }
+
+    /**
+     * @brief Process keyboard input and move the "camera" accordingly.
+     * 
+     * @param key Name of the used key.
+     * @param action Pressed, released or hold key.
+     */
+    void process_keyboard(int key, int action)
+    {
+        float half_h = height / 2.0f;
+        float velocity = half_h * target_zoom * movement_speed;
+        if (key == GLFW_KEY_W &&
+            (action == GLFW_PRESS || action == GLFW_REPEAT))
+            target_pos.y += velocity;
+        if (key == GLFW_KEY_S &&
+            (action == GLFW_PRESS || action == GLFW_REPEAT))
+            target_pos.y -= velocity;
+        if (key == GLFW_KEY_A &&
+            (action == GLFW_PRESS || action == GLFW_REPEAT))
+            target_pos.x -= velocity;
+        if (key == GLFW_KEY_D &&
+            (action == GLFW_PRESS || action == GLFW_REPEAT))
+            target_pos.x += velocity;
+    }
+
+    /**
+     * @brief Process mouse scroll and adjust zoom accordingly.
+     * 
+     * @param yoffset Direction of the scroll (-1, 0, 1).
+     * @param mouse Mouse coordinates ([0,0] in the upper left corner).
+     */
+    void process_mouse_scroll(float yoffset, glm::vec2 mouse)
+    {
+        if(yoffset > -0.0001 && yoffset < 0.0001) return;
+
+        float velocity = -1 * yoffset / 1500.0f * (target_zoom * 100);
+        auto zoom_around = model_mouse_coords(mouse);             
+
+        target_zoom += velocity;
+        target_pos = glm::vec3(zoom_around + powf(2.0f, target_zoom * 400) * (glm::vec2(current_pos) - zoom_around) /
+            powf(2.0f, current_zoom * 400), target_pos.z);      
     }
 
     /**
@@ -265,200 +238,5 @@ private:
         return glm::vec2(point.x - width / 2.0f, point.y - height / 2.0f);
     }
 };
-
-// /**
-//  * @brief A small utility class that manages the viewport coordinates,
-//  together
-//  * with the virtual "camera" position and zoom.
-//  */
-// struct View
-// {
-//     using Vector2 = glm::vec2;
-//     using Vector2i = glm::ivec2;
-//     using Vector3 = glm::vec3;
-//     using Matrix3 = glm::mat3;
-
-//     /** Size of the framebuffer (in screen coordinates). */
-//     Vector2i fb_size;
-
-//     /** Current middle point of the view (in model coordinates). */
-//     Vector2 mid;
-//     /** Intended middle point of the view (camera will move there). */
-//     Vector2 mid_target;
-//     /** Negative-log2-vertical-size of the on-screen part of the model space
-//      * (aka zoom). */
-//     float view_logv;
-//     /** Intended zoom. */
-//     float view_logv_target;
-
-//     View()
-//       : fb_size(1, 1)
-//       , mid(4, 4)
-//       , mid_target(4, 4)
-//       , view_logv(-4)
-//       , view_logv_target(-4)
-//     {}
-
-//     /** Utility to convert logv to actual size */
-//     inline float zoom_scale(float logv) const { return pow(2, -logv); }
-
-//     /** Return the vertical size of the viewed part in model space. */
-//     inline float zoom_scale() const { return zoom_scale(view_logv); }
-
-//     /**
-//      * @brief Move the current midpoint and zoom a bit closer to the target
-//      * midpoint and zoom.
-//      *
-//      * @param dt Time difference
-//      */
-//     void update(float dt)
-//     {
-//         const float ir = pow(0.005, dt);
-//         const float r = 1 - ir;
-
-//         view_logv = ir * view_logv + r * view_logv_target;
-//         mid = ir * mid + r * mid_target;
-//     }
-
-//     /**
-//      * @brief Compute and return the view size in model coordinates
-//      *
-//      * @return Vector2 with the size.
-//      */
-//     inline Vector2 view_size() const
-//     {
-//         const float v = zoom_scale();
-//         const float h = fb_size.x * v / fb_size.y;
-//         return Vector2(h, v);
-//     }
-
-//     /**
-//      * @brief Compute the view rectangle coordinates
-//      *
-//      * @return Tuple of two Vector2, with the lower-left view corner and size
-//      of
-//      * the view.
-//      */
-//     inline std::tuple<Vector2, Vector2> frame() const
-//     {
-//         auto s = view_size();
-//         return { Vector2((mid - s).x / 2, (mid - s).y / 2), s };
-//     }
-
-//     /**
-//      * @brief Compute model coordinates from screen coordinates.
-//      *
-//      * The "zero" point is thought to be in the middle of the screen.
-//      *
-//      * @param screen Screen coordinates.
-//      * @return Model coordinates.
-//      */
-//     inline Vector2 model_coords(Vector2i screen) const
-//     {
-//         return mid + view_size() *
-//                        (Vector2(screen) / Vector2(fb_size) - Vector2(0.5,
-//                        0.5));
-//     }
-
-//     /**
-//      * @brief Computes screen coordinates from model coordinates.
-//      *
-//      * Inverse to model_coords().
-//      *
-//      * @param model Model coordinates.
-//      * @return Screen coordinates.
-//      */
-//     inline Vector2 screen_coords(Vector2 model) const
-//     {
-//         return ((model - mid) / view_size() + Vector2(0.5, 0.5)) *
-//                Vector2(fb_size);
-//     }
-
-//     /**
-//      * @brief Computes screen coordinates of the mouse cursor.
-//      *
-//      * @param mouse Mouse cursor coordinates ([0, 0] is in the bottom left
-//      * corner.)
-//      * @return Screen coordinates of the mouse cursor.
-//      */
-//     inline Vector2i screen_mouse_coords(Vector2i mouse) const
-//     {
-//         return Vector2i(mouse.x, fb_size.y - mouse.y);
-//     }
-
-//     /**
-//      * @brief Computes model coordinates of the mouse cursor.
-//      *
-//      * @param mouse Mouse cursor coordinates ([0, 0] is in the bottom left
-//      * corner.)
-//      * @return Model coordinates of the mouse cursor.
-//      */
-//     inline Vector2 model_mouse_coords(Vector2i mouse) const
-//     {
-//         return model_coords(screen_mouse_coords(mouse));
-//     }
-
-//     /**
-//      * @brief Compute the projection matrix for drawing into the "view"
-//      space.
-//      *
-//      * 1 unit in the view space should be roughly equal to 1 framebuffer
-//      pixel,
-//      * independently of camera position and zoom.
-//      */
-//     inline glm::mat3 screen_projection_matrix() const
-//     {
-//         return glm::mat3(Vector3(2.0f / fb_size.x, 0, 0),
-//                                Vector3(0, 2.0f / fb_size.y, 0),
-//                                Vector3(-1, -1, 1));
-//     }
-
-//     /**
-//      * @brief Compute the projection matrix for drawing into the "model"
-//      * coordinates.
-//      *
-//      * This view is transformed along with camera position an zoom.
-//      */
-//     inline glm::mat3 projection_matrix() const
-//     {
-//         auto isize = Vector2(1.0 / view_size().x, 1.0 / view_size().y);
-
-//         return glm::mat3(
-//           Vector3(2 * isize.x, 0, 0),
-//           Vector3(0, 2 * isize.y, 0),
-//           Vector3(-2 * mid.x * isize.x, -2 * mid.y * isize.y, 1));
-//     }
-
-//     /**
-//      * @brief Cause a zoom in response to user action.
-//      *
-//      * Call this to handle mousewheel scrolling events.
-//      */
-//     void zoom(float delta, Vector2i mouse)
-//     {
-//         view_logv_target += delta;
-//         if (view_logv_target > 15)
-//             view_logv_target = 15;
-//         if (view_logv_target < -10)
-//             view_logv_target = -10;
-
-//         auto zoom_around = model_mouse_coords(mouse);
-//         mid_target = zoom_around + zoom_scale(view_logv_target) *
-//                                      (mid - zoom_around) / zoom_scale();
-//     }
-
-//     /**
-//      * @brief Cause the camera to look at the specified point.
-//      *
-//      * @param tgt This point will eventually get to the middle of the screen.
-//      */
-//     void lookat(Vector2 tgt) { mid_target = tgt; }
-
-//     /** Reset the framebuffer size to the specified value */
-//     void set_fb_size(Vector2i s) { fb_size = s; }
-
-//     /** Variant of lookat() that accepts "screen" coordinates. */
-//     void lookat_screen(Vector2i mouse) { lookat(model_mouse_coords(mouse)); }
-// };
 
 #endif
