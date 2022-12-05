@@ -90,6 +90,10 @@ public:
         process_mouse_scroll(callbacks.yoffset,
                              glm::vec2(callbacks.xpos, callbacks.ypos));
 
+        process_mouse_button(callbacks.button,
+                             callbacks.mouse_action,
+                             glm::vec2(callbacks.xpos, callbacks.ypos));
+
         float power = pow(smooth_speed, dt);
         float r = 1 - power;
         current_pos = power * current_pos + r * target_pos;
@@ -232,6 +236,21 @@ private:
                     target_pos.z);
     }
 
+    void process_mouse_button(int button, int action, glm::vec2 mouse_pos)
+    {
+        switch (button) {
+            case GLFW_MOUSE_BUTTON_MIDDLE:
+                switch (action) {
+                    case GLFW_PRESS:
+                        look_at(model_mouse_coords(mouse_pos));
+                    default:
+                        break;
+                }
+            default:
+                break;
+        }
+    }
+
     /**
      * @brief Convert point coordinates ([0,0] in the upper left corner),
      * to screen coordinates ([0,0] in the middle of the screen).
@@ -242,6 +261,17 @@ private:
     glm::vec2 screen_point_coords(glm::vec2 point) const
     {
         return glm::vec2(point.x - width / 2.0f, point.y - height / 2.0f);
+    }
+
+    /**
+     * @brief Cause the camera to look at the specified point.
+     *
+     * @param tgt This point will eventually get to the middle of the screen.
+     */
+    void look_at(glm::vec2 tgt)
+    {
+        target_pos.x = tgt.x;
+        target_pos.y = tgt.y;
     }
 };
 
