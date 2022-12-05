@@ -14,6 +14,8 @@ add_library(
         imgui/backends/imgui_impl_opengl3.h
         imgui/backends/imgui_impl_glfw.cpp
         imgui/backends/imgui_impl_glfw.h
+        imgui/misc/cpp/imgui_stdlib.cpp
+        imgui/misc/cpp/imgui_stdlib.h
 )
 
 target_link_libraries(imgui PUBLIC glfw glad)
@@ -25,4 +27,5 @@ target_include_directories(
         PUBLIC
         imgui
         imgui/backends
+        imgui/misc/cpp
 )

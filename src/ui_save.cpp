@@ -19,6 +19,8 @@
 
 #include "ui_save.h"
 
+#include "imgui_stdlib.h"
+
 #include <glm/glm.hpp>
 
 #include <algorithm>
@@ -66,14 +68,14 @@ UiSaver::render(State &state, ImGuiWindowFlags window_flags)
     }
 
     if (ImGui::Begin("Save##window", &show_window, window_flags)) {
-        auto save_line = [&](const char *text, int type) {
+        auto save_line = [&](const char *text, int type) {            
             ImGui::Text(text);
-            std::string name = "##save_checkbox" + std::to_string(type);
-            ImGui::Checkbox(name.data(), &data_flags[type]);
+            std::string checkbox_name = "##save_checkbox" + std::to_string(type);
+            ImGui::Checkbox(checkbox_name.data(), &data_flags[type]);
             ImGui::SameLine();
-            name = "file name##save" + std::to_string(type);
+            std::string inputtext_name = "file name##save" + std::to_string(type);            
             ImGui::InputText(
-              name.data(), file_names[type].data(), file_name_size);
+              inputtext_name.data(), &file_names[type]);
         };
 
         save_line("Save hidim points:", UiSaver::Types::POINTS_HD);
