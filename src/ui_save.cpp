@@ -68,14 +68,15 @@ UiSaver::render(State &state, ImGuiWindowFlags window_flags)
     }
 
     if (ImGui::Begin("Save##window", &show_window, window_flags)) {
-        auto save_line = [&](const char *text, int type) {            
+        auto save_line = [&](const char *text, int type) {
             ImGui::Text(text);
-            std::string checkbox_name = "##save_checkbox" + std::to_string(type);
+            std::string checkbox_name =
+              "##save_checkbox" + std::to_string(type);
             ImGui::Checkbox(checkbox_name.data(), &data_flags[type]);
             ImGui::SameLine();
-            std::string inputtext_name = "file name##save" + std::to_string(type);            
-            ImGui::InputText(
-              inputtext_name.data(), &file_names[type]);
+            std::string inputtext_name =
+              "file name##save" + std::to_string(type);
+            ImGui::InputText(inputtext_name.data(), &file_names[type]);
         };
 
         save_line("Save hidim points:", UiSaver::Types::POINTS_HD);
