@@ -1,0 +1,4 @@
+<map id="LandmarkModel::move" name="LandmarkModel::move">
+<area shape="rect" id="node1" title="Sets two&#45;dimensional position of the pressed landmark to mouse position." alt="" coords="5,5,177,32"/>
+<area shape="rect" id="node2" href="$structDirt.html#a6753e4542f5254af6366b36b5864a37e" title="Make the cache dirty." alt="" coords="225,5,316,32"/>
+</map>

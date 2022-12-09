@@ -1,8 +1,12 @@
 <map id="src/view.h" name="src/view.h">
-<area shape="rect" id="node1" title=" " alt="" coords="397,5,477,32"/>
-<area shape="rect" id="node2" title=" " alt="" coords="5,80,143,107"/>
-<area shape="rect" id="node3" title=" " alt="" coords="167,80,330,107"/>
-<area shape="rect" id="node4" title=" " alt="" coords="354,80,519,107"/>
-<area shape="rect" id="node5" title=" " alt="" coords="543,80,709,107"/>
-<area shape="rect" id="node6" title=" " alt="" coords="733,80,783,107"/>
+<area shape="rect" id="node1" title=" " alt="" coords="405,5,492,32"/>
+<area shape="rect" id="node2" title=" " alt="" coords="5,155,116,181"/>
+<area shape="rect" id="node3" title=" " alt="" coords="224,155,319,181"/>
+<area shape="rect" id="node4" title=" " alt="" coords="305,80,409,107"/>
+<area shape="rect" id="node5" title=" " alt="" coords="433,80,651,107"/>
+<area shape="rect" id="node6" title=" " alt="" coords="675,80,737,107"/>
+<area shape="rect" id="node7" title=" " alt="" coords="762,80,842,107"/>
+<area shape="rect" id="node8" title=" " alt="" coords="867,80,929,107"/>
+<area shape="rect" id="node9" href="$wrapper__glfw_8h.html" title=" " alt="" coords="110,80,230,107"/>
+<area shape="rect" id="node10" title=" " alt="" coords="141,155,199,181"/>
 </map>

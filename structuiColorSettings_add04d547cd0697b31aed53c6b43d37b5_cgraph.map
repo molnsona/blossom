@@ -1,7 +1,0 @@
-<map id="uiColorSettings::render" name="uiColorSettings::render">
-<area shape="rect" id="node1" title="Renders window with corresponding color settings widgets." alt="" coords="5,56,160,83"/>
-<area shape="rect" id="node2" href="$structColorData.html#a0c2ffb8cf9b6cbcce28c928af3b3d624" title="Resets color settings to their initial values." alt="" coords="208,5,327,32"/>
-<area shape="rect" id="node3" href="$structColorData.html#a92a579faa57018d8fd3c4b4bf3cabb02" title="Notifies Sweeper that the color settings has been modified and that the data has to be recomputed." alt="" coords="375,31,537,57"/>
-<area shape="rect" id="node5" href="$utils__imgui_8hpp.html#a7198a716c578110d3a308c526f8f17c3" title="ImGUI wrapper for reset button." alt="" coords="220,107,315,133"/>
-<area shape="rect" id="node4" href="$structSweeper.html#af8cbe558ba3a09298813c9a0d8ee7234" title="Force&#45;refresh the whole range." alt="" coords="585,31,707,57"/>
-</map>

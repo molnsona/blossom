@@ -1,11 +1,11 @@
 <map id="parse_generic" name="parse_generic">
-<area shape="rect" id="node1" title="Parses data from input file." alt="" coords="5,69,108,96"/>
-<area shape="rect" id="node2" href="$structDataModel.html#a527e859d5cd47042071d605028555fae" title="Clears all DataModel data to their default values." alt="" coords="156,12,277,39"/>
-<area shape="rect" id="node4" href="$fcs__parser_8cpp.html#ae00e5fbd7e5a0e9db28302423191c6ed" title="Parses FCS file and fills DataModel data." alt="" coords="173,69,261,96"/>
-<area shape="rect" id="node8" href="$tsv__parser_8cpp.html#a872347de961a59065a0fc7b90cf677ed" title="Parses FCS file and fills DataModel data." alt="" coords="173,132,260,159"/>
-<area shape="rect" id="node3" href="$structDirt.html#a6753e4542f5254af6366b36b5864a37e" title="Make the cache dirty." alt="" coords="327,5,410,32"/>
-<area shape="rect" id="node5" href="$fcs__parser_8cpp.html#acd14be89961a5cef7e298f34e9f4d841" title="Parses actual data from the FCS file." alt="" coords="325,56,412,83"/>
-<area shape="rect" id="node6" href="$fcs__parser_8cpp.html#a558db7da59037a90183a2fb252cc4e23" title="Parses info from FCS header." alt="" coords="327,107,410,133"/>
-<area shape="rect" id="node7" href="$fcs__parser_8cpp.html#a1b66790a56ce92415921ad300c4ad17f" title="Helper function for parsing ID from string." alt="" coords="460,107,531,133"/>
-<area shape="rect" id="node9" href="$tsv__parser_8cpp.html#a14f77ba5943bc79a7191c885621c8ab9" title="Splits a given string into words by a given delimiter." alt="" coords="345,157,392,184"/>
+<area shape="rect" id="node1" title="Parses data from input file." alt="" coords="5,69,119,96"/>
+<area shape="rect" id="node2" href="$structDataModel.html#a527e859d5cd47042071d605028555fae" title="Clears all DataModel data to their default values." alt="" coords="167,12,300,39"/>
+<area shape="rect" id="node4" href="$fcs__parser_8cpp.html#ae00e5fbd7e5a0e9db28302423191c6ed" title="Parses FCS file and fills DataModel data." alt="" coords="188,69,279,96"/>
+<area shape="rect" id="node8" href="$tsv__parser_8cpp.html#a872347de961a59065a0fc7b90cf677ed" title="Parses FCS file and fills DataModel data." alt="" coords="188,132,279,159"/>
+<area shape="rect" id="node3" href="$structDirt.html#a6753e4542f5254af6366b36b5864a37e" title="Make the cache dirty." alt="" coords="350,5,441,32"/>
+<area shape="rect" id="node5" href="$fcs__parser_8cpp.html#acd14be89961a5cef7e298f34e9f4d841" title="Parses actual data from the FCS file." alt="" coords="348,56,443,83"/>
+<area shape="rect" id="node6" href="$fcs__parser_8cpp.html#a558db7da59037a90183a2fb252cc4e23" title="Parses info from FCS header." alt="" coords="350,107,441,133"/>
+<area shape="rect" id="node7" href="$fcs__parser_8cpp.html#a1b66790a56ce92415921ad300c4ad17f" title="Helper function for parsing ID from string." alt="" coords="491,107,568,133"/>
+<area shape="rect" id="node9" href="$tsv__parser_8cpp.html#a6b88f3af81fc7a34e9df6443c3c92af2" title="Splits a given string into words by a given delimiter." alt="" coords="370,157,421,184"/>
 </map>

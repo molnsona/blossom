@@ -1,7 +1,7 @@
 <map id="TransData" name="TransData">
-<area shape="rect" id="node1" title="Storage of the transformed data." alt="" coords="88,157,171,184"/>
-<area shape="rect" id="node2" href="$structSweeper.html" title="A piece of multi&#45;object cache." alt="" coords="93,81,166,108"/>
-<area shape="rect" id="node3" href="$structCleaner.html" title="A piece of cache that keeps track of the dirty status." alt="" coords="7,5,74,32"/>
-<area shape="rect" id="node4" href="$structDirts.html" title="Multi&#45;piece cache&#45;dirtying object." alt="" coords="191,81,242,108"/>
-<area shape="rect" id="node5" href="$structDirt.html" title="A piece of dirt for dirtying the caches." alt="" coords="195,5,238,32"/>
+<area shape="rect" id="node1" title="Storage of the transformed data." alt="" coords="96,157,182,184"/>
+<area shape="rect" id="node2" href="$structSweeper.html" title="A piece of multi&#45;object cache." alt="" coords="100,81,178,108"/>
+<area shape="rect" id="node3" href="$structCleaner.html" title="A piece of cache that keeps track of the dirty status." alt="" coords="7,5,79,32"/>
+<area shape="rect" id="node4" href="$structDirts.html" title="Multi&#45;piece cache&#45;dirtying object." alt="" coords="203,81,256,108"/>
+<area shape="rect" id="node5" href="$structDirt.html" title="A piece of dirt for dirtying the caches." alt="" coords="206,5,253,32"/>
 </map>

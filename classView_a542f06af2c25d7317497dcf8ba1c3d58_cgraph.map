@@ -1,0 +1,7 @@
+<map id="View::process_mouse_button" name="View::process_mouse_button">
+<area shape="rect" id="node1" title=" " alt="" coords="5,23,168,65"/>
+<area shape="rect" id="node2" href="$classView.html#a429fdc29e7533674e16a4cacf4efb5ad" title="Cause the camera to look at the specified point." alt="" coords="263,5,372,32"/>
+<area shape="rect" id="node3" href="$classView.html#aeda343862d3aa831814d252c6361cb90" title="Convert mouse coordinates ([0,0] in the upper left corner), to model coordinates ([0,..." alt="" coords="216,56,419,83"/>
+<area shape="rect" id="node4" href="$classView.html#a9e79788c1b06ba8176273672d6fc5d1f" title="Compute projection matrix for orthographic projection." alt="" coords="470,31,634,57"/>
+<area shape="rect" id="node5" href="$classView.html#ae2675b41a3c49d8b52784955d128234a" title="Compute view matrix for drawing into the &quot;view&quot; space." alt="" coords="467,81,637,108"/>
+</map>

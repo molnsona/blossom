@@ -1,5 +1,0 @@
-<map id="Sweeper::dirty_range" name="Sweeper::dirty_range">
-<area shape="rect" id="node1" title="Find the range to refresh." alt="" coords="5,31,151,57"/>
-<area shape="rect" id="node2" href="$structCleaner.html#a0ab2a86910726bba3cadd22dec4e00ec" title="Call this when the cache is refreshed." alt="" coords="199,5,305,32"/>
-<area shape="rect" id="node3" href="$structCleaner.html#a1c6ef6eb6c37d12f318a53f720f93bae" title="Returns true if the cache needs to be refreshed." alt="" coords="202,56,302,83"/>
-</map>

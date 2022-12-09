@@ -1,6 +1,6 @@
 <map id="parse_FCS" name="parse_FCS">
-<area shape="rect" id="node1" title="Parses FCS file and fills DataModel data." alt="" coords="5,31,93,57"/>
-<area shape="rect" id="node2" href="$fcs__parser_8cpp.html#acd14be89961a5cef7e298f34e9f4d841" title="Parses actual data from the FCS file." alt="" coords="141,5,228,32"/>
-<area shape="rect" id="node3" href="$fcs__parser_8cpp.html#a558db7da59037a90183a2fb252cc4e23" title="Parses info from FCS header." alt="" coords="143,56,226,83"/>
-<area shape="rect" id="node4" href="$fcs__parser_8cpp.html#a1b66790a56ce92415921ad300c4ad17f" title="Helper function for parsing ID from string." alt="" coords="276,56,347,83"/>
+<area shape="rect" id="node1" title="Parses FCS file and fills DataModel data." alt="" coords="5,31,96,57"/>
+<area shape="rect" id="node2" href="$fcs__parser_8cpp.html#acd14be89961a5cef7e298f34e9f4d841" title="Parses actual data from the FCS file." alt="" coords="144,5,239,32"/>
+<area shape="rect" id="node3" href="$fcs__parser_8cpp.html#a558db7da59037a90183a2fb252cc4e23" title="Parses info from FCS header." alt="" coords="146,56,237,83"/>
+<area shape="rect" id="node4" href="$fcs__parser_8cpp.html#a1b66790a56ce92415921ad300c4ad17f" title="Helper function for parsing ID from string." alt="" coords="287,56,364,83"/>
 </map>

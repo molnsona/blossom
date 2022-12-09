@@ -1,6 +1,0 @@
-<map id="LandmarkModel::add" name="LandmarkModel::add">
-<area shape="rect" id="node1" title="Creates new landmark with the two&#45; and high&#45;dimensional coordinates as the closeset landmark." alt="" coords="5,42,148,69"/>
-<area shape="rect" id="node2" href="$structLandmarkModel.html#a8d51666b1e532a499ef16be014f20b74" title="Counts closest landmark to the given position." alt="" coords="196,5,360,47"/>
-<area shape="rect" id="node4" href="$structDirt.html#a6753e4542f5254af6366b36b5864a37e" title="Make the cache dirty." alt="" coords="237,71,319,98"/>
-<area shape="rect" id="node3" href="$landmark__model_8cpp.html#ab6763afd4f74a9070a812b7a57fc1f4e" title=" " alt="" coords="408,13,479,39"/>
-</map>

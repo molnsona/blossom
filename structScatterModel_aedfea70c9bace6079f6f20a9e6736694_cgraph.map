@@ -1,11 +1,11 @@
 <map id="ScatterModel::update" name="ScatterModel::update">
-<area shape="rect" id="node1" title="Recomputes the coordinates if any of the the parameters of the embedsom algorithm has changed." alt="" coords="5,175,152,202"/>
-<area shape="rect" id="node2" href="$structCleaner.html#a0ab2a86910726bba3cadd22dec4e00ec" title="Call this when the cache is refreshed." alt="" coords="451,11,558,38"/>
-<area shape="rect" id="node3" href="$structSweeper.html#ac14e4c576c9a3d24a777d1e44102c483" title="Clean a range of the cache." alt="" coords="223,200,373,227"/>
-<area shape="rect" id="node4" href="$structScaledData.html#aa7e5813c44782202475c66cb6a968ad1" title="Returns dimension of the scaled data." alt="" coords="239,251,357,278"/>
-<area shape="rect" id="node5" href="$structCleaner.html#a1c6ef6eb6c37d12f318a53f720f93bae" title="Returns true if the cache needs to be refreshed." alt="" coords="455,74,555,100"/>
-<area shape="rect" id="node6" href="$structSweeper.html#ae682327df6cda19ac35ae064815e075b" title="Find the range to refresh." alt="" coords="225,48,371,75"/>
-<area shape="rect" id="node7" href="$structSweeper.html#af8cbe558ba3a09298813c9a0d8ee7234" title="Force&#45;refresh the whole range." alt="" coords="444,124,565,151"/>
-<area shape="rect" id="node8" href="$embedsom_8cpp.html#a41bb6fea614fa1103684aa86d501d667" title=" " alt="" coords="255,302,341,328"/>
-<area shape="rect" id="node9" href="$structLandmarkModel.html#a128124429b96766980b0cbd2a6980d5f" title="Reurns number of the 2D landmarks." alt="" coords="200,352,396,379"/>
+<area shape="rect" id="node1" title="Recomputes the coordinates if any of the the parameters of the embedsom algorithm has changed." alt="" coords="5,177,167,203"/>
+<area shape="rect" id="node2" href="$structCleaner.html#a0ab2a86910726bba3cadd22dec4e00ec" title="Call this when the cache is refreshed." alt="" coords="490,13,605,39"/>
+<area shape="rect" id="node3" href="$structSweeper.html#ac14e4c576c9a3d24a777d1e44102c483" title="Clean a range of the cache." alt="" coords="241,202,407,229"/>
+<area shape="rect" id="node4" href="$structScaledData.html#aa7e5813c44782202475c66cb6a968ad1" title="Returns dimension of the scaled data." alt="" coords="259,253,389,279"/>
+<area shape="rect" id="node5" href="$structCleaner.html#a1c6ef6eb6c37d12f318a53f720f93bae" title="Returns true if the cache needs to be refreshed." alt="" coords="492,75,603,102"/>
+<area shape="rect" id="node6" href="$structSweeper.html#a83feb9f88763ea6024500942372a6c16" title="Find the range to refresh." alt="" coords="244,50,404,77"/>
+<area shape="rect" id="node7" href="$structSweeper.html#af8cbe558ba3a09298813c9a0d8ee7234" title="Force&#45;refresh the whole range." alt="" coords="481,126,613,153"/>
+<area shape="rect" id="node8" href="$embedsom_8cpp.html#a41bb6fea614fa1103684aa86d501d667" title=" " alt="" coords="277,303,371,330"/>
+<area shape="rect" id="node9" href="$structLandmarkModel.html#a128124429b96766980b0cbd2a6980d5f" title="Reurns number of the 2D landmarks." alt="" coords="215,354,433,381"/>
 </map>

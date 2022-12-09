@@ -1,4 +1,5 @@
 var searchData=
 [
-  ['x_925',['x',['../structPoint.html#a8c779e11e694b20e0946105a9f5de842',1,'Point']]]
+  ['yoffset_0',['yoffset',['../structCallbackValues.html#aa869aa928ddc256664d7809893adc55c',1,'CallbackValues']]],
+  ['ypos_1',['ypos',['../structCallbackValues.html#aad71ddbadd08fd006b68cbb645c21de1',1,'CallbackValues']]]
 ];

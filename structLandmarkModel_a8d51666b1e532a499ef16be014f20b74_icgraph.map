@@ -1,5 +1,0 @@
-<map id="LandmarkModel::closest_landmark" name="LandmarkModel::closest_landmark">
-<area shape="rect" id="node1" title="Counts closest landmark to the given position." alt="" coords="445,5,609,47"/>
-<area shape="rect" id="node2" href="$structLandmarkModel.html#a88188e1443f6d7dbab7c4d6e74a37e8b" title="Creates new landmark with the two&#45; and high&#45;dimensional coordinates as the closeset landmark." alt="" coords="255,13,397,39"/>
-<area shape="rect" id="node3" href="$classApplication.html#a3cddf38d5f8d146e983c3210f394516c" title=" " alt="" coords="5,13,207,39"/>
-</map>

@@ -1,5 +1,0 @@
-<map id="View::model_coords" name="View::model_coords">
-<area shape="rect" id="node1" title="Compute model coordinates from screen coordinates." alt="" coords="5,29,145,56"/>
-<area shape="rect" id="node2" href="$structView.html#aa85f82cf8052060b4132b775a2a889c0" title="Compute and return the view size in model coordinates." alt="" coords="193,29,311,56"/>
-<area shape="rect" id="node3" href="$structView.html#abd0f2a00303de5267af98d7eae97952b" title="Return the vertical size of the viewed part in model space." alt="" coords="359,29,488,56"/>
-</map>

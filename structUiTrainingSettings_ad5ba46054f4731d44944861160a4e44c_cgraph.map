@@ -1,0 +1,8 @@
+<map id="UiTrainingSettings::render" name="UiTrainingSettings::render">
+<area shape="rect" id="node1" title="Renders window with corresponding training settings widgets." alt="" coords="5,74,145,115"/>
+<area shape="rect" id="node2" href="$structLandmarkModel.html#a128124429b96766980b0cbd2a6980d5f" title="Reurns number of the 2D landmarks." alt="" coords="193,5,412,32"/>
+<area shape="rect" id="node3" href="$utils__imgui_8hpp.html#a7198a716c578110d3a308c526f8f17c3" title="ImGUI wrapper for reset button." alt="" coords="251,56,355,83"/>
+<area shape="rect" id="node4" href="$structTrainingConfig.html#af1e79cb97700036a711ff34ec6da3032" title="Resets values to their default values." alt="" coords="207,107,398,133"/>
+<area shape="rect" id="node5" href="$structScatterModel.html#aa46123a613a27654d982ea8064af3aa9" title="Notifies Sweeper that the parameters of the embedsom algorithm has been modified and that the coordin..." alt="" coords="227,158,379,199"/>
+<area shape="rect" id="node6" href="$structSweeper.html#af8cbe558ba3a09298813c9a0d8ee7234" title="Force&#45;refresh the whole range." alt="" coords="460,165,592,192"/>
+</map>

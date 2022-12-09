@@ -1,5 +1,5 @@
 <map id="EmbedSOMCUDAContext::run" name="EmbedSOMCUDAContext::run">
-<area shape="rect" id="node1" title="Run EmbedSOM on the given data." alt="" coords="5,46,209,73"/>
-<area shape="rect" id="node2" href="$structEmbedSOMCUDAContext.html#a3ed7a027f51dcd56fb3bb52d4bcb98f8" title="Execute the CUDA kNN within the context." alt="" coords="257,5,436,47"/>
-<area shape="rect" id="node3" href="$structEmbedSOMCUDAContext.html#a8351ee438ca47e1ea0b0cb72e8756310" title="Execute the CUDA projection kernel atop the context." alt="" coords="257,71,436,112"/>
+<area shape="rect" id="node1" title="Run EmbedSOM on the given data." alt="" coords="5,46,220,73"/>
+<area shape="rect" id="node2" href="$structEmbedSOMCUDAContext.html#a3ed7a027f51dcd56fb3bb52d4bcb98f8" title="Execute the CUDA kNN within the context." alt="" coords="268,5,455,47"/>
+<area shape="rect" id="node3" href="$structEmbedSOMCUDAContext.html#a8351ee438ca47e1ea0b0cb72e8756310" title="Execute the CUDA projection kernel atop the context." alt="" coords="268,71,455,112"/>
 </map>

@@ -1,0 +1,7 @@
+<map id="ScatterRenderer::prepare_data" name="ScatterRenderer::prepare_data">
+<area shape="rect" id="node1" title="Prepare data to render scatterplot with colors." alt="" coords="684,5,905,32"/>
+<area shape="rect" id="node2" href="$structScatterRenderer.html#a37c7029cc2506b81c420691bcff3b207" title="Draw event of the 2D data points." alt="" coords="469,5,636,32"/>
+<area shape="rect" id="node3" href="$classRenderer.html#ab407870f559dfa892dd1dab1b842523f" title="Render graph and scatterplot." alt="" coords="291,5,421,32"/>
+<area shape="rect" id="node4" href="$classRenderer.html#acc7b3656f13c505a21175802a877e873" title="Process input events and render graph and scatterplot with updated values." alt="" coords="108,5,243,32"/>
+<area shape="rect" id="node5" href="$main_8cpp.html#ae66f6b31b5ad750f1fe042a706a4e3d4" title=" " alt="" coords="5,5,60,32"/>
+</map>

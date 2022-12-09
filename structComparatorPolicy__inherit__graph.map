@@ -1,4 +1,4 @@
 <map id="ComparatorPolicy&lt; T &gt;" name="ComparatorPolicy&lt; T &gt;">
-<area shape="rect" id="node1" title="Comparator policy that automatically chooses a good implementation." alt="" coords="13,80,172,107"/>
-<area shape="rect" id="node2" href="$structOrderWithCmpSwap.html" title="Wrapped compare and swap&#45;to&#45;correct&#45;order function." alt="" coords="5,5,180,32"/>
+<area shape="rect" id="node1" title="Comparator policy that automatically chooses a good implementation." alt="" coords="13,80,189,107"/>
+<area shape="rect" id="node2" href="$structOrderWithCmpSwap.html" title="Wrapped compare and swap&#45;to&#45;correct&#45;order function." alt="" coords="5,5,196,32"/>
 </map>

@@ -1,13 +1,12 @@
 <map id="src/color_data.h" name="src/color_data.h">
-<area shape="rect" id="node1" title=" " alt="" coords="310,5,425,32"/>
-<area shape="rect" id="node2" href="$dirty_8h.html" title=" " alt="" coords="51,229,107,256"/>
-<area shape="rect" id="node5" href="$trans__data_8h.html" title=" " alt="" coords="253,80,348,107"/>
-<area shape="rect" id="node7" title=" " alt="" coords="159,229,218,256"/>
-<area shape="rect" id="node9" title=" " alt="" coords="312,229,367,256"/>
-<area shape="rect" id="node10" title=" " alt="" coords="448,80,585,107"/>
-<area shape="rect" id="node11" title=" " alt="" coords="609,80,760,107"/>
-<area shape="rect" id="node3" title=" " alt="" coords="5,304,71,331"/>
-<area shape="rect" id="node4" title=" " alt="" coords="95,304,146,331"/>
-<area shape="rect" id="node6" title=" " alt="" coords="314,155,373,181"/>
-<area shape="rect" id="node8" href="$data__model_8h.html" title=" " alt="" coords="139,155,239,181"/>
+<area shape="rect" id="node1" title=" " alt="" coords="135,5,260,32"/>
+<area shape="rect" id="node2" title=" " alt="" coords="5,80,109,107"/>
+<area shape="rect" id="node3" href="$dirty_8h.html" title=" " alt="" coords="145,229,207,256"/>
+<area shape="rect" id="node6" href="$trans__data_8h.html" title=" " alt="" coords="286,80,389,107"/>
+<area shape="rect" id="node8" title=" " alt="" coords="259,229,322,256"/>
+<area shape="rect" id="node10" title=" " alt="" coords="420,229,479,256"/>
+<area shape="rect" id="node4" title=" " alt="" coords="98,304,169,331"/>
+<area shape="rect" id="node5" title=" " alt="" coords="193,304,247,331"/>
+<area shape="rect" id="node7" title=" " alt="" coords="421,155,485,181"/>
+<area shape="rect" id="node9" href="$data__model_8h.html" title=" " alt="" coords="235,155,346,181"/>
 </map>

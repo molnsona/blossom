@@ -1,4 +1,4 @@
 <map id="TrainingConfig::TrainingConfig" name="TrainingConfig::TrainingConfig">
-<area shape="rect" id="node1" title="Calls reset_data()." alt="" coords="5,5,165,47"/>
-<area shape="rect" id="node2" href="$structTrainingConfig.html#af1e79cb97700036a711ff34ec6da3032" title="Resets values to their default values." alt="" coords="213,13,388,39"/>
+<area shape="rect" id="node1" title="Calls reset_data()." alt="" coords="5,5,179,47"/>
+<area shape="rect" id="node2" href="$structTrainingConfig.html#af1e79cb97700036a711ff34ec6da3032" title="Resets values to their default values." alt="" coords="227,13,417,39"/>
 </map>

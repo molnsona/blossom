@@ -1,7 +1,0 @@
-<map id="uiSaver::save_data" name="uiSaver::save_data">
-<area shape="rect" id="node1" title="Calls write() for selected export data types." alt="" coords="715,5,849,32"/>
-<area shape="rect" id="node2" href="$structuiSaver.html#aeae0a9186294e8fbc7712929f02196c7" title="Renders save file window, opens save file dialog window and calls save_data() if a directory was sele..." alt="" coords="556,5,667,32"/>
-<area shape="rect" id="node3" href="$structuiMenu.html#a17092b6fb9899750d59b86bc0068fdd5" title="Renders main menu window, the plus button and currently opened menu item windows." alt="" coords="400,5,508,32"/>
-<area shape="rect" id="node4" href="$classUiImgui.html#abfcd1f9aa36eabb146b19b0d7d08b821" title=" " alt="" coords="209,5,352,32"/>
-<area shape="rect" id="node5" href="$classApplication.html#acd8a806728407b347f2aa4e8e8b6d110" title="Main drawing event calling all other updates and drawing events." alt="" coords="5,5,161,32"/>
-</map>

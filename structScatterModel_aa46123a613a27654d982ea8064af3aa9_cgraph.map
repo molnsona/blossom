@@ -1,4 +1,4 @@
 <map id="ScatterModel::touch_config" name="ScatterModel::touch_config">
-<area shape="rect" id="node1" title="Notifies Sweeper that the parameters of the embedsom algorithm has been modified and that the coordin..." alt="" coords="5,5,144,47"/>
-<area shape="rect" id="node2" href="$structSweeper.html#af8cbe558ba3a09298813c9a0d8ee7234" title="Force&#45;refresh the whole range." alt="" coords="192,13,313,39"/>
+<area shape="rect" id="node1" title="Notifies Sweeper that the parameters of the embedsom algorithm has been modified and that the coordin..." alt="" coords="5,5,157,47"/>
+<area shape="rect" id="node2" href="$structSweeper.html#af8cbe558ba3a09298813c9a0d8ee7234" title="Force&#45;refresh the whole range." alt="" coords="205,13,337,39"/>
 </map>

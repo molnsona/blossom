@@ -1,0 +1,5 @@
+<map id="View::process_keyboard" name="View::process_keyboard">
+<area shape="rect" id="node1" title="Process keyboard input and move the &quot;camera&quot; accordingly." alt="" coords="263,5,441,32"/>
+<area shape="rect" id="node2" href="$classView.html#a357e8c8e1316cc0602a9d39f4c473ec4" title="Move the current position and zoom a bit closer to the target position and zoom." alt="" coords="108,5,215,32"/>
+<area shape="rect" id="node3" href="$main_8cpp.html#ae66f6b31b5ad750f1fe042a706a4e3d4" title=" " alt="" coords="5,5,60,32"/>
+</map>

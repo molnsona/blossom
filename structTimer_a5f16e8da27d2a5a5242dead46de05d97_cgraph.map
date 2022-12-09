@@ -1,4 +1,4 @@
 <map id="Timer::Timer" name="Timer::Timer">
-<area shape="rect" id="node1" title="Calls tick() and sets frametime to zero." alt="" coords="5,5,101,32"/>
-<area shape="rect" id="node2" href="$structTimer.html#a6f4dc6b9e9f333fa4c60ddf2ff33c801" title="Counts frametime and sets last_tick variable to current time." alt="" coords="149,5,233,32"/>
+<area shape="rect" id="node1" title="Calls tick() and sets frametime to zero." alt="" coords="5,5,112,32"/>
+<area shape="rect" id="node2" href="$structTimer.html#a6f4dc6b9e9f333fa4c60ddf2ff33c801" title="Counts frametime and sets last_tick variable to current time." alt="" coords="160,5,252,32"/>
 </map>

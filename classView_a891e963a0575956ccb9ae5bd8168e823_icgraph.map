@@ -1,0 +1,8 @@
+<map id="View::screen_point_coords" name="View::screen_point_coords">
+<area shape="rect" id="node1" title="Convert point coordinates ([0,0] in the upper left corner), to screen coordinates ([0,..." alt="" coords="952,5,1096,47"/>
+<area shape="rect" id="node2" href="$classView.html#ae728fdbc1b95ae6fd588d1d2b8d375db" title="Converts point to screen coordinates([0,0] in the middle of the screen)." alt="" coords="749,13,904,39"/>
+<area shape="rect" id="node3" href="$structGraphRenderer.html#a0ff79676c92cc249ece2d7c8e53ee90c" title="Checks if some vertex was pressed." alt="" coords="529,5,701,47"/>
+<area shape="rect" id="node4" href="$classRenderer.html#a95b6e3922529d554e7c6ee02f6108bfc" title="Process mouse input and moves the landmarks." alt="" coords="291,13,481,39"/>
+<area shape="rect" id="node5" href="$classRenderer.html#acc7b3656f13c505a21175802a877e873" title="Process input events and render graph and scatterplot with updated values." alt="" coords="108,13,243,39"/>
+<area shape="rect" id="node6" href="$main_8cpp.html#ae66f6b31b5ad750f1fe042a706a4e3d4" title=" " alt="" coords="5,13,60,39"/>
+</map>

@@ -1,7 +1,7 @@
 <map id="som_landmark_step" name="som_landmark_step">
-<area shape="rect" id="node1" title="Run a SOM to optimize high&#45;dimensional landmark positions." alt="" coords="5,81,144,108"/>
-<area shape="rect" id="node2" href="$structScaledData.html#aa7e5813c44782202475c66cb6a968ad1" title="Returns dimension of the scaled data." alt="" coords="231,5,349,32"/>
-<area shape="rect" id="node3" href="$structLandmarkModel.html#a128124429b96766980b0cbd2a6980d5f" title="Reurns number of the 2D landmarks." alt="" coords="192,56,388,83"/>
-<area shape="rect" id="node4" href="$kmeans__landmark_8cpp.html#a47326dd899ec7f5e42fea9ff1d9545f9" title="Helper functions for squaring floats." alt="" coords="270,107,310,133"/>
-<area shape="rect" id="node5" href="$structDirt.html#a6753e4542f5254af6366b36b5864a37e" title="Make the cache dirty." alt="" coords="249,157,331,184"/>
+<area shape="rect" id="node1" title="Run a SOM to optimize high&#45;dimensional landmark positions." alt="" coords="5,81,160,108"/>
+<area shape="rect" id="node2" href="$structScaledData.html#aa7e5813c44782202475c66cb6a968ad1" title="Returns dimension of the scaled data." alt="" coords="253,5,382,32"/>
+<area shape="rect" id="node3" href="$structLandmarkModel.html#a128124429b96766980b0cbd2a6980d5f" title="Reurns number of the 2D landmarks." alt="" coords="208,56,427,83"/>
+<area shape="rect" id="node4" href="$kmeans__landmark_8cpp.html#a47326dd899ec7f5e42fea9ff1d9545f9" title="Helper functions for squaring floats." alt="" coords="296,107,339,133"/>
+<area shape="rect" id="node5" href="$structDirt.html#a6753e4542f5254af6366b36b5864a37e" title="Make the cache dirty." alt="" coords="272,157,363,184"/>
 </map>

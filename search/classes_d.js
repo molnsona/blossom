@@ -1,10 +1,9 @@
 var searchData=
 [
-  ['uicolorsettings_475',['uiColorSettings',['../structuiColorSettings.html',1,'']]],
-  ['uiimgui_476',['UiImgui',['../classUiImgui.html',1,'']]],
-  ['uiloader_477',['uiLoader',['../structuiLoader.html',1,'']]],
-  ['uimenu_478',['uiMenu',['../structuiMenu.html',1,'']]],
-  ['uisaver_479',['uiSaver',['../structuiSaver.html',1,'']]],
-  ['uiscaler_480',['uiScaler',['../structuiScaler.html',1,'']]],
-  ['uitrainingsettings_481',['uiTrainingSettings',['../structuiTrainingSettings.html',1,'']]]
+  ['uicolorsettings_0',['UiColorSettings',['../structUiColorSettings.html',1,'']]],
+  ['uiloader_1',['UiLoader',['../structUiLoader.html',1,'']]],
+  ['uimenu_2',['UiMenu',['../structUiMenu.html',1,'']]],
+  ['uisaver_3',['UiSaver',['../structUiSaver.html',1,'']]],
+  ['uiscaler_4',['UiScaler',['../structUiScaler.html',1,'']]],
+  ['uitrainingsettings_5',['UiTrainingSettings',['../structUiTrainingSettings.html',1,'']]]
 ];

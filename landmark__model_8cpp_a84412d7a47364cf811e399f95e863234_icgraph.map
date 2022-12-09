@@ -1,0 +1,11 @@
+<map id="distance" name="distance">
+<area shape="rect" id="node1" title=" " alt="" coords="965,93,1043,120"/>
+<area shape="rect" id="node2" href="$embedsom__cuda__knn_8cu.html#ae7291d357523ee3c143ab1a34db44f51" title="Bubble a knn&#45;entry up a list, insertsort&#45;style." alt="" coords="785,5,869,32"/>
+<area shape="rect" id="node3" href="$structLandmarkModel.html#aaed0a9dcb4628d7fcb049e326f51ea95" title="Counts closest landmark to the given position." alt="" coords="736,57,917,98"/>
+<area shape="rect" id="node8" href="$embedsom__cuda__projection_8cu.html#a032cc0d823d81b0e9b74bebf933cb3ae" title="Compute scores for a vector of sorted distances." alt="" coords="750,123,903,149"/>
+<area shape="rect" id="node9" href="$embedsom__cuda__knn_8cu.html#a908236600c6a295e81c94a00ba891ab4" title="Base kernel for kNN computation." alt="" coords="765,173,889,200"/>
+<area shape="rect" id="node4" href="$structLandmarkModel.html#a257bfeca44096ff53d4d49a94cffd0c4" title="Creates new landmark with the two&#45; and high&#45;dimensional coordinates as the closeset landmark." alt="" coords="529,64,688,91"/>
+<area shape="rect" id="node5" href="$classRenderer.html#a95b6e3922529d554e7c6ee02f6108bfc" title="Process mouse input and moves the landmarks." alt="" coords="291,64,481,91"/>
+<area shape="rect" id="node6" href="$classRenderer.html#acc7b3656f13c505a21175802a877e873" title="Process input events and render graph and scatterplot with updated values." alt="" coords="108,64,243,91"/>
+<area shape="rect" id="node7" href="$main_8cpp.html#ae66f6b31b5ad750f1fe042a706a4e3d4" title=" " alt="" coords="5,64,60,91"/>
+</map>

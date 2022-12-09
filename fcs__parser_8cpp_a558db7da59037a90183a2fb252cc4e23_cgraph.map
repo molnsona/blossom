@@ -1,4 +1,4 @@
 <map id="parse_info" name="parse_info">
-<area shape="rect" id="node1" title="Parses info from FCS header." alt="" coords="5,5,88,32"/>
-<area shape="rect" id="node2" href="$fcs__parser_8cpp.html#a1b66790a56ce92415921ad300c4ad17f" title="Helper function for parsing ID from string." alt="" coords="136,5,207,32"/>
+<area shape="rect" id="node1" title="Parses info from FCS header." alt="" coords="5,5,96,32"/>
+<area shape="rect" id="node2" href="$fcs__parser_8cpp.html#a1b66790a56ce92415921ad300c4ad17f" title="Helper function for parsing ID from string." alt="" coords="144,5,221,32"/>
 </map>

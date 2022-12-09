@@ -1,7 +1,0 @@
-<map id="View::model_mouse_coords" name="View::model_mouse_coords">
-<area shape="rect" id="node1" title="Computes model coordinates of the mouse cursor." alt="" coords="5,59,192,85"/>
-<area shape="rect" id="node2" href="$structView.html#a7d8893a312546f47b14e5e2f1925e607" title="Compute model coordinates from screen coordinates." alt="" coords="242,29,382,56"/>
-<area shape="rect" id="node5" href="$structView.html#af46c08c148ff70f6a85ebbb85ab4df57" title="Computes screen coordinates of the mouse cursor." alt="" coords="240,81,384,122"/>
-<area shape="rect" id="node3" href="$structView.html#aa85f82cf8052060b4132b775a2a889c0" title="Compute and return the view size in model coordinates." alt="" coords="432,29,549,56"/>
-<area shape="rect" id="node4" href="$structView.html#abd0f2a00303de5267af98d7eae97952b" title="Return the vertical size of the viewed part in model space." alt="" coords="597,29,727,56"/>
-</map>

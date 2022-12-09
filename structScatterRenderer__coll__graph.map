@@ -1,0 +1,4 @@
+<map id="ScatterRenderer" name="ScatterRenderer">
+<area shape="rect" id="node1" title="Renderer of the 2D data points." alt="" coords="5,95,132,121"/>
+<area shape="rect" id="node2" href="$classShader.html" title="Abstracts working with shaders." alt="" coords="35,5,102,32"/>
+</map>

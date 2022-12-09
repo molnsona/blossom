@@ -1,6 +1,5 @@
 <map id="Timer::tick" name="Timer::tick">
-<area shape="rect" id="node1" title="Counts frametime and sets last_tick variable to current time." alt="" coords="212,56,296,83"/>
-<area shape="rect" id="node2" href="$classApplication.html#ab0c15aed9bc93f71c9f2c4d7e9e52888" title=" " alt="" coords="5,5,164,32"/>
-<area shape="rect" id="node3" href="$classApplication.html#acd8a806728407b347f2aa4e8e8b6d110" title="Main drawing event calling all other updates and drawing events." alt="" coords="7,56,163,83"/>
-<area shape="rect" id="node4" href="$structTimer.html#a5f16e8da27d2a5a5242dead46de05d97" title="Calls tick() and sets frametime to zero." alt="" coords="37,107,133,133"/>
+<area shape="rect" id="node1" title="Counts frametime and sets last_tick variable to current time." alt="" coords="160,31,252,57"/>
+<area shape="rect" id="node2" href="$main_8cpp.html#ae66f6b31b5ad750f1fe042a706a4e3d4" title=" " alt="" coords="31,5,86,32"/>
+<area shape="rect" id="node3" href="$structTimer.html#a5f16e8da27d2a5a5242dead46de05d97" title="Calls tick() and sets frametime to zero." alt="" coords="5,56,112,83"/>
 </map>

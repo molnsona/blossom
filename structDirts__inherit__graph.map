@@ -1,8 +1,7 @@
 <map id="Dirts" name="Dirts">
-<area shape="rect" id="node1" title="Multi&#45;piece cache&#45;dirtying object." alt="" coords="189,80,240,107"/>
-<area shape="rect" id="node3" href="$structDataModel.html" title="Storage of data from loaded input file." alt="" coords="5,155,91,181"/>
-<area shape="rect" id="node4" href="$structLabelModel.html" title=" " alt="" coords="115,155,203,181"/>
-<area shape="rect" id="node5" href="$structScaledData.html" title="Storage of the scaled data." alt="" coords="227,155,317,181"/>
-<area shape="rect" id="node6" href="$structTransData.html" title="Storage of the transformed data." alt="" coords="341,155,424,181"/>
-<area shape="rect" id="node2" href="$structDirt.html" title="A piece of dirt for dirtying the caches." alt="" coords="193,5,236,32"/>
+<area shape="rect" id="node1" title="Multi&#45;piece cache&#45;dirtying object." alt="" coords="144,80,197,107"/>
+<area shape="rect" id="node3" href="$structDataModel.html" title="Storage of data from loaded input file." alt="" coords="5,155,99,181"/>
+<area shape="rect" id="node4" href="$structScaledData.html" title="Storage of the scaled data." alt="" coords="123,155,219,181"/>
+<area shape="rect" id="node5" href="$structTransData.html" title="Storage of the transformed data." alt="" coords="243,155,330,181"/>
+<area shape="rect" id="node2" href="$structDirt.html" title="A piece of dirt for dirtying the caches." alt="" coords="147,5,194,32"/>
 </map>

@@ -1,0 +1,9 @@
+<map id="GraphRenderer::add_circle" name="GraphRenderer::add_circle">
+<area shape="rect" id="node1" title="Add vertices for TRIANGLE_FAN that creates circle at given position." alt="" coords="1167,5,1319,47"/>
+<area shape="rect" id="node2" href="$structGraphRenderer.html#aebd469130f58e0c097c6c1045ccac4a6" title="Prepare graph vertices that are rendered as circles." alt="" coords="940,5,1119,47"/>
+<area shape="rect" id="node3" href="$structGraphRenderer.html#a8cafcd9daba26e6d5582c45147d8d7d2" title="Prepare data to render vertices and edges." alt="" coords="677,13,892,39"/>
+<area shape="rect" id="node4" href="$structGraphRenderer.html#a5035b51f22a5d28314566fbb13dd7b23" title="Draw event of the 2D landmark graph." alt="" coords="469,13,629,39"/>
+<area shape="rect" id="node5" href="$classRenderer.html#ab407870f559dfa892dd1dab1b842523f" title="Render graph and scatterplot." alt="" coords="291,13,421,39"/>
+<area shape="rect" id="node6" href="$classRenderer.html#acc7b3656f13c505a21175802a877e873" title="Process input events and render graph and scatterplot with updated values." alt="" coords="108,13,243,39"/>
+<area shape="rect" id="node7" href="$main_8cpp.html#ae66f6b31b5ad750f1fe042a706a4e3d4" title=" " alt="" coords="5,13,60,39"/>
+</map>

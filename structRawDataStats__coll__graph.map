@@ -1,5 +1,5 @@
 <map id="RawDataStats" name="RawDataStats">
-<area shape="rect" id="node1" title="Statistics from the untransformed dataset." alt="" coords="23,80,131,107"/>
-<area shape="rect" id="node2" href="$structCleaner.html" title="A piece of cache that keeps track of the dirty status." alt="" coords="5,5,72,32"/>
-<area shape="rect" id="node3" href="$structDirt.html" title="A piece of dirt for dirtying the caches." alt="" coords="96,5,139,32"/>
+<area shape="rect" id="node1" title="Statistics from the untransformed dataset." alt="" coords="25,80,140,107"/>
+<area shape="rect" id="node2" href="$structCleaner.html" title="A piece of cache that keeps track of the dirty status." alt="" coords="5,5,77,32"/>
+<area shape="rect" id="node3" href="$structDirt.html" title="A piece of dirt for dirtying the caches." alt="" coords="102,5,149,32"/>
 </map>

@@ -1,5 +1,5 @@
 <map id="DataModel" name="DataModel">
-<area shape="rect" id="node1" title="Storage of data from loaded input file." alt="" coords="5,155,91,181"/>
-<area shape="rect" id="node2" href="$structDirts.html" title="Multi&#45;piece cache&#45;dirtying object." alt="" coords="23,80,73,107"/>
-<area shape="rect" id="node3" href="$structDirt.html" title="A piece of dirt for dirtying the caches." alt="" coords="27,5,69,32"/>
+<area shape="rect" id="node1" title="Storage of data from loaded input file." alt="" coords="5,155,99,181"/>
+<area shape="rect" id="node2" href="$structDirts.html" title="Multi&#45;piece cache&#45;dirtying object." alt="" coords="25,80,79,107"/>
+<area shape="rect" id="node3" href="$structDirt.html" title="A piece of dirt for dirtying the caches." alt="" coords="29,5,75,32"/>
 </map>

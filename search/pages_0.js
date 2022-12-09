@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['blossom_20architecture_893',['BlosSOM architecture',['../index.html',1,'']]]
+  ['blossom_20architecture_0',['BlosSOM architecture',['../index.html',1,'']]]
 ];

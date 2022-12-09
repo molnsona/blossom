@@ -1,8 +1,0 @@
-<map id="DrawableObject::fill_texture" name="DrawableObject::fill_texture">
-<area shape="rect" id="node1" title=" " alt="" coords="5,49,141,90"/>
-<area shape="rect" id="node2" href="$utils_8hpp.html#adc51dbdb8256a7d4b1bac0a2b77e7656" title=" " alt="" coords="189,56,265,83"/>
-<area shape="rect" id="node3" href="$utils_8hpp.html#a7122a7e5ebdea1c24446350af3f83b60" title=" " alt="" coords="322,31,401,57"/>
-<area shape="rect" id="node6" href="$utils_8hpp.html#a2c53323aa0ae1ce7dcedf4c6d33668ee" title="Shifts from [a,b] to [c, d]." alt="" coords="313,81,409,108"/>
-<area shape="rect" id="node4" href="$structPoint.html#ae50f09b4d4d0c6642b3bca19751d73c0" title=" " alt="" coords="457,5,568,32"/>
-<area shape="rect" id="node5" href="$structPoint.html#af21ddc6433db92fb93fc4dec11277c4d" title=" " alt="" coords="459,56,566,83"/>
-</map>

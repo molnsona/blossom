@@ -1,4 +1,4 @@
 <map id="Dirts" name="Dirts">
-<area shape="rect" id="node1" title="Multi&#45;piece cache&#45;dirtying object." alt="" coords="5,80,56,107"/>
-<area shape="rect" id="node2" href="$structDirt.html" title="A piece of dirt for dirtying the caches." alt="" coords="9,5,52,32"/>
+<area shape="rect" id="node1" title="Multi&#45;piece cache&#45;dirtying object." alt="" coords="5,80,59,107"/>
+<area shape="rect" id="node2" href="$structDirt.html" title="A piece of dirt for dirtying the caches." alt="" coords="9,5,55,32"/>
 </map>

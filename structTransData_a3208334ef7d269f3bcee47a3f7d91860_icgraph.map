@@ -1,11 +1,11 @@
 <map id="TransData::dim" name="TransData::dim">
-<area shape="rect" id="node1" title="Returns dimension of the transformed data." alt="" coords="741,81,853,108"/>
-<area shape="rect" id="node2" href="$structuiScaler.html#a1b2818167795de3b4999a9a8c3ef78d9" title="Renders window with corresponding scale&amp;transform widgets." alt="" coords="568,5,681,32"/>
-<area shape="rect" id="node6" href="$structTransData.html#a0a3c117b336b787215a5603274615cff" title="Recomputes the data if any of the config has been touched." alt="" coords="559,56,690,83"/>
-<area shape="rect" id="node8" href="$structColorData.html#ab7e8d8eb653ca730e188ca4691d16635" title="Recomputes color of the 2D data points if user has changed any of the color settings." alt="" coords="561,107,689,133"/>
-<area shape="rect" id="node9" href="$structScaledData.html#ae18b964a4a04746001f816c072761d10" title="Recomputes the data if any of the config has been touched." alt="" coords="556,157,693,184"/>
-<area shape="rect" id="node3" href="$structuiMenu.html#a17092b6fb9899750d59b86bc0068fdd5" title="Renders main menu window, the plus button and currently opened menu item windows." alt="" coords="400,9,508,36"/>
-<area shape="rect" id="node4" href="$classUiImgui.html#abfcd1f9aa36eabb146b19b0d7d08b821" title=" " alt="" coords="209,16,352,43"/>
-<area shape="rect" id="node5" href="$classApplication.html#acd8a806728407b347f2aa4e8e8b6d110" title="Main drawing event calling all other updates and drawing events." alt="" coords="5,53,161,80"/>
-<area shape="rect" id="node7" href="$structState.html#adcd0d835af130aa668bcc5799e8bb0c7" title="Performs simulation steps of all active algorithms and updates data according to the user interaction..." alt="" coords="404,104,504,131"/>
+<area shape="rect" id="node1" title="Returns dimension of the transformed data." alt="" coords="691,81,811,108"/>
+<area shape="rect" id="node2" href="$structUiScaler.html#a4481cf933d9227eebdd010540bfa945d" title="Renders window with corresponding scale&amp;transform widgets." alt="" coords="505,5,631,32"/>
+<area shape="rect" id="node6" href="$structTransData.html#a0a3c117b336b787215a5603274615cff" title="Recomputes the data if any of the config has been touched." alt="" coords="498,56,638,83"/>
+<area shape="rect" id="node8" href="$structColorData.html#ab7e8d8eb653ca730e188ca4691d16635" title="Recomputes color of the 2D data points if user has changed any of the color settings." alt="" coords="498,107,638,133"/>
+<area shape="rect" id="node9" href="$structScaledData.html#ae18b964a4a04746001f816c072761d10" title="Recomputes the data if any of the config has been touched." alt="" coords="493,157,643,184"/>
+<area shape="rect" id="node3" href="$structUiMenu.html#aa4ed0bb847de6d88a9198e522c5e852e" title="Renders main menu window, the plus button and currently opened menu item windows." alt="" coords="323,9,445,36"/>
+<area shape="rect" id="node4" href="$classImGuiWrapper.html#ae8cc6a14b94ce5e74a9ec18e65930da4" title="Render UI." alt="" coords="108,16,275,43"/>
+<area shape="rect" id="node5" href="$main_8cpp.html#ae66f6b31b5ad750f1fe042a706a4e3d4" title=" " alt="" coords="5,53,60,80"/>
+<area shape="rect" id="node7" href="$structState.html#adcd0d835af130aa668bcc5799e8bb0c7" title="Performs simulation steps of all active algorithms and updates data according to the user interaction..." alt="" coords="329,104,439,131"/>
 </map>

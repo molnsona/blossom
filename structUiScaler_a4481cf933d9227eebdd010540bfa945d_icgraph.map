@@ -1,0 +1,6 @@
+<map id="UiScaler::render" name="UiScaler::render">
+<area shape="rect" id="node1" title="Renders window with corresponding scale&amp;transform widgets." alt="" coords="493,5,620,32"/>
+<area shape="rect" id="node2" href="$structUiMenu.html#aa4ed0bb847de6d88a9198e522c5e852e" title="Renders main menu window, the plus button and currently opened menu item windows." alt="" coords="323,5,445,32"/>
+<area shape="rect" id="node3" href="$classImGuiWrapper.html#ae8cc6a14b94ce5e74a9ec18e65930da4" title="Render UI." alt="" coords="108,5,275,32"/>
+<area shape="rect" id="node4" href="$main_8cpp.html#ae66f6b31b5ad750f1fe042a706a4e3d4" title=" " alt="" coords="5,5,60,32"/>
+</map>

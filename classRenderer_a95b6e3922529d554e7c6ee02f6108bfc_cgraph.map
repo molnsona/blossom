@@ -1,0 +1,17 @@
+<map id="Renderer::process_mouse" name="Renderer::process_mouse">
+<area shape="rect" id="node1" title="Process mouse input and moves the landmarks." alt="" coords="5,165,196,191"/>
+<area shape="rect" id="node2" href="$structLandmarkModel.html#a257bfeca44096ff53d4d49a94cffd0c4" title="Creates new landmark with the two&#45; and high&#45;dimensional coordinates as the closeset landmark." alt="" coords="262,13,421,39"/>
+<area shape="rect" id="node6" href="$structLandmarkModel.html#a181ae32a2c6557fa39326eb0d77d1434" title="Creates new landmark with the same two&#45; and high&#45;dimensional coordinates as the given landmark." alt="" coords="244,63,439,90"/>
+<area shape="rect" id="node7" href="$structGraphRenderer.html#a0ff79676c92cc249ece2d7c8e53ee90c" title="Checks if some vertex was pressed." alt="" coords="255,267,427,308"/>
+<area shape="rect" id="node12" href="$classView.html#aeda343862d3aa831814d252c6361cb90" title="Convert mouse coordinates ([0,0] in the upper left corner), to model coordinates ([0,..." alt="" coords="487,217,689,243"/>
+<area shape="rect" id="node13" href="$structLandmarkModel.html#a1d65e93179cc9de8bb158a4ca9a08625" title="Sets two&#45;dimensional position of the pressed landmark to mouse position." alt="" coords="255,114,427,141"/>
+<area shape="rect" id="node14" href="$structLandmarkModel.html#ad56183084296cb9969ef854fbeb8cbbb" title="Removes landmark and corresponding edges." alt="" coords="249,165,434,191"/>
+<area shape="rect" id="node15" href="$classView.html#a13ae0b4ad614e20829b5f34499ae99cc" title="Convert mouse coordinates ([0,0] in the upper left corner), to screen coordinates ([0,..." alt="" coords="264,332,419,373"/>
+<area shape="rect" id="node3" href="$structLandmarkModel.html#aaed0a9dcb4628d7fcb049e326f51ea95" title="Counts closest landmark to the given position." alt="" coords="497,5,679,47"/>
+<area shape="rect" id="node5" href="$structDirt.html#a6753e4542f5254af6366b36b5864a37e" title="Make the cache dirty." alt="" coords="543,93,633,119"/>
+<area shape="rect" id="node4" href="$landmark__model_8cpp.html#a84412d7a47364cf811e399f95e863234" title=" " alt="" coords="784,13,861,39"/>
+<area shape="rect" id="node8" href="$classView.html#ae728fdbc1b95ae6fd588d1d2b8d375db" title="Converts point to screen coordinates([0,0] in the middle of the screen)." alt="" coords="511,270,665,297"/>
+<area shape="rect" id="node9" href="$classView.html#a9e79788c1b06ba8176273672d6fc5d1f" title="Compute projection matrix for orthographic projection." alt="" coords="741,217,905,243"/>
+<area shape="rect" id="node10" href="$classView.html#ae2675b41a3c49d8b52784955d128234a" title="Compute view matrix for drawing into the &quot;view&quot; space." alt="" coords="737,267,908,294"/>
+<area shape="rect" id="node11" href="$classView.html#a891e963a0575956ccb9ae5bd8168e823" title="Convert point coordinates ([0,0] in the upper left corner), to screen coordinates ([0,..." alt="" coords="751,319,895,360"/>
+</map>

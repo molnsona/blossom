@@ -1,13 +1,13 @@
 <map id="src/embedsom_cuda.h" name="src/embedsom_cuda.h">
-<area shape="rect" id="node1" title=" " alt="" coords="333,5,487,32"/>
-<area shape="rect" id="node2" title=" " alt="" coords="5,155,116,181"/>
-<area shape="rect" id="node3" title=" " alt="" coords="327,80,402,107"/>
-<area shape="rect" id="node4" title=" " alt="" coords="141,155,202,181"/>
-<area shape="rect" id="node5" title=" " alt="" coords="427,80,484,107"/>
-<area shape="rect" id="node6" title=" " alt="" coords="508,80,587,107"/>
-<area shape="rect" id="node7" title=" " alt="" coords="611,80,681,107"/>
-<area shape="rect" id="node8" title=" " alt="" coords="705,80,760,107"/>
-<area shape="rect" id="node9" href="$cuda__structs_8cuh.html" title=" " alt="" coords="181,80,303,107"/>
-<area shape="rect" id="node10" title=" " alt="" coords="227,155,281,181"/>
-<area shape="rect" id="node11" title=" " alt="" coords="306,155,359,181"/>
+<area shape="rect" id="node1" title=" " alt="" coords="356,5,524,32"/>
+<area shape="rect" id="node2" title=" " alt="" coords="5,155,128,181"/>
+<area shape="rect" id="node3" title=" " alt="" coords="348,80,433,107"/>
+<area shape="rect" id="node4" title=" " alt="" coords="152,155,219,181"/>
+<area shape="rect" id="node5" title=" " alt="" coords="458,80,521,107"/>
+<area shape="rect" id="node6" title=" " alt="" coords="545,80,631,107"/>
+<area shape="rect" id="node7" title=" " alt="" coords="656,80,731,107"/>
+<area shape="rect" id="node8" title=" " alt="" coords="755,80,813,107"/>
+<area shape="rect" id="node9" href="$cuda__structs_8cuh.html" title=" " alt="" coords="193,80,324,107"/>
+<area shape="rect" id="node10" title=" " alt="" coords="243,155,301,181"/>
+<area shape="rect" id="node11" title=" " alt="" coords="325,155,384,181"/>
 </map>

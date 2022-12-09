@@ -1,9 +1,9 @@
 <map id="reset_button" name="reset_button">
-<area shape="rect" id="node1" title="ImGUI wrapper for reset button." alt="" coords="759,56,853,83"/>
-<area shape="rect" id="node2" href="$structuiColorSettings.html#add04d547cd0697b31aed53c6b43d37b5" title="Renders window with corresponding color settings widgets." alt="" coords="556,5,711,32"/>
-<area shape="rect" id="node6" href="$structuiScaler.html#a1b2818167795de3b4999a9a8c3ef78d9" title="Renders window with corresponding scale&amp;transform widgets." alt="" coords="577,56,690,83"/>
-<area shape="rect" id="node7" href="$structuiTrainingSettings.html#a8cbd4a5f765b99fac641ccb8f7b9fe1a" title="Renders window with corresponding training settings widgets." alt="" coords="570,107,697,149"/>
-<area shape="rect" id="node3" href="$structuiMenu.html#a17092b6fb9899750d59b86bc0068fdd5" title="Renders main menu window, the plus button and currently opened menu item windows." alt="" coords="400,56,508,83"/>
-<area shape="rect" id="node4" href="$classUiImgui.html#abfcd1f9aa36eabb146b19b0d7d08b821" title=" " alt="" coords="209,56,352,83"/>
-<area shape="rect" id="node5" href="$classApplication.html#acd8a806728407b347f2aa4e8e8b6d110" title="Main drawing event calling all other updates and drawing events." alt="" coords="5,56,161,83"/>
+<area shape="rect" id="node1" title="ImGUI wrapper for reset button." alt="" coords="715,56,819,83"/>
+<area shape="rect" id="node2" href="$structUiColorSettings.html#a03f1da424bb36a866a522c6832ebe79e" title="Renders window with corresponding color settings widgets." alt="" coords="493,5,667,32"/>
+<area shape="rect" id="node6" href="$structUiScaler.html#a4481cf933d9227eebdd010540bfa945d" title="Renders window with corresponding scale&amp;transform widgets." alt="" coords="517,56,643,83"/>
+<area shape="rect" id="node7" href="$structUiTrainingSettings.html#ad5ba46054f4731d44944861160a4e44c" title="Renders window with corresponding training settings widgets." alt="" coords="510,107,650,149"/>
+<area shape="rect" id="node3" href="$structUiMenu.html#aa4ed0bb847de6d88a9198e522c5e852e" title="Renders main menu window, the plus button and currently opened menu item windows." alt="" coords="323,56,445,83"/>
+<area shape="rect" id="node4" href="$classImGuiWrapper.html#ae8cc6a14b94ce5e74a9ec18e65930da4" title="Render UI." alt="" coords="108,56,275,83"/>
+<area shape="rect" id="node5" href="$main_8cpp.html#ae66f6b31b5ad750f1fe042a706a4e3d4" title=" " alt="" coords="5,56,60,83"/>
 </map>

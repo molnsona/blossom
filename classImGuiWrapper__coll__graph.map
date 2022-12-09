@@ -1,0 +1,9 @@
+<map id="ImGuiWrapper" name="ImGuiWrapper">
+<area shape="rect" id="node1" title="Wrapper of the ImGui." alt="" coords="187,184,303,211"/>
+<area shape="rect" id="node2" href="$structUiMenu.html" title="ImGUI handler for rendering main menu window." alt="" coords="209,95,281,121"/>
+<area shape="rect" id="node3" href="$structUiLoader.html" title="ImGUI handler for rendering the open file dialog window." alt="" coords="5,5,85,32"/>
+<area shape="rect" id="node4" href="$structUiSaver.html" title="ImGUI handler for rendering the save file window." alt="" coords="110,5,183,32"/>
+<area shape="rect" id="node5" href="$structUiScaler.html" title="ImGUI handler for rendering the scale&amp;transform window." alt="" coords="207,5,283,32"/>
+<area shape="rect" id="node6" href="$structUiTrainingSettings.html" title="ImGUI handler for rendering the training settings window." alt="" coords="307,5,447,32"/>
+<area shape="rect" id="node7" href="$structUiColorSettings.html" title="ImGUI handler for rendering the color settings window." alt="" coords="472,5,595,32"/>
+</map>

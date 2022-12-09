@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['types_873',['Types',['../structuiSaver.html#a9b0cf3edd2d0d77ef5d20104523ef5d3',1,'uiSaver']]]
+  ['types_0',['Types',['../structUiSaver.html#a17371d2e1c1f0f852c836c4906fa2322',1,'UiSaver']]]
 ];

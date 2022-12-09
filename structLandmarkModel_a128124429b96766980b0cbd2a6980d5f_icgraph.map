@@ -1,13 +1,13 @@
 <map id="LandmarkModel::n_landmarks" name="LandmarkModel::n_landmarks">
-<area shape="rect" id="node1" title="Reurns number of the 2D landmarks." alt="" coords="764,132,960,159"/>
-<area shape="rect" id="node2" href="$kmeans__landmark_8cpp.html#a0b4aa3989f033bb2e73ec30516da3aa3" title="Run a k&#45;means&#45;like optimization of high&#45;dimensional landmark positions." alt="" coords="556,5,716,32"/>
-<area shape="rect" id="node5" href="$knn__edges_8cpp.html#a489c27152322f337e73960001498283c" title=" " alt="" coords="574,56,698,83"/>
-<area shape="rect" id="node6" href="$structuiTrainingSettings.html#a8cbd4a5f765b99fac641ccb8f7b9fe1a" title="Renders window with corresponding training settings widgets." alt="" coords="573,259,699,301"/>
-<area shape="rect" id="node9" href="$kmeans__landmark_8cpp.html#a47b6e968d7438c5eb6e93d07e5870ac6" title="Run a SOM to optimize high&#45;dimensional landmark positions." alt="" coords="567,107,705,133"/>
-<area shape="rect" id="node10" href="$tsne__layout_8cpp.html#a7bd33978ed338ff6c51d80d6cf5a0fb3" title="Optimize the positions of low&#45;dimensional landmarks using the t&#45;SNE algorithm." alt="" coords="575,157,697,184"/>
-<area shape="rect" id="node11" href="$structScatterModel.html#aedfea70c9bace6079f6f20a9e6736694" title="Recomputes the coordinates if any of the the parameters of the embedsom algorithm has changed." alt="" coords="563,208,709,235"/>
-<area shape="rect" id="node3" href="$structState.html#adcd0d835af130aa668bcc5799e8bb0c7" title="Performs simulation steps of all active algorithms and updates data according to the user interaction..." alt="" coords="404,132,504,159"/>
-<area shape="rect" id="node4" href="$classApplication.html#acd8a806728407b347f2aa4e8e8b6d110" title="Main drawing event calling all other updates and drawing events." alt="" coords="5,179,161,205"/>
-<area shape="rect" id="node7" href="$structuiMenu.html#a17092b6fb9899750d59b86bc0068fdd5" title="Renders main menu window, the plus button and currently opened menu item windows." alt="" coords="400,233,508,260"/>
-<area shape="rect" id="node8" href="$classUiImgui.html#abfcd1f9aa36eabb146b19b0d7d08b821" title=" " alt="" coords="209,204,352,231"/>
+<area shape="rect" id="node1" title="Reurns number of the 2D landmarks." alt="" coords="720,132,939,159"/>
+<area shape="rect" id="node2" href="$kmeans__landmark_8cpp.html#a0b4aa3989f033bb2e73ec30516da3aa3" title="Run a k&#45;means&#45;like optimization of high&#45;dimensional landmark positions." alt="" coords="493,5,672,32"/>
+<area shape="rect" id="node5" href="$knn__edges_8cpp.html#a489c27152322f337e73960001498283c" title=" " alt="" coords="515,56,650,83"/>
+<area shape="rect" id="node6" href="$structUiTrainingSettings.html#ad5ba46054f4731d44944861160a4e44c" title="Renders window with corresponding training settings widgets." alt="" coords="513,259,653,301"/>
+<area shape="rect" id="node9" href="$kmeans__landmark_8cpp.html#a47b6e968d7438c5eb6e93d07e5870ac6" title="Run a SOM to optimize high&#45;dimensional landmark positions." alt="" coords="505,107,660,133"/>
+<area shape="rect" id="node10" href="$tsne__layout_8cpp.html#a7bd33978ed338ff6c51d80d6cf5a0fb3" title="Optimize the positions of low&#45;dimensional landmarks using the t&#45;SNE algorithm." alt="" coords="516,157,649,184"/>
+<area shape="rect" id="node11" href="$structScatterModel.html#aedfea70c9bace6079f6f20a9e6736694" title="Recomputes the coordinates if any of the the parameters of the embedsom algorithm has changed." alt="" coords="502,208,663,235"/>
+<area shape="rect" id="node3" href="$structState.html#adcd0d835af130aa668bcc5799e8bb0c7" title="Performs simulation steps of all active algorithms and updates data according to the user interaction..." alt="" coords="329,132,439,159"/>
+<area shape="rect" id="node4" href="$main_8cpp.html#ae66f6b31b5ad750f1fe042a706a4e3d4" title=" " alt="" coords="5,179,60,205"/>
+<area shape="rect" id="node7" href="$structUiMenu.html#aa4ed0bb847de6d88a9198e522c5e852e" title="Renders main menu window, the plus button and currently opened menu item windows." alt="" coords="323,233,445,260"/>
+<area shape="rect" id="node8" href="$classImGuiWrapper.html#ae8cc6a14b94ce5e74a9ec18e65930da4" title="Render UI." alt="" coords="108,204,275,231"/>
 </map>

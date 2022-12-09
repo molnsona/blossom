@@ -1,6 +1,6 @@
 <map id="RawDataStats::update" name="RawDataStats::update">
-<area shape="rect" id="node1" title="Recomputes the statistics if the input data changed." alt="" coords="5,56,160,83"/>
-<area shape="rect" id="node2" href="$structCleaner.html#a0ab2a86910726bba3cadd22dec4e00ec" title="Call this when the cache is refreshed." alt="" coords="208,5,315,32"/>
-<area shape="rect" id="node3" href="$structCleaner.html#a1c6ef6eb6c37d12f318a53f720f93bae" title="Returns true if the cache needs to be refreshed." alt="" coords="211,56,311,83"/>
-<area shape="rect" id="node4" href="$structDirt.html#a6753e4542f5254af6366b36b5864a37e" title="Make the cache dirty." alt="" coords="220,107,303,133"/>
+<area shape="rect" id="node1" title="Recomputes the statistics if the input data changed." alt="" coords="5,56,172,83"/>
+<area shape="rect" id="node2" href="$structCleaner.html#a0ab2a86910726bba3cadd22dec4e00ec" title="Call this when the cache is refreshed." alt="" coords="220,5,335,32"/>
+<area shape="rect" id="node3" href="$structCleaner.html#a1c6ef6eb6c37d12f318a53f720f93bae" title="Returns true if the cache needs to be refreshed." alt="" coords="222,56,333,83"/>
+<area shape="rect" id="node4" href="$structDirt.html#a6753e4542f5254af6366b36b5864a37e" title="Make the cache dirty." alt="" coords="232,107,323,133"/>
 </map>

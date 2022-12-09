@@ -1,10 +1,20 @@
 var searchData=
 [
-  ['warpreducesum_420',['warpReduceSum',['../embedsom__cuda__projection_8cu.html#a876c79c4c56f79e98a0b8bfa28cb347a',1,'embedsom_cuda_projection.cu']]],
-  ['what_421',['what',['../structCudaError.html#ae59154f0d5d8e2b3b6f9f917b7c1ae4f',1,'CudaError']]],
-  ['window_5fpadding_422',['WINDOW_PADDING',['../ui__menu_8cpp.html#abbdefb9ef47c6fbd52fbf26c175da5f5',1,'ui_menu.cpp']]],
-  ['window_5fwidth_423',['WINDOW_WIDTH',['../ui__menu_8cpp.html#a36a29019f3e623257624b0f873244e7a',1,'ui_menu.cpp']]],
-  ['write_424',['write',['../structuiSaver.html#ad8b1263b483ea7fd16630299c421906e',1,'uiSaver']]],
-  ['write_5fdata_5f2d_425',['write_data_2d',['../ui__save_8cpp.html#a17d841a4e9c218ee83f50c89a5367354',1,'ui_save.cpp']]],
-  ['write_5fdata_5ffloat_426',['write_data_float',['../ui__save_8cpp.html#ac9ae3c0966bd8b2a91b979de0963049f',1,'ui_save.cpp']]]
+  ['warpreducesum_0',['warpReduceSum',['../embedsom__cuda__projection_8cu.html#a876c79c4c56f79e98a0b8bfa28cb347a',1,'embedsom_cuda_projection.cu']]],
+  ['what_1',['what',['../structCudaError.html#afd7f272ae6dbea2531bda8e86ea94983',1,'CudaError']]],
+  ['width_2',['width',['../classView.html#ae039aa744b085db819ae149705b2c32b',1,'View']]],
+  ['window_3',['window',['../classGlfwWrapper.html#a94fbea723470da6534fe6cdc85bbbfb7',1,'GlfwWrapper']]],
+  ['window_5fpadding_4',['WINDOW_PADDING',['../ui__menu_8cpp.html#abbdefb9ef47c6fbd52fbf26c175da5f5',1,'ui_menu.cpp']]],
+  ['window_5fshould_5fclose_5',['window_should_close',['../classGlfwWrapper.html#a9847627e8177b0e59c7e3040a3655250',1,'GlfwWrapper']]],
+  ['window_5fwidth_6',['WINDOW_WIDTH',['../ui__menu_8cpp.html#a36a29019f3e623257624b0f873244e7a',1,'ui_menu.cpp']]],
+  ['world_5fup_7',['world_up',['../classView.html#aa0c42eb9ad8410630762d58964d69b9e',1,'View']]],
+  ['wrapper_5fglad_2ecpp_8',['wrapper_glad.cpp',['../wrapper__glad_8cpp.html',1,'']]],
+  ['wrapper_5fglad_2eh_9',['wrapper_glad.h',['../wrapper__glad_8h.html',1,'']]],
+  ['wrapper_5fglfw_2ecpp_10',['wrapper_glfw.cpp',['../wrapper__glfw_8cpp.html',1,'']]],
+  ['wrapper_5fglfw_2eh_11',['wrapper_glfw.h',['../wrapper__glfw_8h.html',1,'']]],
+  ['wrapper_5fimgui_2ecpp_12',['wrapper_imgui.cpp',['../wrapper__imgui_8cpp.html',1,'']]],
+  ['wrapper_5fimgui_2eh_13',['wrapper_imgui.h',['../wrapper__imgui_8h.html',1,'']]],
+  ['write_14',['write',['../structUiSaver.html#a81bc0114fd138146360a69e405cf724a',1,'UiSaver']]],
+  ['write_5fdata_5f2d_15',['write_data_2d',['../ui__save_8cpp.html#a9f2fffd114bf09ee4c717fe3a6250e83',1,'ui_save.cpp']]],
+  ['write_5fdata_5ffloat_16',['write_data_float',['../ui__save_8cpp.html#ac9ae3c0966bd8b2a91b979de0963049f',1,'ui_save.cpp']]]
 ];

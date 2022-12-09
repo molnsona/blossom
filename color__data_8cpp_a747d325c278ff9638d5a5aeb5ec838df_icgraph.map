@@ -1,7 +1,0 @@
-<map id="hsv2rgb" name="hsv2rgb">
-<area shape="rect" id="node1" title="Converts hsv color to rgb color system." alt="" coords="709,5,777,32"/>
-<area shape="rect" id="node2" href="$color__data_8cpp.html#aec434b0bb715f591ac0f054b1c3f9e15" title="Creates color palette with the size of the cluster count." alt="" coords="533,5,661,32"/>
-<area shape="rect" id="node3" href="$structColorData.html#ab7e8d8eb653ca730e188ca4691d16635" title="Recomputes color of the 2D data points if user has changed any of the color settings." alt="" coords="357,5,485,32"/>
-<area shape="rect" id="node4" href="$structState.html#adcd0d835af130aa668bcc5799e8bb0c7" title="Performs simulation steps of all active algorithms and updates data according to the user interaction..." alt="" coords="209,5,309,32"/>
-<area shape="rect" id="node5" href="$classApplication.html#acd8a806728407b347f2aa4e8e8b6d110" title="Main drawing event calling all other updates and drawing events." alt="" coords="5,5,161,32"/>
-</map>

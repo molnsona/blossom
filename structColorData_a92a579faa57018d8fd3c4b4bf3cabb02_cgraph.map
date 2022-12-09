@@ -1,4 +1,4 @@
 <map id="ColorData::touch_config" name="ColorData::touch_config">
-<area shape="rect" id="node1" title="Notifies Sweeper that the color settings has been modified and that the data has to be recomputed." alt="" coords="5,5,168,32"/>
-<area shape="rect" id="node2" href="$structSweeper.html#af8cbe558ba3a09298813c9a0d8ee7234" title="Force&#45;refresh the whole range." alt="" coords="216,5,337,32"/>
+<area shape="rect" id="node1" title="Notifies Sweeper that the color settings has been modified and that the data has to be recomputed." alt="" coords="5,5,183,32"/>
+<area shape="rect" id="node2" href="$structSweeper.html#af8cbe558ba3a09298813c9a0d8ee7234" title="Force&#45;refresh the whole range." alt="" coords="231,5,363,32"/>
 </map>

@@ -1,0 +1,8 @@
+<map id="UiSaver::render" name="UiSaver::render">
+<area shape="rect" id="node1" title="Renders save file window, opens save file dialog window and calls save_data() if a directory was sele..." alt="" coords="5,56,128,83"/>
+<area shape="rect" id="node2" href="$structUiSaver.html#a479998247858fa0683fe51a5bd8d7190" title="Calls write() for selected export data types." alt="" coords="176,56,324,83"/>
+<area shape="rect" id="node3" href="$structUiSaver.html#a81bc0114fd138146360a69e405cf724a" title="Writes given data into the file in the tsv format." alt="" coords="372,56,487,83"/>
+<area shape="rect" id="node4" href="$structScaledData.html#aa7e5813c44782202475c66cb6a968ad1" title="Returns dimension of the scaled data." alt="" coords="535,5,664,32"/>
+<area shape="rect" id="node5" href="$ui__save_8cpp.html#a9f2fffd114bf09ee4c717fe3a6250e83" title="Writes two&#45;dimensional data into the file by a given handler." alt="" coords="542,56,657,83"/>
+<area shape="rect" id="node6" href="$ui__save_8cpp.html#ac9ae3c0966bd8b2a91b979de0963049f" title="Writes multi&#45;dimensional data into the file by a given handler." alt="" coords="536,107,663,133"/>
+</map>

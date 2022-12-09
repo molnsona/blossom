@@ -1,5 +1,5 @@
 var searchData=
 [
-  ['cluster_874',['CLUSTER',['../structColorData.html#a2d438350589c44bd3e88a451a3d05e2aa5105f4013b4e74d052ee793bade21360',1,'ColorData']]],
-  ['count_875',['COUNT',['../structuiSaver.html#a9b0cf3edd2d0d77ef5d20104523ef5d3a71d71feaaf31c20a30f4625b5430db18',1,'uiSaver']]]
+  ['cluster_0',['CLUSTER',['../structColorData.html#a2d438350589c44bd3e88a451a3d05e2aa5105f4013b4e74d052ee793bade21360',1,'ColorData']]],
+  ['count_1',['COUNT',['../structUiSaver.html#a17371d2e1c1f0f852c836c4906fa2322aa9896ba7070284ed23faeaf880f26663',1,'UiSaver']]]
 ];

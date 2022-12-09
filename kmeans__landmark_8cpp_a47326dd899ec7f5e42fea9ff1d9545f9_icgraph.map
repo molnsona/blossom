@@ -1,7 +1,7 @@
 <map id="sqr" name="sqr">
-<area shape="rect" id="node1" title="Helper functions for squaring floats." alt="" coords="565,31,605,57"/>
-<area shape="rect" id="node2" href="$kmeans__landmark_8cpp.html#a0b4aa3989f033bb2e73ec30516da3aa3" title="Run a k&#45;means&#45;like optimization of high&#45;dimensional landmark positions." alt="" coords="357,5,517,32"/>
-<area shape="rect" id="node5" href="$kmeans__landmark_8cpp.html#a47b6e968d7438c5eb6e93d07e5870ac6" title="Run a SOM to optimize high&#45;dimensional landmark positions." alt="" coords="368,56,507,83"/>
-<area shape="rect" id="node3" href="$structState.html#adcd0d835af130aa668bcc5799e8bb0c7" title="Performs simulation steps of all active algorithms and updates data according to the user interaction..." alt="" coords="209,31,309,57"/>
-<area shape="rect" id="node4" href="$classApplication.html#acd8a806728407b347f2aa4e8e8b6d110" title="Main drawing event calling all other updates and drawing events." alt="" coords="5,31,161,57"/>
+<area shape="rect" id="node1" title="Helper functions for squaring floats." alt="" coords="492,31,535,57"/>
+<area shape="rect" id="node2" href="$kmeans__landmark_8cpp.html#a0b4aa3989f033bb2e73ec30516da3aa3" title="Run a k&#45;means&#45;like optimization of high&#45;dimensional landmark positions." alt="" coords="265,5,444,32"/>
+<area shape="rect" id="node5" href="$kmeans__landmark_8cpp.html#a47b6e968d7438c5eb6e93d07e5870ac6" title="Run a SOM to optimize high&#45;dimensional landmark positions." alt="" coords="277,56,432,83"/>
+<area shape="rect" id="node3" href="$structState.html#adcd0d835af130aa668bcc5799e8bb0c7" title="Performs simulation steps of all active algorithms and updates data according to the user interaction..." alt="" coords="108,31,217,57"/>
+<area shape="rect" id="node4" href="$main_8cpp.html#ae66f6b31b5ad750f1fe042a706a4e3d4" title=" " alt="" coords="5,31,60,57"/>
 </map>

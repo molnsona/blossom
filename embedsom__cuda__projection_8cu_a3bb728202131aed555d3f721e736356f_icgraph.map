@@ -1,4 +1,4 @@
 <map id="addGravity2Wise" name="addGravity2Wise">
-<area shape="rect" id="node1" title="Add single&#45;point approximation to the matrix, on 2&#45;vectors." alt="" coords="237,13,360,39"/>
-<area shape="rect" id="node2" href="$embedsom__cuda__projection_8cu.html#a15d1224a3e2802ae53b7eb3f3f2a38c5" title="Aligned&#45;shared&#45;memory projection kernel." alt="" coords="5,5,189,47"/>
+<area shape="rect" id="node1" title="Add single&#45;point approximation to the matrix, on 2&#45;vectors." alt="" coords="260,13,395,39"/>
+<area shape="rect" id="node2" href="$embedsom__cuda__projection_8cu.html#a15d1224a3e2802ae53b7eb3f3f2a38c5" title="Aligned&#45;shared&#45;memory projection kernel." alt="" coords="5,5,212,47"/>
 </map>

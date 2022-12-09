@@ -1,5 +1,5 @@
 var searchData=
 [
-  ['ui_5fimgui_848',['ui_imgui',['../classApplication.html#a00136116d5d799cca790950f802906fc',1,'Application']]],
-  ['updates_849',['updates',['../structTSNELayoutData.html#a899d9b436d8b1e99bd153ef9b7a7fdef',1,'TSNELayoutData']]]
+  ['up_0',['up',['../classView.html#a0dd006a9bfcbbed43d75ac2440ea0ecc',1,'View']]],
+  ['updates_1',['updates',['../structTSNELayoutData.html#ae0eb85fca7996e1d3c2a75b1de36f9c4',1,'TSNELayoutData']]]
 ];

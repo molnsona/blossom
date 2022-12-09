@@ -1,5 +1,5 @@
 <map id="LandmarkModel::update_dim" name="LandmarkModel::update_dim">
-<area shape="rect" id="node1" title="Updates current dimension and calls init_grid()." alt="" coords="5,5,195,32"/>
-<area shape="rect" id="node2" href="$structLandmarkModel.html#ae12323b91a1255e730072f437e82331d" title="Creates squared landmarks layout, without edges." alt="" coords="243,5,409,32"/>
-<area shape="rect" id="node3" href="$structDirt.html#a6753e4542f5254af6366b36b5864a37e" title="Make the cache dirty." alt="" coords="457,5,540,32"/>
+<area shape="rect" id="node1" title="Updates current dimension and calls init_grid()." alt="" coords="5,5,217,32"/>
+<area shape="rect" id="node2" href="$structLandmarkModel.html#ae12323b91a1255e730072f437e82331d" title="Creates squared landmarks layout, without edges." alt="" coords="265,5,453,32"/>
+<area shape="rect" id="node3" href="$structDirt.html#a6753e4542f5254af6366b36b5864a37e" title="Make the cache dirty." alt="" coords="501,5,592,32"/>
 </map>

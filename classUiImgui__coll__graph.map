@@ -1,9 +1,0 @@
-<map id="UiImgui" name="UiImgui">
-<area shape="rect" id="node1" title="ImGUI handler that handles all events and sets ImGUI for further rendering of the menu windows." alt="" coords="214,184,281,211"/>
-<area shape="rect" id="node2" href="$structuiMenu.html" title="ImGUI handler for rendering main menu window." alt="" coords="215,95,279,121"/>
-<area shape="rect" id="node3" href="$structuiLoader.html" title="ImGUI handler for rendering the open file dialog window." alt="" coords="5,5,76,32"/>
-<area shape="rect" id="node4" href="$structuiSaver.html" title="ImGUI handler for rendering the save file window." alt="" coords="101,5,167,32"/>
-<area shape="rect" id="node5" href="$structuiColorSettings.html" title="ImGUI handler for rendering the color settings window." alt="" coords="192,5,303,32"/>
-<area shape="rect" id="node6" href="$structuiScaler.html" title="ImGUI handler for rendering the scale&amp;transform window." alt="" coords="327,5,397,32"/>
-<area shape="rect" id="node7" href="$structuiTrainingSettings.html" title="ImGUI handler for rendering the training settings window." alt="" coords="421,5,548,32"/>
-</map>

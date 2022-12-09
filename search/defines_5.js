@@ -1,6 +1,5 @@
 var searchData=
 [
-  ['sixten_890',['SIXTEN',['../pnorm_8cpp.html#ad320887fe8be5f338ace5fcf13598d39',1,'pnorm.cpp']]],
-  ['size_5fcheck_891',['size_check',['../embedsom__cuda_8cpp.html#a9bb20b3764c7f8df5a47b9db4b4ac9a6',1,'embedsom_cuda.cpp']]],
-  ['swap_5ftail_892',['swap_tail',['../pnorm_8cpp.html#a30a9353400e4207bce92fe1b3cea6ad9',1,'pnorm.cpp']]]
+  ['m_5f1_5fsqrt_5f2pi_0',['M_1_SQRT_2PI',['../pnorm_8cpp.html#a3c82de172cd3217556fbed2163b24df5',1,'pnorm.cpp']]],
+  ['m_5fsqrt_5f32_1',['M_SQRT_32',['../pnorm_8cpp.html#a8db227843da012d5b6cd73edc4fa3374',1,'pnorm.cpp']]]
 ];

@@ -1,13 +1,9 @@
 <map id="src/knn_edges.h" name="src/knn_edges.h">
-<area shape="rect" id="node1" title=" " alt="" coords="567,5,685,32"/>
-<area shape="rect" id="node2" href="$landmark__model_8h.html" title=" " alt="" coords="562,80,690,107"/>
-<area shape="rect" id="node3" href="$view_8h.html" title=" " alt="" coords="469,155,527,181"/>
-<area shape="rect" id="node4" title=" " alt="" coords="5,229,143,256"/>
-<area shape="rect" id="node6" title=" " alt="" coords="543,229,709,256"/>
-<area shape="rect" id="node9" title=" " alt="" coords="777,155,835,181"/>
-<area shape="rect" id="node10" href="$dirty_8h.html" title=" " alt="" coords="697,155,753,181"/>
-<area shape="rect" id="node5" title=" " alt="" coords="167,229,330,256"/>
-<area shape="rect" id="node7" title=" " alt="" coords="354,229,519,256"/>
-<area shape="rect" id="node8" title=" " alt="" coords="733,229,783,256"/>
-<area shape="rect" id="node11" title=" " alt="" coords="808,229,873,256"/>
+<area shape="rect" id="node1" title=" " alt="" coords="102,5,229,32"/>
+<area shape="rect" id="node2" href="$landmark__model_8h.html" title=" " alt="" coords="93,80,237,107"/>
+<area shape="rect" id="node3" title=" " alt="" coords="5,155,109,181"/>
+<area shape="rect" id="node4" title=" " alt="" coords="134,155,197,181"/>
+<area shape="rect" id="node5" href="$dirty_8h.html" title=" " alt="" coords="221,155,283,181"/>
+<area shape="rect" id="node6" title=" " alt="" coords="173,229,243,256"/>
+<area shape="rect" id="node7" title=" " alt="" coords="267,229,322,256"/>
 </map>

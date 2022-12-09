@@ -1,4 +1,4 @@
 <map id="addGravity" name="addGravity">
-<area shape="rect" id="node1" title="Add single&#45;point approximation to the matrix." alt="" coords="199,5,284,32"/>
-<area shape="rect" id="node2" href="$embedsom__cuda__projection_8cu.html#a5941879f44776cd703fee97c694cd0a7" title="Base projection kernel (each thread does everything for a single point)." alt="" coords="5,5,151,32"/>
+<area shape="rect" id="node1" title="Add single&#45;point approximation to the matrix." alt="" coords="213,5,308,32"/>
+<area shape="rect" id="node2" href="$embedsom__cuda__projection_8cu.html#a5941879f44776cd703fee97c694cd0a7" title="Base projection kernel (each thread does everything for a single point)." alt="" coords="5,5,165,32"/>
 </map>

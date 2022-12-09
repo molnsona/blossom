@@ -1,5 +1,5 @@
 <map id="TransData::reset" name="TransData::reset">
-<area shape="rect" id="node1" title="Resets configurations to their initial values." alt="" coords="5,5,125,32"/>
-<area shape="rect" id="node2" href="$structTransData.html#a2512c0013845428f93030cfe9f7fa5f4" title="Notifies Sweeper that the config has been modified and that the data has to be recomputed." alt="" coords="173,5,339,32"/>
-<area shape="rect" id="node3" href="$structSweeper.html#af8cbe558ba3a09298813c9a0d8ee7234" title="Force&#45;refresh the whole range." alt="" coords="387,5,508,32"/>
+<area shape="rect" id="node1" title="Resets configurations to their initial values." alt="" coords="5,5,133,32"/>
+<area shape="rect" id="node2" href="$structTransData.html#a2512c0013845428f93030cfe9f7fa5f4" title="Notifies Sweeper that the config has been modified and that the data has to be recomputed." alt="" coords="181,5,359,32"/>
+<area shape="rect" id="node3" href="$structSweeper.html#af8cbe558ba3a09298813c9a0d8ee7234" title="Force&#45;refresh the whole range." alt="" coords="407,5,539,32"/>
 </map>

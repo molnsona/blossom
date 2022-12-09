@@ -1,9 +1,8 @@
 <map id="Sweeper" name="Sweeper">
-<area shape="rect" id="node1" title="A piece of multi&#45;object cache." alt="" coords="232,80,305,107"/>
-<area shape="rect" id="node3" href="$structColorData.html" title="Storage of the color data." alt="" coords="5,155,87,181"/>
-<area shape="rect" id="node4" href="$structLabelModel.html" title=" " alt="" coords="111,155,199,181"/>
-<area shape="rect" id="node5" href="$structScaledData.html" title="Storage of the scaled data." alt="" coords="223,155,314,181"/>
-<area shape="rect" id="node6" href="$structScatterModel.html" title="Model of the two&#45;dimensional data points." alt="" coords="338,155,437,181"/>
-<area shape="rect" id="node7" href="$structTransData.html" title="Storage of the transformed data." alt="" coords="461,155,543,181"/>
-<area shape="rect" id="node2" href="$structCleaner.html" title="A piece of cache that keeps track of the dirty status." alt="" coords="235,5,302,32"/>
+<area shape="rect" id="node1" title="A piece of multi&#45;object cache." alt="" coords="188,80,267,107"/>
+<area shape="rect" id="node3" href="$structColorData.html" title="Storage of the color data." alt="" coords="5,155,92,181"/>
+<area shape="rect" id="node4" href="$structScaledData.html" title="Storage of the scaled data." alt="" coords="117,155,213,181"/>
+<area shape="rect" id="node5" href="$structScatterModel.html" title="Model of the two&#45;dimensional data points." alt="" coords="237,155,345,181"/>
+<area shape="rect" id="node6" href="$structTransData.html" title="Storage of the transformed data." alt="" coords="369,155,456,181"/>
+<area shape="rect" id="node2" href="$structCleaner.html" title="A piece of cache that keeps track of the dirty status." alt="" coords="191,5,263,32"/>
 </map>

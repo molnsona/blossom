@@ -1,0 +1,52 @@
+<map id="main" name="main">
+<area shape="rect" id="node1" title=" " alt="" coords="5,435,60,461"/>
+<area shape="rect" id="node2" href="$classGlfwWrapper.html#afe5601c840c4a75475cf708d1279f2bd" title=" " alt="" coords="119,131,281,157"/>
+<area shape="rect" id="node3" href="$classImGuiWrapper.html#ae12603c6d91bd5555e61acaeca54dfb1" title=" " alt="" coords="113,181,287,208"/>
+<area shape="rect" id="node4" href="$classGlfwWrapper.html#a57a2552f0f5c3f1a30ec0cf2bb14f97c" title=" " alt="" coords="108,232,292,259"/>
+<area shape="rect" id="node6" href="$classRenderer.html#a628ba0693fd83815acac8c69b7dcf9f0" title=" " alt="" coords="145,283,255,309"/>
+<area shape="rect" id="node10" href="$classGladWrapper.html#a7f9bf6edc6295ed8f42bd4cc03c3b84d" title=" " alt="" coords="132,333,268,360"/>
+<area shape="rect" id="node11" href="$classGlfwWrapper.html#ae238e438db2887c6a211a1b08cc9f88e" title=" " alt="" coords="133,384,267,411"/>
+<area shape="rect" id="node18" href="$classImGuiWrapper.html#a4dca2c8b6ef4949eb47ff2e2424d5353" title="Initialize ImGui and load fonts." alt="" coords="127,435,273,461"/>
+<area shape="rect" id="node19" href="$classImGuiWrapper.html#ae8cc6a14b94ce5e74a9ec18e65930da4" title="Render UI." alt="" coords="117,485,283,512"/>
+<area shape="rect" id="node28" href="$structTimer.html#a6f4dc6b9e9f333fa4c60ddf2ff33c801" title="Counts frametime and sets last_tick variable to current time." alt="" coords="154,536,246,563"/>
+<area shape="rect" id="node29" href="$classView.html#a357e8c8e1316cc0602a9d39f4c473ec4" title="Move the current position and zoom a bit closer to the target position and zoom." alt="" coords="147,647,253,673"/>
+<area shape="rect" id="node34" href="$structState.html#adcd0d835af130aa668bcc5799e8bb0c7" title="Performs simulation steps of all active algorithms and updates data according to the user interaction..." alt="" coords="389,841,498,868"/>
+<area shape="rect" id="node46" href="$classRenderer.html#acc7b3656f13c505a21175802a877e873" title="Process input events and render graph and scatterplot with updated values." alt="" coords="133,892,267,919"/>
+<area shape="rect" id="node50" href="$classGlfwWrapper.html#a9847627e8177b0e59c7e3040a3655250" title=" " alt="" coords="118,943,282,985"/>
+<area shape="rect" id="node5" href="$structCallbackValues.html#a355bae4a55c35fd10386c89f1356073f" title=" " alt="" coords="362,5,525,32"/>
+<area shape="rect" id="node7" href="$structGraphRenderer.html#a7fa7ee14f06047388abc84cbc73ae403" title=" " alt="" coords="369,56,518,83"/>
+<area shape="rect" id="node9" href="$structScatterRenderer.html#a7b66b6232155d50648488f72e6c3ba1d" title=" " alt="" coords="365,107,521,133"/>
+<area shape="rect" id="node8" href="$classShader.html#a9191278846b741fe10cd1019fefc15f2" title="Read and build the shader." alt="" coords="648,81,755,108"/>
+<area shape="rect" id="node12" href="$classGlfwWrapper.html#a04aaaba2c8b689de078dc8b68e8121bc" title=" " alt="" coords="366,158,521,199"/>
+<area shape="rect" id="node13" href="$classGlfwWrapper.html#a168b7758c5453d6cbfaf1ec034226b1d" title=" " alt="" coords="371,223,516,265"/>
+<area shape="rect" id="node14" href="$classGlfwWrapper.html#a41f10a6ef9b7e71bda65c073ff94fcf3" title=" " alt="" coords="348,289,539,330"/>
+<area shape="rect" id="node15" href="$classGlfwWrapper.html#ac1c5962dddc3d597bb58e38e443e5a67" title=" " alt="" coords="344,355,543,381"/>
+<area shape="rect" id="node16" href="$classGlfwWrapper.html#acd7624f37737d51300ffbf9b1cc259a7" title=" " alt="" coords="364,406,523,447"/>
+<area shape="rect" id="node17" href="$classGlfwWrapper.html#aaf7021555d6b380e4c9007f01ff5ffa6" title=" " alt="" coords="369,471,518,513"/>
+<area shape="rect" id="node20" href="$structUiMenu.html#aa4ed0bb847de6d88a9198e522c5e852e" title="Renders main menu window, the plus button and currently opened menu item windows." alt="" coords="382,537,505,564"/>
+<area shape="rect" id="node21" href="$ui__menu_8cpp.html#a9a4661083f8de7c3339cfb3c7936b83a" title=" " alt="" coords="628,335,775,361"/>
+<area shape="rect" id="node22" href="$structUiMenu.html#ab97776e252bc799d5b03d382dc09d688" title="Draws main menu window." alt="" coords="595,385,808,412"/>
+<area shape="rect" id="node23" href="$structUiColorSettings.html#a03f1da424bb36a866a522c6832ebe79e" title="Renders window with corresponding color settings widgets." alt="" coords="615,436,788,463"/>
+<area shape="rect" id="node24" href="$structUiLoader.html#af636b0236a47a755c0b60c168845afe9" title="Renders open file dialog window." alt="" coords="636,487,767,513"/>
+<area shape="rect" id="node25" href="$structUiSaver.html#a3174e35d232de5f8dd8e645a006b5763" title="Renders save file window, opens save file dialog window and calls save_data() if a directory was sele..." alt="" coords="640,537,763,564"/>
+<area shape="rect" id="node26" href="$structUiScaler.html#a4481cf933d9227eebdd010540bfa945d" title="Renders window with corresponding scale&amp;transform widgets." alt="" coords="638,588,765,615"/>
+<area shape="rect" id="node27" href="$structScaledData.html#aa7e5813c44782202475c66cb6a968ad1" title="Returns dimension of the scaled data." alt="" coords="856,791,985,817"/>
+<area shape="rect" id="node30" href="$classView.html#aabb37f3e5e0031e0d0a7d2f88d344df9" title="Process keyboard input and move the &quot;camera&quot; accordingly." alt="" coords="354,588,533,615"/>
+<area shape="rect" id="node31" href="$classView.html#a542f06af2c25d7317497dcf8ba1c3d58" title=" " alt="" coords="362,639,525,681"/>
+<area shape="rect" id="node32" href="$classView.html#aeafc494c5781169ee93aae61ac67e775" title="Process mouse scroll and adjust zoom accordingly." alt="" coords="362,705,525,746"/>
+<area shape="rect" id="node33" href="$classView.html#af1964e06e4b0463b3b9142f8bdbe2c10" title="Re&#45;calculates the right and up vector from the View&#39;s updated vectors." alt="" coords="344,771,543,797"/>
+<area shape="rect" id="node35" href="$graph__layout_8cpp.html#acdb73b81c2565027fba9889d06426a07" title="One iteration step of the landmark layouting algorithm." alt="" coords="630,689,773,716"/>
+<area shape="rect" id="node36" href="$kmeans__landmark_8cpp.html#a0b4aa3989f033bb2e73ec30516da3aa3" title="Run a k&#45;means&#45;like optimization of high&#45;dimensional landmark positions." alt="" coords="612,740,791,767"/>
+<area shape="rect" id="node37" href="$knn__edges_8cpp.html#a489c27152322f337e73960001498283c" title=" " alt="" coords="634,791,769,817"/>
+<area shape="rect" id="node38" href="$kmeans__landmark_8cpp.html#a47b6e968d7438c5eb6e93d07e5870ac6" title="Run a SOM to optimize high&#45;dimensional landmark positions." alt="" coords="624,841,779,868"/>
+<area shape="rect" id="node39" href="$tsne__layout_8cpp.html#a7bd33978ed338ff6c51d80d6cf5a0fb3" title="Optimize the positions of low&#45;dimensional landmarks using the t&#45;SNE algorithm." alt="" coords="635,892,768,919"/>
+<area shape="rect" id="node40" href="$structRawDataStats.html#a20ffa1818701c5affd3ff4370b531a17" title="Recomputes the statistics if the input data changed." alt="" coords="618,943,785,969"/>
+<area shape="rect" id="node41" href="$structTransData.html#a0a3c117b336b787215a5603274615cff" title="Recomputes the data if any of the config has been touched." alt="" coords="631,993,771,1020"/>
+<area shape="rect" id="node42" href="$structScatterModel.html#aedfea70c9bace6079f6f20a9e6736694" title="Recomputes the coordinates if any of the the parameters of the embedsom algorithm has changed." alt="" coords="621,1044,782,1071"/>
+<area shape="rect" id="node43" href="$structColorData.html#ab7e8d8eb653ca730e188ca4691d16635" title="Recomputes color of the 2D data points if user has changed any of the color settings." alt="" coords="631,1095,771,1121"/>
+<area shape="rect" id="node44" href="$structScaledData.html#ae18b964a4a04746001f816c072761d10" title="Recomputes the data if any of the config has been touched." alt="" coords="627,1145,776,1172"/>
+<area shape="rect" id="node45" href="$structLandmarkModel.html#ad0f46ebf55af946fbd2f1329cfd19fe0" title="Updates current dimension and calls init_grid()." alt="" coords="595,1196,807,1223"/>
+<area shape="rect" id="node47" href="$classRenderer.html#af40011c483b1359c5fff6cae5a7628bd" title="Process keyboard input." alt="" coords="340,892,547,919"/>
+<area shape="rect" id="node48" href="$classRenderer.html#a95b6e3922529d554e7c6ee02f6108bfc" title="Process mouse input and moves the landmarks." alt="" coords="348,943,539,969"/>
+<area shape="rect" id="node49" href="$classRenderer.html#ab407870f559dfa892dd1dab1b842523f" title="Render graph and scatterplot." alt="" coords="378,993,509,1020"/>
+</map>

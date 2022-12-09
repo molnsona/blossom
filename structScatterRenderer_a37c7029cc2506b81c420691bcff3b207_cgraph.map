@@ -1,6 +1,8 @@
 <map id="ScatterRenderer::draw" name="ScatterRenderer::draw">
-<area shape="rect" id="node1" title="Draw event of the 2D data points." alt="" coords="5,29,159,56"/>
-<area shape="rect" id="node2" href="$structView.html#a9ab51495f9b8df4cdda2e9bff90810b7" title="Compute the projection matrix for drawing into the &quot;model&quot; coordinates." alt="" coords="207,29,365,56"/>
-<area shape="rect" id="node3" href="$structView.html#aa85f82cf8052060b4132b775a2a889c0" title="Compute and return the view size in model coordinates." alt="" coords="413,29,531,56"/>
-<area shape="rect" id="node4" href="$structView.html#abd0f2a00303de5267af98d7eae97952b" title="Return the vertical size of the viewed part in model space." alt="" coords="579,29,708,56"/>
+<area shape="rect" id="node1" title="Draw event of the 2D data points." alt="" coords="5,107,172,133"/>
+<area shape="rect" id="node2" href="$classView.html#a9e79788c1b06ba8176273672d6fc5d1f" title="Compute projection matrix for orthographic projection." alt="" coords="249,5,413,32"/>
+<area shape="rect" id="node3" href="$classView.html#ae2675b41a3c49d8b52784955d128234a" title="Compute view matrix for drawing into the &quot;view&quot; space." alt="" coords="245,56,416,83"/>
+<area shape="rect" id="node4" href="$structScatterRenderer.html#ab42d67c08d7707b7c9046262eb6be543" title="Prepare data to render scatterplot with colors." alt="" coords="220,107,441,133"/>
+<area shape="rect" id="node5" href="$classShader.html#a6c9fea6dbcf014be7a335386f3d9761b" title="Bind the matrix 4x4 variable to the shader." alt="" coords="263,157,399,184"/>
+<area shape="rect" id="node6" href="$classShader.html#a870fa9f13d69e558815d6fd351a469dc" title="Activate built shader." alt="" coords="281,208,380,235"/>
 </map>

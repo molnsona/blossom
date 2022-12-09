@@ -1,0 +1,7 @@
+<map id="LandmarkModel::closest_landmark" name="LandmarkModel::closest_landmark">
+<area shape="rect" id="node1" title="Counts closest landmark to the given position." alt="" coords="736,5,917,47"/>
+<area shape="rect" id="node2" href="$structLandmarkModel.html#a257bfeca44096ff53d4d49a94cffd0c4" title="Creates new landmark with the two&#45; and high&#45;dimensional coordinates as the closeset landmark." alt="" coords="529,13,688,39"/>
+<area shape="rect" id="node3" href="$classRenderer.html#a95b6e3922529d554e7c6ee02f6108bfc" title="Process mouse input and moves the landmarks." alt="" coords="291,13,481,39"/>
+<area shape="rect" id="node4" href="$classRenderer.html#acc7b3656f13c505a21175802a877e873" title="Process input events and render graph and scatterplot with updated values." alt="" coords="108,13,243,39"/>
+<area shape="rect" id="node5" href="$main_8cpp.html#ae66f6b31b5ad750f1fe042a706a4e3d4" title=" " alt="" coords="5,13,60,39"/>
+</map>

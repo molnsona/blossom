@@ -1,11 +1,11 @@
 <map id="Cleaner::clean" name="Cleaner::clean">
-<area shape="rect" id="node1" title="Call this when the cache is refreshed." alt="" coords="755,107,861,133"/>
-<area shape="rect" id="node2" href="$structSweeper.html#ae682327df6cda19ac35ae064815e075b" title="Find the range to refresh." alt="" coords="557,107,702,133"/>
-<area shape="rect" id="node3" href="$structTransData.html#a0a3c117b336b787215a5603274615cff" title="Recomputes the data if any of the config has been touched." alt="" coords="365,5,496,32"/>
-<area shape="rect" id="node6" href="$structScatterModel.html#aedfea70c9bace6079f6f20a9e6736694" title="Recomputes the coordinates if any of the the parameters of the embedsom algorithm has changed." alt="" coords="357,56,504,83"/>
-<area shape="rect" id="node8" href="$structScaledData.html#ae18b964a4a04746001f816c072761d10" title="Recomputes the data if any of the config has been touched." alt="" coords="362,157,499,184"/>
-<area shape="rect" id="node9" href="$structRawDataStats.html#a20ffa1818701c5affd3ff4370b531a17" title="Recomputes the statistics if the input data changed." alt="" coords="552,208,707,235"/>
-<area shape="rect" id="node7" href="$structColorData.html#ab7e8d8eb653ca730e188ca4691d16635" title="Recomputes color of the 2D data points if user has changed any of the color settings." alt="" coords="367,107,495,133"/>
-<area shape="rect" id="node4" href="$structState.html#adcd0d835af130aa668bcc5799e8bb0c7" title="Performs simulation steps of all active algorithms and updates data according to the user interaction..." alt="" coords="209,107,309,133"/>
-<area shape="rect" id="node5" href="$classApplication.html#acd8a806728407b347f2aa4e8e8b6d110" title="Main drawing event calling all other updates and drawing events." alt="" coords="5,107,161,133"/>
+<area shape="rect" id="node1" title="Call this when the cache is refreshed." alt="" coords="689,107,804,133"/>
+<area shape="rect" id="node2" href="$structSweeper.html#a83feb9f88763ea6024500942372a6c16" title="Find the range to refresh." alt="" coords="478,107,638,133"/>
+<area shape="rect" id="node3" href="$structTransData.html#a0a3c117b336b787215a5603274615cff" title="Recomputes the data if any of the config has been touched." alt="" coords="276,5,416,32"/>
+<area shape="rect" id="node6" href="$structScatterModel.html#aedfea70c9bace6079f6f20a9e6736694" title="Recomputes the coordinates if any of the the parameters of the embedsom algorithm has changed." alt="" coords="265,56,427,83"/>
+<area shape="rect" id="node8" href="$structScaledData.html#ae18b964a4a04746001f816c072761d10" title="Recomputes the data if any of the config has been touched." alt="" coords="271,157,421,184"/>
+<area shape="rect" id="node9" href="$structRawDataStats.html#a20ffa1818701c5affd3ff4370b531a17" title="Recomputes the statistics if the input data changed." alt="" coords="475,208,641,235"/>
+<area shape="rect" id="node7" href="$structColorData.html#ab7e8d8eb653ca730e188ca4691d16635" title="Recomputes color of the 2D data points if user has changed any of the color settings." alt="" coords="276,107,416,133"/>
+<area shape="rect" id="node4" href="$structState.html#adcd0d835af130aa668bcc5799e8bb0c7" title="Performs simulation steps of all active algorithms and updates data according to the user interaction..." alt="" coords="108,107,217,133"/>
+<area shape="rect" id="node5" href="$main_8cpp.html#ae66f6b31b5ad750f1fe042a706a4e3d4" title=" " alt="" coords="5,107,60,133"/>
 </map>

@@ -1,5 +1,0 @@
-<map id="View::projection_matrix" name="View::projection_matrix">
-<area shape="rect" id="node1" title="Compute the projection matrix for drawing into the &quot;model&quot; coordinates." alt="" coords="5,29,164,56"/>
-<area shape="rect" id="node2" href="$structView.html#aa85f82cf8052060b4132b775a2a889c0" title="Compute and return the view size in model coordinates." alt="" coords="212,29,329,56"/>
-<area shape="rect" id="node3" href="$structView.html#abd0f2a00303de5267af98d7eae97952b" title="Return the vertical size of the viewed part in model space." alt="" coords="377,29,507,56"/>
-</map>

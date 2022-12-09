@@ -1,0 +1,6 @@
+<map id="UiSaver::write" name="UiSaver::write">
+<area shape="rect" id="node1" title="Writes given data into the file in the tsv format." alt="" coords="5,56,120,83"/>
+<area shape="rect" id="node2" href="$structScaledData.html#aa7e5813c44782202475c66cb6a968ad1" title="Returns dimension of the scaled data." alt="" coords="168,5,297,32"/>
+<area shape="rect" id="node3" href="$ui__save_8cpp.html#a9f2fffd114bf09ee4c717fe3a6250e83" title="Writes two&#45;dimensional data into the file by a given handler." alt="" coords="175,56,290,83"/>
+<area shape="rect" id="node4" href="$ui__save_8cpp.html#ac9ae3c0966bd8b2a91b979de0963049f" title="Writes multi&#45;dimensional data into the file by a given handler." alt="" coords="169,107,296,133"/>
+</map>
