@@ -4,3 +4,4 @@ imgui.ini
 glfw/*
 imgui-wrapper/imgui/*
 *.fcs
+*.sh
