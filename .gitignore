@@ -5,3 +5,4 @@ glfw/*
 imgui-wrapper/imgui/*
 *.fcs
 *.sh
+doc/

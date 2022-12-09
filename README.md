@@ -61,7 +61,7 @@ stay tuned.
 ### Linux (and possibly other unix-like systems)
 
 #### Dependencies
-The project requires GLFW and GLM as an external dependency. Install `libglfw3-dev` and `libglm-dev` (on
+The project requires GLFW and GLM as an external dependency. Install `libglfw3-dev`, `libglm-dev` and `libgl-dev` (on
 Debian-based systems) or similar
 (depending on the Linux distribution). You should be able to install `cmake`
 package the same way.

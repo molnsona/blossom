@@ -14,8 +14,8 @@ jobs:
         uses: actions/checkout@v3
         with:
           submodules: 'recursive'
-      - name: Install GLFW & GLM
-        run: sudo apt-get install -y libglfw3-dev libglm-dev
+      - name: Install GLFW & GLM & GL
+        run: sudo apt-get install -y libglfw3-dev libglm-dev libgl-dev
       - name: Build
         uses: ashutoshvarma/action-cmake-build@master
         with:
