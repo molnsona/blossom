@@ -16,9 +16,7 @@ jobs:
           submodules: 'recursive'
       - name: Install GLFW & GLM
         run: sudo apt-get install -y libglfw3-dev libglm-dev
-      - name: Install CUDA toolkit
-        run: sudo apt-get install -y nvidia-cuda-toolkit
-      - name: Build normal & CUDA version
+      - name: Build
         uses: ashutoshvarma/action-cmake-build@master
         with:
             build-dir: ${{ runner.workspace }}/build
@@ -27,7 +25,7 @@ jobs:
             cxx: g++
             build-type: Release
             # Extra options pass to cmake while configuring project
-            configure-options: -DCMAKE_INSTALL_PREFIX=./inst -DBUILD_CUDA=1           
+            configure-options: -DCMAKE_INSTALL_PREFIX=./inst      
             # install the build using cmake --install
             install-build: true
             # run build using '-j [parallel]' to use multiple threads to build
