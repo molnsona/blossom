@@ -20,9 +20,8 @@
 #ifndef GRAPH_MODEL_H
 #define GRAPH_MODEL_H
 
-#include "view.h"
-#include <Magnum/Magnum.h>
-#include <Magnum/Math/Vector2.h>
+#include <glm/glm.hpp>
+
 #include <vector>
 
 #include "dirty.h"
@@ -39,7 +38,7 @@ struct LandmarkModel : public Dirt
      * row-major order. */
     std::vector<float> hidim_vertices;
     /** Array storing two-dimensional landmark coordinates. */
-    std::vector<Magnum::Vector2> lodim_vertices;
+    std::vector<glm::vec2> lodim_vertices;
 
     /** Lengths of all edges.
      *
@@ -83,7 +82,7 @@ struct LandmarkModel : public Dirt
      * @param ind Index of the pressed landmark.
      * @param mouse_pos Mouse screen position.
      */
-    void move(size_t ind, const Magnum::Vector2 &mouse_pos);
+    void move(size_t ind, const glm::vec2 &mouse_pos);
     /**
      * @brief Creates new landmark with the same two- and high-dimensional
      * coordinates as the given landmark.
@@ -97,7 +96,7 @@ struct LandmarkModel : public Dirt
      *
      * @param mouse_pos Mouse screen position.
      */
-    void add(const Magnum::Vector2 &mouse_pos);
+    void add(const glm::vec2 &mouse_pos);
     /**
      * @brief Removes landmark and corresponding edges.
      *
@@ -111,7 +110,7 @@ struct LandmarkModel : public Dirt
      * @param mouse_pos Mouse screen position.
      * @return size_t Index of the closest landmark.
      */
-    size_t closest_landmark(const Magnum::Vector2 &mouse_pos) const;
+    size_t closest_landmark(const glm::vec2 &mouse_pos) const;
 
     /**
      * @brief Reurns number of the 2D landmarks.

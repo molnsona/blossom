@@ -20,17 +20,19 @@
 #ifndef UI_SAVE_H
 #define UI_SAVE_H
 
-#include "application.h"
+#include "imgui.h"
 #include "vendor/imfilebrowser.h"
 
 #include <array>
 #include <string>
 
+#include "state.h"
+
 /**
  * @brief ImGUI handler for rendering the save file window.
  *
  */
-struct uiSaver
+struct UiSaver
 {
     /**
      * @brief Types of data to be exported.
@@ -60,16 +62,16 @@ struct uiSaver
     bool all;
     /** Array of flags for each export data type indicating which data should be
      * exported and which not. */
-    std::array<bool, uiSaver::Types::COUNT> data_flags;
+    std::array<bool, UiSaver::Types::COUNT> data_flags;
     /** Names of the exported files for each export data type. */
-    std::array<std::string, uiSaver::Types::COUNT> file_names;
+    std::array<std::string, UiSaver::Types::COUNT> file_names;
 
     /**
      * @brief Initializes \p saver settings and initializes variables with
      * default values.
      *
      */
-    uiSaver();
+    UiSaver();
     /**
      * @brief Enables window to render.
      *
@@ -83,7 +85,7 @@ struct uiSaver
      * @param app Application context.
      * @param window_flags Flags used for rendered window.
      */
-    void render(Application &app, ImGuiWindowFlags window_flags);
+    void render(State &state, ImGuiWindowFlags window_flags);
 
     /**
      * @brief Calls @ref write() for selected export data types.
@@ -102,7 +104,7 @@ struct uiSaver
      * \exception std::domain_error Throws when the file cannot be opened for
      * writing.
      */
-    void write(uiSaver::Types type,
+    void write(UiSaver::Types type,
                const State &state,
                const std::string &dir_name) const;
 };

@@ -467,7 +467,8 @@ struct RectangleIndexer
 template<typename INDEXER>
 __inline__ __device__ uint2
 getIndices(uint32_t plainIndex, uint32_t k)
-{}
+{
+}
 
 /** Specialization of getIndices for the rectangle indexing. */
 template<>

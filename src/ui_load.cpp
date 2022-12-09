@@ -17,11 +17,12 @@
  * BlosSOM. If not, see <https://www.gnu.org/licenses/>.
  */
 
-#include "application.h"
+#include "ui_load.h"
+
 #include "parsers.h"
 #include <exception>
 
-uiLoader::uiLoader()
+UiLoader::UiLoader()
 {
     opener.SetTitle("Open file");
     opener.SetTypeFilters(
@@ -29,13 +30,13 @@ uiLoader::uiLoader()
 }
 
 void
-uiLoader::render(Application &app, ImGuiWindowFlags window_flags)
+UiLoader::render(State &state, ImGuiWindowFlags window_flags)
 {
     opener.Display();
 
     if (opener.HasSelected()) {
         try {
-            parse_generic(opener.GetSelected().string(), app.state.data);
+            parse_generic(opener.GetSelected().string(), state.data);
         } catch (std::exception &e) {
             loading_error = e.what();
         }

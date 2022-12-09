@@ -1,3 +1,4 @@
+
 # BlosSOM :blossom:
 
 BlosSOM is a graphical environment for running semi-supervised dimensionality
@@ -47,60 +48,41 @@ tools are provided to manage the landmarks; a quick overview follows:
 
 ## Compiling and running BlosSOM
 
-You will need [cmake](https://cmake.org/) build system and [SDL2](https://www.libsdl.org/).
+You will need [cmake](https://cmake.org/) build system, [GLFW](https://www.glfw.org/) OpenGL library and [GLM](https://www.opengl.org/sdk/libs/GLM/) mathematics library for graphics.
 
 For CUDA EmbedSOM to work, you need the [NVIDIA CUDA toolkit](https://developer.nvidia.com/cuda-zone).
 Append `-DBUILD_CUDA=1` to `cmake` options to enable the CUDA version.
 
-### Windows (Visual Studio 2019)
+### Windows
 
-#### Dependencies
-The project requires SDL2 as an external dependency:
-
-1. install [vcpkg](https://github.com/microsoft/vcpkg) tool and remember your vcpkg directory
-2. install SDL: `vcpkg install SDL2:x64-windows`
-
-#### Compilation
-```sh
-git submodule init
-git submodule update
-
-mkdir build
-cd build
-
-# You need to fix the path to vcpkg in the following command:
-cmake .. -G "Visual Studio 16 2019" -A x64 -DCMAKE_BUILD_TYPE="Release" -DCMAKE_INSTALL_PREFIX=./inst -DCMAKE_TOOLCHAIN_FILE=your-vcpkg-clone-directory/scripts/buildsystems/vcpkg.cmake
-
-cmake --build . --config Release
-cmake --install . --config Release
-```
-
-#### Running
-Open Visual Studio solution `BlosSOM.sln`, set `blossom` as startup project,
-set configuration to Release and run the project.
+A version for Windows is currently not supported but may be in the future,
+stay tuned.
 
 ### Linux (and possibly other unix-like systems)
 
 #### Dependencies
-The project requires SDL2 as an external dependency. Install `libsdl2-dev` (on
-Debian-based systems) or `SDL2-devel` (on Red Hat-based systems), or similar
+The project requires GLFW and GLM as an external dependency. Install `libglfw3-dev`, `libglm-dev` and `libgl-dev` (on
+Debian-based systems) or similar
 (depending on the Linux distribution). You should be able to install `cmake`
 package the same way.
 
 #### Compilation
 ```sh
-git submodule init
-git submodule update
+git submodule update --init --recursive
 
 mkdir build
 cd build
 cmake .. -DCMAKE_INSTALL_PREFIX=./inst    # or any other directory
+# to compile CUDA, set proper gcc/g++ compiler compatible with your version of CUDA/nvcc
+# cmake .. -DCMAKE_INSTALL_PREFIX=./inst -DBUILD_CUDA=1 -DCMAKE_C_COMPILER=/usr/bin/gcc-10 -DCMAKE_CXX_COMPILER=/usr/bin/g++-10
 make install                              # use -j option to speed up the build
 ```
 
 #### Running
 ```sh
 ./inst/bin/blossom
+# to run CUDA version
+# ./inst/bin/blossom_cuda
 ```
 
 ## Documentation

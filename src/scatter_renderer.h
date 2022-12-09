@@ -20,11 +20,11 @@
 #ifndef SCATTER_RENDERER_H
 #define SCATTER_RENDERER_H
 
-#include <Magnum/Shaders/FlatGL.h>
-
 #include "color_data.h"
 #include "scatter_model.h"
 #include "view.h"
+
+#include "shader.h"
 
 /**
  * @brief Renderer of the 2D data points.
@@ -33,6 +33,8 @@
 struct ScatterRenderer
 {
     ScatterRenderer();
+
+    void init();
 
     /**
      * @brief Draw event of the 2D data points.
@@ -46,8 +48,20 @@ struct ScatterRenderer
     void draw(const View &v, const ScatterModel &m, const ColorData &colors);
 
 private:
-    /** Shader used for rendering data points. */
-    Magnum::Shaders::FlatGL2D flat_shader;
+    Shader shader;
+    unsigned int VAO;
+    unsigned int VBO_pos;
+    unsigned int VBO_col;
+
+    /**
+     * @brief Prepare data to render scatterplot with colors.
+     *
+     * Fill VBOs and VAO.
+     *
+     * @param model Data source
+     * @param colors Source of the color data.
+     */
+    void prepare_data(const ScatterModel &model, const ColorData &colors);
 };
 
 #endif

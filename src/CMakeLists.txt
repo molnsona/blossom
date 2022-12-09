@@ -1,6 +1,4 @@
-﻿
 set(BLOSSOM_SOURCES
-    application.cpp
     color_data.cpp
     embedsom.cpp
     fcs_parser.cpp
@@ -9,22 +7,27 @@ set(BLOSSOM_SOURCES
     kmeans_landmark.cpp
     knn_edges.cpp
     landmark_model.cpp
+    main.cpp
     parsers.cpp
     pnorm.cpp
+    renderer.cpp
     scaled_data.cpp
     scatter_model.cpp
     scatter_renderer.cpp
+    shader.cpp
     state.cpp
     trans_data.cpp
     tsne_layout.cpp
     tsv_parser.cpp
     ui_color.cpp
-    ui_imgui.cpp
     ui_load.cpp
     ui_menu.cpp
     ui_save.cpp
     ui_scale.cpp
     ui_train.cpp
+    wrapper_glad.cpp
+    wrapper_glfw.cpp
+    wrapper_imgui.cpp
 )
 
 set(CUDA_SOURCES
@@ -33,20 +36,17 @@ set(CUDA_SOURCES
     embedsom_cuda.cpp
 )
 
+find_package(PkgConfig)
+pkg_check_modules(glfw3 REQUIRED glfw3)
+pkg_check_modules(glm REQUIRED glm)
+
 set(BLOSSOM_LIBRARIES
-    Corrade::Main
-    Magnum::Application
-    Magnum::GL
-    Magnum::Magnum
-    Magnum::MeshTools
-    Magnum::Primitives
-    Magnum::SceneGraph
-    Magnum::Shaders
-    Magnum::Trade
-    MagnumIntegration::ImGui
+    imgui    
+    glad
+    ${glfw3_LIBRARIES}
+    ${glm_LIBRARIES}
 )
-    
-# Regular (CPU-only target)
+
 add_executable(blossom
     ${BLOSSOM_SOURCES}
 )
@@ -66,9 +66,8 @@ else (MSVC)
     target_compile_options(blossom BEFORE PUBLIC $<$<COMPILE_LANGUAGE:CXX>:-Wall>)
 endif (MSVC)
 
-target_link_libraries(blossom PRIVATE
-    ${BLOSSOM_LIBRARIES}
-)
+target_link_libraries(blossom PRIVATE ${BLOSSOM_LIBRARIES})
+target_include_directories(blossom PUBLIC include ${glfw3_INCLUDE_DIRS} ${glm_INCLUDE_DIRS})
 
 # CUDA-accelerated target is compiled only if CUDA is available
 if (BUILD_CUDA)
@@ -100,7 +99,7 @@ if (BUILD_CUDA)
         target_compile_options(blossom_cuda BEFORE PUBLIC $<$<COMPILE_LANGUAGE:CXX>:-Wall>)
     endif (MSVC)
     
-    target_include_directories(blossom_cuda PUBLIC include "${CUDA_INCLUDE_DIRS}")
+    target_include_directories(blossom_cuda PUBLIC include ${CUDA_INCLUDE_DIRS} ${glfw3_INCLUDE_DIRS} ${glm_INCLUDE_DIRS})
     
     target_link_libraries(blossom_cuda PRIVATE
         ${BLOSSOM_LIBRARIES}

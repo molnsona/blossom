@@ -48,7 +48,7 @@ LandmarkModel::init_grid(size_t n)
     for (size_t i = 0; i < n * n; ++i) {
         auto x = i % n;
         auto y = i / n;
-        lodim_vertices[i] = Magnum::Vector2(x, y);
+        lodim_vertices[i] = glm::vec2(x, y);
 
         for (size_t di = 0; di < d; ++di)
             hidim_vertices[i * d + di] = (di & 1) ? x : y;
@@ -67,7 +67,7 @@ LandmarkModel::update_dim(size_t dim)
 }
 
 void
-LandmarkModel::move(size_t ind, const Magnum::Vector2 &mouse_pos)
+LandmarkModel::move(size_t ind, const glm::vec2 &mouse_pos)
 {
     lodim_vertices[ind] = mouse_pos;
     touch();
@@ -84,13 +84,13 @@ LandmarkModel::duplicate(size_t ind)
 
     // Add new vertex to lodim
     lodim_vertices.emplace_back(
-      Magnum::Vector2(lodim_vertices[ind].x() + 0.3, lodim_vertices[ind].y()));
+      glm::vec2(lodim_vertices[ind].x + 0.3, lodim_vertices[ind].y));
 
     touch();
 }
 
 void
-LandmarkModel::add(const Magnum::Vector2 &mouse_pos)
+LandmarkModel::add(const glm::vec2 &mouse_pos)
 {
     size_t vert_ind = closest_landmark(mouse_pos);
 
@@ -142,15 +142,15 @@ LandmarkModel::remove(size_t ind)
 }
 
 static float
-distance(const Magnum::Vector2 &x, const Magnum::Vector2 &y)
+distance(const glm::vec2 &x, const glm::vec2 &y)
 {
-    auto a = powf(x.x() - y.x(), 2);
-    auto b = powf(x.y() - y.y(), 2);
+    auto a = powf(x.x - y.x, 2);
+    auto b = powf(x.y - y.y, 2);
     return sqrtf(a + b);
 }
 
 size_t
-LandmarkModel::closest_landmark(const Magnum::Vector2 &mouse_pos) const
+LandmarkModel::closest_landmark(const glm::vec2 &mouse_pos) const
 {
     auto min_dist = std::numeric_limits<float>::max();
     size_t vert_ind = 0;

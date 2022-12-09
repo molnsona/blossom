@@ -19,11 +19,6 @@
 #ifndef KEYBOARD_DATA_H
 #define KEYBOARD_DATA_H
 
-#include <Magnum/Magnum.h>
-#include <Magnum/Math/Vector2.h>
-
-using namespace Magnum;
-
 /**
  * @brief Keyboard events data storage.
  *
@@ -35,7 +30,8 @@ struct KeyboardData
 
     KeyboardData()
       : ctrl_pressed(false)
-    {}
+    {
+    }
 };
 
 #endif // #ifndef KEYBOARD_DATA_H

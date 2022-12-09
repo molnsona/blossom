@@ -20,8 +20,8 @@
 #ifndef SCATTER_MODEL_H
 #define SCATTER_MODEL_H
 
-#include <Magnum/Magnum.h>
-#include <Magnum/Math/Vector2.h>
+#include <glm/glm.hpp>
+
 #include <vector>
 
 #include "dirty.h"
@@ -40,7 +40,7 @@
 struct ScatterModel : public Sweeper
 {
     /** Coordinates of the two-dimensional data points. */
-    std::vector<Magnum::Vector2> points;
+    std::vector<glm::vec2> points;
 
 #if ENABLE_CUDA
     EmbedSOMCUDAContext embedsom_cuda;
@@ -66,7 +66,10 @@ struct ScatterModel : public Sweeper
      * recomputed.
      *
      */
-    void touch_config() { refresh(points.size()); }
+    void touch_config()
+    {
+        refresh(points.size());
+    }
 };
 
 #endif

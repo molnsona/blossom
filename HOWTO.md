@@ -133,7 +133,7 @@ Choose the coloring method for coloring 2D data points(not landmarks) out of two
 
 ## Controls listing
 
-- Move: Arrows
+- Move: WASD
 - Zoom in/out: Mouse wheel
 - Drag landmark: Left mouse button
 - Add/duplicate landmark: Ctrl + Left mouse button (click anywhere)

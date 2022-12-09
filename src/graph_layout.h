@@ -20,8 +20,7 @@
 #ifndef LAYOUT_H
 #define LAYOUT_H
 
-#include <Magnum/Magnum.h>
-#include <Magnum/Math/Vector2.h>
+#include <glm/glm.hpp>
 
 #include <vector>
 
@@ -35,9 +34,9 @@
 struct GraphLayoutData
 {
     /** Velocities of 2D landmarks. */
-    std::vector<Magnum::Vector2> velocities;
+    std::vector<glm::vec2> velocities;
     /** Forces of 2D landmarks. */
-    std::vector<Magnum::Vector2> forces; // kept allocated for efficiency
+    std::vector<glm::vec2> forces; // kept allocated for efficiency
 };
 
 /**

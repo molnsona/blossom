@@ -37,7 +37,8 @@ struct ScaleConfig
     ScaleConfig()
       : scale(false)
       , sdev(1)
-    {}
+    {
+    }
 };
 
 /**

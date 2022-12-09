@@ -19,18 +19,20 @@
 #ifndef UI_TRAIN_H
 #define UI_TRAIN_H
 
-#include "application.h"
+#include "imgui.h"
+
+#include "state.h"
 
 /**
  * @brief ImGUI handler for rendering the training settings window.
  *
  */
-struct uiTrainingSettings
+struct UiTrainingSettings
 {
     /** If the training settings window should be rendered. */
     bool show_window;
 
-    uiTrainingSettings();
+    UiTrainingSettings();
     /**
      * @brief Enables window to render.
      *
@@ -42,7 +44,7 @@ struct uiTrainingSettings
      * @param app Application context.
      * @param window_flags Flags used for rendered window.
      */
-    void render(Application &app, ImGuiWindowFlags window_flags);
+    void render(State &state, ImGuiWindowFlags window_flags);
 };
 
 #endif

@@ -20,13 +20,15 @@
 #ifndef UI_SCALE_H
 #define UI_SCALE_H
 
-#include "application.h"
+#include "imgui.h"
+
+#include "state.h"
 
 /**
  * @brief ImGUI handler for rendering the scale&transform window.
  *
  */
-struct uiScaler
+struct UiScaler
 {
     /** If the scale&transform window should be rendered. */
     bool show_window;
@@ -34,7 +36,7 @@ struct uiScaler
     /** Width of the sliders in the table. */
     static constexpr float slider_width = 150.0f;
 
-    uiScaler();
+    UiScaler();
     /**
      * @brief Enables window to render.
      *
@@ -46,7 +48,7 @@ struct uiScaler
      * @param app Application context.
      * @param window_flags Flags used for rendered window.
      */
-    void render(Application &app, ImGuiWindowFlags window_flags);
+    void render(State &state, ImGuiWindowFlags window_flags);
 };
 
 #endif

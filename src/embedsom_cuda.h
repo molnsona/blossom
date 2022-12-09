@@ -64,7 +64,8 @@ struct EmbedSOMCUDAContext
       , lm_lo(nullptr)
       , points(nullptr)
       , knns(nullptr)
-    {}
+    {
+    }
 
     ~EmbedSOMCUDAContext();
 
@@ -101,15 +102,18 @@ struct CudaError : std::exception
 
     CudaError(cudaError_t status = cudaSuccess)
       : status(status)
-    {}
+    {
+    }
     CudaError(const char *msg, cudaError_t status = cudaSuccess)
       : msg(msg)
       , status(status)
-    {}
+    {
+    }
     CudaError(const std::string &msg, cudaError_t status = cudaSuccess)
       : msg(msg)
       , status(status)
-    {}
+    {
+    }
     virtual ~CudaError() noexcept {}
 
     virtual const char *what() const throw() { return msg.c_str(); }

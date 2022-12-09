@@ -19,9 +19,6 @@
 #ifndef KMEANS_LANDMARK_H
 #define KMEANS_LANDMARK_H
 
-#include <Magnum/Magnum.h>
-#include <Magnum/Math/Vector2.h>
-
 #include <random>
 #include <vector>
 

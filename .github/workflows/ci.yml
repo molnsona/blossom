@@ -1,0 +1,32 @@
+name: CI
+
+on:
+  push:
+    branches: [ "master" ]
+  pull_request:
+    branches: [ "master" ]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Clone the repository
+        uses: actions/checkout@v3
+        with:
+          submodules: 'recursive'
+      - name: Install GLFW & GLM & GL
+        run: sudo apt-get install -y libglfw3-dev libglm-dev libgl-dev
+      - name: Build
+        uses: ashutoshvarma/action-cmake-build@master
+        with:
+            build-dir: ${{ runner.workspace }}/build
+            # will set the CC & CXX for cmake
+            cc: gcc
+            cxx: g++
+            build-type: Release
+            # Extra options pass to cmake while configuring project
+            configure-options: -DCMAKE_INSTALL_PREFIX=./inst      
+            # install the build using cmake --install
+            install-build: true
+            # run build using '-j [parallel]' to use multiple threads to build
+            parallel: 14

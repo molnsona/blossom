@@ -19,24 +19,22 @@
 
 #include "scatter_renderer.h"
 
-#include <Magnum/GL/Mesh.h>
-#include <Magnum/GL/Renderer.h>
-#include <Magnum/MeshTools/Interleave.h>
-#include <Magnum/Trade/MeshData.h>
+#include "glm/gtc/matrix_transform.hpp"
 
-#include <algorithm>
-#include <limits>
+#include <iostream>
 
-using namespace Magnum;
-using namespace Math::Literals;
+#include "shaders.h"
 
-ScatterRenderer::ScatterRenderer()
-  : flat_shader{ Magnum::Shaders::FlatGL2D::Flag::VertexColor }
+ScatterRenderer::ScatterRenderer() {}
+
+void
+ScatterRenderer::init()
 {
-    // Setup proper blending function.
-    GL::Renderer::setBlendFunction(
-      GL::Renderer::BlendFunction::SourceAlpha,
-      GL::Renderer::BlendFunction::OneMinusSourceAlpha);
+    glGenVertexArrays(1, &VAO);
+    glGenBuffers(1, &VBO_pos);
+    glGenBuffers(1, &VBO_col);
+
+    shader.build(scatter_vs, scatter_fs);
 }
 
 void
@@ -44,27 +42,46 @@ ScatterRenderer::draw(const View &view,
                       const ScatterModel &model,
                       const ColorData &colors)
 {
-    GL::Buffer buffer;
+
     size_t n =
       std::min(model.points.size(),
                colors.data.size()); // misalignment aborts it, be careful
 
-    buffer.setData(MeshTools::interleave(
-      Corrade::Containers::ArrayView(model.points.data(), n),
-      Corrade::Containers::ArrayView(colors.data.data(), n)));
+    prepare_data(model, colors);
 
-    GL::Renderer::enable(GL::Renderer::Feature::Blending);
+    shader.use();
+    shader.set_mat4("model", glm::mat4(1.0f));
+    shader.set_mat4("view", view.get_view_matrix());
+    shader.set_mat4("proj", view.get_proj_matrix());
 
-    Magnum::GL::Mesh point_mesh;
-    point_mesh.setPrimitive(MeshPrimitive::Points);
-    point_mesh.setCount(n).addVertexBuffer(std::move(buffer),
-                                           0,
-                                           decltype(flat_shader)::Position{},
-                                           decltype(flat_shader)::Color4{});
+    glBindVertexArray(VAO);
+    glEnable(GL_BLEND);
+    glDrawArrays(GL_POINTS, 0, n);
 
-    auto proj = view.projection_matrix();
+    glDisable(GL_BLEND);
+}
 
-    flat_shader.setTransformationProjectionMatrix(proj).draw(point_mesh);
+void
+ScatterRenderer::prepare_data(const ScatterModel &model,
+                              const ColorData &colors)
+{
+    glBindVertexArray(VAO);
 
-    GL::Renderer::disable(GL::Renderer::Feature::Blending);
+    glBindBuffer(GL_ARRAY_BUFFER, VBO_pos);
+    glBufferData(GL_ARRAY_BUFFER,
+                 model.points.size() * sizeof(glm::vec2),
+                 &model.points[0],
+                 GL_DYNAMIC_DRAW);
+    glVertexAttribPointer(
+      0, 2, GL_FLOAT, GL_FALSE, sizeof(glm::vec2), (void *)0);
+    glEnableVertexAttribArray(0);
+
+    glBindBuffer(GL_ARRAY_BUFFER, VBO_col);
+    glBufferData(GL_ARRAY_BUFFER,
+                 colors.data.size() * sizeof(glm::vec4),
+                 &colors.data[0],
+                 GL_DYNAMIC_DRAW);
+    glVertexAttribPointer(
+      1, 4, GL_FLOAT, GL_FALSE, sizeof(glm::vec4), (void *)0);
+    glEnableVertexAttribArray(1);
 }

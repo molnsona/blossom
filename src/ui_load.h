@@ -19,15 +19,18 @@
 #ifndef UI_LOAD_H
 #define UI_LOAD_H
 
-#include "application.h"
+#include "imgui.h"
 #include "vendor/imfilebrowser.h"
+
 #include <string>
+
+#include "state.h"
 
 /**
  * @brief ImGUI handler for rendering the open file dialog window.
  *
  */
-struct uiLoader
+struct UiLoader
 {
     /** ImGui file system dialog window handler.*/
     ImGui::FileBrowser opener;
@@ -39,7 +42,7 @@ struct uiLoader
      * @brief Initializes \p opener settings.
      *
      */
-    uiLoader();
+    UiLoader();
     /**
      * @brief Enables window to render.
      *
@@ -51,7 +54,7 @@ struct uiLoader
      * @param app Application context.
      * @param window_flags Flags used for rendered window.
      */
-    void render(Application &app, ImGuiWindowFlags window_flags);
+    void render(State &state, ImGuiWindowFlags window_flags);
 };
 
 #endif

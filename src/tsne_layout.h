@@ -19,8 +19,7 @@
 #ifndef TSNE_LAYOUT_H
 #define TSNE_LAYOUT_H
 
-#include <Magnum/Magnum.h>
-#include <Magnum/Math/Vector2.h>
+#include <glm/glm.hpp>
 
 #include <vector>
 
@@ -36,7 +35,7 @@ struct TSNELayoutData
 {
     std::vector<float> pji;
     std::vector<size_t> heap;
-    std::vector<Vector2> updates;
+    std::vector<glm::vec2> updates;
 };
 
 /** Optimize the positions of low-dimensional landmarks using the t-SNE

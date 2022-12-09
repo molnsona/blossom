@@ -34,7 +34,8 @@ struct Dirt
 
     Dirt()
       : dirt(0)
-    {}
+    {
+    }
     /** Make the cache dirty
      *
      * Call this if something changed and the caches need to be refreshed
@@ -52,7 +53,8 @@ struct Cleaner
 
     Cleaner()
       : cleaned(-1)
-    {}
+    {
+    }
 
     /** Returns true if the cache needs to be refreshed */
     bool dirty(const Dirt &d)
@@ -81,7 +83,8 @@ struct Dirts : public Dirt
     size_t n; /// Number of objects that should be cached.
     Dirts(size_t n = 0)
       : n(n)
-    {}
+    {
+    }
 };
 
 /** A piece of multi-object cache.
@@ -95,7 +98,8 @@ struct Sweeper : public Cleaner
     Sweeper()
       : begin(0)
       , dirts(0)
-    {}
+    {
+    }
 
     /** Force-refresh the whole range */
     void refresh(const Dirts &d) { dirts = d.n; }

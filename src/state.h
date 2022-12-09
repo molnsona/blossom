@@ -21,8 +21,6 @@
 #ifndef STATE_H
 #define STATE_H
 
-#include <Magnum/Magnum.h>
-
 #include <memory>
 #include <string>
 #include <vector>
@@ -40,13 +38,6 @@
 #include "training_config.h"
 #include "trans_data.h"
 #include "tsne_layout.h"
-
-#include <Magnum/Magnum.h>
-
-#include <vector>
-
-using namespace Magnum;
-using namespace Math::Literals;
 
 /**
  * @brief Storage of data of used algorithms and input events.

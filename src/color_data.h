@@ -20,10 +20,11 @@
 #ifndef COLOR_DATA_H
 #define COLOR_DATA_H
 
+#include <glm/glm.hpp>
+
 #include "dirty.h"
 #include "trans_data.h"
-#include <Magnum/Magnum.h>
-#include <Magnum/Math/Color.h>
+
 #include <string>
 #include <vector>
 
@@ -46,7 +47,7 @@ struct ColorData : public Sweeper
     /** Colors of the 2D data points. Array has the size of number of 2D data
      * points.
      */
-    std::vector<Magnum::Color4> data;
+    std::vector<glm::vec4> data;
     /** Type of the coloring method. */
     int coloring;
     /** Index of the column used in expression coloring. */

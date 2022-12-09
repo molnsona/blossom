@@ -17,13 +17,17 @@
  * BlosSOM. If not, see <https://www.gnu.org/licenses/>.
  */
 
-#include "application.h"
+#include "ui_save.h"
+
+#include "imgui_stdlib.h"
+
+#include <glm/glm.hpp>
 
 #include <algorithm>
 #include <exception>
 #include <fstream>
 
-uiSaver::uiSaver()
+UiSaver::UiSaver()
   : show_window(false)
   , saver(ImGuiFileBrowserFlags_SelectDirectory |
           ImGuiFileBrowserFlags_CreateNewDir)
@@ -38,7 +42,7 @@ uiSaver::uiSaver()
 }
 
 void
-uiSaver::render(Application &app, ImGuiWindowFlags window_flags)
+UiSaver::render(State &state, ImGuiWindowFlags window_flags)
 {
     if (!show_window)
         return;
@@ -47,7 +51,7 @@ uiSaver::render(Application &app, ImGuiWindowFlags window_flags)
 
     if (saver.HasSelected()) {
         try {
-            save_data(app.state, saver.GetSelected().string());
+            save_data(state, saver.GetSelected().string());
         } catch (std::exception &e) {
             saving_error = e.what();
         }
@@ -66,21 +70,22 @@ uiSaver::render(Application &app, ImGuiWindowFlags window_flags)
     if (ImGui::Begin("Save##window", &show_window, window_flags)) {
         auto save_line = [&](const char *text, int type) {
             ImGui::Text(text);
-            std::string name = "##save_checkbox" + std::to_string(type);
-            ImGui::Checkbox(name.data(), &data_flags[type]);
+            std::string checkbox_name =
+              "##save_checkbox" + std::to_string(type);
+            ImGui::Checkbox(checkbox_name.data(), &data_flags[type]);
             ImGui::SameLine();
-            name = "file name##save" + std::to_string(type);
-            ImGui::InputText(
-              name.data(), file_names[type].data(), file_name_size);
+            std::string inputtext_name =
+              "file name##save" + std::to_string(type);
+            ImGui::InputText(inputtext_name.data(), &file_names[type]);
         };
 
-        save_line("Save hidim points:", uiSaver::Types::POINTS_HD);
+        save_line("Save hidim points:", UiSaver::Types::POINTS_HD);
 
-        save_line("Save hidim landmarks:", uiSaver::Types::LAND_HD);
+        save_line("Save hidim landmarks:", UiSaver::Types::LAND_HD);
 
-        save_line("Save 2D points:", uiSaver::Types::POINTS_2D);
+        save_line("Save 2D points:", UiSaver::Types::POINTS_2D);
 
-        save_line("Save 2D landmarks:", uiSaver::Types::LAND_2D);
+        save_line("Save 2D landmarks:", UiSaver::Types::LAND_2D);
 
         ImGui::NewLine();
 
@@ -100,19 +105,19 @@ uiSaver::render(Application &app, ImGuiWindowFlags window_flags)
 }
 
 void
-uiSaver::save_data(const State &state, const std::string &dir_name) const
+UiSaver::save_data(const State &state, const std::string &dir_name) const
 {
-    if (data_flags[uiSaver::Types::POINTS_HD])
-        write(uiSaver::Types::POINTS_HD, state, dir_name);
+    if (data_flags[UiSaver::Types::POINTS_HD])
+        write(UiSaver::Types::POINTS_HD, state, dir_name);
 
-    if (data_flags[uiSaver::Types::LAND_HD])
-        write(uiSaver::Types::LAND_HD, state, dir_name);
+    if (data_flags[UiSaver::Types::LAND_HD])
+        write(UiSaver::Types::LAND_HD, state, dir_name);
 
-    if (data_flags[uiSaver::Types::POINTS_2D])
-        write(uiSaver::Types::POINTS_2D, state, dir_name);
+    if (data_flags[UiSaver::Types::POINTS_2D])
+        write(UiSaver::Types::POINTS_2D, state, dir_name);
 
-    if (data_flags[uiSaver::Types::LAND_2D])
-        write(uiSaver::Types::LAND_2D, state, dir_name);
+    if (data_flags[UiSaver::Types::LAND_2D])
+        write(UiSaver::Types::LAND_2D, state, dir_name);
 }
 
 /**
@@ -142,15 +147,15 @@ write_data_float(size_t dim,
  * @param handle Handle to the opened file for writing.
  */
 static void
-write_data_2d(const std::vector<Magnum::Vector2> &data, std::ofstream &handle)
+write_data_2d(const std::vector<glm::vec2> &data, std::ofstream &handle)
 {
     for (size_t i = 0; i < data.size(); ++i) {
-        handle << data[i].x() << '\t' << data[i].y() << '\n';
+        handle << data[i].x << '\t' << data[i].y << '\n';
     }
 };
 
 void
-uiSaver::write(Types type,
+UiSaver::write(Types type,
                const State &state,
                const std::string &dir_name) const
 {
@@ -160,17 +165,17 @@ uiSaver::write(Types type,
         throw std::domain_error("Can not open file");
 
     switch (type) {
-        case uiSaver::Types::POINTS_HD:
+        case UiSaver::Types::POINTS_HD:
             write_data_float(state.scaled.dim(), state.scaled.data, handle);
             break;
-        case uiSaver::Types::LAND_HD:
+        case UiSaver::Types::LAND_HD:
             write_data_float(
               state.landmarks.d, state.landmarks.hidim_vertices, handle);
             break;
-        case uiSaver::Types::POINTS_2D:
+        case UiSaver::Types::POINTS_2D:
             write_data_2d(state.scatter.points, handle);
             break;
-        case uiSaver::Types::LAND_2D:
+        case UiSaver::Types::LAND_2D:
             write_data_2d(state.landmarks.lodim_vertices, handle);
             break;
     }

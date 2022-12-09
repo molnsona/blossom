@@ -19,18 +19,20 @@
 #ifndef UI_COLOR_H
 #define UI_COLOR_H
 
-#include "application.h"
+#include "state.h"
+
+#include "imgui.h"
 
 /**
  * @brief ImGUI handler for rendering the color settings window.
  *
  */
-struct uiColorSettings
+struct UiColorSettings
 {
     /** If the color settings window should be rendered. */
     bool show_window;
 
-    uiColorSettings();
+    UiColorSettings();
     /**
      * @brief Enables window to render.
      *
@@ -42,7 +44,7 @@ struct uiColorSettings
      * @param app Application context.
      * @param window_flags Flags used for rendered window.
      */
-    void render(Application &app, ImGuiWindowFlags window_flags);
+    void render(State &state, ImGuiWindowFlags window_flags);
 };
 
 #endif

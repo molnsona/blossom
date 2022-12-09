@@ -17,21 +17,24 @@
  * BlosSOM. If not, see <https://www.gnu.org/licenses/>.
  */
 
-#include "application.h"
+#include "ui_menu.h"
+
+#include "imgui.h"
+#include "vendor/IconsFontAwesome5.h"
 
 #include "utils_imgui.hpp"
-#include "vendor/IconsFontAwesome5.h"
 
 constexpr float WINDOW_PADDING = 100.0f;
 constexpr float TOOLS_HEIGHT = 271.0f;
 constexpr float WINDOW_WIDTH = 50.0f;
 
-uiMenu::uiMenu()
+UiMenu::UiMenu()
   : show_menu(false)
-{}
+{
+}
 
 static void
-draw_menu_button(bool &show_menu, const Vector2i &window_size)
+draw_menu_button(bool &show_menu, int fb_width, int fb_height)
 {
     ImGuiWindowFlags window_flags = ImGuiWindowFlags_NoTitleBar |
                                     ImGuiWindowFlags_NoResize |
@@ -43,8 +46,8 @@ draw_menu_button(bool &show_menu, const Vector2i &window_size)
     ImGui::PushStyleVar(ImGuiStyleVar_WindowPadding, ImVec2(0, 0));
 
     if (ImGui::Begin("Plus", nullptr, window_flags)) {
-        ImGui::SetWindowPos(ImVec2(window_size.x() - WINDOW_PADDING,
-                                   window_size.y() - WINDOW_PADDING));
+        ImGui::SetWindowPos(
+          ImVec2(fb_width - WINDOW_PADDING, fb_height - WINDOW_PADDING));
         ImGui::SetWindowSize(ImVec2(WINDOW_WIDTH, WINDOW_WIDTH));
 
         if (ImGui::Button(ICON_FA_PLUS, ImVec2(50.75f, 50.75f))) {
@@ -60,7 +63,7 @@ draw_menu_button(bool &show_menu, const Vector2i &window_size)
 }
 
 void
-uiMenu::render(Application &app)
+UiMenu::render(int fb_width, int fb_height, State &state)
 {
     ImGuiWindowFlags window_flags = ImGuiWindowFlags_NoCollapse |
                                     ImGuiWindowFlags_NoResize |
@@ -69,22 +72,22 @@ uiMenu::render(Application &app)
     ImGui::PushStyleVar(ImGuiStyleVar_ChildRounding, 10.0f);
     ImGui::PushStyleVar(ImGuiStyleVar_FrameRounding, 10.0f);
 
-    draw_menu_button(show_menu, app.view.fb_size);
+    draw_menu_button(show_menu, fb_width, fb_height);
     if (show_menu)
-        draw_menu_window(app.view.fb_size);
+        draw_menu_window(fb_width, fb_height, state);
 
-    loader.render(app, window_flags);
-    saver.render(app, window_flags);
-    scaler.render(app, window_flags);
-    training_set.render(app, window_flags);
-    color_set.render(app, window_flags);
+    loader.render(state, window_flags);
+    saver.render(state, window_flags);
+    scaler.render(state, window_flags);
+    training_set.render(state, window_flags);
+    color_set.render(state, window_flags);
 
     ImGui::PopStyleVar();
     ImGui::PopStyleVar();
 }
 
 void
-uiMenu::draw_menu_window(const Vector2i &window_size)
+UiMenu::draw_menu_window(int fb_width, int fb_height, State &state)
 {
     ImGuiWindowFlags window_flags = ImGuiWindowFlags_NoTitleBar |
                                     ImGuiWindowFlags_NoResize |
@@ -93,9 +96,8 @@ uiMenu::draw_menu_window(const Vector2i &window_size)
     ImGui::PushStyleVar(ImGuiStyleVar_WindowPadding, ImVec2(0, 0));
 
     if (ImGui::Begin("Tools", &show_menu, window_flags)) {
-        ImGui::SetWindowPos(
-          ImVec2(window_size.x() - WINDOW_PADDING,
-                 window_size.y() - WINDOW_PADDING - TOOLS_HEIGHT));
+        ImGui::SetWindowPos(ImVec2(fb_width - WINDOW_PADDING,
+                                   fb_height - WINDOW_PADDING - TOOLS_HEIGHT));
         ImGui::SetWindowSize(ImVec2(WINDOW_WIDTH, TOOLS_HEIGHT));
 
         auto menu_entry = [&](auto icon, const char *label, auto &x) {

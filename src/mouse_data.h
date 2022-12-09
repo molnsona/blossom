@@ -19,10 +19,7 @@
 #ifndef MOUSE_DATA_H
 #define MOUSE_DATA_H
 
-#include <Magnum/Magnum.h>
-#include <Magnum/Math/Vector2.h>
-
-using namespace Magnum;
+#include <glm/glm.hpp>
 
 /**
  * @brief Mouse events data storage.
@@ -31,7 +28,7 @@ using namespace Magnum;
 struct MouseData
 {
     /** Raw coordinates on the screen (upper left [0,0]). */
-    Vector2i mouse_pos;
+    glm::vec2 mouse_pos;
 
     /** Flag indicating if left mouse button was pressed. */
     bool left_pressed;
@@ -47,7 +44,8 @@ struct MouseData
       , right_pressed(false)
       , vert_pressed(false)
       , vert_ind(0)
-    {}
+    {
+    }
 };
 
 #endif // #ifndef MOUSE_DATA_H

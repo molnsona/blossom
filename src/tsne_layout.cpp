@@ -116,7 +116,9 @@ tsne_layout_step(TSNELayoutData &data,
     float Z = 0;
     for (size_t i = 0; i < n; ++i)
         for (size_t j = i + 1; j < n; ++j)
-            Z += 2 / (1 + (lm.lodim_vertices[i] - lm.lodim_vertices[j]).dot());
+            Z +=
+              2 / (1 + glm::dot(lm.lodim_vertices[i] - lm.lodim_vertices[j],
+                                lm.lodim_vertices[i] - lm.lodim_vertices[j]));
 
     Z = 1 / Z;
 
@@ -124,7 +126,7 @@ tsne_layout_step(TSNELayoutData &data,
     if (ups.size() != n)
         ups.resize(n);
     for (auto &u : ups)
-        u = Vector2(0, 0);
+        u = glm::vec2(0, 0);
 
     float update_weight = 0;
 
@@ -132,15 +134,16 @@ tsne_layout_step(TSNELayoutData &data,
         for (size_t j = i + 1; j < n; ++j) {
             auto vji = lm.lodim_vertices[i] - lm.lodim_vertices[j];
             float wij =
-              1 / (1 + (lm.lodim_vertices[i] - lm.lodim_vertices[j]).dot());
+              1 / (1 + glm::dot(lm.lodim_vertices[i] - lm.lodim_vertices[j],
+                                lm.lodim_vertices[i] - lm.lodim_vertices[j]));
             auto a = vji * pji[i * n + j] * wij;
             ups[i] -= a;
             ups[j] += a;
-            update_weight += a.length();
+            update_weight += glm::length(a);
             a = vji * Z * wij * wij;
             ups[i] += a;
             ups[j] -= a;
-            update_weight += a.length();
+            update_weight += glm::length(a);
         }
 
     update_weight = 100 / update_weight;

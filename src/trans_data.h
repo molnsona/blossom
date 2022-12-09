@@ -58,7 +58,8 @@ struct TransConfig
       : affine_adjust(0)
       , asinh(false)
       , asinh_cofactor(500)
-    {}
+    {
+    }
 };
 
 /**

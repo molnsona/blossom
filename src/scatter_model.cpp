@@ -73,8 +73,8 @@ ScatterModel::update(const ScaledData &d,
            tc.adjust,
            d.data.data() + d.dim() * from,
            lm.hidim_vertices.data(),
-           lm.lodim_vertices[0].data(),
-           points[from].data());
+           &lm.lodim_vertices[0][0],
+           &points[from][0]);
     };
 
     if (ri + rn >= d.n) {

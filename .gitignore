@@ -1,7 +1,8 @@
 .vscode/*
 build/*
 imgui.ini
-magnum/*
-magnum-integration/*
-imgui/*
-corrade/*
+glfw/*
+imgui-wrapper/imgui/*
+*.fcs
+*.sh
+doc/

@@ -1,17 +1,16 @@
 # BlosSOM architecture
 
 ## Technologies
-BlosSOM is written in C++ using [Magnum Engine](https://magnum.graphics/) for rendering and [Dear ImGUI](https://github.com/ocornut/imgui) for graphical user interface. The [NVIDIA CUDA](https://developer.nvidia.com/cuda-zone) platform is used by EmbedSOM algorithm for GPU computations.
+BlosSOM is written in C++ using [GLFW](https://www.glfw.org/) for rendering and [Dear ImGUI](https://github.com/ocornut/imgui) for graphical user interface. The [NVIDIA CUDA](https://developer.nvidia.com/cuda-zone) platform is used by EmbedSOM algorithm for GPU computations.
 
 ## Render cycle
-This application has graphical output that is rendered in cycles. One cycle looks as follows (`Application::drawEvent()` method in the `application.h` file): 
+This application has graphical output that is rendered in cycles. One cycle looks as follows (`main()` method in the `main.cpp` file): 
 ```cpp
 timer.tick();
 view.update();
 state.update();
-scatter_renderer.draw();
-graph_renderer.draw();
-ui_imgui.draw_event();
+renderer.update();
+imgui.render();
 ```
 
 ### State update

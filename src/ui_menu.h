@@ -20,13 +20,12 @@
 #ifndef UI_MENU_H
 #define UI_MENU_H
 
+#include "state.h"
 #include "ui_color.h"
 #include "ui_load.h"
 #include "ui_save.h"
 #include "ui_scale.h"
 #include "ui_train.h"
-
-class Application;
 
 /**
  * @brief ImGUI handler for rendering main menu window.
@@ -34,27 +33,27 @@ class Application;
  * It also holds handlers of all menu item windows.
  *
  */
-struct uiMenu
+struct UiMenu
 {
     /** Open file dialog window handler. */
-    uiLoader loader;
+    UiLoader loader;
     /** Save file dialog window handler.*/
-    uiSaver saver;
+    UiSaver saver;
     /** Scale&transform data window handler. */
-    uiScaler scaler;
+    UiScaler scaler;
     /** Training settings window handler. */
-    uiTrainingSettings training_set;
+    UiTrainingSettings training_set;
     /** Color setting window handler. */
-    uiColorSettings color_set;
+    UiColorSettings color_set;
 
-    uiMenu();
+    UiMenu();
     /**
      * @brief Renders main menu window, the `plus` button and currently opened
      * menu item windows.
      *
      * @param app Application context.
      */
-    void render(Application &app);
+    void render(int fb_width, int fb_height, State &state);
     /**
      * @brief Closes main menu window.
      *
@@ -68,12 +67,10 @@ private:
      * @param window_size Size of the main application window used for placement
      * of the main menu window.
      */
-    void draw_menu_window(const Vector2i &window_size);
+    void draw_menu_window(int fb_width, int fb_height, State &state);
 
     /** If the main menu window should be rendered. */
     bool show_menu;
 };
-
-#include "application.h"
 
 #endif
