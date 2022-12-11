@@ -18,10 +18,30 @@
 
 #include "input_handler.h"
 
-void InputHandler::update() {
-    
+void InputHandler::update(View& view) {
+    process_keyboard(view);
 }
 
 void InputHandler::reset() {
     input.reset();
+}
+
+void InputHandler::process_keyboard(View& view)
+{
+    if (input.key == GLFW_KEY_W &&
+        (input.key_action == GLFW_PRESS || input.key_action == GLFW_REPEAT))
+        view.move_y(1);
+        //target_pos.y += velocity;
+    if (input.key == GLFW_KEY_S &&
+        (input.key_action == GLFW_PRESS || input.key_action == GLFW_REPEAT))
+        view.move_y(-1);
+        //target_pos.y -= velocity;
+    if (input.key == GLFW_KEY_A &&
+        (input.key_action == GLFW_PRESS || input.key_action == GLFW_REPEAT))
+        view.move_x(-1);
+        //target_pos.x -= velocity;
+    if (input.key == GLFW_KEY_D &&
+        (input.key_action == GLFW_PRESS || input.key_action == GLFW_REPEAT))
+        view.move_x(1);
+        //target_pos.x += velocity;
 }

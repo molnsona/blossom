@@ -66,7 +66,7 @@ main()
     while (!glfw.window_should_close()) {
         timer.tick();
 
-        input_handler.update();
+        input_handler.update(view);
 
         view.update(timer.frametime, input_handler.input);
         state.update(timer.frametime, input_handler.input.mouse);

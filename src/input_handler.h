@@ -19,7 +19,12 @@
 #ifndef INPUT_HANDLER_H
 #define INPUT_HANDLER_H
 
+#define GLFW_INCLUDE_NONE
+#include <GLFW/glfw3.h>
+#include <glad/glad.h>
+
 #include "input_data.h"
+#include "view.h"
 
 /**
  * @brief Handler of input events.
@@ -29,8 +34,23 @@ class InputHandler {
 public:
     InputData input;
 
-    void update();
+    void update(View& view);
     void reset();
+private:
+    /**
+     * @brief Process keyboard input.
+     *
+     * @param key Name of the used key.
+     * @param action Pressed, released or hold key.
+     */
+
+    /**
+     * @brief Process keyboard input and let other parts(listed in arguments)
+     * know about new input.
+     * 
+     * @param view 
+     */
+    void process_keyboard(View& view);
 };
 
 #endif // #ifndef INPUT_HANDLER_H

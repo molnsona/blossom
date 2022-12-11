@@ -85,8 +85,6 @@ public:
         width = input.fb_width;
         height = input.fb_height;
 
-        process_keyboard(input.key, input.key_action);
-
         process_mouse_scroll(input.yoffset,
                              glm::vec2(input.xpos, input.ypos));
 
@@ -175,6 +173,28 @@ public:
         return screen_point_coords(glm::vec2(res.x, res.y));
     }
 
+    /**
+     * @brief Move view along Y-axis. 
+     * 
+     * @param dir Direction of the movement. (-1 - down, 1 - up)
+     */
+    void move_y(int dir) {
+        float half_h = height / 2.0f;
+        float velocity = half_h * target_zoom * movement_speed;
+        target_pos.y += (dir * velocity);
+    }
+
+    /**
+     * @brief Move view along X-axis. 
+     * 
+     * @param dir Direction of the movement. (-1 - left, 1 - right)
+     */
+    void move_x(int dir) {
+        float half_h = height / 2.0f;
+        float velocity = half_h * target_zoom * movement_speed;
+        target_pos.x += (dir * velocity); 
+    }
+
 private:
     /**
      * @brief Re-calculates the right and up vector from the View's updated
@@ -188,30 +208,6 @@ private:
                              // closer to 0 the more you look up or down which
                              // results in slower movement.
         up = glm::normalize(glm::cross(right, front));
-    }
-
-    /**
-     * @brief Process keyboard input and move the "camera" accordingly.
-     *
-     * @param key Name of the used key.
-     * @param action Pressed, released or hold key.
-     */
-    void process_keyboard(int key, int action)
-    {
-        float half_h = height / 2.0f;
-        float velocity = half_h * target_zoom * movement_speed;
-        if (key == GLFW_KEY_W &&
-            (action == GLFW_PRESS || action == GLFW_REPEAT))
-            target_pos.y += velocity;
-        if (key == GLFW_KEY_S &&
-            (action == GLFW_PRESS || action == GLFW_REPEAT))
-            target_pos.y -= velocity;
-        if (key == GLFW_KEY_A &&
-            (action == GLFW_PRESS || action == GLFW_REPEAT))
-            target_pos.x -= velocity;
-        if (key == GLFW_KEY_D &&
-            (action == GLFW_PRESS || action == GLFW_REPEAT))
-            target_pos.x += velocity;
     }
 
     /**
