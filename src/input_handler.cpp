@@ -18,17 +18,22 @@
 
 #include "input_handler.h"
 
-void InputHandler::update(View& view, Renderer& renderer, State& state) {
+void
+InputHandler::update(View &view, Renderer &renderer, State &state)
+{
     process_keyboard(view);
     process_mouse_button(view, renderer, state);
     process_mouse_scroll(view);
 }
 
-void InputHandler::reset() {
+void
+InputHandler::reset()
+{
     input.reset();
 }
 
-void InputHandler::process_keyboard(View& view)
+void
+InputHandler::process_keyboard(View &view)
 {
     if (input.key == GLFW_KEY_W &&
         (input.key_action == GLFW_PRESS || input.key_action == GLFW_REPEAT))
@@ -50,17 +55,18 @@ void InputHandler::process_keyboard(View& view)
                input.key_action == GLFW_RELEASE) {
         input.keyboard.ctrl_pressed = false;
     }
-
 }
 
-void InputHandler::process_mouse_button(View & view, Renderer& renderer, State& state) {
+void
+InputHandler::process_mouse_button(View &view, Renderer &renderer, State &state)
+{
     switch (input.button) {
         case GLFW_MOUSE_BUTTON_LEFT:
             switch (input.mouse_action) {
                 case GLFW_PRESS:
                     if (!input.mouse.vert_pressed) {
-                        glm::vec2 screen_mouse =
-                          view.screen_mouse_coords(glm::vec2(input.xpos, input.ypos));
+                        glm::vec2 screen_mouse = view.screen_mouse_coords(
+                          glm::vec2(input.xpos, input.ypos));
                         if (renderer.is_vert_pressed(
                               view, screen_mouse, input.mouse.vert_ind)) {
                             input.mouse.vert_pressed = true;
@@ -87,8 +93,8 @@ void InputHandler::process_mouse_button(View & view, Renderer& renderer, State& 
             switch (input.mouse_action) {
                 case GLFW_PRESS:
                     if (!input.mouse.vert_pressed) {
-                        glm::vec2 screen_mouse =
-                          view.screen_mouse_coords(glm::vec2(input.xpos, input.ypos));
+                        glm::vec2 screen_mouse = view.screen_mouse_coords(
+                          glm::vec2(input.xpos, input.ypos));
                         if (renderer.is_vert_pressed(
                               view, screen_mouse, input.mouse.vert_ind)) {
                             input.mouse.vert_pressed = true;
@@ -126,9 +132,10 @@ void InputHandler::process_mouse_button(View & view, Renderer& renderer, State& 
             state.landmarks.move(input.mouse.vert_ind, model_mouse);
         }
     }
-
 }
 
-void InputHandler::process_mouse_scroll(View & view) {
+void
+InputHandler::process_mouse_scroll(View &view)
+{
     view.zoom(input.yoffset, glm::vec2(input.xpos, input.ypos));
 }

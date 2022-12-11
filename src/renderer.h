@@ -40,20 +40,21 @@ public:
      * @param state
      * @param view
      */
-    void render(State &state, View &view);
+    void render(const State &state, const View &view);
 
     /**
      * @brief Calls @ref GraphRenderer::is_vert_pressed().
-     * 
-     * @param view 
-     * @param mouse 
-     * @param vert_ind 
-     * @return true 
-     * @return false 
+     *
+     * @param view
+     * @param mouse
+     * @param vert_ind
+     * @return true
+     * @return false
      */
     bool is_vert_pressed(const View &view,
                          glm::vec2 mouse,
                          size_t &vert_ind) const;
+
 private:
     ScatterRenderer scatter_renderer;
     GraphRenderer graph_renderer;

@@ -20,7 +20,7 @@ Renderer::init()
 }
 
 void
-Renderer::render(State &state, View &view)
+Renderer::render(const State &state, const View &view)
 {
     glClearColor(1.0f, 1.0f, 1.0f, 1.0f);
     glClear(GL_COLOR_BUFFER_BIT);
@@ -29,8 +29,10 @@ Renderer::render(State &state, View &view)
     graph_renderer.draw(view, state.landmarks);
 }
 
-bool Renderer::is_vert_pressed(const View &view,
-                        glm::vec2 mouse,
-                        size_t &vert_ind) const{
+bool
+Renderer::is_vert_pressed(const View &view,
+                          glm::vec2 mouse,
+                          size_t &vert_ind) const
+{
     graph_renderer.is_vert_pressed(view, mouse, vert_ind);
 }

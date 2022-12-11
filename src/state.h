@@ -68,7 +68,7 @@ struct State
      *
      * @param time Duration of the last frame.
      */
-    void update(float time, const MouseData& mouse);
+    void update(float time, const MouseData &mouse);
 };
 
 #endif // #ifndef STATE_H

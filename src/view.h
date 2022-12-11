@@ -164,25 +164,27 @@ public:
     }
 
     /**
-     * @brief Move view along Y-axis. 
-     * 
+     * @brief Move view along Y-axis.
+     *
      * @param dir Direction of the movement. (-1 - down, 1 - up)
      */
-    void move_y(int dir) {
+    void move_y(int dir)
+    {
         float half_h = height / 2.0f;
         float velocity = half_h * target_zoom * movement_speed;
         target_pos.y += (dir * velocity);
     }
 
     /**
-     * @brief Move view along X-axis. 
-     * 
+     * @brief Move view along X-axis.
+     *
      * @param dir Direction of the movement. (-1 - left, 1 - right)
      */
-    void move_x(int dir) {
+    void move_x(int dir)
+    {
         float half_h = height / 2.0f;
         float velocity = half_h * target_zoom * movement_speed;
-        target_pos.x += (dir * velocity); 
+        target_pos.x += (dir * velocity);
     }
 
     /**
@@ -191,7 +193,8 @@ public:
      * @param yoffset Direction of the scroll (-1, 0, 1).
      * @param mouse Mouse coordinates ([0,0] in the upper left corner).
      */
-    void zoom(float yoffset, glm::vec2 mouse) {
+    void zoom(float yoffset, glm::vec2 mouse)
+    {
         if (yoffset > -0.0001 && yoffset < 0.0001)
             return;
 

@@ -68,12 +68,15 @@ main()
 
         input_handler.update(view, renderer, state);
 
-        view.update(timer.frametime, input_handler.input.fb_width, input_handler.input.fb_height);
+        view.update(timer.frametime,
+                    input_handler.input.fb_width,
+                    input_handler.input.fb_height);
         state.update(timer.frametime, input_handler.input.mouse);
 
         renderer.render(state, view);
 
-        imgui.render(input_handler.input.fb_width, input_handler.input.fb_height, state);
+        imgui.render(
+          input_handler.input.fb_width, input_handler.input.fb_height, state);
 
         input_handler.reset();
         glfw.end_frame();

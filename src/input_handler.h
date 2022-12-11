@@ -30,40 +30,41 @@
 
 /**
  * @brief Handler of input events.
- * 
+ *
  */
-class InputHandler {
+class InputHandler
+{
 public:
     InputData input;
 
-    void update(View& view, Renderer& renderer, State& state);
+    void update(View &view, Renderer &renderer, State &state);
     void reset();
+
 private:
     /**
      * @brief Identify which key was pressed and notify other parts
      * (listed in arguments) about it.
-     * 
-     * @param view 
+     *
+     * @param view
      */
-    void process_keyboard(View& view);
+    void process_keyboard(View &view);
 
     /**
      * @brief Handle mouse button input.
-     * 
-     * @param view 
-     * @param renderer 
-     * @param state 
+     *
+     * @param view
+     * @param renderer
+     * @param state
      */
-    void process_mouse_button(View & view, Renderer& renderer, State& state);
+    void process_mouse_button(View &view, Renderer &renderer, State &state);
 
     /**
      * @brief Process mouse scroll and notify other parts(listed in arguments)
      * about it.
      *
-     * @param view 
+     * @param view
      */
-    void process_mouse_scroll(View & view);
-
+    void process_mouse_scroll(View &view);
 };
 
 #endif // #ifndef INPUT_HANDLER_H

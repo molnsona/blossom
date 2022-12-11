@@ -7,7 +7,7 @@
 GlfwWrapper::GlfwWrapper() {}
 
 bool
-GlfwWrapper::init(const std::string &window_name, InputData& input)
+GlfwWrapper::init(const std::string &window_name, InputData &input)
 {
     glfwSetErrorCallback(error_callback);
 

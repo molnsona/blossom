@@ -26,7 +26,8 @@
  * @brief Input events data storage.
  *
  */
-struct InputData {
+struct InputData
+{
     MouseData mouse;
     KeyboardData keyboard;
 
@@ -56,7 +57,7 @@ struct InputData {
         xoffset = 0;
         yoffset = 0;
         button = -1;
-    }    
+    }
 };
 
 #endif // #ifndef INPUT_DATA_H
