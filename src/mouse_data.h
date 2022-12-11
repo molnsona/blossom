@@ -27,24 +27,40 @@
  */
 struct MouseData
 {
-    /** Raw coordinates on the screen (upper left [0,0]). */
-    glm::vec2 mouse_pos;
+    /** Left, right or middle button.*/
+    int button;
+    /** Pressed, released or held button.*/
+    int action;
 
-    /** Flag indicating if left mouse button was pressed. */
-    bool left_pressed;
-    /** Flag indicating if right mouse button was pressed. */
-    bool right_pressed;
+    /** Offset of the mouse wheel along x-axis.*/
+    double xoffset;
+    /** Offset of the mouse wheel along y-axis.*/
+    double yoffset;
+
+    /** Raw mouse cursor coordinates on the screen
+     *  ([0,0] in the upper left corner).
+     *  Have to convert it to coordinates with [0,0] in the middle
+     *  of the screen.
+     */
+    glm::vec2 pos;
+
     /** Flag indicating if a vertex was pressed. */
     bool vert_pressed;
     /** Index of the pressed vertex. If the vertex was not pressed, it is UB. */
     size_t vert_ind;
 
     MouseData()
-      : left_pressed(false)
-      , right_pressed(false)
-      , vert_pressed(false)
+      : vert_pressed(false)
       , vert_ind(0)
     {
+        reset();
+    }
+
+    void reset()
+    {
+        button = -1;
+        xoffset = 0;
+        yoffset = 0;
     }
 };
 

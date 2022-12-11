@@ -1,6 +1,7 @@
 #include "wrapper_glfw.h"
 
 #include "imgui.h"
+#include <glm/glm.hpp>
 
 #include <iostream>
 
@@ -94,8 +95,8 @@ GlfwWrapper::key_callback(GLFWwindow *window,
         return;
 
     InputData *input_inst = (InputData *)glfwGetWindowUserPointer(window);
-    input_inst->key = key;
-    input_inst->key_action = action;
+    input_inst->keyboard.key = key;
+    input_inst->keyboard.action = action;
 }
 
 void
@@ -107,8 +108,8 @@ GlfwWrapper::scroll_callback(GLFWwindow *window, double xoffset, double yoffset)
         return;
 
     InputData *input_inst = (InputData *)glfwGetWindowUserPointer(window);
-    input_inst->xoffset = xoffset;
-    input_inst->yoffset = yoffset;
+    input_inst->mouse.xoffset = xoffset;
+    input_inst->mouse.yoffset = yoffset;
 }
 
 void
@@ -125,10 +126,9 @@ GlfwWrapper::mouse_button_callback(GLFWwindow *window,
     InputData *input_inst = (InputData *)glfwGetWindowUserPointer(window);
     double xpos, ypos;
     glfwGetCursorPos(window, &xpos, &ypos);
-    input_inst->xpos = xpos;
-    input_inst->ypos = ypos;
-    input_inst->button = button;
-    input_inst->mouse_action = action;
+    input_inst->mouse.pos = glm::vec2(xpos, ypos);
+    input_inst->mouse.button = button;
+    input_inst->mouse.action = action;
 }
 
 void
@@ -137,6 +137,5 @@ GlfwWrapper::cursor_position_callback(GLFWwindow *window,
                                       double ypos)
 {
     InputData *input_inst = (InputData *)glfwGetWindowUserPointer(window);
-    input_inst->xpos = xpos;
-    input_inst->ypos = ypos;
+    input_inst->mouse.pos = glm::vec2(xpos, ypos);
 }

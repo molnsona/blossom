@@ -36,27 +36,10 @@ struct InputData
     int fb_width = 800;
     int fb_height = 600;
 
-    int key;
-    int key_action;
-
-    double xoffset;
-    double yoffset;
-
-    // Raw mouse cursor position([0,0] in the upper left corner).
-    // Have to convert it to coordinates with [0,0] in
-    // the middle of the screen.
-    double xpos;
-    double ypos;
-    int button;
-    int mouse_action;
-    bool left_click = false;
-
     void reset()
     {
-        key = 0;
-        xoffset = 0;
-        yoffset = 0;
-        button = -1;
+        keyboard.reset();
+        mouse.reset();
     }
 };
 

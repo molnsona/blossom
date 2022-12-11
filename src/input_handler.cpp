@@ -35,24 +35,21 @@ InputHandler::reset()
 void
 InputHandler::process_keyboard(View &view)
 {
-    if (input.key == GLFW_KEY_W &&
-        (input.key_action == GLFW_PRESS || input.key_action == GLFW_REPEAT))
+    int key = input.keyboard.key;
+    int action = input.keyboard.action;
+    if (key == GLFW_KEY_W && (action == GLFW_PRESS || action == GLFW_REPEAT))
         view.move_y(1);
-    if (input.key == GLFW_KEY_S &&
-        (input.key_action == GLFW_PRESS || input.key_action == GLFW_REPEAT))
+    if (key == GLFW_KEY_S && (action == GLFW_PRESS || action == GLFW_REPEAT))
         view.move_y(-1);
-    if (input.key == GLFW_KEY_A &&
-        (input.key_action == GLFW_PRESS || input.key_action == GLFW_REPEAT))
+    if (key == GLFW_KEY_A && (action == GLFW_PRESS || action == GLFW_REPEAT))
         view.move_x(-1);
-    if (input.key == GLFW_KEY_D &&
-        (input.key_action == GLFW_PRESS || input.key_action == GLFW_REPEAT))
+    if (key == GLFW_KEY_D && (action == GLFW_PRESS || action == GLFW_REPEAT))
         view.move_x(1);
 
-    if (input.key == GLFW_KEY_LEFT_CONTROL &&
-        (input.key_action == GLFW_PRESS || input.key_action == GLFW_REPEAT)) {
+    if (key == GLFW_KEY_LEFT_CONTROL &&
+        (action == GLFW_PRESS || action == GLFW_REPEAT)) {
         input.keyboard.ctrl_pressed = true;
-    } else if (input.key == GLFW_KEY_LEFT_CONTROL &&
-               input.key_action == GLFW_RELEASE) {
+    } else if (key == GLFW_KEY_LEFT_CONTROL && action == GLFW_RELEASE) {
         input.keyboard.ctrl_pressed = false;
     }
 }
@@ -60,13 +57,14 @@ InputHandler::process_keyboard(View &view)
 void
 InputHandler::process_mouse_button(View &view, Renderer &renderer, State &state)
 {
-    switch (input.button) {
+    int action = input.mouse.action;
+    auto pos = input.mouse.pos;
+    switch (input.mouse.button) {
         case GLFW_MOUSE_BUTTON_LEFT:
-            switch (input.mouse_action) {
+            switch (action) {
                 case GLFW_PRESS:
                     if (!input.mouse.vert_pressed) {
-                        glm::vec2 screen_mouse = view.screen_mouse_coords(
-                          glm::vec2(input.xpos, input.ypos));
+                        glm::vec2 screen_mouse = view.screen_mouse_coords(pos);
                         if (renderer.is_vert_pressed(
                               view, screen_mouse, input.mouse.vert_ind)) {
                             input.mouse.vert_pressed = true;
@@ -79,8 +77,7 @@ InputHandler::process_mouse_button(View &view, Renderer &renderer, State &state)
                             state.landmarks.duplicate(input.mouse.vert_ind);
                         // Add landmark
                         else
-                            state.landmarks.add(view.model_mouse_coords(
-                              glm::vec2(input.xpos, input.ypos)));
+                            state.landmarks.add(view.model_mouse_coords(pos));
                     break;
                 case GLFW_RELEASE:
                     input.mouse.vert_pressed = false;
@@ -90,11 +87,10 @@ InputHandler::process_mouse_button(View &view, Renderer &renderer, State &state)
             }
             break;
         case GLFW_MOUSE_BUTTON_RIGHT:
-            switch (input.mouse_action) {
+            switch (action) {
                 case GLFW_PRESS:
                     if (!input.mouse.vert_pressed) {
-                        glm::vec2 screen_mouse = view.screen_mouse_coords(
-                          glm::vec2(input.xpos, input.ypos));
+                        glm::vec2 screen_mouse = view.screen_mouse_coords(pos);
                         if (renderer.is_vert_pressed(
                               view, screen_mouse, input.mouse.vert_ind)) {
                             input.mouse.vert_pressed = true;
@@ -112,9 +108,9 @@ InputHandler::process_mouse_button(View &view, Renderer &renderer, State &state)
             }
             break;
         case GLFW_MOUSE_BUTTON_MIDDLE:
-            switch (input.mouse_action) {
+            switch (action) {
                 case GLFW_PRESS:
-                    view.look_at(glm::vec2(input.xpos, input.ypos));
+                    view.look_at(pos);
                     break;
                 default:
                     break;
@@ -126,8 +122,7 @@ InputHandler::process_mouse_button(View &view, Renderer &renderer, State &state)
 
     if (input.mouse.vert_pressed) {
         if (!input.keyboard.ctrl_pressed) { // Move landmark
-            glm::vec2 model_mouse =
-              view.model_mouse_coords(glm::vec2(input.xpos, input.ypos));
+            glm::vec2 model_mouse = view.model_mouse_coords(pos);
 
             state.landmarks.move(input.mouse.vert_ind, model_mouse);
         }
@@ -137,5 +132,5 @@ InputHandler::process_mouse_button(View &view, Renderer &renderer, State &state)
 void
 InputHandler::process_mouse_scroll(View &view)
 {
-    view.zoom(input.yoffset, glm::vec2(input.xpos, input.ypos));
+    view.zoom(input.mouse.yoffset, input.mouse.pos);
 }
