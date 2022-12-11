@@ -14,19 +14,24 @@ jobs:
         uses: actions/checkout@v3
         with:
           submodules: 'recursive'
-      - name: Install GLFW & GLM & GL
-        run: sudo apt-get install -y libglfw3-dev libglm-dev libgl-dev
-      - name: Build
+      - name: Install GLFW & GLM
+        run: sudo apt-get install -y libglfw3-dev libglm-dev
+      - name: Install CUDA toolkit
+        uses: Jimver/cuda-toolkit@v0.2.8
+        with:
+          method: 'network'
+          sub-packages: '["nvcc"]'
+      - name: Build with CUDA
         uses: ashutoshvarma/action-cmake-build@master
         with:
-            build-dir: ${{ runner.workspace }}/build
-            # will set the CC & CXX for cmake
-            cc: gcc
-            cxx: g++
-            build-type: Release
-            # Extra options pass to cmake while configuring project
-            configure-options: -DCMAKE_INSTALL_PREFIX=./inst      
-            # install the build using cmake --install
-            install-build: true
-            # run build using '-j [parallel]' to use multiple threads to build
-            parallel: 14
+          build-dir: ${{ runner.workspace }}/build
+          # will set the CC & CXX for cmake
+          cc: gcc
+          cxx: g++
+          build-type: Release
+          # Extra options pass to cmake while configuring project
+          configure-options: -DCMAKE_INSTALL_PREFIX=./inst -DBUILD_CUDA=1           
+          # install the build using cmake --install
+          install-build: true
+          # run build using '-j [parallel]' to use multiple threads to build
+          parallel: 14
