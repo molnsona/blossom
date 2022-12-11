@@ -30,7 +30,7 @@ jobs:
           cxx: g++
           build-type: Release
           # Extra options pass to cmake while configuring project
-          configure-options: -DCMAKE_INSTALL_PREFIX=./inst -DBUILD_CUDA=1           
+          configure-options: -DCMAKE_INSTALL_PREFIX=./inst -DBUILD_CUDA=1
           # install the build using cmake --install
           install-build: true
           # run build using '-j [parallel]' to use multiple threads to build
