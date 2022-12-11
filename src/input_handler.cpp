@@ -20,6 +20,8 @@
 
 void InputHandler::update(View& view) {
     process_keyboard(view);
+    process_mouse_button(view);
+    process_mouse_scroll(view);
 }
 
 void InputHandler::reset() {
@@ -31,17 +33,31 @@ void InputHandler::process_keyboard(View& view)
     if (input.key == GLFW_KEY_W &&
         (input.key_action == GLFW_PRESS || input.key_action == GLFW_REPEAT))
         view.move_y(1);
-        //target_pos.y += velocity;
     if (input.key == GLFW_KEY_S &&
         (input.key_action == GLFW_PRESS || input.key_action == GLFW_REPEAT))
         view.move_y(-1);
-        //target_pos.y -= velocity;
     if (input.key == GLFW_KEY_A &&
         (input.key_action == GLFW_PRESS || input.key_action == GLFW_REPEAT))
         view.move_x(-1);
-        //target_pos.x -= velocity;
     if (input.key == GLFW_KEY_D &&
         (input.key_action == GLFW_PRESS || input.key_action == GLFW_REPEAT))
         view.move_x(1);
-        //target_pos.x += velocity;
+}
+
+void InputHandler::process_mouse_button(View & view) {
+    switch (input.button) {
+        case GLFW_MOUSE_BUTTON_MIDDLE:
+            switch (input.mouse_action) {
+                case GLFW_PRESS:
+                    view.look_at(glm::vec2(input.xpos, input.ypos));
+                default:
+                    break;
+            }
+        default:
+            break;
+    }
+}
+
+void InputHandler::process_mouse_scroll(View & view) {
+    view.zoom(input.yoffset, glm::vec2(input.xpos, input.ypos));
 }

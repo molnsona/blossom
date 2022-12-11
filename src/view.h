@@ -20,9 +20,6 @@
 #ifndef VIEW_H
 #define VIEW_H
 
-#define GLFW_INCLUDE_NONE
-#include <GLFW/glfw3.h>
-#include <glad/glad.h>
 #include <glm/glm.hpp>
 #include <glm/gtc/matrix_transform.hpp>
 
@@ -84,13 +81,6 @@ public:
     {
         width = input.fb_width;
         height = input.fb_height;
-
-        process_mouse_scroll(input.yoffset,
-                             glm::vec2(input.xpos, input.ypos));
-
-        process_mouse_button(input.button,
-                             input.mouse_action,
-                             glm::vec2(input.xpos, input.ypos));
 
         float power = pow(smooth_speed, dt);
         float r = 1 - power;
@@ -195,6 +185,40 @@ public:
         target_pos.x += (dir * velocity); 
     }
 
+    /**
+     * @brief Adjust zoom accordingly.
+     *
+     * @param yoffset Direction of the scroll (-1, 0, 1).
+     * @param mouse Mouse coordinates ([0,0] in the upper left corner).
+     */
+    void zoom(float yoffset, glm::vec2 mouse) {
+        if (yoffset > -0.0001 && yoffset < 0.0001)
+            return;
+
+        float velocity = -1 * yoffset / 1500.0f * (target_zoom * 100);
+        auto zoom_around = model_mouse_coords(mouse);
+
+        target_zoom += velocity;
+        target_pos =
+          glm::vec3(zoom_around + powf(2.0f, target_zoom * 400) *
+                                    (glm::vec2(current_pos) - zoom_around) /
+                                    powf(2.0f, current_zoom * 400),
+                    target_pos.z);
+    }
+
+    /**
+     * @brief Cause the camera to look at the specified point.
+     *
+     * @param tgt This point will eventually get to the middle of the screen.
+     *              It needs to be converted from mouse to model coordinates.
+     */
+    void look_at(glm::vec2 tgt)
+    {
+        tgt = model_mouse_coords(tgt);
+        target_pos.x = tgt.x;
+        target_pos.y = tgt.y;
+    }
+
 private:
     /**
      * @brief Re-calculates the right and up vector from the View's updated
@@ -211,43 +235,6 @@ private:
     }
 
     /**
-     * @brief Process mouse scroll and adjust zoom accordingly.
-     *
-     * @param yoffset Direction of the scroll (-1, 0, 1).
-     * @param mouse Mouse coordinates ([0,0] in the upper left corner).
-     */
-    void process_mouse_scroll(float yoffset, glm::vec2 mouse)
-    {
-        if (yoffset > -0.0001 && yoffset < 0.0001)
-            return;
-
-        float velocity = -1 * yoffset / 1500.0f * (target_zoom * 100);
-        auto zoom_around = model_mouse_coords(mouse);
-
-        target_zoom += velocity;
-        target_pos =
-          glm::vec3(zoom_around + powf(2.0f, target_zoom * 400) *
-                                    (glm::vec2(current_pos) - zoom_around) /
-                                    powf(2.0f, current_zoom * 400),
-                    target_pos.z);
-    }
-
-    void process_mouse_button(int button, int action, glm::vec2 mouse_pos)
-    {
-        switch (button) {
-            case GLFW_MOUSE_BUTTON_MIDDLE:
-                switch (action) {
-                    case GLFW_PRESS:
-                        look_at(model_mouse_coords(mouse_pos));
-                    default:
-                        break;
-                }
-            default:
-                break;
-        }
-    }
-
-    /**
      * @brief Convert point coordinates ([0,0] in the upper left corner),
      * to screen coordinates ([0,0] in the middle of the screen).
      *
@@ -257,17 +244,6 @@ private:
     glm::vec2 screen_point_coords(glm::vec2 point) const
     {
         return glm::vec2(point.x - width / 2.0f, point.y - height / 2.0f);
-    }
-
-    /**
-     * @brief Cause the camera to look at the specified point.
-     *
-     * @param tgt This point will eventually get to the middle of the screen.
-     */
-    void look_at(glm::vec2 tgt)
-    {
-        target_pos.x = tgt.x;
-        target_pos.y = tgt.y;
     }
 };
 

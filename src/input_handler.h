@@ -38,19 +38,29 @@ public:
     void reset();
 private:
     /**
-     * @brief Process keyboard input.
-     *
-     * @param key Name of the used key.
-     * @param action Pressed, released or hold key.
-     */
-
-    /**
-     * @brief Process keyboard input and let other parts(listed in arguments)
-     * know about new input.
+     * @brief Identify which key was pressed and notify other parts
+     * (listed in arguments) about it.
      * 
      * @param view 
      */
     void process_keyboard(View& view);
+
+    /**
+     * @brief Identify which mouse button was pressed and notify other parts
+     * (listed in arguments) about it.
+     * 
+     * @param view 
+     */
+    void process_mouse_button(View & view);
+
+    /**
+     * @brief Process mouse scroll and notify other parts(listed in arguments)
+     * about it.
+     *
+     * @param view 
+     */
+    void process_mouse_scroll(View & view);
+
 };
 
 #endif // #ifndef INPUT_HANDLER_H
