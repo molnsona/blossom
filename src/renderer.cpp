@@ -20,10 +20,10 @@ Renderer::init()
 }
 
 void
-Renderer::update(State &state, View &view, const CallbackValues &callbacks)
+Renderer::update(State &state, View &view, InputData &input)
 {
-    process_keyboard(state, view, callbacks);
-    process_mouse(state, view, callbacks);
+    process_keyboard(state, view, input);
+    process_mouse(state, view, input);
 
     render(state, view);
 }
@@ -41,53 +41,53 @@ Renderer::render(State &state, View &view)
 void
 Renderer::process_mouse(State &state,
                         const View &view,
-                        const CallbackValues &cb)
+                        InputData &input)
 {
-    switch (cb.button) {
+    switch (input.button) {
         case GLFW_MOUSE_BUTTON_LEFT:
-            switch (cb.mouse_action) {
+            switch (input.mouse_action) {
                 case GLFW_PRESS:
-                    if (!state.mouse.vert_pressed) {
+                    if (!input.mouse.vert_pressed) {
                         glm::vec2 screen_mouse =
-                          view.screen_mouse_coords(glm::vec2(cb.xpos, cb.ypos));
+                          view.screen_mouse_coords(glm::vec2(input.xpos, input.ypos));
                         if (graph_renderer.is_vert_pressed(
-                              view, screen_mouse, state.mouse.vert_ind)) {
-                            state.mouse.vert_pressed = true;
+                              view, screen_mouse, input.mouse.vert_ind)) {
+                            input.mouse.vert_pressed = true;
                         }
                     }
 
-                    if (state.keyboard.ctrl_pressed)
+                    if (input.keyboard.ctrl_pressed)
                         // Copy pressed landmark
-                        if (state.mouse.vert_pressed)
-                            state.landmarks.duplicate(state.mouse.vert_ind);
+                        if (input.mouse.vert_pressed)
+                            state.landmarks.duplicate(input.mouse.vert_ind);
                         // Add landmark
                         else
                             state.landmarks.add(view.model_mouse_coords(
-                              glm::vec2(cb.xpos, cb.ypos)));
+                              glm::vec2(input.xpos, input.ypos)));
                     break;
                 case GLFW_RELEASE:
-                    state.mouse.vert_pressed = false;
+                    input.mouse.vert_pressed = false;
                     break;
                 default:
                     break;
             }
             break;
         case GLFW_MOUSE_BUTTON_RIGHT:
-            switch (cb.mouse_action) {
+            switch (input.mouse_action) {
                 case GLFW_PRESS:
-                    if (!state.mouse.vert_pressed) {
+                    if (!input.mouse.vert_pressed) {
                         glm::vec2 screen_mouse =
-                          view.screen_mouse_coords(glm::vec2(cb.xpos, cb.ypos));
+                          view.screen_mouse_coords(glm::vec2(input.xpos, input.ypos));
                         if (graph_renderer.is_vert_pressed(
-                              view, screen_mouse, state.mouse.vert_ind)) {
-                            state.mouse.vert_pressed = true;
+                              view, screen_mouse, input.mouse.vert_ind)) {
+                            input.mouse.vert_pressed = true;
                         }
                     }
                     // Remove landmark
-                    if (state.keyboard.ctrl_pressed && state.mouse.vert_pressed)
-                        state.landmarks.remove(state.mouse.vert_ind);
+                    if (input.keyboard.ctrl_pressed && input.mouse.vert_pressed)
+                        state.landmarks.remove(input.mouse.vert_ind);
                 case GLFW_RELEASE:
-                    state.mouse.vert_pressed = false;
+                    input.mouse.vert_pressed = false;
                     break;
                 default:
                     break;
@@ -97,12 +97,12 @@ Renderer::process_mouse(State &state,
             break;
     }
 
-    if (state.mouse.vert_pressed) {
-        if (!state.keyboard.ctrl_pressed) { // Move landmark
+    if (input.mouse.vert_pressed) {
+        if (!input.keyboard.ctrl_pressed) { // Move landmark
             glm::vec2 model_mouse =
-              view.model_mouse_coords(glm::vec2(cb.xpos, cb.ypos));
+              view.model_mouse_coords(glm::vec2(input.xpos, input.ypos));
 
-            state.landmarks.move(state.mouse.vert_ind, model_mouse);
+            state.landmarks.move(input.mouse.vert_ind, model_mouse);
         }
     }
 }
@@ -110,13 +110,13 @@ Renderer::process_mouse(State &state,
 void
 Renderer::process_keyboard(State &state,
                            const View &view,
-                           const CallbackValues &cb)
+                           InputData &input)
 {
-    if (cb.key == GLFW_KEY_LEFT_CONTROL &&
-        (cb.key_action == GLFW_PRESS || cb.key_action == GLFW_REPEAT)) {
-        state.keyboard.ctrl_pressed = true;
-    } else if (cb.key == GLFW_KEY_LEFT_CONTROL &&
-               cb.key_action == GLFW_RELEASE) {
-        state.keyboard.ctrl_pressed = false;
+    if (input.key == GLFW_KEY_LEFT_CONTROL &&
+        (input.key_action == GLFW_PRESS || input.key_action == GLFW_REPEAT)) {
+        input.keyboard.ctrl_pressed = true;
+    } else if (input.key == GLFW_KEY_LEFT_CONTROL &&
+               input.key_action == GLFW_RELEASE) {
+        input.keyboard.ctrl_pressed = false;
     }
 }

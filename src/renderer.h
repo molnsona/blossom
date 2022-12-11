@@ -39,9 +39,9 @@ public:
      *
      * @param state
      * @param view
-     * @param callbacks
+     * @param input
      */
-    void update(State &state, View &view, const CallbackValues &callbacks);
+    void update(State &state, View &view, InputData &input);
 
 private:
     ScatterRenderer scatter_renderer;
@@ -60,21 +60,21 @@ private:
      *
      * @param state
      * @param view
-     * @param callbacks
+     * @param input
      */
     void process_mouse(State &state,
                        const View &view,
-                       const CallbackValues &callbacks);
+                       InputData &input);
     /**
      * @brief Process keyboard input.
      *
      * @param state
      * @param view
-     * @param callbacks
+     * @param input
      */
     void process_keyboard(State &state,
                           const View &view,
-                          const CallbackValues &callbacks);
+                          InputData &input);
 };
 
 #endif // RENDERER_H

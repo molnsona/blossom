@@ -19,46 +19,13 @@
 #ifndef WRAPPER_GLFW_H
 #define WRAPPER_GLFW_H
 
+#include "input_data.h"
+
 #define GLFW_INCLUDE_NONE
 #include <GLFW/glfw3.h>
 #include <glad/glad.h>
 
 #include <string>
-
-/**
- * @brief Values stored from Glfw callbacks.
- *
- */
-struct CallbackValues
-{
-    CallbackValues() { reset(); }
-
-    int fb_width = 800;
-    int fb_height = 600;
-
-    int key;
-    int key_action;
-
-    double xoffset;
-    double yoffset;
-
-    // Raw mouse cursor position([0,0] in the upper left corner).
-    // Have to convert it to coordinates with [0,0] in
-    // the middle of the screen.
-    double xpos;
-    double ypos;
-    int button;
-    int mouse_action;
-    bool left_click = false;
-
-    void reset()
-    {
-        key = 0;
-        xoffset = 0;
-        yoffset = 0;
-        button = -1;
-    }
-};
 
 /**
  * @brief Wrapper of the Glfw library.
@@ -70,13 +37,12 @@ class GlfwWrapper
 {
 public:
     GlfwWrapper();
-    bool init(const std::string &window_name);
+    bool init(const std::string &window_name, InputData& input);
     bool window_should_close();
     void end_frame();
     void destroy();
 
     GLFWwindow *window;
-    CallbackValues callbacks;
 
 private:
     static void error_callback(int error, const char *description);

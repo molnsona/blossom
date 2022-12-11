@@ -30,7 +30,7 @@
 #include <iostream>
 #include <vector>
 
-#include "wrapper_glfw.h"
+#include "input_data.h"
 
 /**
  * @brief A small utility class that manages the viewport coordinates, together
@@ -78,21 +78,21 @@ public:
      * position and zoom.
      *
      * @param dt Time difference.
-     * @param callbacks Values collected by event callbacks.
+     * @param input Values collected by event callbacks.
      */
-    void update(float dt, const CallbackValues &callbacks)
+    void update(float dt, const InputData &input)
     {
-        width = callbacks.fb_width;
-        height = callbacks.fb_height;
+        width = input.fb_width;
+        height = input.fb_height;
 
-        process_keyboard(callbacks.key, callbacks.key_action);
+        process_keyboard(input.key, input.key_action);
 
-        process_mouse_scroll(callbacks.yoffset,
-                             glm::vec2(callbacks.xpos, callbacks.ypos));
+        process_mouse_scroll(input.yoffset,
+                             glm::vec2(input.xpos, input.ypos));
 
-        process_mouse_button(callbacks.button,
-                             callbacks.mouse_action,
-                             glm::vec2(callbacks.xpos, callbacks.ypos));
+        process_mouse_button(input.button,
+                             input.mouse_action,
+                             glm::vec2(input.xpos, input.ypos));
 
         float power = pow(smooth_speed, dt);
         float r = 1 - power;

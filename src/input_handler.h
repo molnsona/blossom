@@ -1,4 +1,3 @@
-
 /* This file is part of BlosSOM.
  *
  * Copyright (C) 2021 Sona Molnarova
@@ -17,42 +16,21 @@
  * BlosSOM. If not, see <https://www.gnu.org/licenses/>.
  */
 
-#ifndef WRAPPER_IMGUI_H
-#define WRAPPER_IMGUI_H
+#ifndef INPUT_HANDLER_H
+#define INPUT_HANDLER_H
 
-#include "state.h"
-#include "ui_menu.h"
-#include "wrapper_glfw.h"
+#include "input_data.h"
 
 /**
- * @brief Wrapper of the ImGui.
- *
- * It abstracts the initialization and rendering of the UI.
- *
+ * @brief Handler of input events.
+ * 
  */
-class ImGuiWrapper
-{
+class InputHandler {
 public:
-    /**
-     * @brief Initialize ImGui and load fonts.
-     *
-     * @param window
-     * @return true
-     * @return false
-     */
-    bool init(GLFWwindow *window);
-    /**
-     * @brief Render UI.
-     *
-     * @param input
-     * @param state
-     */
-    void render(InputData& input, State &state);
+    InputData input;
 
-    void destroy();
-
-private:
-    UiMenu menu;
+    void update();
+    void reset();
 };
 
-#endif // WRAPPER_IMGUI_H
+#endif // #ifndef INPUT_HANDLER_H

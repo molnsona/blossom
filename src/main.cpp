@@ -18,6 +18,7 @@
 
 #include <iostream>
 
+#include "input_handler.h"
 #include "renderer.h"
 #include "state.h"
 #include "timer.h"
@@ -32,12 +33,13 @@ main()
     GlfwWrapper glfw;
     GladWrapper glad;
     ImGuiWrapper imgui;
+    InputHandler input_handler;
     Renderer renderer;
     Timer timer;
     View view;
     State state;
 
-    if (!glfw.init("BlosSOM")) {
+    if (!glfw.init("BlosSOM", input_handler.input)) {
         std::cout << "GLFW initialization failed." << std::endl;
         return -1;
     }
@@ -64,13 +66,16 @@ main()
     while (!glfw.window_should_close()) {
         timer.tick();
 
-        view.update(timer.frametime, glfw.callbacks);
-        state.update(timer.frametime);
+        input_handler.update();
 
-        renderer.update(state, view, glfw.callbacks);
+        view.update(timer.frametime, input_handler.input);
+        state.update(timer.frametime, input_handler.input.mouse);
 
-        imgui.render(glfw.callbacks, state);
+        renderer.update(state, view, input_handler.input);
 
+        imgui.render(input_handler.input, state);
+
+        input_handler.reset();
         glfw.end_frame();
     }
 

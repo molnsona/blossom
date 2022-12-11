@@ -25,7 +25,7 @@
 //#define DEBUG
 
 void
-State::update(float actual_time)
+State::update(float actual_time, const MouseData& mouse)
 {
     // avoid simulation explosions on long frames
     float time = actual_time;
