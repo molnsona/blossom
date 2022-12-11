@@ -71,7 +71,9 @@ main()
         view.update(timer.frametime,
                     input_handler.input.fb_width,
                     input_handler.input.fb_height);
-        state.update(timer.frametime, input_handler.input.mouse);
+        state.update(timer.frametime,
+                     renderer.get_vert_pressed(),
+                     renderer.get_vert_ind());
 
         renderer.render(state, view);
 

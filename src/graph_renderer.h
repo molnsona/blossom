@@ -34,6 +34,11 @@
  */
 struct GraphRenderer
 {
+    /** Flag indicating if a vertex was pressed. */
+    bool vert_pressed;
+    /** Index of the pressed vertex. If the vertex was not pressed, it is UB. */
+    size_t vert_ind;
+
     GraphRenderer();
 
     void init();
@@ -62,9 +67,7 @@ struct GraphRenderer
      * @return true If a vertex was pressed.
      * @return false If no vertex was pressed.
      */
-    bool is_vert_pressed(const View &view,
-                         glm::vec2 mouse,
-                         size_t &vert_ind) const;
+    bool is_vert_pressed(const View &view, glm::vec2 mouse);
 
 private:
     /** Radius of the vertex for rendering.

@@ -43,7 +43,7 @@ public:
     void render(const State &state, const View &view);
 
     /**
-     * @brief Calls @ref GraphRenderer::is_vert_pressed().
+     * @brief Check whether the vertex was pressed and set flags.
      *
      * @param view
      * @param mouse
@@ -51,9 +51,18 @@ public:
      * @return true
      * @return false
      */
-    bool is_vert_pressed(const View &view,
-                         glm::vec2 mouse,
-                         size_t &vert_ind) const;
+    void check_pressed_vertex(const View &view, glm::vec2 mouse_pos);
+
+    void reset_pressed_vert();
+
+    bool get_vert_pressed();
+    int get_vert_ind();
+
+    void add_vert(State &state, View &view, glm::vec2 mouse_pos);
+
+    void remove_vert(State &state);
+
+    void move_vert(State &state, View &view, glm::vec2 mouse_pos);
 
 private:
     ScatterRenderer scatter_renderer;

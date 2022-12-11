@@ -44,17 +44,7 @@ struct MouseData
      */
     glm::vec2 pos;
 
-    /** Flag indicating if a vertex was pressed. */
-    bool vert_pressed;
-    /** Index of the pressed vertex. If the vertex was not pressed, it is UB. */
-    size_t vert_ind;
-
-    MouseData()
-      : vert_pressed(false)
-      , vert_ind(0)
-    {
-        reset();
-    }
+    MouseData() { reset(); }
 
     void reset()
     {

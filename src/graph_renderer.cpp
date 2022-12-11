@@ -26,7 +26,11 @@
 
 #include "shaders.h"
 
-GraphRenderer::GraphRenderer() {}
+GraphRenderer::GraphRenderer()
+  : vert_pressed(false)
+  , vert_ind(0)
+{
+}
 
 void
 GraphRenderer::init()
@@ -150,9 +154,7 @@ GraphRenderer::prepare_edges(const LandmarkModel &model)
 }
 
 bool
-GraphRenderer::is_vert_pressed(const View &view,
-                               glm::vec2 mouse,
-                               size_t &vert_ind) const
+GraphRenderer::is_vert_pressed(const View &view, glm::vec2 mouse)
 {
     float radius = vertex_size;
 

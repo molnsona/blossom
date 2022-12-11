@@ -63,24 +63,13 @@ InputHandler::process_mouse_button(View &view, Renderer &renderer, State &state)
         case GLFW_MOUSE_BUTTON_LEFT:
             switch (action) {
                 case GLFW_PRESS:
-                    if (!input.mouse.vert_pressed) {
-                        glm::vec2 screen_mouse = view.screen_mouse_coords(pos);
-                        if (renderer.is_vert_pressed(
-                              view, screen_mouse, input.mouse.vert_ind)) {
-                            input.mouse.vert_pressed = true;
-                        }
-                    }
+                    renderer.check_pressed_vertex(view, pos);
 
                     if (input.keyboard.ctrl_pressed)
-                        // Copy pressed landmark
-                        if (input.mouse.vert_pressed)
-                            state.landmarks.duplicate(input.mouse.vert_ind);
-                        // Add landmark
-                        else
-                            state.landmarks.add(view.model_mouse_coords(pos));
+                        renderer.add_vert(state, view, pos);
                     break;
                 case GLFW_RELEASE:
-                    input.mouse.vert_pressed = false;
+                    renderer.reset_pressed_vert();
                     break;
                 default:
                     break;
@@ -89,19 +78,13 @@ InputHandler::process_mouse_button(View &view, Renderer &renderer, State &state)
         case GLFW_MOUSE_BUTTON_RIGHT:
             switch (action) {
                 case GLFW_PRESS:
-                    if (!input.mouse.vert_pressed) {
-                        glm::vec2 screen_mouse = view.screen_mouse_coords(pos);
-                        if (renderer.is_vert_pressed(
-                              view, screen_mouse, input.mouse.vert_ind)) {
-                            input.mouse.vert_pressed = true;
-                        }
-                    }
-                    // Remove landmark
-                    if (input.keyboard.ctrl_pressed && input.mouse.vert_pressed)
-                        state.landmarks.remove(input.mouse.vert_ind);
+                    renderer.check_pressed_vertex(view, pos);
+
+                    if (input.keyboard.ctrl_pressed)
+                        renderer.remove_vert(state);
                     break;
                 case GLFW_RELEASE:
-                    input.mouse.vert_pressed = false;
+                    renderer.reset_pressed_vert();
                     break;
                 default:
                     break;
@@ -120,11 +103,9 @@ InputHandler::process_mouse_button(View &view, Renderer &renderer, State &state)
             break;
     }
 
-    if (input.mouse.vert_pressed) {
-        if (!input.keyboard.ctrl_pressed) { // Move landmark
-            glm::vec2 model_mouse = view.model_mouse_coords(pos);
-
-            state.landmarks.move(input.mouse.vert_ind, model_mouse);
+    if (renderer.get_vert_pressed()) {
+        if (!input.keyboard.ctrl_pressed) {
+            renderer.move_vert(state, view, input.mouse.pos);
         }
     }
 }

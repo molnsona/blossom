@@ -42,7 +42,8 @@ struct TSNELayoutData
  * algorithm. */
 void
 tsne_layout_step(TSNELayoutData &data,
-                 const MouseData &mouse,
+                 bool vert_pressed,
+                 int vert_ind,
                  LandmarkModel &lm,
                  float time);
 #endif

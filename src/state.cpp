@@ -25,7 +25,7 @@
 //#define DEBUG
 
 void
-State::update(float actual_time, const MouseData &mouse)
+State::update(float actual_time, bool vert_pressed, int vert_ind)
 {
     // avoid simulation explosions on long frames
     float time = actual_time;
@@ -59,10 +59,10 @@ State::update(float actual_time, const MouseData &mouse)
                                            // they are created.
 
     if (training_conf.graph_layout)
-        graph_layout_step(layout_data, mouse, landmarks, time);
+        graph_layout_step(layout_data, vert_pressed, vert_ind, landmarks, time);
 
     if (training_conf.tsne_layout)
-        tsne_layout_step(tsne_data, mouse, landmarks, time);
+        tsne_layout_step(tsne_data, vert_pressed, vert_ind, landmarks, time);
 
     if (training_conf.som_landmark)
         som_landmark_step(kmeans_data,

@@ -26,7 +26,8 @@ sqrf(float x)
 
 void
 tsne_layout_step(TSNELayoutData &data,
-                 const MouseData &mouse,
+                 bool vert_pressed,
+                 int vert_ind,
                  LandmarkModel &lm,
                  float time)
 {
@@ -149,7 +150,7 @@ tsne_layout_step(TSNELayoutData &data,
     update_weight = 100 / update_weight;
 
     for (size_t i = 0; i < n; ++i)
-        if (!mouse.vert_pressed || mouse.vert_ind != i)
+        if (!vert_pressed || vert_ind != i)
             lm.lodim_vertices[i] += update_weight * time * ups[i];
 
     lm.touch();
