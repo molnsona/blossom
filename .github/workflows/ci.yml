@@ -15,7 +15,7 @@ jobs:
         with:
           submodules: 'recursive'
       - name: Install GLFW & GLM
-        run: sudo apt-get install -y libglfw3-dev libglm-dev
+        run: sudo apt-get install -y libglfw3-dev libglm-dev libgl-dev
       - name: Install CUDA toolkit
         uses: Jimver/cuda-toolkit@v0.2.8
         with:
