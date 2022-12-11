@@ -77,10 +77,10 @@ public:
      * @param dt Time difference.
      * @param input Values collected by event callbacks.
      */
-    void update(float dt, const InputData &input)
+    void update(float dt, int w, int h)
     {
-        width = input.fb_width;
-        height = input.fb_height;
+        width = w;
+        height = h;
 
         float power = pow(smooth_speed, dt);
         float r = 1 - power;

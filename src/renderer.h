@@ -33,19 +33,6 @@ class Renderer
 public:
     Renderer();
     bool init();
-    /**
-     * @brief Process input events and render graph and scatterplot with updated
-     * values.
-     *
-     * @param state
-     * @param view
-     * @param input
-     */
-    void update(State &state, View &view, InputData &input);
-
-private:
-    ScatterRenderer scatter_renderer;
-    GraphRenderer graph_renderer;
 
     /**
      * @brief Render graph and scatterplot.
@@ -56,25 +43,20 @@ private:
     void render(State &state, View &view);
 
     /**
-     * @brief Process mouse input and moves the landmarks.
-     *
-     * @param state
-     * @param view
-     * @param input
+     * @brief Calls @ref GraphRenderer::is_vert_pressed().
+     * 
+     * @param view 
+     * @param mouse 
+     * @param vert_ind 
+     * @return true 
+     * @return false 
      */
-    void process_mouse(State &state,
-                       const View &view,
-                       InputData &input);
-    /**
-     * @brief Process keyboard input.
-     *
-     * @param state
-     * @param view
-     * @param input
-     */
-    void process_keyboard(State &state,
-                          const View &view,
-                          InputData &input);
+    bool is_vert_pressed(const View &view,
+                         glm::vec2 mouse,
+                         size_t &vert_ind) const;
+private:
+    ScatterRenderer scatter_renderer;
+    GraphRenderer graph_renderer;
 };
 
 #endif // RENDERER_H

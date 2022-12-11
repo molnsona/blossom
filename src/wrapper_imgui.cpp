@@ -33,13 +33,13 @@ ImGuiWrapper::init(GLFWwindow *window)
 }
 
 void
-ImGuiWrapper::render(InputData &input, State &state)
+ImGuiWrapper::render(int w, int h, State &state)
 {
     ImGui_ImplOpenGL3_NewFrame();
     ImGui_ImplGlfw_NewFrame();
     ImGui::NewFrame();
 
-    menu.render(input.fb_width, input.fb_height, state);
+    menu.render(w, h, state);
 
     ImGui::Render();
     ImGui_ImplOpenGL3_RenderDrawData(ImGui::GetDrawData());

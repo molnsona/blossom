@@ -66,14 +66,14 @@ main()
     while (!glfw.window_should_close()) {
         timer.tick();
 
-        input_handler.update(view);
+        input_handler.update(view, renderer, state);
 
-        view.update(timer.frametime, input_handler.input);
+        view.update(timer.frametime, input_handler.input.fb_width, input_handler.input.fb_height);
         state.update(timer.frametime, input_handler.input.mouse);
 
-        renderer.update(state, view, input_handler.input);
+        renderer.render(state, view);
 
-        imgui.render(input_handler.input, state);
+        imgui.render(input_handler.input.fb_width, input_handler.input.fb_height, state);
 
         input_handler.reset();
         glfw.end_frame();

@@ -24,6 +24,8 @@
 #include <glad/glad.h>
 
 #include "input_data.h"
+#include "renderer.h"
+#include "state.h"
 #include "view.h"
 
 /**
@@ -34,7 +36,7 @@ class InputHandler {
 public:
     InputData input;
 
-    void update(View& view);
+    void update(View& view, Renderer& renderer, State& state);
     void reset();
 private:
     /**
@@ -46,12 +48,13 @@ private:
     void process_keyboard(View& view);
 
     /**
-     * @brief Identify which mouse button was pressed and notify other parts
-     * (listed in arguments) about it.
+     * @brief Handle mouse button input.
      * 
      * @param view 
+     * @param renderer 
+     * @param state 
      */
-    void process_mouse_button(View & view);
+    void process_mouse_button(View & view, Renderer& renderer, State& state);
 
     /**
      * @brief Process mouse scroll and notify other parts(listed in arguments)
