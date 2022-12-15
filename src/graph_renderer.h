@@ -73,14 +73,14 @@ struct GraphRenderer
      * @return true If a vertex was pressed.
      * @return false If no vertex was pressed.
      */
-    bool is_vert_pressed(const View &view, glm::vec2 mouse);
+    bool is_vert_pressed(const View &view, glm::vec2 mouse);    
 
     bool is_rect_pressed(glm::vec2 mouse_pos);
 
     void set_rect_start_point(glm::vec2 mouse_pos);
     void set_rect_end_point(glm::vec2 mouse_pos);
 
-    void move_rect(glm::vec2 mouse_pos);
+    void move_selection(glm::vec2 mouse_pos, LandmarkModel& landmarks);
 
 private:
     /** Radius of the vertex for rendering.
@@ -114,6 +114,8 @@ private:
     float min_diff_x;
     float max_diff_y;
     float min_diff_y;
+
+    std::vector<size_t> selected_landmarks;
 
     /**
      * @brief Prepare data to render vertices and edges.
@@ -157,6 +159,8 @@ private:
                     float middle_y,
                     float zoom,
                     std::vector<float> &all_vtxs);
+
+    bool is_within_rect(glm::vec2 point) const;
 };
 
 #endif // #ifndef GRAPH_RENDERER_H

@@ -117,12 +117,12 @@ void Renderer::stop_multiselect()
     graph_renderer.draw_rect = graph_renderer.update_rect_pos = false;
 }
 
-bool Renderer::is_rect_pressed(glm::vec2 mouse_pos)
+bool Renderer::check_pressed_rect(glm::vec2 mouse_pos)
 {
     return graph_renderer.is_rect_pressed(mouse_pos);
 }
 
-void Renderer::move_selection(glm::vec2 mouse_pos)
+void Renderer::move_selection(glm::vec2 mouse_pos, LandmarkModel& landmarks)
 {
-    graph_renderer.move_rect(mouse_pos);
+    graph_renderer.move_selection(mouse_pos, landmarks);
 }

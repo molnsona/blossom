@@ -155,16 +155,41 @@ void GraphRenderer::set_rect_end_point(glm::vec2 mouse_pos)
     rect_vtxs[0] = {rect_vtxs[3].x + delta_x, rect_vtxs[3].y};
     rect_vtxs[1] = {rect_vtxs[3].x + delta_x, rect_vtxs[3].y + delta_y};
     rect_vtxs[2] = {rect_vtxs[3].x, rect_vtxs[3].y + delta_y};    
+
+    selected_landmarks.clear();
+
+    for (size_t i = 0; i < vertices.size(); ++i)
+    {
+        if(is_within_rect(vertices[i]))
+            selected_landmarks.emplace_back(i);
+    }
 }
 
-void GraphRenderer::move_rect(glm::vec2 mouse_pos)
+void GraphRenderer::move_selection(glm::vec2 mouse_pos, LandmarkModel& landmarks)
 {
     float x = mouse_pos.x;
     float y = mouse_pos.y;
-    rect_vtxs[0] = {x + max_diff_x, y + max_diff_y};
-    rect_vtxs[1] = {x + max_diff_x, y - min_diff_y};
-    rect_vtxs[2] = {x - min_diff_x, y - min_diff_y};
-    rect_vtxs[3] = {x - min_diff_x, y + max_diff_y};
+    
+    auto new_upper_r = glm::vec2(x + max_diff_x, y + max_diff_y);
+    auto new_bottom_r = glm::vec2(x + max_diff_x, y - min_diff_y);
+    auto new_bottom_l = glm::vec2(x - min_diff_x, y - min_diff_y);
+    auto new_upper_l = glm::vec2(x - min_diff_x, y + max_diff_y);
+
+    float delta_x = new_upper_r.x - rect_vtxs[0].x;
+    float delta_y = new_upper_r.y - rect_vtxs[0].y;
+
+    for (size_t i = 0; i < selected_landmarks.size(); ++i)
+    {
+        size_t ind = selected_landmarks[i];
+        auto old_pos = landmarks.lodim_vertices[ind];
+        glm::vec2 new_pos = old_pos + glm::vec2(delta_x, delta_y);
+        landmarks.move(ind, new_pos);
+    }
+    
+    rect_vtxs[0] = new_upper_r;
+    rect_vtxs[1] = new_bottom_r;
+    rect_vtxs[2] = new_bottom_l;
+    rect_vtxs[3] = new_upper_l;
 }
 
 void
@@ -259,4 +284,20 @@ void GraphRenderer::prepare_rectangle()
     glVertexAttribPointer(
       0, 2, GL_FLOAT, GL_FALSE, sizeof(glm::vec2), (void *)0);
     glEnableVertexAttribArray(0);
+}
+
+bool GraphRenderer::is_within_rect(glm::vec2 point) const
+{
+    float point_x = point.x;
+    float point_y = point.y;
+
+    float min_x = std::min(rect_vtxs[0].x, rect_vtxs[3].x);
+    float min_y = std::min(rect_vtxs[0].y, rect_vtxs[1].y);
+    float max_x = std::max(rect_vtxs[0].x, rect_vtxs[3].x);
+    float max_y = std::max(rect_vtxs[0].y, rect_vtxs[1].y);
+
+    if((point_x >= min_x && point_x <= max_x) && (point_y >= min_y && point_y <= max_y))
+        return true; 
+    else
+        return false;
 }

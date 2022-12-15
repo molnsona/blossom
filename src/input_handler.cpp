@@ -56,10 +56,7 @@ InputHandler::process_keyboard(View &view, Renderer &renderer)
     if(key == GLFW_KEY_LEFT_SHIFT && (action == GLFW_PRESS || action == GLFW_REPEAT))
         input.keyboard.shift_pressed = true;
     else if (key == GLFW_KEY_LEFT_SHIFT && action == GLFW_RELEASE)
-        input.keyboard.shift_pressed = false;
-
-    if(key == GLFW_KEY_ESCAPE && (action == GLFW_PRESS || action == GLFW_REPEAT))
-        renderer.stop_multiselect();
+        input.keyboard.shift_pressed = false;        
 }
 
 void
@@ -76,15 +73,17 @@ InputHandler::process_mouse_button(View &view, Renderer &renderer, State &state)
                         renderer.start_multiselect(model_mouse_pos);
                         break;
                     }
-                    if(renderer.is_passive_multiselect() && renderer.is_rect_pressed(model_mouse_pos))
-                    {
-                        break;
-                    }
-
+                    
                     renderer.check_pressed_vertex(view, pos);
 
                     if (input.keyboard.ctrl_pressed)
                         renderer.add_vert(state, view, pos);
+
+                    if(renderer.is_passive_multiselect() && renderer.check_pressed_rect(model_mouse_pos))
+                    {
+                        break;
+                    }
+
                     break;
                 case GLFW_RELEASE:
                     renderer.reset_pressed_vert();
@@ -101,6 +100,9 @@ InputHandler::process_mouse_button(View &view, Renderer &renderer, State &state)
                         renderer.check_pressed_vertex(view, pos);
                         renderer.remove_vert(state);
                     }
+
+                    renderer.stop_multiselect();
+
                     break;
                 case GLFW_RELEASE:
                     renderer.reset_pressed_vert();
@@ -129,7 +131,7 @@ InputHandler::process_mouse_button(View &view, Renderer &renderer, State &state)
     else 
     if(renderer.get_rect_pressed())
     {        
-        renderer.move_selection(model_mouse_pos);
+        renderer.move_selection(model_mouse_pos, state.landmarks);
     }
     else
     if (renderer.get_vert_pressed()) {

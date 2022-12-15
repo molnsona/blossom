@@ -72,10 +72,10 @@ public:
     void reset_multiselect();
     void stop_multiselect();
 
-    bool is_rect_pressed(glm::vec2 mouse_pos);
+    bool check_pressed_rect(glm::vec2 mouse_pos);
     bool get_rect_pressed() {return graph_renderer.rect_pressed;}
 
-    void move_selection(glm::vec2 mouse_pos);
+    void move_selection(glm::vec2 mouse_pos, LandmarkModel& landmarks);
 
 private:
     ScatterRenderer scatter_renderer;
