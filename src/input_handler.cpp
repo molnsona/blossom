@@ -77,11 +77,11 @@ InputHandler::process_mouse_button(View &view, Renderer &renderer, State &state)
             break;
         case GLFW_MOUSE_BUTTON_RIGHT:
             switch (action) {
-                case GLFW_PRESS:
-                    renderer.check_pressed_vertex(view, pos);
-
-                    if (input.keyboard.ctrl_pressed)
+                case GLFW_PRESS:                 
+                    if (input.keyboard.ctrl_pressed) {
+                        renderer.check_pressed_vertex(view, pos);
                         renderer.remove_vert(state);
+                    }
                     break;
                 case GLFW_RELEASE:
                     renderer.reset_pressed_vert();
