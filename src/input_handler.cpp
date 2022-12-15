@@ -67,12 +67,17 @@ InputHandler::process_mouse_button(View &view, Renderer &renderer, State &state)
 {
     int action = input.mouse.action;
     auto pos = input.mouse.pos;
+    auto model_mouse_pos = view.model_mouse_coords(input.mouse.pos);
     switch (input.mouse.button) {
         case GLFW_MOUSE_BUTTON_LEFT:
             switch (action) {
                 case GLFW_PRESS:
                     if(input.keyboard.shift_pressed){
-                        renderer.start_multiselect(view.model_mouse_coords(input.mouse.pos));
+                        renderer.start_multiselect(model_mouse_pos);
+                        break;
+                    }
+                    if(renderer.is_passive_multiselect() && renderer.is_rect_pressed(model_mouse_pos))
+                    {
                         break;
                     }
 
@@ -83,7 +88,7 @@ InputHandler::process_mouse_button(View &view, Renderer &renderer, State &state)
                     break;
                 case GLFW_RELEASE:
                     renderer.reset_pressed_vert();
-                    renderer.reset_multiselect();
+                    renderer.reset_multiselect();                    
                     break;
                 default:
                     break;
@@ -117,10 +122,16 @@ InputHandler::process_mouse_button(View &view, Renderer &renderer, State &state)
             break;
     }
 
-    if(renderer.is_multiselect() && input.keyboard.shift_pressed)
+    if(renderer.is_active_multiselect() && input.keyboard.shift_pressed)
     {
-        renderer.update_multiselect(view.model_mouse_coords(input.mouse.pos));
-    } else
+        renderer.update_multiselect(model_mouse_pos);
+    } 
+    else 
+    if(renderer.get_rect_pressed())
+    {        
+        renderer.move_selection(model_mouse_pos);
+    }
+    else
     if (renderer.get_vert_pressed()) {
         if (!input.keyboard.ctrl_pressed) {
             renderer.move_vert(state, view, input.mouse.pos);

@@ -32,6 +32,7 @@ GraphRenderer::GraphRenderer()
   , rect_indices({0,1,3,1,2,3})
   , draw_rect(false)
   , update_rect_pos(false)
+  , rect_pressed(false)
 {
 }
 
@@ -114,6 +115,29 @@ GraphRenderer::is_vert_pressed(const View &view, glm::vec2 mouse)
     return false;
 }
 
+bool GraphRenderer::is_rect_pressed(glm::vec2 mouse_pos)
+{
+    float mouse_x = mouse_pos.x;
+    float mouse_y = mouse_pos.y;
+
+    float min_x = std::min(rect_vtxs[0].x, rect_vtxs[3].x);
+    float min_y = std::min(rect_vtxs[0].y, rect_vtxs[1].y);
+    float max_x = std::max(rect_vtxs[0].x, rect_vtxs[3].x);
+    float max_y = std::max(rect_vtxs[0].y, rect_vtxs[1].y);
+
+    if((mouse_x >= min_x && mouse_x <= max_x) && (mouse_y >= min_y && mouse_y <= max_y))
+        rect_pressed = true;
+    else 
+        rect_pressed = false;
+
+    max_diff_x = max_x - mouse_x;
+    min_diff_x = mouse_x - min_x;
+    max_diff_y = max_y - mouse_y;
+    min_diff_y = mouse_y - min_y;
+
+    return rect_pressed;
+}
+
 void GraphRenderer::set_rect_start_point(glm::vec2 mouse_pos)
 {
     draw_rect = update_rect_pos = true;
@@ -131,6 +155,16 @@ void GraphRenderer::set_rect_end_point(glm::vec2 mouse_pos)
     rect_vtxs[0] = {rect_vtxs[3].x + delta_x, rect_vtxs[3].y};
     rect_vtxs[1] = {rect_vtxs[3].x + delta_x, rect_vtxs[3].y + delta_y};
     rect_vtxs[2] = {rect_vtxs[3].x, rect_vtxs[3].y + delta_y};    
+}
+
+void GraphRenderer::move_rect(glm::vec2 mouse_pos)
+{
+    float x = mouse_pos.x;
+    float y = mouse_pos.y;
+    rect_vtxs[0] = {x + max_diff_x, y + max_diff_y};
+    rect_vtxs[1] = {x + max_diff_x, y - min_diff_y};
+    rect_vtxs[2] = {x - min_diff_x, y - min_diff_y};
+    rect_vtxs[3] = {x - min_diff_x, y + max_diff_y};
 }
 
 void

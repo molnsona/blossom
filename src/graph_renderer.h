@@ -43,6 +43,8 @@ struct GraphRenderer
     bool draw_rect;
     bool update_rect_pos;
 
+    bool rect_pressed;
+
     GraphRenderer();
 
     void init();
@@ -73,8 +75,12 @@ struct GraphRenderer
      */
     bool is_vert_pressed(const View &view, glm::vec2 mouse);
 
+    bool is_rect_pressed(glm::vec2 mouse_pos);
+
     void set_rect_start_point(glm::vec2 mouse_pos);
     void set_rect_end_point(glm::vec2 mouse_pos);
+
+    void move_rect(glm::vec2 mouse_pos);
 
 private:
     /** Radius of the vertex for rendering.
@@ -84,6 +90,9 @@ private:
 
     /** Cached screen coordinates of the vertices. */
     std::vector<glm::vec2> vertices;
+
+    /** Number of all vertices for rendering circles(graph vertices).*/
+    int num_all_vtxs;
 
     Shader shader_v;
     unsigned int VAO_v;
@@ -101,8 +110,10 @@ private:
     std::array<glm::vec2, 4> rect_vtxs;
     const std::array<unsigned int, 6> rect_indices;
 
-    /** Number of all vertices for rendering circles(graph vertices).*/
-    int num_all_vtxs;
+    float max_diff_x;
+    float min_diff_x;
+    float max_diff_y;
+    float min_diff_y;
 
     /**
      * @brief Prepare data to render vertices and edges.

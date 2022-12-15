@@ -59,19 +59,23 @@ public:
     int get_vert_ind();
 
     void add_vert(State &state, View &view, glm::vec2 mouse_pos);
-
     void remove_vert(State &state);
-
     void move_vert(State &state, View &view, glm::vec2 mouse_pos);
 
     void start_multiselect(glm::vec2 mouse_pos);
 
-    bool is_multiselect();
+    bool is_active_multiselect();
+    bool is_passive_multiselect();
 
     void update_multiselect(glm::vec2 mouse_pos);
 
     void reset_multiselect();
     void stop_multiselect();
+
+    bool is_rect_pressed(glm::vec2 mouse_pos);
+    bool get_rect_pressed() {return graph_renderer.rect_pressed;}
+
+    void move_selection(glm::vec2 mouse_pos);
 
 private:
     ScatterRenderer scatter_renderer;
