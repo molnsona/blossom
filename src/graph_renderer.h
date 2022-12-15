@@ -73,14 +73,14 @@ struct GraphRenderer
      * @return true If a vertex was pressed.
      * @return false If no vertex was pressed.
      */
-    bool is_vert_pressed(const View &view, glm::vec2 mouse);    
+    bool is_vert_pressed(const View &view, glm::vec2 mouse);
 
     bool is_rect_pressed(glm::vec2 mouse_pos);
 
     void set_rect_start_point(glm::vec2 mouse_pos);
     void set_rect_end_point(glm::vec2 mouse_pos);
 
-    void move_selection(glm::vec2 mouse_pos, LandmarkModel& landmarks);
+    void move_selection(glm::vec2 mouse_pos, LandmarkModel &landmarks);
 
 private:
     /** Radius of the vertex for rendering.
@@ -105,7 +105,7 @@ private:
     Shader shader_r;
     unsigned int VAO_r;
     unsigned int VBO_r;
-    unsigned int EBO_r;    
+    unsigned int EBO_r;
 
     std::array<glm::vec2, 4> rect_vtxs;
     const std::array<unsigned int, 6> rect_indices;
@@ -142,7 +142,7 @@ private:
 
     /**
      * @brief Prepare rectangle data used for multiselect.
-     * 
+     *
      */
     void prepare_rectangle();
 
