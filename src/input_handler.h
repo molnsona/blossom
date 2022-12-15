@@ -46,8 +46,9 @@ private:
      * (listed in arguments) about it.
      *
      * @param view
+     * @param renderer
      */
-    void process_keyboard(View &view);
+    void process_keyboard(View &view, Renderer &renderer);
 
     /**
      * @brief Handle mouse button input.

@@ -40,6 +40,9 @@ struct GraphRenderer
     /** Index of the pressed vertex. If the vertex was not pressed, it is UB. */
     size_t vert_ind;
 
+    bool draw_rect;
+    bool update_rect_pos;
+
     GraphRenderer();
 
     void init();
@@ -70,7 +73,8 @@ struct GraphRenderer
      */
     bool is_vert_pressed(const View &view, glm::vec2 mouse);
 
-
+    void set_rect_start_point(glm::vec2 mouse_pos);
+    void set_rect_end_point(glm::vec2 mouse_pos);
 
 private:
     /** Radius of the vertex for rendering.

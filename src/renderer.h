@@ -64,7 +64,14 @@ public:
 
     void move_vert(State &state, View &view, glm::vec2 mouse_pos);
 
-    void update_multiselect();
+    void start_multiselect(glm::vec2 mouse_pos);
+
+    bool is_multiselect();
+
+    void update_multiselect(glm::vec2 mouse_pos);
+
+    void reset_multiselect();
+    void stop_multiselect();
 
 private:
     ScatterRenderer scatter_renderer;

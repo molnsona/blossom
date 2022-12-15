@@ -21,7 +21,7 @@
 void
 InputHandler::update(View &view, Renderer &renderer, State &state)
 {
-    process_keyboard(view);
+    process_keyboard(view, renderer);
     process_mouse_button(view, renderer, state);
     process_mouse_scroll(view);
 }
@@ -33,7 +33,7 @@ InputHandler::reset()
 }
 
 void
-InputHandler::process_keyboard(View &view)
+InputHandler::process_keyboard(View &view, Renderer &renderer)
 {
     int key = input.keyboard.key;
     int action = input.keyboard.action;
@@ -57,6 +57,9 @@ InputHandler::process_keyboard(View &view)
         input.keyboard.shift_pressed = true;
     else if (key == GLFW_KEY_LEFT_SHIFT && action == GLFW_RELEASE)
         input.keyboard.shift_pressed = false;
+
+    if(key == GLFW_KEY_ESCAPE && (action == GLFW_PRESS || action == GLFW_REPEAT))
+        renderer.stop_multiselect();
 }
 
 void
@@ -68,8 +71,10 @@ InputHandler::process_mouse_button(View &view, Renderer &renderer, State &state)
         case GLFW_MOUSE_BUTTON_LEFT:
             switch (action) {
                 case GLFW_PRESS:
-                    if(input.keyboard.shift_pressed)
-                        renderer.update_multiselect();
+                    if(input.keyboard.shift_pressed){
+                        renderer.start_multiselect(view.model_mouse_coords(input.mouse.pos));
+                        break;
+                    }
 
                     renderer.check_pressed_vertex(view, pos);
 
@@ -78,6 +83,7 @@ InputHandler::process_mouse_button(View &view, Renderer &renderer, State &state)
                     break;
                 case GLFW_RELEASE:
                     renderer.reset_pressed_vert();
+                    renderer.reset_multiselect();
                     break;
                 default:
                     break;
@@ -111,6 +117,10 @@ InputHandler::process_mouse_button(View &view, Renderer &renderer, State &state)
             break;
     }
 
+    if(renderer.is_multiselect() && input.keyboard.shift_pressed)
+    {
+        renderer.update_multiselect(view.model_mouse_coords(input.mouse.pos));
+    } else
     if (renderer.get_vert_pressed()) {
         if (!input.keyboard.ctrl_pressed) {
             renderer.move_vert(state, view, input.mouse.pos);

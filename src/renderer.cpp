@@ -86,7 +86,27 @@ Renderer::move_vert(State &state, View &view, glm::vec2 mouse_pos)
     state.landmarks.move(graph_renderer.vert_ind, model_mouse);
 }
 
-void Renderer::update_multiselect()
+void Renderer::start_multiselect(glm::vec2 mouse_pos)
 {
+    graph_renderer.set_rect_start_point(mouse_pos);
+}
 
+bool Renderer::is_multiselect()
+{
+    return graph_renderer.update_rect_pos;
+}
+
+void Renderer::update_multiselect(glm::vec2 mouse_pos)
+{
+    graph_renderer.set_rect_end_point(mouse_pos);
+}
+
+void Renderer::reset_multiselect()
+{
+    graph_renderer.update_rect_pos = false;
+}
+
+void Renderer::stop_multiselect()
+{
+    graph_renderer.draw_rect = graph_renderer.update_rect_pos = false;
 }

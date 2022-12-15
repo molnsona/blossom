@@ -30,6 +30,8 @@ GraphRenderer::GraphRenderer()
   : vert_pressed(false)
   , vert_ind(0)
   , rect_indices({0,1,3,1,2,3})
+  , draw_rect(false)
+  , update_rect_pos(false)
 {
 }
 
@@ -79,15 +81,56 @@ GraphRenderer::draw(const View &view, const LandmarkModel &model)
         glDrawArrays(GL_TRIANGLE_FAN, i * num_all_vtxs, num_all_vtxs);
     }
 
-    shader_r.use();
-    shader_r.set_mat4("model", glm::mat4(1.0f));
-    shader_r.set_mat4("view", view.get_view_matrix());
-    shader_r.set_mat4("proj", view.get_proj_matrix());
+    if(draw_rect) {
+        shader_r.use();
+        shader_r.set_mat4("model", glm::mat4(1.0f));
+        shader_r.set_mat4("view", view.get_view_matrix());
+        shader_r.set_mat4("proj", view.get_proj_matrix());
 
-    glBindVertexArray(VAO_r);
-    glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, 0);    
+        glBindVertexArray(VAO_r);
+        glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, 0);    
+    }
 
     glDisable(GL_BLEND);
+}
+
+bool
+GraphRenderer::is_vert_pressed(const View &view, glm::vec2 mouse)
+{
+    float radius = vertex_size;
+
+    for (size_t i = 0; i < vertices.size(); ++i) {
+        glm::vec2 vert = view.screen_coords(vertices[i]);
+
+        if ((mouse.x >= roundf(vert.x) - radius) &&
+            (mouse.x <= roundf(vert.x) + radius) &&
+            (mouse.y >= roundf(vert.y) - radius) &&
+            (mouse.y <= roundf(vert.y) + radius)) {
+            vert_ind = i;
+            return true;
+        }
+    }
+
+    return false;
+}
+
+void GraphRenderer::set_rect_start_point(glm::vec2 mouse_pos)
+{
+    draw_rect = update_rect_pos = true;
+
+    rect_vtxs[0] = mouse_pos;
+    rect_vtxs[1] = mouse_pos;
+    rect_vtxs[2] = mouse_pos;
+    rect_vtxs[3] = mouse_pos;
+}
+
+void GraphRenderer::set_rect_end_point(glm::vec2 mouse_pos)
+{
+    float delta_x = mouse_pos.x - rect_vtxs[3].x;
+    float delta_y = mouse_pos.y - rect_vtxs[3].y;
+    rect_vtxs[0] = {rect_vtxs[3].x + delta_x, rect_vtxs[3].y};
+    rect_vtxs[1] = {rect_vtxs[3].x + delta_x, rect_vtxs[3].y + delta_y};
+    rect_vtxs[2] = {rect_vtxs[3].x, rect_vtxs[3].y + delta_y};    
 }
 
 void
@@ -171,11 +214,6 @@ GraphRenderer::prepare_edges(const LandmarkModel &model)
 
 void GraphRenderer::prepare_rectangle()
 {
-    rect_vtxs[0] = glm::vec2(0.5f, 0.5f);
-    rect_vtxs[1] = glm::vec2(0.5f, -0.5f);
-    rect_vtxs[2] = glm::vec2(0.0f, -0.5f);
-    rect_vtxs[3] = glm::vec2(0.0f, 0.5f);
-
     glBindVertexArray(VAO_r);
 
     glBindBuffer(GL_ARRAY_BUFFER, VBO_r);
@@ -187,24 +225,4 @@ void GraphRenderer::prepare_rectangle()
     glVertexAttribPointer(
       0, 2, GL_FLOAT, GL_FALSE, sizeof(glm::vec2), (void *)0);
     glEnableVertexAttribArray(0);
-}
-
-bool
-GraphRenderer::is_vert_pressed(const View &view, glm::vec2 mouse)
-{
-    float radius = vertex_size;
-
-    for (size_t i = 0; i < vertices.size(); ++i) {
-        glm::vec2 vert = view.screen_coords(vertices[i]);
-
-        if ((mouse.x >= roundf(vert.x) - radius) &&
-            (mouse.x <= roundf(vert.x) + radius) &&
-            (mouse.y >= roundf(vert.y) - radius) &&
-            (mouse.y <= roundf(vert.y) + radius)) {
-            vert_ind = i;
-            return true;
-        }
-    }
-
-    return false;
 }
