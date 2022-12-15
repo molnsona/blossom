@@ -135,7 +135,10 @@ Choose the coloring method for coloring 2D data points(not landmarks) out of two
 
 - Move: WASD
 - Zoom in/out: Mouse wheel
-- Drag landmark: Left mouse button
+- Drag landmark: Left mouse button (click on the landmark and drag it)
 - Add/duplicate landmark: Ctrl + Left mouse button (click anywhere)
 - Remove landmark: Ctrl + Right mouse button (click on the landmark you want to remove)
 - Center at mouse cursor: Click mouse wheel (middle mouse button)
+- Start selection: Shift + Left mouse button (hold and drag to create selection rectangle)
+- Move selection: Left mouse button (click on the selected area and move the selection)
+- Disable selection: Right mouse button (click anywhere)
