@@ -34,8 +34,12 @@ struct KeyboardData
     /** Flag indicating if CTRL was pressed. */
     bool ctrl_pressed;
 
+    /** Flag indicating if SHIFT was pressed. */
+    bool shift_pressed;
+
     KeyboardData()
       : ctrl_pressed(false)
+      , shift_pressed(false)
     {
         reset();
     }

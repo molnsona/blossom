@@ -85,3 +85,8 @@ Renderer::move_vert(State &state, View &view, glm::vec2 mouse_pos)
 
     state.landmarks.move(graph_renderer.vert_ind, model_mouse);
 }
+
+void Renderer::update_multiselect()
+{
+
+}

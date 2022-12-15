@@ -52,6 +52,11 @@ InputHandler::process_keyboard(View &view)
     } else if (key == GLFW_KEY_LEFT_CONTROL && action == GLFW_RELEASE) {
         input.keyboard.ctrl_pressed = false;
     }
+
+    if(key == GLFW_KEY_LEFT_SHIFT && (action == GLFW_PRESS || action == GLFW_REPEAT))
+        input.keyboard.shift_pressed = true;
+    else if (key == GLFW_KEY_LEFT_SHIFT && action == GLFW_RELEASE)
+        input.keyboard.shift_pressed = false;
 }
 
 void
@@ -63,6 +68,9 @@ InputHandler::process_mouse_button(View &view, Renderer &renderer, State &state)
         case GLFW_MOUSE_BUTTON_LEFT:
             switch (action) {
                 case GLFW_PRESS:
+                    if(input.keyboard.shift_pressed)
+                        renderer.update_multiselect();
+
                     renderer.check_pressed_vertex(view, pos);
 
                     if (input.keyboard.ctrl_pressed)

@@ -64,6 +64,8 @@ public:
 
     void move_vert(State &state, View &view, glm::vec2 mouse_pos);
 
+    void update_multiselect();
+
 private:
     ScatterRenderer scatter_renderer;
     GraphRenderer graph_renderer;

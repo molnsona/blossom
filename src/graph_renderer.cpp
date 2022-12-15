@@ -29,6 +29,7 @@
 GraphRenderer::GraphRenderer()
   : vert_pressed(false)
   , vert_ind(0)
+  , rect_indices({0,1,3,1,2,3})
 {
 }
 
@@ -44,6 +45,12 @@ GraphRenderer::init()
     glGenBuffers(1, &VBO_e);
 
     shader_e.build(graph_e_vs, graph_e_fs);
+
+    glGenVertexArrays(1, &VAO_r);
+    glGenBuffers(1, &VBO_r);
+    glGenBuffers(1, &EBO_r);
+
+    shader_r.build(graph_r_vs, graph_r_fs);
 }
 
 void
@@ -72,6 +79,14 @@ GraphRenderer::draw(const View &view, const LandmarkModel &model)
         glDrawArrays(GL_TRIANGLE_FAN, i * num_all_vtxs, num_all_vtxs);
     }
 
+    shader_r.use();
+    shader_r.set_mat4("model", glm::mat4(1.0f));
+    shader_r.set_mat4("view", view.get_view_matrix());
+    shader_r.set_mat4("proj", view.get_proj_matrix());
+
+    glBindVertexArray(VAO_r);
+    glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, 0);    
+
     glDisable(GL_BLEND);
 }
 
@@ -80,6 +95,7 @@ GraphRenderer::prepare_data(float current_zoom, const LandmarkModel &model)
 {
     prepare_vertices(current_zoom, model);
     prepare_edges(model);
+    prepare_rectangle();
 }
 
 void
@@ -148,6 +164,26 @@ GraphRenderer::prepare_edges(const LandmarkModel &model)
                  edge_lines.size() * sizeof(glm::vec2),
                  &edge_lines[0],
                  GL_DYNAMIC_DRAW);
+    glVertexAttribPointer(
+      0, 2, GL_FLOAT, GL_FALSE, sizeof(glm::vec2), (void *)0);
+    glEnableVertexAttribArray(0);
+}
+
+void GraphRenderer::prepare_rectangle()
+{
+    rect_vtxs[0] = glm::vec2(0.5f, 0.5f);
+    rect_vtxs[1] = glm::vec2(0.5f, -0.5f);
+    rect_vtxs[2] = glm::vec2(0.0f, -0.5f);
+    rect_vtxs[3] = glm::vec2(0.0f, 0.5f);
+
+    glBindVertexArray(VAO_r);
+
+    glBindBuffer(GL_ARRAY_BUFFER, VBO_r);
+    glBufferData(GL_ARRAY_BUFFER, rect_vtxs.size() * sizeof(glm::vec2), &rect_vtxs[0], GL_DYNAMIC_DRAW);
+
+    glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, EBO_r);
+    glBufferData(GL_ELEMENT_ARRAY_BUFFER, rect_indices.size() * sizeof(unsigned int), &rect_indices[0], GL_STATIC_DRAW);
+
     glVertexAttribPointer(
       0, 2, GL_FLOAT, GL_FALSE, sizeof(glm::vec2), (void *)0);
     glEnableVertexAttribArray(0);

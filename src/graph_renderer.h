@@ -26,6 +26,7 @@
 #include "shader.h"
 #include "view.h"
 
+#include <array>
 #include <vector>
 
 /**
@@ -69,6 +70,8 @@ struct GraphRenderer
      */
     bool is_vert_pressed(const View &view, glm::vec2 mouse);
 
+
+
 private:
     /** Radius of the vertex for rendering.
      * \todo TODO: Make dynamic according to the depth of the zoom.
@@ -85,6 +88,14 @@ private:
     Shader shader_e;
     unsigned int VAO_e;
     unsigned int VBO_e;
+
+    Shader shader_r;
+    unsigned int VAO_r;
+    unsigned int VBO_r;
+    unsigned int EBO_r;    
+
+    std::array<glm::vec2, 4> rect_vtxs;
+    const std::array<unsigned int, 6> rect_indices;
 
     /** Number of all vertices for rendering circles(graph vertices).*/
     int num_all_vtxs;
@@ -111,6 +122,12 @@ private:
      * @param model Data source
      */
     void prepare_edges(const LandmarkModel &model);
+
+    /**
+     * @brief Prepare rectangle data used for multiselect.
+     * 
+     */
+    void prepare_rectangle();
 
     /**
      * @brief Add vertices for TRIANGLE_FAN that creates circle
