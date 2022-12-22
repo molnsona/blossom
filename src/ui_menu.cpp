@@ -74,7 +74,7 @@ UiMenu::render(int fb_width, int fb_height, State &state)
 
     draw_menu_button(show_menu, fb_width, fb_height);
     if (show_menu)
-        draw_menu_window(fb_width, fb_height, state);
+        draw_menu_window(fb_width, fb_height);
 
     loader.render(state, window_flags);
     saver.render(state, window_flags);
@@ -87,7 +87,7 @@ UiMenu::render(int fb_width, int fb_height, State &state)
 }
 
 void
-UiMenu::draw_menu_window(int fb_width, int fb_height, State &state)
+UiMenu::draw_menu_window(int fb_width, int fb_height)
 {
     ImGuiWindowFlags window_flags = ImGuiWindowFlags_NoTitleBar |
                                     ImGuiWindowFlags_NoResize |

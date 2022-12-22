@@ -4,6 +4,7 @@ set(BLOSSOM_SOURCES
     fcs_parser.cpp
     graph_layout.cpp
     graph_renderer.cpp
+    input_handler.cpp
     kmeans_landmark.cpp
     knn_edges.cpp
     landmark_model.cpp

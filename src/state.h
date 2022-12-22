@@ -28,7 +28,6 @@
 #include "color_data.h"
 #include "data_model.h"
 #include "graph_layout.h"
-#include "keyboard_data.h"
 #include "kmeans_landmark.h"
 #include "knn_edges.h"
 #include "landmark_model.h"
@@ -48,9 +47,6 @@
  */
 struct State
 {
-    MouseData mouse;
-    KeyboardData keyboard;
-
     DataModel data;
     RawDataStats stats;
     TransData trans;
@@ -72,7 +68,7 @@ struct State
      *
      * @param time Duration of the last frame.
      */
-    void update(float time);
+    void update(float time, bool vert_pressed, int vert_ind);
 };
 
 #endif // #ifndef STATE_H

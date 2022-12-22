@@ -49,7 +49,8 @@ struct GraphLayoutData
  */
 void
 graph_layout_step(GraphLayoutData &data,
-                  const MouseData &mouse,
+                  bool vert_pressed,
+                  int vert_ind,
                   LandmarkModel &lm,
                   float time);
 

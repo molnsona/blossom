@@ -20,9 +20,6 @@
 #ifndef VIEW_H
 #define VIEW_H
 
-#define GLFW_INCLUDE_NONE
-#include <GLFW/glfw3.h>
-#include <glad/glad.h>
 #include <glm/glm.hpp>
 #include <glm/gtc/matrix_transform.hpp>
 
@@ -30,7 +27,7 @@
 #include <iostream>
 #include <vector>
 
-#include "wrapper_glfw.h"
+#include "input_data.h"
 
 /**
  * @brief A small utility class that manages the viewport coordinates, together
@@ -78,21 +75,12 @@ public:
      * position and zoom.
      *
      * @param dt Time difference.
-     * @param callbacks Values collected by event callbacks.
+     * @param input Values collected by event callbacks.
      */
-    void update(float dt, const CallbackValues &callbacks)
+    void update(float dt, int w, int h)
     {
-        width = callbacks.fb_width;
-        height = callbacks.fb_height;
-
-        process_keyboard(callbacks.key, callbacks.key_action);
-
-        process_mouse_scroll(callbacks.yoffset,
-                             glm::vec2(callbacks.xpos, callbacks.ypos));
-
-        process_mouse_button(callbacks.button,
-                             callbacks.mouse_action,
-                             glm::vec2(callbacks.xpos, callbacks.ypos));
+        width = w;
+        height = h;
 
         float power = pow(smooth_speed, dt);
         float r = 1 - power;
@@ -175,6 +163,65 @@ public:
         return screen_point_coords(glm::vec2(res.x, res.y));
     }
 
+    /**
+     * @brief Move view along Y-axis.
+     *
+     * @param dir Direction of the movement. (-1 - down, 1 - up)
+     */
+    void move_y(int dir)
+    {
+        float half_h = height / 2.0f;
+        float velocity = half_h * target_zoom * movement_speed;
+        target_pos.y += (dir * velocity);
+    }
+
+    /**
+     * @brief Move view along X-axis.
+     *
+     * @param dir Direction of the movement. (-1 - left, 1 - right)
+     */
+    void move_x(int dir)
+    {
+        float half_h = height / 2.0f;
+        float velocity = half_h * target_zoom * movement_speed;
+        target_pos.x += (dir * velocity);
+    }
+
+    /**
+     * @brief Adjust zoom accordingly.
+     *
+     * @param yoffset Direction of the scroll (-1, 0, 1).
+     * @param mouse Mouse coordinates ([0,0] in the upper left corner).
+     */
+    void zoom(float yoffset, glm::vec2 mouse)
+    {
+        if (yoffset > -0.0001 && yoffset < 0.0001)
+            return;
+
+        float velocity = -1 * yoffset / 1500.0f * (target_zoom * 100);
+        auto zoom_around = model_mouse_coords(mouse);
+
+        target_zoom += velocity;
+        target_pos =
+          glm::vec3(zoom_around + powf(2.0f, target_zoom * 400) *
+                                    (glm::vec2(current_pos) - zoom_around) /
+                                    powf(2.0f, current_zoom * 400),
+                    target_pos.z);
+    }
+
+    /**
+     * @brief Cause the camera to look at the specified point.
+     *
+     * @param tgt This point will eventually get to the middle of the screen.
+     *              It needs to be converted from mouse to model coordinates.
+     */
+    void look_at(glm::vec2 tgt)
+    {
+        tgt = model_mouse_coords(tgt);
+        target_pos.x = tgt.x;
+        target_pos.y = tgt.y;
+    }
+
 private:
     /**
      * @brief Re-calculates the right and up vector from the View's updated
@@ -191,67 +238,6 @@ private:
     }
 
     /**
-     * @brief Process keyboard input and move the "camera" accordingly.
-     *
-     * @param key Name of the used key.
-     * @param action Pressed, released or hold key.
-     */
-    void process_keyboard(int key, int action)
-    {
-        float half_h = height / 2.0f;
-        float velocity = half_h * target_zoom * movement_speed;
-        if (key == GLFW_KEY_W &&
-            (action == GLFW_PRESS || action == GLFW_REPEAT))
-            target_pos.y += velocity;
-        if (key == GLFW_KEY_S &&
-            (action == GLFW_PRESS || action == GLFW_REPEAT))
-            target_pos.y -= velocity;
-        if (key == GLFW_KEY_A &&
-            (action == GLFW_PRESS || action == GLFW_REPEAT))
-            target_pos.x -= velocity;
-        if (key == GLFW_KEY_D &&
-            (action == GLFW_PRESS || action == GLFW_REPEAT))
-            target_pos.x += velocity;
-    }
-
-    /**
-     * @brief Process mouse scroll and adjust zoom accordingly.
-     *
-     * @param yoffset Direction of the scroll (-1, 0, 1).
-     * @param mouse Mouse coordinates ([0,0] in the upper left corner).
-     */
-    void process_mouse_scroll(float yoffset, glm::vec2 mouse)
-    {
-        if (yoffset > -0.0001 && yoffset < 0.0001)
-            return;
-
-        float velocity = -1 * yoffset / 1500.0f * (target_zoom * 100);
-        auto zoom_around = model_mouse_coords(mouse);
-
-        target_zoom += velocity;
-        target_pos =
-          glm::vec3(zoom_around + powf(2.0f, target_zoom * 400) *
-                                    (glm::vec2(current_pos) - zoom_around) /
-                                    powf(2.0f, current_zoom * 400),
-                    target_pos.z);
-    }
-
-    void process_mouse_button(int button, int action, glm::vec2 mouse_pos)
-    {
-        switch (button) {
-            case GLFW_MOUSE_BUTTON_MIDDLE:
-                switch (action) {
-                    case GLFW_PRESS:
-                        look_at(model_mouse_coords(mouse_pos));
-                    default:
-                        break;
-                }
-            default:
-                break;
-        }
-    }
-
-    /**
      * @brief Convert point coordinates ([0,0] in the upper left corner),
      * to screen coordinates ([0,0] in the middle of the screen).
      *
@@ -261,17 +247,6 @@ private:
     glm::vec2 screen_point_coords(glm::vec2 point) const
     {
         return glm::vec2(point.x - width / 2.0f, point.y - height / 2.0f);
-    }
-
-    /**
-     * @brief Cause the camera to look at the specified point.
-     *
-     * @param tgt This point will eventually get to the middle of the screen.
-     */
-    void look_at(glm::vec2 tgt)
-    {
-        target_pos.x = tgt.x;
-        target_pos.y = tgt.y;
     }
 };
 

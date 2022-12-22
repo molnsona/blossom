@@ -25,13 +25,26 @@
  */
 struct KeyboardData
 {
+    /** Code of the key of the recent event.*/
+    int key;
+
+    /** Key action, whether it was pressed, released or held.*/
+    int action;
+
     /** Flag indicating if CTRL was pressed. */
     bool ctrl_pressed;
 
+    /** Flag indicating if SHIFT was pressed. */
+    bool shift_pressed;
+
     KeyboardData()
       : ctrl_pressed(false)
+      , shift_pressed(false)
     {
+        reset();
     }
+
+    void reset() { key = 0; }
 };
 
 #endif // #ifndef KEYBOARD_DATA_H

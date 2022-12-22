@@ -1,6 +1,6 @@
 /* This file is part of BlosSOM.
  *
- * Copyright (C) 2021 Mirek Kratochvil
+ * Copyright (C) 2021 Sona Molnarova
  *
  * BlosSOM is free software: you can redistribute it and/or modify it under
  * the terms of the GNU General Public License as published by the Free
@@ -16,34 +16,31 @@
  * BlosSOM. If not, see <https://www.gnu.org/licenses/>.
  */
 
-#ifndef TSNE_LAYOUT_H
-#define TSNE_LAYOUT_H
+#ifndef INPUT_DATA_H
+#define INPUT_DATA_H
 
-#include <glm/glm.hpp>
-
-#include <vector>
-
-#include "landmark_model.h"
+#include "keyboard_data.h"
 #include "mouse_data.h"
 
-/** A context structure for tSNE computation.
+/**
+ * @brief Input events data storage.
  *
- * This mostly holds pre-allocated memory so that the vectors don't need to get
- * recreated every frame.
  */
-struct TSNELayoutData
+struct InputData
 {
-    std::vector<float> pji;
-    std::vector<size_t> heap;
-    std::vector<glm::vec2> updates;
+    MouseData mouse;
+    KeyboardData keyboard;
+
+    InputData() { reset(); }
+
+    int fb_width = 800;
+    int fb_height = 600;
+
+    void reset()
+    {
+        keyboard.reset();
+        mouse.reset();
+    }
 };
 
-/** Optimize the positions of low-dimensional landmarks using the t-SNE
- * algorithm. */
-void
-tsne_layout_step(TSNELayoutData &data,
-                 bool vert_pressed,
-                 int vert_ind,
-                 LandmarkModel &lm,
-                 float time);
-#endif
+#endif // #ifndef INPUT_DATA_H

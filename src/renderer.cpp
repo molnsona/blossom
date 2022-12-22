@@ -20,16 +20,7 @@ Renderer::init()
 }
 
 void
-Renderer::update(State &state, View &view, const CallbackValues &callbacks)
-{
-    process_keyboard(state, view, callbacks);
-    process_mouse(state, view, callbacks);
-
-    render(state, view);
-}
-
-void
-Renderer::render(State &state, View &view)
+Renderer::render(const State &state, const View &view)
 {
     glClearColor(1.0f, 1.0f, 1.0f, 1.0f);
     glClear(GL_COLOR_BUFFER_BIT);
@@ -39,84 +30,107 @@ Renderer::render(State &state, View &view)
 }
 
 void
-Renderer::process_mouse(State &state,
-                        const View &view,
-                        const CallbackValues &cb)
+Renderer::check_pressed_vertex(const View &view, glm::vec2 mouse_pos)
 {
-    switch (cb.button) {
-        case GLFW_MOUSE_BUTTON_LEFT:
-            switch (cb.mouse_action) {
-                case GLFW_PRESS:
-                    if (!state.mouse.vert_pressed) {
-                        glm::vec2 screen_mouse =
-                          view.screen_mouse_coords(glm::vec2(cb.xpos, cb.ypos));
-                        if (graph_renderer.is_vert_pressed(
-                              view, screen_mouse, state.mouse.vert_ind)) {
-                            state.mouse.vert_pressed = true;
-                        }
-                    }
-
-                    if (state.keyboard.ctrl_pressed)
-                        // Copy pressed landmark
-                        if (state.mouse.vert_pressed)
-                            state.landmarks.duplicate(state.mouse.vert_ind);
-                        // Add landmark
-                        else
-                            state.landmarks.add(view.model_mouse_coords(
-                              glm::vec2(cb.xpos, cb.ypos)));
-                    break;
-                case GLFW_RELEASE:
-                    state.mouse.vert_pressed = false;
-                    break;
-                default:
-                    break;
-            }
-            break;
-        case GLFW_MOUSE_BUTTON_RIGHT:
-            switch (cb.mouse_action) {
-                case GLFW_PRESS:
-                    if (!state.mouse.vert_pressed) {
-                        glm::vec2 screen_mouse =
-                          view.screen_mouse_coords(glm::vec2(cb.xpos, cb.ypos));
-                        if (graph_renderer.is_vert_pressed(
-                              view, screen_mouse, state.mouse.vert_ind)) {
-                            state.mouse.vert_pressed = true;
-                        }
-                    }
-                    // Remove landmark
-                    if (state.keyboard.ctrl_pressed && state.mouse.vert_pressed)
-                        state.landmarks.remove(state.mouse.vert_ind);
-                case GLFW_RELEASE:
-                    state.mouse.vert_pressed = false;
-                    break;
-                default:
-                    break;
-            }
-
-        default:
-            break;
-    }
-
-    if (state.mouse.vert_pressed) {
-        if (!state.keyboard.ctrl_pressed) { // Move landmark
-            glm::vec2 model_mouse =
-              view.model_mouse_coords(glm::vec2(cb.xpos, cb.ypos));
-
-            state.landmarks.move(state.mouse.vert_ind, model_mouse);
+    if (!graph_renderer.vert_pressed) {
+        glm::vec2 screen_mouse = view.screen_mouse_coords(mouse_pos);
+        if (graph_renderer.is_vert_pressed(view, screen_mouse)) {
+            graph_renderer.vert_pressed = true;
         }
     }
 }
 
 void
-Renderer::process_keyboard(State &state,
-                           const View &view,
-                           const CallbackValues &cb)
+Renderer::reset_pressed_vert()
 {
-    if (cb.key == GLFW_KEY_LEFT_CONTROL &&
-        (cb.key_action == GLFW_PRESS || cb.key_action == GLFW_REPEAT)) {
-        state.keyboard.ctrl_pressed = true;
-    } else if (cb.key == GLFW_KEY_LEFT_CONTROL &&
-               cb.key_action == GLFW_RELEASE) {
-        state.keyboard.ctrl_pressed = false;
-    }
+    graph_renderer.vert_pressed = false;
+}
+
+bool
+Renderer::get_vert_pressed()
+{
+    return graph_renderer.vert_pressed;
+}
+
+int
+Renderer::get_vert_ind()
+{
+    return graph_renderer.vert_ind;
+}
+
+void
+Renderer::add_vert(State &state, View &view, glm::vec2 mouse_pos)
+{
+    // Copy pressed landmark
+    if (graph_renderer.vert_pressed)
+        state.landmarks.duplicate(graph_renderer.vert_ind);
+    // Add new landmark to cursor position
+    else
+        state.landmarks.add(view.model_mouse_coords(mouse_pos));
+}
+
+void
+Renderer::remove_vert(State &state)
+{
+    if (graph_renderer.vert_pressed)
+        // Remove landmark
+        state.landmarks.remove(graph_renderer.vert_ind);
+}
+
+void
+Renderer::move_vert(State &state, View &view, glm::vec2 mouse_pos)
+{
+    // Move landmark
+    glm::vec2 model_mouse = view.model_mouse_coords(mouse_pos);
+
+    state.landmarks.move(graph_renderer.vert_ind, model_mouse);
+}
+
+void
+Renderer::start_multiselect(glm::vec2 mouse_pos)
+{
+    graph_renderer.set_rect_start_point(mouse_pos);
+}
+
+bool
+Renderer::is_active_multiselect()
+{
+    return graph_renderer.update_rect_pos;
+}
+
+bool
+Renderer::is_passive_multiselect()
+{
+    return graph_renderer.draw_rect && !graph_renderer.update_rect_pos;
+}
+
+void
+Renderer::update_multiselect(glm::vec2 mouse_pos)
+{
+    graph_renderer.set_rect_end_point(mouse_pos);
+}
+
+void
+Renderer::reset_multiselect()
+{
+    graph_renderer.update_rect_pos = false;
+    graph_renderer.rect_pressed = false;
+}
+
+void
+Renderer::stop_multiselect()
+{
+    graph_renderer.draw_rect = graph_renderer.update_rect_pos = false;
+}
+
+bool
+Renderer::check_pressed_rect(glm::vec2 mouse_pos)
+{
+    return graph_renderer.is_rect_pressed(mouse_pos);
+}
+
+void
+Renderer::move_selection(glm::vec2 mouse_pos, LandmarkModel &landmarks)
+{
+    graph_renderer.move_selection(mouse_pos, landmarks);
 }

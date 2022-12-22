@@ -23,7 +23,8 @@
 
 void
 graph_layout_step(GraphLayoutData &data,
-                  const MouseData &mouse,
+                  bool vert_pressed,
+                  int vert_ind,
                   LandmarkModel &lm,
                   float time)
 {
@@ -64,7 +65,7 @@ graph_layout_step(GraphLayoutData &data,
     // update velocities and positions
     auto slowdown = pow(0.1f, time);
     for (size_t i = 0; i < vertices.size(); ++i) {
-        if (mouse.vert_pressed && mouse.vert_ind == i)
+        if (vert_pressed && vert_ind == i)
             continue;
 
         data.velocities[i] += data.forces[i] * time;

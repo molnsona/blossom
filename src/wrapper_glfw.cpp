@@ -1,13 +1,14 @@
 #include "wrapper_glfw.h"
 
 #include "imgui.h"
+#include <glm/glm.hpp>
 
 #include <iostream>
 
 GlfwWrapper::GlfwWrapper() {}
 
 bool
-GlfwWrapper::init(const std::string &window_name)
+GlfwWrapper::init(const std::string &window_name, InputData &input)
 {
     glfwSetErrorCallback(error_callback);
 
@@ -38,7 +39,7 @@ GlfwWrapper::init(const std::string &window_name)
 
     // Set the user pointer tied to the window used for
     // storing values in callbacks.
-    glfwSetWindowUserPointer(window, (void *)this);
+    glfwSetWindowUserPointer(window, (void *)&input);
 
     return true;
 }
@@ -52,8 +53,6 @@ GlfwWrapper::window_should_close()
 void
 GlfwWrapper::end_frame()
 {
-    callbacks.reset();
-
     glfwSwapBuffers(window);
     // Calls registered callbacks if any events were triggered
     glfwPollEvents();
@@ -77,9 +76,9 @@ GlfwWrapper::framebuffer_size_callback(GLFWwindow *window,
                                        int width,
                                        int height)
 {
-    GlfwWrapper *glfw_inst = (GlfwWrapper *)glfwGetWindowUserPointer(window);
-    glfw_inst->callbacks.fb_width = width;
-    glfw_inst->callbacks.fb_height = height;
+    InputData *input_inst = (InputData *)glfwGetWindowUserPointer(window);
+    input_inst->fb_width = width;
+    input_inst->fb_height = height;
     glViewport(0, 0, width, height);
 }
 
@@ -95,9 +94,9 @@ GlfwWrapper::key_callback(GLFWwindow *window,
     if (io.WantCaptureKeyboard)
         return;
 
-    GlfwWrapper *glfw_inst = (GlfwWrapper *)glfwGetWindowUserPointer(window);
-    glfw_inst->callbacks.key = key;
-    glfw_inst->callbacks.key_action = action;
+    InputData *input_inst = (InputData *)glfwGetWindowUserPointer(window);
+    input_inst->keyboard.key = key;
+    input_inst->keyboard.action = action;
 }
 
 void
@@ -108,9 +107,9 @@ GlfwWrapper::scroll_callback(GLFWwindow *window, double xoffset, double yoffset)
     if (io.WantCaptureMouse)
         return;
 
-    GlfwWrapper *glfw_inst = (GlfwWrapper *)glfwGetWindowUserPointer(window);
-    glfw_inst->callbacks.xoffset = xoffset;
-    glfw_inst->callbacks.yoffset = yoffset;
+    InputData *input_inst = (InputData *)glfwGetWindowUserPointer(window);
+    input_inst->mouse.xoffset = xoffset;
+    input_inst->mouse.yoffset = yoffset;
 }
 
 void
@@ -124,13 +123,12 @@ GlfwWrapper::mouse_button_callback(GLFWwindow *window,
     if (io.WantCaptureMouse)
         return;
 
-    GlfwWrapper *glfw_inst = (GlfwWrapper *)glfwGetWindowUserPointer(window);
+    InputData *input_inst = (InputData *)glfwGetWindowUserPointer(window);
     double xpos, ypos;
     glfwGetCursorPos(window, &xpos, &ypos);
-    glfw_inst->callbacks.xpos = xpos;
-    glfw_inst->callbacks.ypos = ypos;
-    glfw_inst->callbacks.button = button;
-    glfw_inst->callbacks.mouse_action = action;
+    input_inst->mouse.pos = glm::vec2(xpos, ypos);
+    input_inst->mouse.button = button;
+    input_inst->mouse.action = action;
 }
 
 void
@@ -138,7 +136,6 @@ GlfwWrapper::cursor_position_callback(GLFWwindow *window,
                                       double xpos,
                                       double ypos)
 {
-    GlfwWrapper *glfw_inst = (GlfwWrapper *)glfwGetWindowUserPointer(window);
-    glfw_inst->callbacks.xpos = xpos;
-    glfw_inst->callbacks.ypos = ypos;
+    InputData *input_inst = (InputData *)glfwGetWindowUserPointer(window);
+    input_inst->mouse.pos = glm::vec2(xpos, ypos);
 }

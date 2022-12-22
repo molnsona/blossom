@@ -33,19 +33,6 @@ class Renderer
 public:
     Renderer();
     bool init();
-    /**
-     * @brief Process input events and render graph and scatterplot with updated
-     * values.
-     *
-     * @param state
-     * @param view
-     * @param callbacks
-     */
-    void update(State &state, View &view, const CallbackValues &callbacks);
-
-private:
-    ScatterRenderer scatter_renderer;
-    GraphRenderer graph_renderer;
 
     /**
      * @brief Render graph and scatterplot.
@@ -53,28 +40,46 @@ private:
      * @param state
      * @param view
      */
-    void render(State &state, View &view);
+    void render(const State &state, const View &view);
 
     /**
-     * @brief Process mouse input and moves the landmarks.
+     * @brief Check whether the vertex was pressed and set flags.
      *
-     * @param state
      * @param view
-     * @param callbacks
+     * @param mouse
+     * @param vert_ind
+     * @return true
+     * @return false
      */
-    void process_mouse(State &state,
-                       const View &view,
-                       const CallbackValues &callbacks);
-    /**
-     * @brief Process keyboard input.
-     *
-     * @param state
-     * @param view
-     * @param callbacks
-     */
-    void process_keyboard(State &state,
-                          const View &view,
-                          const CallbackValues &callbacks);
+    void check_pressed_vertex(const View &view, glm::vec2 mouse_pos);
+
+    void reset_pressed_vert();
+
+    bool get_vert_pressed();
+    int get_vert_ind();
+
+    void add_vert(State &state, View &view, glm::vec2 mouse_pos);
+    void remove_vert(State &state);
+    void move_vert(State &state, View &view, glm::vec2 mouse_pos);
+
+    void start_multiselect(glm::vec2 mouse_pos);
+
+    bool is_active_multiselect();
+    bool is_passive_multiselect();
+
+    void update_multiselect(glm::vec2 mouse_pos);
+
+    void reset_multiselect();
+    void stop_multiselect();
+
+    bool check_pressed_rect(glm::vec2 mouse_pos);
+    bool get_rect_pressed() { return graph_renderer.rect_pressed; }
+
+    void move_selection(glm::vec2 mouse_pos, LandmarkModel &landmarks);
+
+private:
+    ScatterRenderer scatter_renderer;
+    GraphRenderer graph_renderer;
 };
 
 #endif // RENDERER_H

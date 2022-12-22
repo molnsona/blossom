@@ -44,10 +44,10 @@ public:
     /**
      * @brief Render UI.
      *
-     * @param callbacks
+     * @param input
      * @param state
      */
-    void render(CallbackValues callbacks, State &state);
+    void render(int w, int h, State &state);
 
     void destroy();
 
