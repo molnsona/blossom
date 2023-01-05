@@ -33,8 +33,13 @@ State::update(float actual_time, bool vert_pressed, int vert_ind)
         time = 0.05;
 
     stats.update(data);
-    trans.update(data, stats);
-    scaled.update(trans);
+    trans.update(data, stats, frame_stats);
+    scaled.update(trans, frame_stats);
+
+    if(scaled.dim() > 0)
+        if(frame_stats.frame_times.size() < 50)
+            frame_stats.frame_times.emplace_back(time);    
+
 
     // TODO only run this on data reset, ideally from trans or from a common
     // trigger
@@ -72,6 +77,7 @@ State::update(float actual_time, bool vert_pressed, int vert_ind)
                           training_conf.sigma,
                           landmarks);
 
-    colors.update(trans);
-    scatter.update(scaled, landmarks, training_conf);
+    colors.update(trans, frame_stats);
+    scatter.update(scaled, landmarks, training_conf, frame_stats);
+
 }

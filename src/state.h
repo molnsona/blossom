@@ -27,6 +27,7 @@
 
 #include "color_data.h"
 #include "data_model.h"
+#include "frame_stats.h"
 #include "graph_layout.h"
 #include "kmeans_landmark.h"
 #include "knn_edges.h"
@@ -61,6 +62,8 @@ struct State
 
     ColorData colors;
     ScatterModel scatter;
+
+    FrameStats frame_stats;
 
     /**
      * @brief Performs simulation steps of all active algorithms and updates

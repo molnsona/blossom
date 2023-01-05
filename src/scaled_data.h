@@ -20,6 +20,8 @@
 #ifndef SCALED_DATA_H
 #define SCALED_DATA_H
 
+#include "frame_stats.h"
+#include "normal_gen.h"
 #include "trans_data.h"
 #include <vector>
 
@@ -54,6 +56,17 @@ struct ScaledData
     /** Separate configurations for each dimension. */
     std::vector<ScaleConfig> config;
 
+    NormalGen gen;
+
+    ScaledData() :
+#ifndef ENABLE_CUDA
+      gen(7500, 2500) // 5k -- 10k
+#else
+      gen(37500, 12500) // 25k -- 50k
+#endif
+    {}
+
+
     /**
      * @brief Returns dimension of the scaled data.
      *
@@ -73,7 +86,7 @@ struct ScaledData
      *
      * @param td Transformed data received from the data flow pipeline.
      */
-    void update(const TransData &td);
+    void update(const TransData &td, FrameStats& frame_stats);
     /**
      * @brief Resets configurations to their initial values.
      *

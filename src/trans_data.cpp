@@ -50,7 +50,7 @@ RawDataStats::update(const DataModel &dm)
 }
 
 void
-TransData::update(const DataModel &dm, const RawDataStats &s)
+TransData::update(const DataModel &dm, const RawDataStats &s, FrameStats& frame_stats)
 {
     if (dirty(dm)) {
         config.resize(dm.d);
@@ -70,13 +70,11 @@ TransData::update(const DataModel &dm, const RawDataStats &s)
         stat_watch.clean(s);
     }
 
-    const size_t max_points =
-#ifndef ENABLE_CUDA
-      10000
-#else
-      50000
-#endif
-      ;
+    float next = gen.next();
+    const size_t max_points = (next < 0) ? 0 : next;
+    if(dm.d > 0)
+        if(frame_stats.trans_items.size() < 50)
+            frame_stats.trans_items.emplace_back(max_points);
 
     // make sure we're the right size
     auto [ri, rn] = dirty_range(dm);

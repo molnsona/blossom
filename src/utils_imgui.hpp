@@ -19,7 +19,11 @@
 #ifndef UTILS_IMGUI_HPP
 #define UTILS_IMGUI_HPP
 
+#include "frame_stats.h"
+
 #include <imgui.h>
+#include <string>
+#include <vector>
 
 /**
  * @brief ImGUI wrapper for setting tooltip.
@@ -60,6 +64,32 @@ reset_button()
     bool res = ImGui::Button("Reset data");
     ImGui::Unindent(width);
     return res;
+}
+
+static void make_window(const char* name, const std::vector<float>& dts, 
+const std::vector<size_t>& data)
+{
+    bool open = true;
+    ImGui::Begin(name, &open);
+    for (size_t i = 0; i < 50; ++i)
+    {
+        auto di = data.size() <= i ? 0 : data[i];
+        auto dti = dts.size() <= i ? 0 : dts[i];
+
+        float items_per_sec = dti == 0 ? 0 : di / dti;
+        ImGui::Text("%zu points per one frame (%.2f ms) = %.2f points per 1 ms.", di, dti * 1000, items_per_sec / 1000);        
+    }
+    ImGui::End();}
+
+static void debug_window(FrameStats& stats)
+{
+    const std::vector<float>& dts = stats.frame_times;
+    std::vector<size_t>& data_trans = stats.trans_items;
+                
+    make_window("trans debug", dts, stats.trans_items);
+    make_window("scatter debug", dts, stats.scatter_items);
+    make_window("scaled debug", dts, stats.scaled_items);
+    make_window("color debug", dts, stats.color_items);
 }
 
 #endif // #ifndef UTILS_IMGUI_HPP

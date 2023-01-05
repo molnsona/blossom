@@ -6,6 +6,12 @@
 
 #include "vendor/IconsFontAwesome5.h"
 
+#define DEBUG
+#ifdef DEBUG
+#include "utils_imgui.hpp"
+#include <iostream>
+#endif
+
 bool
 ImGuiWrapper::init(GLFWwindow *window)
 {
@@ -40,6 +46,11 @@ ImGuiWrapper::render(int w, int h, State &state)
     ImGui::NewFrame();
 
     menu.render(w, h, state);
+
+#ifdef DEBUG
+    debug_window(state.frame_stats);
+#endif
+ 
 
     ImGui::Render();
     ImGui_ImplOpenGL3_RenderDrawData(ImGui::GetDrawData());

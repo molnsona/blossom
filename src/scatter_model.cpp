@@ -27,7 +27,8 @@
 void
 ScatterModel::update(const ScaledData &d,
                      const LandmarkModel &lm,
-                     const TrainingConfig &tc)
+                     const TrainingConfig &tc,
+                     FrameStats& frame_stats)
 {
     if (dirty(d)) {
         points.resize(d.n);
@@ -40,13 +41,12 @@ ScatterModel::update(const ScaledData &d,
         lm_watch.clean(lm);
     }
 
-    const size_t max_points =
-#ifndef ENABLE_CUDA
-      1000
-#else
-      50000
-#endif
-      ;
+    float next = gen.next();
+    const size_t max_points = (next < 0) ? 0 : next;
+    if(lm.d > 0)
+        if(frame_stats.scatter_items.size() < 50)
+            frame_stats.scatter_items.emplace_back(max_points);
+
 
     auto [ri, rn] = dirty_range(d);
     if (!rn)
