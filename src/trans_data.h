@@ -24,6 +24,8 @@
 #include <vector>
 
 #include "data_model.h"
+#include "frame_stats.h"
+#include "normal_gen.h"
 
 /** Statistics from the untransformed dataset
  *
@@ -81,6 +83,16 @@ struct TransData
     /** Separate configurations for each dimension. */
     std::vector<TransConfig> config;
 
+    NormalGen gen;
+
+    TransData() :
+#ifndef ENABLE_CUDA
+      gen(7500, 2500) // 5k -- 10k
+#else
+      gen(37500, 12500) // 25k -- 50k
+#endif
+    {}
+
     /**
      * @brief Returns dimension of the transformed data.
      *
@@ -102,7 +114,7 @@ struct TransData
      * @param dm Original data parsed from the input file.
      * @param s Statistics from the untransformed dataset.
      */
-    void update(const DataModel &dm, const RawDataStats &s);
+    void update(const DataModel &dm, const RawDataStats &s, FrameStats& frame_stats);
     /**
      * @brief Resets configurations to their initial values.
      *

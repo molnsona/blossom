@@ -22,7 +22,7 @@
 #include <cmath>
 
 void
-ScaledData::update(const TransData &td)
+ScaledData::update(const TransData &td, FrameStats& frame_stats)
 {
     if (dirty(td) && (td.dim() != dim() || td.n != n)) {
         n = td.n;
@@ -32,13 +32,11 @@ ScaledData::update(const TransData &td)
         clean(td);
     }
 
-    const size_t max_points =
-#ifndef ENABLE_CUDA
-      10000
-#else
-      50000
-#endif
-      ;
+    float next = gen.next();
+    const size_t max_points = (next < 0) ? 0 : next;
+    if(td.dim() > 0)
+        if(frame_stats.scaled_items.size() < 50)
+            frame_stats.scaled_items.emplace_back(max_points);
 
     auto [ri, rn] = dirty_range(td);
     if (!rn)
