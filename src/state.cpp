@@ -33,20 +33,25 @@ State::update(float actual_time, bool vert_pressed, int vert_ind)
         time = 0.05;
 
     stats.update(data);
+#ifdef DEBUG
     frame_stats.timer.tick();
+#endif
     trans.update(data, stats, frame_stats);
+#ifdef DEBUG    
     frame_stats.timer.tick();
     if(trans.dim() > 0)
         if(frame_stats.trans_times.size() < 50)
             frame_stats.trans_times.emplace_back(frame_stats.timer.frametime);    
 
     frame_stats.timer.tick();
+#endif
     scaled.update(trans, frame_stats);
+#ifdef DEBUG
     frame_stats.timer.tick();
     if(scaled.dim() > 0)
         if(frame_stats.scaled_times.size() < 50)
             frame_stats.scaled_times.emplace_back(frame_stats.timer.frametime);    
-
+#endif
 
     // TODO only run this on data reset, ideally from trans or from a common
     // trigger
@@ -83,18 +88,23 @@ State::update(float actual_time, bool vert_pressed, int vert_ind)
                           training_conf.som_alpha,
                           training_conf.sigma,
                           landmarks);
+#ifdef DEBUG                        
     frame_stats.timer.tick();
+#endif
     colors.update(trans, frame_stats);
+#ifdef DEBUG
     frame_stats.timer.tick();
     if(scaled.dim() > 0)
         if(frame_stats.color_times.size() < 50)
             frame_stats.color_times.emplace_back(frame_stats.timer.frametime);    
 
     frame_stats.timer.tick();
+#endif
     scatter.update(scaled, landmarks, training_conf, frame_stats);
+#ifdef DEBUG
     frame_stats.timer.tick();
     if(scaled.dim() > 0)
         if(frame_stats.scatter_times.size() < 50)
             frame_stats.scatter_times.emplace_back(frame_stats.timer.frametime);    
-
+#endif
 }
