@@ -69,8 +69,7 @@ reset_button()
 static void make_window(const char* name, const std::vector<float>& dts, 
 const std::vector<size_t>& data)
 {
-    std::string inputdi = "";
-    std::string inputdti = "";
+    std::string input = "items,time ";
 
     bool open = true;
     ImGui::Begin(name, &open);
@@ -80,22 +79,17 @@ const std::vector<size_t>& data)
         auto dti = dts.size() <= i ? 0 : dts[i];
 
         float items_per_sec = dti == 0 ? 0 : di / dti;
-        //ImGui::TextWrapped("%zu, ", di);  
-        inputdi.append(std::to_string(di));
-        inputdi.append(", "); 
+        input.append(std::to_string(di));
+        input.append(","); 
 
-        inputdti.append(std::to_string(dti*1000));
-        inputdti.append(", ");  
-        //ImGui::Text("%zu points per one frame (%.2f ms) = %.2f points per 1 ms.", di, dti * 1000, items_per_sec / 1000);        
+        input.append(std::to_string(dti*1000));
+        input.append(" ");  
     }
     char inputText[4096];
-    strcpy(inputText, inputdi.c_str());
-    ImGui::InputText("##namedi", inputText, 4096, ImGuiInputTextFlags_ReadOnly);
-    strcpy(inputText, inputdti.c_str());
-    ImGui::InputText("##namedti", inputText, 4096, ImGuiInputTextFlags_ReadOnly);
+    strcpy(inputText, input.c_str());
+    ImGui::InputText("##nameinput", inputText, 4096, ImGuiInputTextFlags_ReadOnly);
 
     ImGui::End();
-
 }
 
 static void debug_window(FrameStats& stats)
