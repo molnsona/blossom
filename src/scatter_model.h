@@ -53,7 +53,7 @@ struct ScatterModel : public Sweeper
 
     ScatterModel() :
 #ifndef ENABLE_CUDA
-      gen(750, 250) // 500 -- 1000
+      gen(7500, 2500) // 5k -- 10k
 #else
       gen(37500, 12500) // 25k -- 50k
 #endif
