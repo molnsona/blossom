@@ -22,13 +22,20 @@
 #include <cstddef>
 #include <vector>
 
+#include "timer.h"
+
 struct FrameStats {
     std::vector<size_t> trans_items;
     std::vector<size_t> scatter_items;
     std::vector<size_t> scaled_items;
     std::vector<size_t> color_items;
 
-    std::vector<float> frame_times;
+    std::vector<float> trans_times;
+    std::vector<float> scatter_times;
+    std::vector<float> scaled_times;
+    std::vector<float> color_times;
+
+    Timer timer;
 };
 
 #endif // FRAME_STATS_H

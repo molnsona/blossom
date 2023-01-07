@@ -69,6 +69,9 @@ reset_button()
 static void make_window(const char* name, const std::vector<float>& dts, 
 const std::vector<size_t>& data)
 {
+    std::string inputdi = "";
+    std::string inputdti = "";
+
     bool open = true;
     ImGui::Begin(name, &open);
     for (size_t i = 0; i < 50; ++i)
@@ -77,19 +80,30 @@ const std::vector<size_t>& data)
         auto dti = dts.size() <= i ? 0 : dts[i];
 
         float items_per_sec = dti == 0 ? 0 : di / dti;
-        ImGui::Text("%zu points per one frame (%.2f ms) = %.2f points per 1 ms.", di, dti * 1000, items_per_sec / 1000);        
+        //ImGui::TextWrapped("%zu, ", di);  
+        inputdi.append(std::to_string(di));
+        inputdi.append(", "); 
+
+        inputdti.append(std::to_string(dti*1000));
+        inputdti.append(", ");  
+        //ImGui::Text("%zu points per one frame (%.2f ms) = %.2f points per 1 ms.", di, dti * 1000, items_per_sec / 1000);        
     }
-    ImGui::End();}
+    char inputText[4096];
+    strcpy(inputText, inputdi.c_str());
+    ImGui::InputText("##namedi", inputText, 4096, ImGuiInputTextFlags_ReadOnly);
+    strcpy(inputText, inputdti.c_str());
+    ImGui::InputText("##namedti", inputText, 4096, ImGuiInputTextFlags_ReadOnly);
+
+    ImGui::End();
+
+}
 
 static void debug_window(FrameStats& stats)
 {
-    const std::vector<float>& dts = stats.frame_times;
-    std::vector<size_t>& data_trans = stats.trans_items;
-                
-    make_window("trans debug", dts, stats.trans_items);
-    make_window("scatter debug", dts, stats.scatter_items);
-    make_window("scaled debug", dts, stats.scaled_items);
-    make_window("color debug", dts, stats.color_items);
+    make_window("trans debug", stats.trans_times, stats.trans_items);
+    make_window("scatter debug", stats.scatter_times, stats.scatter_items);
+    make_window("scaled debug", stats.scaled_times, stats.scaled_items);
+    make_window("color debug", stats.color_times, stats.color_items);
 }
 
 #endif // #ifndef UTILS_IMGUI_HPP
