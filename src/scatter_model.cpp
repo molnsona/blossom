@@ -44,8 +44,9 @@ ScatterModel::update(const ScaledData &d,
     float next = gen.next();
     const size_t max_points = (next < 0) ? 0 : next;
     if(lm.d > 0)
-        if(frame_stats.scatter_items.size() < 50)
-            frame_stats.scatter_items.emplace_back(max_points);
+        frame_stats.scatter_n = batch_size.next(
+            frame_stats.scatter_n, frame_stats.scatter_t
+        );
 
 
     auto [ri, rn] = dirty_range(d);

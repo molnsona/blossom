@@ -1,4 +1,5 @@
 set(BLOSSOM_SOURCES
+    batch_size_gen.cpp
     color_data.cpp
     embedsom.cpp
     fcs_parser.cpp

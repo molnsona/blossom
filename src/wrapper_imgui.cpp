@@ -6,7 +6,7 @@
 
 #include "vendor/IconsFontAwesome5.h"
 
-//#define DEBUG
+#define DEBUG
 #ifdef DEBUG
 #include "utils_imgui.hpp"
 #include <iostream>

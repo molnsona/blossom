@@ -92,12 +92,30 @@ const std::vector<size_t>& data)
     ImGui::End();
 }
 
+static void make_window2(const char* name, float t, size_t n)
+{
+    std::string input = "N,T \n";
+
+    bool open = true;
+    ImGui::Begin(name, &open);
+    input.append(std::to_string(n));
+    input.append(",");
+    input.append(std::to_string(t));
+    input.append("\n");
+
+    char inputText[4096];
+    strcpy(inputText, input.c_str());
+    ImGui::InputText("##nameinput", inputText, 4096, ImGuiInputTextFlags_ReadOnly);
+
+    ImGui::End();
+}
+
 static void debug_window(FrameStats& stats)
 {
-    make_window("trans debug", stats.trans_times, stats.trans_items);
-    make_window("scatter debug", stats.scatter_times, stats.scatter_items);
-    make_window("scaled debug", stats.scaled_times, stats.scaled_items);
-    make_window("color debug", stats.color_times, stats.color_items);
+    //make_window("trans debug", stats.trans_times, stats.trans_items);
+    make_window2("scatter debug", stats.scatter_t, stats.scatter_n);
+    //make_window("scaled debug", stats.scaled_times, stats.scaled_items);
+    //make_window("color debug", stats.color_times, stats.color_items);
 }
 
 #endif // #ifndef UTILS_IMGUI_HPP
