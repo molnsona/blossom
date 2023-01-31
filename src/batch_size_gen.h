@@ -16,26 +16,30 @@
  * BlosSOM. If not, see <https://www.gnu.org/licenses/>.
  */
 
-#ifndef FRAME_STATS_H
-#define FRAME_STATS_H
+#ifndef BATCH_SIZE_GEN_H
+#define BATCH_SIZE_GEN_H
 
 #include <cstddef>
-#include <vector>
 
-#include "timer.h"
+/**
+ * @brief Generator of the size of the next point batch. It implements MLEM algorithm described
+ * in the thesis text.
+ * 
+ */
+class BatchSizeGen {
+public:
+    BatchSizeGen();
 
-struct FrameStats {
-    std::vector<size_t> trans_items;
-    size_t scatter_n;
-    std::vector<size_t> scaled_items;
-    std::vector<size_t> color_items;
-
-    std::vector<float> trans_times;
-    float scatter_t;
-    std::vector<float> scaled_times;
-    std::vector<float> color_times;
-
-    Timer timer;
+    size_t next(size_t N, float T);
+private:
+    float a = 0.00001;
+    float b = 0.00001;
+    float c = 0.00001;
+    float d = 0.00001;
+    float e = 0.00001;
+    float f = 0.00001;
+    float alpha = 0.05;
+    float coalpha = 1 - alpha;
 };
 
-#endif // FRAME_STATS_H
+#endif // #ifndef BATCH_SIZE_GEN_H

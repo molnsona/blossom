@@ -24,6 +24,7 @@
 
 #include <vector>
 
+#include "batch_size_gen.h"
 #include "dirty.h"
 #include "landmark_model.h"
 #include "normal_gen.h"
@@ -50,6 +51,7 @@ struct ScatterModel : public Sweeper
     Cleaner lm_watch;
 
     NormalGen gen;
+    BatchSizeGen batch_size;
 
     ScatterModel() :
 #ifndef ENABLE_CUDA
