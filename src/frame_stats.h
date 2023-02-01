@@ -24,8 +24,9 @@
 
 #include "timer.h"
 
-struct FrameStats {
-    std::vector<size_t> trans_items;    
+struct FrameStats
+{
+    std::vector<size_t> trans_items;
     // TODO: remove these Ns, they are only
     // for debug output
     size_t scatter_n;

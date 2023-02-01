@@ -22,15 +22,17 @@
 #include <cstddef>
 
 /**
- * @brief Generator of the size of the next point batch. It implements MLEM algorithm described
- * in the thesis text.
- * 
+ * @brief Generator of the size of the next point batch. It implements MLEM
+ * algorithm described in the thesis text.
+ *
  */
-class BatchSizeGen {
+class BatchSizeGen
+{
 public:
     BatchSizeGen();
 
     size_t next(float T);
+
 private:
     float a;
     float b;

@@ -28,7 +28,7 @@ void
 ScatterModel::update(const ScaledData &d,
                      const LandmarkModel &lm,
                      const TrainingConfig &tc,
-                     FrameStats& frame_stats)
+                     FrameStats &frame_stats)
 {
     if (dirty(d)) {
         points.resize(d.n);
@@ -43,7 +43,7 @@ ScatterModel::update(const ScaledData &d,
 
     float next = gen.next();
     size_t max_points = (next < 0) ? 0 : next;
-    if(lm.d > 0){
+    if (lm.d > 0) {
         frame_stats.scatter_n = batch_size.next(frame_stats.scatter_t);
         max_points = frame_stats.scatter_n;
     }

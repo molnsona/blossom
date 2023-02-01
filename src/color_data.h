@@ -72,13 +72,16 @@ struct ColorData : public Sweeper
      * @brief Calls @ref reset() method to set initial values.
      *
      */
-    ColorData() :
+    ColorData()
+      :
 #ifndef ENABLE_CUDA
       gen(750, 250) // 500 -- 1000
 #else
       gen(37500, 12500) // 25k -- 50k
 #endif
-     { reset(); }
+    {
+        reset();
+    }
 
     /**
      * @brief Recomputes color of the 2D data points if user has changed any of
@@ -86,13 +89,16 @@ struct ColorData : public Sweeper
      *
      * @param td Transformed data received from the data flow pipeline.
      */
-    void update(const TransData &td, FrameStats& frame_stats);
+    void update(const TransData &td, FrameStats &frame_stats);
     /**
      * @brief Notifies @ref Sweeper that the color settings has been modified
      * and that the data has to be recomputed.
      *
      */
-    void touch_config() { refresh(data.size()); }
+    void touch_config()
+    {
+        refresh(data.size());
+    }
     /**
      * @brief Resets color settings to their initial values.
      *

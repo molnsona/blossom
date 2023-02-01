@@ -96,7 +96,7 @@ create_col_palette(
 }
 
 void
-ColorData::update(const TransData &td, FrameStats& frame_stats)
+ColorData::update(const TransData &td, FrameStats &frame_stats)
 {
     if (td.n != data.size()) {
         data.resize(td.n, glm::vec4(0, 0, 0, 0));
@@ -105,8 +105,8 @@ ColorData::update(const TransData &td, FrameStats& frame_stats)
 
     float next = gen.next();
     const size_t max_points = (next < 0) ? 0 : next;
-    if(td.dim() > 0)
-        if(frame_stats.color_items.size() < 50)
+    if (td.dim() > 0)
+        if (frame_stats.color_items.size() < 50)
             frame_stats.color_items.emplace_back(max_points);
 
     auto [ri, rn] = dirty_range(td);
