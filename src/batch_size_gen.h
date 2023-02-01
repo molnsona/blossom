@@ -30,16 +30,17 @@ class BatchSizeGen {
 public:
     BatchSizeGen();
 
-    size_t next(size_t N, float T);
+    size_t next(float T);
 private:
-    float a = 0.00001;
-    float b = 0.00001;
-    float c = 0.00001;
-    float d = 0.00001;
-    float e = 0.00001;
-    float f = 0.00001;
-    float alpha = 0.05;
-    float coalpha = 1 - alpha;
+    float a;
+    float b;
+    float c;
+    float d;
+    float e;
+    float f;
+    float alpha;
+    float coalpha;
+    size_t N;
 };
 
 #endif // #ifndef BATCH_SIZE_GEN_H

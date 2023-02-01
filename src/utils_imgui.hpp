@@ -94,14 +94,14 @@ const std::vector<size_t>& data)
 
 static void make_window2(const char* name, float t, size_t n)
 {
-    std::string input = "N,T \n";
+    std::string input = "N,T ";
 
     bool open = true;
     ImGui::Begin(name, &open);
     input.append(std::to_string(n));
     input.append(",");
     input.append(std::to_string(t));
-    input.append("\n");
+    input.append(" ");
 
     char inputText[4096];
     strcpy(inputText, input.c_str());

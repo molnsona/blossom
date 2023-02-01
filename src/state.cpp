@@ -55,11 +55,11 @@ State::update(float actual_time, bool vert_pressed, int vert_ind)
 
     // TODO only run this on data reset, ideally from trans or from a common
     // trigger
-#ifdef DEBUG // TODO remove
-    landmarks.update_dim(3);
-#else
+// #ifdef DEBUG // TODO remove
+//     landmarks.update_dim(3);
+// #else
     landmarks.update_dim(scaled.dim());
-#endif
+// #endif
 
     if (training_conf.kmeans_landmark)
         kmeans_landmark_step(kmeans_data,
@@ -103,7 +103,8 @@ State::update(float actual_time, bool vert_pressed, int vert_ind)
     scatter.update(scaled, landmarks, training_conf, frame_stats);
 #ifdef DEBUG
     frame_stats.timer.tick();
-    if(scaled.dim() > 0)        
-        frame_stats.scatter_t = frame_stats.timer.frametime;    
+    if(scaled.dim() > 0)                
+        frame_stats.scatter_t = frame_stats.timer.frametime 
+            * 1000; // to get milliseconds    
 #endif
 }
