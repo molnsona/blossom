@@ -43,6 +43,7 @@ private:
     float alpha;
     float coalpha;
     size_t N;
+    float prevT;
 };
 
 #endif // #ifndef BATCH_SIZE_GEN_H

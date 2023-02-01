@@ -27,7 +27,6 @@
 #include "batch_size_gen.h"
 #include "dirty.h"
 #include "landmark_model.h"
-#include "normal_gen.h"
 #include "scaled_data.h"
 #include "training_config.h"
 
@@ -50,18 +49,7 @@ struct ScatterModel : public Sweeper
 
     Cleaner lm_watch;
 
-    NormalGen gen;
-    BatchSizeGen batch_size;
-
-    ScatterModel()
-      :
-#ifndef ENABLE_CUDA
-      gen(750, 250) // 500 -- 1000
-#else
-      gen(37500, 12500) // 25k -- 50k
-#endif
-    {
-    }
+    BatchSizeGen batch_size_gen;
 
     /**
      * @brief Recomputes the coordinates if any of the the parameters of the

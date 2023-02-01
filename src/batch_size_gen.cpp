@@ -35,12 +35,19 @@ BatchSizeGen::BatchSizeGen()
   , alpha(0.05)
   , coalpha(1 - alpha)
   , N(100)
+  , prevT(0.0f)
 {
 }
 
 size_t
 BatchSizeGen::next(float T)
 {
+    // Prevent increase of batch size to inifinity
+    // when SOM or kmeans is turned off or when no
+    // data set is loaded.
+    if (std::abs(prevT - T) < 0.0001)
+        return N;
+
     // Computation time of one point.
     float TN = T / N;
     // Normalized normal line to the line with slope (-T, T/N).
@@ -84,11 +91,12 @@ BatchSizeGen::next(float T)
 
     // We want the algorithm to last 10ms.
 #ifndef ENABLE_CUDA
-    float t = 7;
+    float t = 5;
 #else
     float t = 5;
 #endif
     float n = (t - x) / y;
     N = n < 0 ? 100 : n;
+    prevT = T;
     return N;
 }

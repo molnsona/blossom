@@ -97,14 +97,6 @@ State::update(float actual_time, bool vert_pressed, int vert_ind)
     if (scaled.dim() > 0)
         if (frame_stats.color_times.size() < 50)
             frame_stats.color_times.emplace_back(frame_stats.timer.frametime);
-
-    frame_stats.timer.tick();
 #endif
     scatter.update(scaled, landmarks, training_conf, frame_stats);
-#ifdef DEBUG
-    frame_stats.timer.tick();
-    if (scaled.dim() > 0)
-        frame_stats.scatter_t =
-          frame_stats.timer.frametime * 1000; // to get milliseconds
-#endif
 }
