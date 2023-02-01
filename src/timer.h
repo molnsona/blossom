@@ -29,7 +29,7 @@ struct Timer
 {
     using timepoint = std::chrono::time_point<std::chrono::steady_clock>;
 
-    /** Duration of the last frame. */
+    /** Duration of the last frame (in seconds). */
     float frametime;
     /** Time of the last tick. */
     timepoint last_tick;
