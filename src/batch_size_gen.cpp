@@ -40,7 +40,7 @@ BatchSizeGen::BatchSizeGen()
 }
 
 size_t
-BatchSizeGen::next(float T)
+BatchSizeGen::next(float T, float t)
 {
     // Prevent increase of batch size to inifinity
     // when SOM or kmeans is turned off or when no
@@ -89,12 +89,6 @@ BatchSizeGen::next(float T)
     std::cout << "y: " << y << std::endl;
 #endif
 
-    // We want the algorithm to last 5ms.
-#ifndef ENABLE_CUDA
-    float t = 5;
-#else
-    float t = 5;
-#endif
     float n = (t - x) / y;
     N = n < 0 ? 100 : n;
     prevT = T;

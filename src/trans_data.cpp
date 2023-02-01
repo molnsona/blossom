@@ -72,7 +72,8 @@ TransData::update(const DataModel &dm,
         stat_watch.clean(s);
     }
 
-    frame_stats.trans_n = batch_size_gen.next(frame_stats.trans_t);
+    frame_stats.trans_n =
+      batch_size_gen.next(frame_stats.trans_t, frame_stats.trans_duration);
     const size_t max_points = frame_stats.trans_n;
 
     // make sure we're the right size

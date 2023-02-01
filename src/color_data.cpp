@@ -103,7 +103,8 @@ ColorData::update(const TransData &td, FrameStats &frame_stats)
         refresh(td);
     }
 
-    frame_stats.color_n = batch_size_gen.next(frame_stats.color_t);
+    frame_stats.color_n =
+      batch_size_gen.next(frame_stats.color_t, frame_stats.color_duration);
     const size_t max_points = frame_stats.color_n;
 
     auto [ri, rn] = dirty_range(td);

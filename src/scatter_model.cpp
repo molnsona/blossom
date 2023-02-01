@@ -41,7 +41,8 @@ ScatterModel::update(const ScaledData &d,
         lm_watch.clean(lm);
     }
 
-    frame_stats.embedsom_n = batch_size_gen.next(frame_stats.embedsom_t);
+    frame_stats.embedsom_n = batch_size_gen.next(frame_stats.embedsom_t,
+                                                 frame_stats.embedsom_duration);
     const size_t max_points = frame_stats.embedsom_n;
 
     auto [ri, rn] = dirty_range(d);

@@ -39,6 +39,14 @@ struct FrameStats
     float color_t = 0.00001;
 
     Timer timer;
+
+    // Maximal duration of the measured method
+    // (in milliseconds) for estimation of the
+    // batch size.
+    float trans_duration = 5.0f;
+    float embedsom_duration = 5.0f;
+    float scaled_duration = 5.0f;
+    float color_duration = 5.0f;
 };
 
 #endif // FRAME_STATS_H
