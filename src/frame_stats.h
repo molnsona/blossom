@@ -26,17 +26,17 @@
 
 struct FrameStats
 {
-    std::vector<size_t> trans_items;
     // TODO: remove these Ns, they are only
     // for debug output
+    size_t trans_n;
     size_t embedsom_n;
-    std::vector<size_t> scaled_items;
-    std::vector<size_t> color_items;
+    size_t scaled_n;
+    size_t color_n;
 
-    std::vector<float> trans_times;
+    float trans_t = 0.00001;
     float embedsom_t = 0.00001;
-    std::vector<float> scaled_times;
-    std::vector<float> color_times;
+    float scaled_t = 0.00001;
+    float color_t = 0.00001;
 
     Timer timer;
 };

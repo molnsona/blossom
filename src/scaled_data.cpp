@@ -32,11 +32,8 @@ ScaledData::update(const TransData &td, FrameStats &frame_stats)
         clean(td);
     }
 
-    float next = gen.next();
-    const size_t max_points = (next < 0) ? 0 : next;
-    if (td.dim() > 0)
-        if (frame_stats.scaled_items.size() < 50)
-            frame_stats.scaled_items.emplace_back(max_points);
+    frame_stats.scaled_n = batch_size_gen.next(frame_stats.scaled_t);
+    const size_t max_points = frame_stats.scaled_n;
 
     auto [ri, rn] = dirty_range(td);
     if (!rn)
@@ -48,6 +45,8 @@ ScaledData::update(const TransData &td, FrameStats &frame_stats)
     std::vector<float> means = td.sums;
     std::vector<float> isds = td.sqsums;
     size_t d = dim();
+
+    frame_stats.timer.tick();
     for (size_t di = 0; di < d; ++di) {
         means[di] /= n;
         isds[di] /= n;
@@ -64,6 +63,10 @@ ScaledData::update(const TransData &td, FrameStats &frame_stats)
               (td.data[ri * d + di] - means[di]) *
               (config[di].scale ? config[di].sdev * isds[di] : 1);
     }
+    frame_stats.timer.tick();
+    frame_stats.scaled_t =
+      frame_stats.timer.frametime * 1000; // to get milliseconds
+
     touch();
 }
 

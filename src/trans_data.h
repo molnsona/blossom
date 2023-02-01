@@ -23,9 +23,9 @@
 #include <thread>
 #include <vector>
 
+#include "batch_size_gen.h"
 #include "data_model.h"
 #include "frame_stats.h"
-#include "normal_gen.h"
 
 /** Statistics from the untransformed dataset
  *
@@ -83,36 +83,20 @@ struct TransData
     /** Separate configurations for each dimension. */
     std::vector<TransConfig> config;
 
-    NormalGen gen;
-
-    TransData()
-      :
-#ifndef ENABLE_CUDA
-      gen(7500, 2500) // 5k -- 10k
-#else
-      gen(37500, 12500) // 25k -- 50k
-#endif
-    {
-    }
+    BatchSizeGen batch_size_gen;
 
     /**
      * @brief Returns dimension of the transformed data.
      *
      * @return size_t Dimension of the transformed data.
      */
-    size_t dim() const
-    {
-        return config.size();
-    }
+    size_t dim() const { return config.size(); }
     /**
      * @brief Notifies @ref Sweeper that the config has been modified and that
      * the data has to be recomputed.
      *
      */
-    void touch_config()
-    {
-        refresh(*this);
-    }
+    void touch_config() { refresh(*this); }
 
     Cleaner stat_watch;
 
