@@ -53,13 +53,15 @@ struct ScatterModel : public Sweeper
     NormalGen gen;
     BatchSizeGen batch_size;
 
-    ScatterModel() :
+    ScatterModel()
+      :
 #ifndef ENABLE_CUDA
       gen(750, 250) // 500 -- 1000
 #else
       gen(37500, 12500) // 25k -- 50k
 #endif
-    {}
+    {
+    }
 
     /**
      * @brief Recomputes the coordinates if any of the the parameters of the
@@ -72,7 +74,7 @@ struct ScatterModel : public Sweeper
     void update(const ScaledData &d,
                 const LandmarkModel &lm,
                 const TrainingConfig &tc,
-                FrameStats& frame_stats);
+                FrameStats &frame_stats);
 
     /**
      * @brief Notifies @ref Sweeper that the parameters of the embedsom

@@ -25,26 +25,28 @@
 #include <iostream>
 #endif
 
-BatchSizeGen::BatchSizeGen() :
-    a(0.00001),
-    b(0.00001),
-    c(0.00001),
-    d(0.00001),
-    e(0.00001),
-    f(0.00001),
-    alpha(0.05),
-    coalpha(1 - alpha),
-    N(100)
-{}
+BatchSizeGen::BatchSizeGen()
+  : a(0.00001)
+  , b(0.00001)
+  , c(0.00001)
+  , d(0.00001)
+  , e(0.00001)
+  , f(0.00001)
+  , alpha(0.05)
+  , coalpha(1 - alpha)
+  , N(100)
+{
+}
 
-size_t BatchSizeGen::next(float T)
-{    
+size_t
+BatchSizeGen::next(float T)
+{
     // Computation time of one point.
-    float TN = T/N;
+    float TN = T / N;
     // Normalized normal line to the line with slope (-T, T/N).
     // The normal line before normalization is (T, T/N).
-    float n1 = TN*(1/(std::sqrt(TN*TN + T*T)));
-    float n2 = T*(1/(std::sqrt(TN*TN + T*T)));
+    float n1 = TN * (1 / (std::sqrt(TN * TN + T * T)));
+    float n2 = T * (1 / (std::sqrt(TN * TN + T * T)));
     // Distance of the line from origin [0,0].
     float n3 = T * n1;
 
@@ -57,12 +59,12 @@ size_t BatchSizeGen::next(float T)
     std::cout << "n3: " << n3 << std::endl;
 #endif
 
-    a = a * coalpha + n1*n1 * alpha;
-    b = b * coalpha + n2*n2 * alpha;
-    c = c * coalpha + (2*n1*n2) * alpha;
-    d = d * coalpha + (-2*n1*n3) * alpha;
-    e = e * coalpha + (-2*n2*n3) * alpha;
-    f = f * coalpha + n3*n3 * alpha;
+    a = a * coalpha + n1 * n1 * alpha;
+    b = b * coalpha + n2 * n2 * alpha;
+    c = c * coalpha + (2 * n1 * n2) * alpha;
+    d = d * coalpha + (-2 * n1 * n3) * alpha;
+    e = e * coalpha + (-2 * n2 * n3) * alpha;
+    f = f * coalpha + n3 * n3 * alpha;
 #ifdef DEBUG
     // std::cout << "a: " << a << std::endl;
     // std::cout << "b: " << b << std::endl;
@@ -72,14 +74,13 @@ size_t BatchSizeGen::next(float T)
     // std::cout << "f: " << f << std::endl;
 #endif
 
-    float x = (c*e - 2*b*d)/(4*a*b - c*c);
-    float y = (c*d - 2*a*e)/(4*a*b - c*c);
+    float x = (c * e - 2 * b * d) / (4 * a * b - c * c);
+    float y = (c * d - 2 * a * e) / (4 * a * b - c * c);
 
 #ifdef DEBUG
     std::cout << "x: " << x << std::endl;
     std::cout << "y: " << y << std::endl;
 #endif
-
 
     // We want the algorithm to last 10ms.
 #ifndef ENABLE_CUDA
@@ -87,7 +88,7 @@ size_t BatchSizeGen::next(float T)
 #else
     float t = 5;
 #endif
-    float n = (t - x) / y;    
+    float n = (t - x) / y;
     N = n < 0 ? 100 : n;
     return N;
 }

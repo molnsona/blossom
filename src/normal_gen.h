@@ -24,16 +24,14 @@
 class NormalGen
 {
 public:
-    NormalGen(float mean, float sdev) :
-        rd{},
-        gen{rd()},
-        d{mean, sdev}
-    {}
-
-    float next()
+    NormalGen(float mean, float sdev)
+      : rd{}
+      , gen{ rd() }
+      , d{ mean, sdev }
     {
-        return d(gen);
     }
+
+    float next() { return d(gen); }
 
 private:
     std::random_device rd;

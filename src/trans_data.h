@@ -85,26 +85,34 @@ struct TransData
 
     NormalGen gen;
 
-    TransData() :
+    TransData()
+      :
 #ifndef ENABLE_CUDA
       gen(7500, 2500) // 5k -- 10k
 #else
       gen(37500, 12500) // 25k -- 50k
 #endif
-    {}
+    {
+    }
 
     /**
      * @brief Returns dimension of the transformed data.
      *
      * @return size_t Dimension of the transformed data.
      */
-    size_t dim() const { return config.size(); }
+    size_t dim() const
+    {
+        return config.size();
+    }
     /**
      * @brief Notifies @ref Sweeper that the config has been modified and that
      * the data has to be recomputed.
      *
      */
-    void touch_config() { refresh(*this); }
+    void touch_config()
+    {
+        refresh(*this);
+    }
 
     Cleaner stat_watch;
 
@@ -114,7 +122,9 @@ struct TransData
      * @param dm Original data parsed from the input file.
      * @param s Statistics from the untransformed dataset.
      */
-    void update(const DataModel &dm, const RawDataStats &s, FrameStats& frame_stats);
+    void update(const DataModel &dm,
+                const RawDataStats &s,
+                FrameStats &frame_stats);
     /**
      * @brief Resets configurations to their initial values.
      *

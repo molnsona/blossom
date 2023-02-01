@@ -50,7 +50,6 @@ ImGuiWrapper::render(int w, int h, State &state)
 #ifdef DEBUG
     debug_window(state.frame_stats);
 #endif
- 
 
     ImGui::Render();
     ImGui_ImplOpenGL3_RenderDrawData(ImGui::GetDrawData());
