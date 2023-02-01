@@ -22,9 +22,9 @@
 
 #include <glm/glm.hpp>
 
+#include "batch_size_gen.h"
 #include "dirty.h"
 #include "frame_stats.h"
-#include "normal_gen.h"
 #include "trans_data.h"
 
 #include <string>
@@ -66,22 +66,13 @@ struct ColorData : public Sweeper
      */
     bool reverse;
 
-    NormalGen gen;
+    BatchSizeGen batch_size_gen;
 
     /**
      * @brief Calls @ref reset() method to set initial values.
      *
      */
-    ColorData()
-      :
-#ifndef ENABLE_CUDA
-      gen(750, 250) // 500 -- 1000
-#else
-      gen(37500, 12500) // 25k -- 50k
-#endif
-    {
-        reset();
-    }
+    ColorData() { reset(); }
 
     /**
      * @brief Recomputes color of the 2D data points if user has changed any of
@@ -95,10 +86,7 @@ struct ColorData : public Sweeper
      * and that the data has to be recomputed.
      *
      */
-    void touch_config()
-    {
-        refresh(data.size());
-    }
+    void touch_config() { refresh(data.size()); }
     /**
      * @brief Resets color settings to their initial values.
      *

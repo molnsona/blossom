@@ -89,7 +89,7 @@ BatchSizeGen::next(float T)
     std::cout << "y: " << y << std::endl;
 #endif
 
-    // We want the algorithm to last 10ms.
+    // We want the algorithm to last 5ms.
 #ifndef ENABLE_CUDA
     float t = 5;
 #else

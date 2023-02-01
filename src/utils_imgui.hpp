@@ -67,35 +67,7 @@ reset_button()
 }
 
 static void
-make_window(const char *name,
-            const std::vector<float> &dts,
-            const std::vector<size_t> &data)
-{
-    std::string input = "items,time ";
-
-    bool open = true;
-    ImGui::Begin(name, &open);
-    for (size_t i = 0; i < 50; ++i) {
-        auto di = data.size() <= i ? 0 : data[i];
-        auto dti = dts.size() <= i ? 0 : dts[i];
-
-        float items_per_sec = dti == 0 ? 0 : di / dti;
-        input.append(std::to_string(di));
-        input.append(",");
-
-        input.append(std::to_string(dti * 1000));
-        input.append(" ");
-    }
-    char inputText[4096];
-    strcpy(inputText, input.c_str());
-    ImGui::InputText(
-      "##nameinput", inputText, 4096, ImGuiInputTextFlags_ReadOnly);
-
-    ImGui::End();
-}
-
-static void
-make_window2(const char *name, float t, size_t n)
+make_window(const char *name, float t, size_t n)
 {
     std::string input = "N,T ";
 
@@ -117,10 +89,10 @@ make_window2(const char *name, float t, size_t n)
 static void
 debug_window(FrameStats &stats)
 {
-    // make_window("trans debug", stats.trans_times, stats.trans_items);
-    make_window2("embedsom debug", stats.embedsom_t, stats.embedsom_n);
-    // make_window("scaled debug", stats.scaled_times, stats.scaled_items);
-    // make_window("color debug", stats.color_times, stats.color_items);
+    make_window("trans debug", stats.trans_t, stats.trans_n);
+    make_window("embedsom debug", stats.embedsom_t, stats.embedsom_n);
+    make_window("scaled debug", stats.scaled_t, stats.scaled_n);
+    make_window("color debug", stats.color_t, stats.color_n);
 }
 
 #endif // #ifndef UTILS_IMGUI_HPP

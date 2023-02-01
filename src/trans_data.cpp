@@ -72,11 +72,8 @@ TransData::update(const DataModel &dm,
         stat_watch.clean(s);
     }
 
-    float next = gen.next();
-    const size_t max_points = (next < 0) ? 0 : next;
-    if (dm.d > 0)
-        if (frame_stats.trans_items.size() < 50)
-            frame_stats.trans_items.emplace_back(max_points);
+    frame_stats.trans_n = batch_size_gen.next(frame_stats.trans_t);
+    const size_t max_points = frame_stats.trans_n;
 
     // make sure we're the right size
     auto [ri, rn] = dirty_range(dm);
@@ -89,6 +86,7 @@ TransData::update(const DataModel &dm,
     const size_t d = dim();
     std::vector<float> sums_adjust(d, 0), sqsums_adjust(d, 0);
 
+    frame_stats.timer.tick();
     for (; rn-- > 0; ++ri) {
         if (ri >= n)
             ri = 0;
@@ -114,6 +112,9 @@ TransData::update(const DataModel &dm,
         sums[di] += sums_adjust[di];
         sqsums[di] += sqsums_adjust[di];
     }
+    frame_stats.timer.tick();
+    frame_stats.trans_t =
+      frame_stats.timer.frametime * 1000; // to get milliseconds
 
     touch();
 }
