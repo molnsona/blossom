@@ -118,7 +118,7 @@ static void
 debug_window(FrameStats &stats)
 {
     // make_window("trans debug", stats.trans_times, stats.trans_items);
-    make_window2("scatter debug", stats.scatter_t, stats.scatter_n);
+    make_window2("embedsom debug", stats.embedsom_t, stats.embedsom_n);
     // make_window("scaled debug", stats.scaled_times, stats.scaled_items);
     // make_window("color debug", stats.color_times, stats.color_items);
 }
