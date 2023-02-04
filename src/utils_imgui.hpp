@@ -67,32 +67,44 @@ reset_button()
 }
 
 static void
-make_window(const char *name, float t, size_t n)
+add2window(const char *name, float t, size_t n)
 {
-    std::string input = "N,T ";
+    // std::string input = "N,T ";
 
-    bool open = true;
-    ImGui::Begin(name, &open);
-    input.append(std::to_string(n));
-    input.append(",");
-    input.append(std::to_string(t));
-    input.append(" ");
+    // input.append(std::to_string(n));
+    // input.append(",");
+    // input.append(std::to_string(t));
+    // input.append(" ");
 
-    char inputText[4096];
-    strcpy(inputText, input.c_str());
-    ImGui::InputText(
-      "##nameinput", inputText, 4096, ImGuiInputTextFlags_ReadOnly);
-
-    ImGui::End();
+    // char inputText[4096];
+    // strcpy(inputText, input.c_str());
+    // ImGui::InputText(
+    //   name, inputText, 4096, ImGuiInputTextFlags_ReadOnly);
+   
+   ImGui::Text("%d, %f\t\t\t%s", n, t, name);
 }
 
 static void
-debug_window(FrameStats &stats)
+debug_windows(FrameStats &fs)
 {
-    make_window("trans debug", stats.trans_t, stats.trans_n);
-    make_window("embedsom debug", stats.embedsom_t, stats.embedsom_n);
-    make_window("scaled debug", stats.scaled_t, stats.scaled_n);
-    make_window("color debug", stats.color_t, stats.color_n);
+    bool open = true;
+    ImGui::Begin("debug estimated batch sizes", &open);
+    add2window("trans", fs.trans_t, fs.trans_n);
+    add2window("scaled", fs.scaled_t, fs.scaled_n);
+    add2window("embedsom", fs.embedsom_t, fs.embedsom_n);
+    add2window("color", fs.color_t, fs.color_n);
+    ImGui::End();
+
+    ImGui::Begin("debug times", &open);
+    ImGui::Text("dt:\t\t\t\t\t\t\t%f", fs.dt);
+    ImGui::Text("\t-constant:\t\t%f", fs.prev_const_time);
+    ImGui::Text("\t\t-glFinish:\t\t%f", fs.gl_finish_time);
+    ImGui::Text("\t-estimated:\t\t%f", fs.est_time);
+    ImGui::Text("\t\t-trans:\t\t\t\t%f", fs.trans_t);
+    ImGui::Text("\t\t-scaled:\t\t\t%f", fs.scaled_t);
+    ImGui::Text("\t\t-color:\t\t\t\t%f", fs.color_t);
+    ImGui::Text("\t\t-embedsom:\t%f", fs.embedsom_t);
+    ImGui::End();
 }
 
 #endif // #ifndef UTILS_IMGUI_HPP

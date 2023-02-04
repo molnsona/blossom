@@ -34,7 +34,8 @@ ScaledData::update(const TransData &td, FrameStats &frame_stats)
 
     auto [ri, rn] = dirty_range(td);
     if (!rn){
-        frame_stats.scaled_t = 0.00001f;        
+        frame_stats.scaled_t = 0.00001f;
+        frame_stats.scaled_n = 0;        
         batch_size_gen.reset();
         return;
     }

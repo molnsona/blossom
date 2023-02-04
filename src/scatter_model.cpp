@@ -44,6 +44,7 @@ ScatterModel::update(const ScaledData &d,
     auto [ri, rn] = dirty_range(d);
     if (!rn){
         frame_stats.embedsom_t = 0.00001f;   
+        frame_stats.embedsom_n = 0;
         batch_size_gen.reset();     
         return;
     }
@@ -57,6 +58,7 @@ ScatterModel::update(const ScaledData &d,
 
     if (lm.d != d.dim()){
         frame_stats.embedsom_t = 0.00001f;        
+        frame_stats.embedsom_n = 0;
         batch_size_gen.reset();     
         return;
     }
