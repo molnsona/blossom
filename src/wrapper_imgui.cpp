@@ -9,7 +9,6 @@
 #define DEBUG
 #ifdef DEBUG
 #include "utils_imgui.hpp"
-#include <iostream>
 #endif
 
 bool
@@ -48,7 +47,7 @@ ImGuiWrapper::render(int w, int h, State &state)
     menu.render(w, h, state);
 
 #ifdef DEBUG
-    debug_window(state.frame_stats);
+    debug_windows(state.frame_stats);
 #endif
 
     ImGui::Render();

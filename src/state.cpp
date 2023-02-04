@@ -56,23 +56,21 @@ State::update(float actual_time, bool vert_pressed, int vert_ind)
     if (time > 0.05)
         time = 0.05;
 
-    // Compute time for estimation methods
+    // Compute time for estimation batch sizes computations.
     compute_time(frame_stats);
 
     stats.update(data);
 
-    // MEASURE_NON_CONST("trans: ", frame_stats.trans_t, 
-    //     trans.update(data, stats, frame_stats));
     trans.update(data, stats, frame_stats);
     scaled.update(trans, frame_stats);
 
     // TODO only run this on data reset, ideally from trans or from a common
     // trigger
-#ifdef DEBUG // TODO remove
-    landmarks.update_dim(3);
-#else
+// #ifdef DEBUG // TODO remove
+//     landmarks.update_dim(3);
+// #else
     landmarks.update_dim(scaled.dim());
-#endif
+// #endif
 
     if (training_conf.kmeans_landmark)
         kmeans_landmark_step(kmeans_data,

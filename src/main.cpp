@@ -81,13 +81,9 @@ main()
         timer.tick();
 
 #ifdef DEBUG
-        std::cout << "dt:       " << timer.frametime * 1000 << std::endl;
-        std::cout << "est time: " << state.frame_stats.est_time << std::endl;        
-        std::cout << "  trans:  " << state.frame_stats.trans_t << std::endl;
-        std::cout << "  embed:  " << state.frame_stats.embedsom_t << std::endl;
-        std::cout << "  scaled: " << state.frame_stats.scaled_t << std::endl;
-        std::cout << "  color:  " << state.frame_stats.color_t << std::endl;
+        state.frame_stats.dt = timer.frametime * 1000;
 #endif   
+
         state.frame_stats.timer.tick();
         input_handler.update(view, renderer, state);
 
@@ -111,11 +107,13 @@ main()
         state.frame_stats.constant_time += 
             state.frame_stats.timer.frametime * 1000;  
             
+#ifdef DEBUG
+    state.frame_stats.prev_const_time = state.frame_stats.constant_time;
+#endif
+
         // // Because we want the frame to last ~17ms (~60 FPS).
         // float diff = 17.0f - state.frame_stats.constant_time;
-        // Because we want the frame to last ~20ms (~50 FPS).
-        std::cout << "constant: "<< state.frame_stats.constant_time << std::endl;
-        std::cout << std::endl;
+        // Because we want the frame to last ~20ms (~50 FPS).        
         float diff = 20.0f - state.frame_stats.constant_time;
         state.frame_stats.est_time =
             diff < 0.0001f ? 1.0f : diff;   

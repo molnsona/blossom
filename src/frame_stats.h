@@ -24,7 +24,7 @@
 
 #include "timer.h"
 
-//#define DEBUG
+#define DEBUG
 
 struct FrameStats
 {
@@ -67,6 +67,7 @@ struct FrameStats
 #ifdef DEBUG
     float gl_finish_time = 0.0f;
     float prev_const_time = 0.0f;
+    float dt;
 #endif
 };
 
