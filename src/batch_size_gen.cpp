@@ -25,28 +25,40 @@
 #include <iostream>
 #endif
 
-BatchSizeGen::BatchSizeGen()
-  : a(0.00001)
-  , b(0.00001)
-  , c(0.00001)
-  , d(0.00001)
-  , e(0.00001)
-  , f(0.00001)
-  , alpha(0.05)
-  , coalpha(1 - alpha)
-  , N(100)
-  , prevT(0.0f)
+BatchSizeGen::BatchSizeGen()  
 {
+    reset();
+}
+
+void BatchSizeGen::reset() 
+{
+    a = 0.00001;
+    b = 0.00001;
+    c = 0.00001;
+    d = 0.00001;
+    e = 0.00001;
+    f = 0.00001;
+    alpha = 0.05;
+    coalpha = 1 - alpha;
+    N = 100;
+    prevT = 0.0f;
 }
 
 size_t
 BatchSizeGen::next(float T, float t)
 {
+    // If the algorithm should last 0ms, just return
+    // and reset values.
+    if(t == 0.0f) {
+        reset();
+        return N;
+    }
     // Prevent increase of batch size to inifinity
     // when SOM or kmeans is turned off or when no
     // data set is loaded.
-    if (std::abs(prevT - T) < 0.0001)
-        return N;
+    if (std::abs(prevT - T) < 0.0001f){
+        reset();
+        return N;}
 
     // Computation time of one point.
     float TN = T / N;
@@ -90,7 +102,7 @@ BatchSizeGen::next(float T, float t)
 #endif
 
     float n = (t - x) / y;
-    N = n < 0 ? 100 : n;
+    N = n <= 0 ? 100 : n;
     prevT = T;
     return N;
 }

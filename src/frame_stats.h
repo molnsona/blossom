@@ -24,6 +24,8 @@
 
 #include "timer.h"
 
+//#define DEBUG
+
 struct FrameStats
 {
     // TODO: remove these Ns, they are only
@@ -33,6 +35,7 @@ struct FrameStats
     size_t scaled_n;
     size_t color_n;
 
+    // Actual computation time of the methods.
     float trans_t = 0.00001;
     float embedsom_t = 0.00001;
     float scaled_t = 0.00001;
@@ -47,6 +50,24 @@ struct FrameStats
     float embedsom_duration = 5.0f;
     float scaled_duration = 5.0f;
     float color_duration = 5.0f;
+
+    // Duration of the constant functions, per one frame, 
+    // that does not need to estimate batch size 
+    // (in milliseconds).
+    float constant_time = 0.0f;
+    // Time left for computation of method with estimated batch
+    // size for the next frame.
+    float est_time = 0.1f;
+
+    float embed_priority = 0.125f;
+    float color_priority = 0.125f;
+    float trans_priority = 0.375f;
+    float scaled_priority = 0.375f;
+
+#ifdef DEBUG
+    float gl_finish_time = 0.0f;
+    float prev_const_time = 0.0f;
+#endif
 };
 
 #endif // FRAME_STATS_H

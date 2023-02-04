@@ -27,6 +27,20 @@
 #include "wrapper_glfw.h"
 #include "wrapper_imgui.h"
 
+#define DEBUG
+
+#define MEASURE(name, method)\
+    state.frame_stats.timer.tick();\
+    state.frame_stats.constant_time +=\
+        state.frame_stats.timer.frametime * 1000;\
+    state.frame_stats.timer.tick();\
+    method;\
+    state.frame_stats.timer.tick();\
+    state.frame_stats.constant_time +=\
+        state.frame_stats.timer.frametime * 1000;\
+    std::cout << name << state.frame_stats.timer.frametime * 1000 << std::endl;\
+    state.frame_stats.timer.tick();
+
 int
 main()
 {
@@ -66,22 +80,46 @@ main()
     while (!glfw.window_should_close()) {
         timer.tick();
 
+#ifdef DEBUG
+        std::cout << "dt:       " << timer.frametime * 1000 << std::endl;
+        std::cout << "est time: " << state.frame_stats.est_time << std::endl;        
+        std::cout << "  trans:  " << state.frame_stats.trans_t << std::endl;
+        std::cout << "  embed:  " << state.frame_stats.embedsom_t << std::endl;
+        std::cout << "  scaled: " << state.frame_stats.scaled_t << std::endl;
+        std::cout << "  color:  " << state.frame_stats.color_t << std::endl;
+#endif   
+        state.frame_stats.timer.tick();
         input_handler.update(view, renderer, state);
 
         view.update(timer.frametime,
                     input_handler.input.fb_width,
                     input_handler.input.fb_height);
+        
         state.update(timer.frametime,
                      renderer.get_vert_pressed(),
                      renderer.get_vert_ind());
 
         renderer.render(state, view);
-
+        
         imgui.render(
           input_handler.input.fb_width, input_handler.input.fb_height, state);
-
+       
         input_handler.reset();
-        glfw.end_frame();
+        glfw.end_frame(state.frame_stats);
+
+        state.frame_stats.timer.tick();
+        state.frame_stats.constant_time += 
+            state.frame_stats.timer.frametime * 1000;  
+            
+        // // Because we want the frame to last ~17ms (~60 FPS).
+        // float diff = 17.0f - state.frame_stats.constant_time;
+        // Because we want the frame to last ~20ms (~50 FPS).
+        std::cout << "constant: "<< state.frame_stats.constant_time << std::endl;
+        std::cout << std::endl;
+        float diff = 20.0f - state.frame_stats.constant_time;
+        state.frame_stats.est_time =
+            diff < 0.0001f ? 1.0f : diff;   
+        state.frame_stats.constant_time = 0.0f;           
     }
 
     imgui.destroy();

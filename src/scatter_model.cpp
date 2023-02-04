@@ -41,22 +41,33 @@ ScatterModel::update(const ScaledData &d,
         lm_watch.clean(lm);
     }
 
+    auto [ri, rn] = dirty_range(d);
+    if (!rn){
+        frame_stats.embedsom_t = 0.00001f;   
+        batch_size_gen.reset();     
+        return;
+    }
+
     frame_stats.embedsom_n = batch_size_gen.next(frame_stats.embedsom_t,
                                                  frame_stats.embedsom_duration);
     const size_t max_points = frame_stats.embedsom_n;
 
-    auto [ri, rn] = dirty_range(d);
-    if (!rn)
-        return;
     if (rn > max_points)
         rn = max_points;
 
-    if (lm.d != d.dim())
+    if (lm.d != d.dim()){
+        frame_stats.embedsom_t = 0.00001f;        
+        batch_size_gen.reset();     
         return;
+    }
 
     clean_range(d, rn);
 
     auto do_embedsom = [&](size_t from, size_t n) {
+        frame_stats.timer.tick();
+        frame_stats.constant_time += 
+            frame_stats.timer.frametime * 1000;
+
         frame_stats.timer.tick();
 #ifdef ENABLE_CUDA
         embedsom_cuda.run
@@ -76,6 +87,8 @@ ScatterModel::update(const ScaledData &d,
         frame_stats.timer.tick();
         frame_stats.embedsom_t =
           frame_stats.timer.frametime * 1000; // to get milliseconds
+
+        frame_stats.timer.tick();
     };
 
     if (ri + rn >= d.n) {

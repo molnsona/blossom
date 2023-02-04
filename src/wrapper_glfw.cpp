@@ -5,6 +5,19 @@
 
 #include <iostream>
 
+#define MEASURE(name, method)\
+    fs.timer.tick();\
+    fs.constant_time +=\
+        fs.timer.frametime * 1000;\
+    fs.timer.tick();\
+    method;\
+    fs.timer.tick();\
+    fs.constant_time +=\
+        fs.timer.frametime * 1000;\
+    std::cout << name << fs.timer.frametime * 1000 << std::endl;\
+    fs.timer.tick();
+
+
 GlfwWrapper::GlfwWrapper() {}
 
 bool
@@ -51,8 +64,9 @@ GlfwWrapper::window_should_close()
 }
 
 void
-GlfwWrapper::end_frame()
+GlfwWrapper::end_frame(FrameStats& fs)
 {
+    MEASURE("glFinish:  ", glFinish());
     glfwSwapBuffers(window);
     // Calls registered callbacks if any events were triggered
     glfwPollEvents();
