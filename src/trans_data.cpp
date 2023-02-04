@@ -20,6 +20,11 @@
 #include "trans_data.h"
 #include <cmath>
 
+#define DEBUG
+#ifdef DEBUG
+#include <iostream>
+#endif
+
 void
 RawDataStats::update(const DataModel &dm)
 {
@@ -72,20 +77,29 @@ TransData::update(const DataModel &dm,
         stat_watch.clean(s);
     }
 
-    frame_stats.trans_n =
+    // make sure we're the right size
+    auto [ri, rn] = dirty_range(dm);
+    if (!rn) {             
+        frame_stats.trans_t = 0.00001f;        
+        batch_size_gen.reset();
+        return;
+    }
+
+     frame_stats.trans_n =
       batch_size_gen.next(frame_stats.trans_t, frame_stats.trans_duration);
     const size_t max_points = frame_stats.trans_n;
 
-    // make sure we're the right size
-    auto [ri, rn] = dirty_range(dm);
-    if (!rn)
-        return;
     if (rn > max_points)
         rn = max_points;
+
 
     clean_range(dm, rn);
     const size_t d = dim();
     std::vector<float> sums_adjust(d, 0), sqsums_adjust(d, 0);
+
+    frame_stats.timer.tick();
+    frame_stats.constant_time += 
+        frame_stats.timer.frametime * 1000;
 
     frame_stats.timer.tick();
     for (; rn-- > 0; ++ri) {
@@ -117,6 +131,7 @@ TransData::update(const DataModel &dm,
     frame_stats.trans_t =
       frame_stats.timer.frametime * 1000; // to get milliseconds
 
+    frame_stats.timer.tick();
     touch();
 }
 

@@ -103,13 +103,17 @@ ColorData::update(const TransData &td, FrameStats &frame_stats)
         refresh(td);
     }
 
+    auto [ri, rn] = dirty_range(td);
+    if (!rn) {
+        frame_stats.color_t = 0.00001f;        
+        batch_size_gen.reset();
+        return;
+    }
+
     frame_stats.color_n =
       batch_size_gen.next(frame_stats.color_t, frame_stats.color_duration);
     const size_t max_points = frame_stats.color_n;
 
-    auto [ri, rn] = dirty_range(td);
-    if (!rn)
-        return;
     if (rn > max_points)
         rn = max_points;
 
@@ -117,6 +121,11 @@ ColorData::update(const TransData &td, FrameStats &frame_stats)
     size_t d = td.dim();
 
     clean_range(td, rn);
+
+    frame_stats.timer.tick();
+    frame_stats.constant_time += 
+        frame_stats.timer.frametime * 1000;
+
     frame_stats.timer.tick();
     switch (coloring) {
         case int(ColorData::Coloring::EXPR): {
@@ -169,6 +178,8 @@ ColorData::update(const TransData &td, FrameStats &frame_stats)
     frame_stats.timer.tick();
     frame_stats.color_t =
       frame_stats.timer.frametime * 1000; // to get milliseconds
+
+    frame_stats.timer.tick();
 }
 
 void
