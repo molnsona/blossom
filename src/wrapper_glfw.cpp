@@ -7,7 +7,6 @@
 
 #define DEBUG
 #ifdef DEBUG
-
 #define MEASURE(name, method)\
     fs.timer.tick();\
     fs.constant_time +=\
