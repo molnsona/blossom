@@ -33,13 +33,13 @@ ScaledData::update(const TransData &td, FrameStats &frame_stats)
     }
 
     auto [ri, rn] = dirty_range(td);
-    if (!rn){
+    if (!rn) {
         frame_stats.scaled_t = 0.00001f;
-        frame_stats.scaled_n = 0;        
+        frame_stats.scaled_n = 0;
         batch_size_gen.reset();
         return;
     }
-    
+
     frame_stats.scaled_n =
       batch_size_gen.next(frame_stats.scaled_t, frame_stats.scaled_duration);
     const size_t max_points = frame_stats.scaled_n;
@@ -53,8 +53,7 @@ ScaledData::update(const TransData &td, FrameStats &frame_stats)
     size_t d = dim();
 
     frame_stats.timer.tick();
-    frame_stats.constant_time += 
-        frame_stats.timer.frametime * 1000;
+    frame_stats.constant_time += frame_stats.timer.frametime * 1000;
 
     frame_stats.timer.tick();
     for (size_t di = 0; di < d; ++di) {

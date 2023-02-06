@@ -7,16 +7,14 @@
 
 #define DEBUG
 #ifdef DEBUG
-#define MEASURE(name, method)\
-    fs.timer.tick();\
-    fs.constant_time +=\
-        fs.timer.frametime * 1000;\
-    fs.timer.tick();\
-    method;\
-    fs.timer.tick();\
-    fs.constant_time +=\
-        fs.timer.frametime * 1000;\
-    fs.gl_finish_time = fs.timer.frametime * 1000;\
+#define MEASURE(name, method)                                                  \
+    fs.timer.tick();                                                           \
+    fs.constant_time += fs.timer.frametime * 1000;                             \
+    fs.timer.tick();                                                           \
+    method;                                                                    \
+    fs.timer.tick();                                                           \
+    fs.constant_time += fs.timer.frametime * 1000;                             \
+    fs.gl_finish_time = fs.timer.frametime * 1000;                             \
     fs.timer.tick();
 #endif
 
@@ -66,7 +64,7 @@ GlfwWrapper::window_should_close()
 }
 
 void
-GlfwWrapper::end_frame(FrameStats& fs)
+GlfwWrapper::end_frame(FrameStats &fs)
 {
 #ifdef DEBUG
     MEASURE("glFinish:  ", glFinish());

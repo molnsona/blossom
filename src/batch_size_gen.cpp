@@ -26,12 +26,13 @@
 #include <iostream>
 #endif
 
-BatchSizeGen::BatchSizeGen()  
+BatchSizeGen::BatchSizeGen()
 {
     reset();
 }
 
-void BatchSizeGen::reset() 
+void
+BatchSizeGen::reset()
 {
     a = 0.00001;
     b = 0.00001;
@@ -50,16 +51,17 @@ BatchSizeGen::next(float T, float t)
 {
     // If the algorithm should last 0ms, just return
     // and reset values.
-    if(t == 0.0f) {
+    if (t == 0.0f) {
         reset();
         return N;
     }
     // Prevent increase of batch size to inifinity
     // when SOM or kmeans is turned off or when no
     // data set is loaded.
-    if (std::abs(prevT - T) < 0.0001f){
+    if (std::abs(prevT - T) < 0.0001f) {
         reset();
-        return N;}
+        return N;
+    }
 
     // Computation time of one point.
     float TN = T / N;
@@ -81,7 +83,7 @@ BatchSizeGen::next(float T, float t)
     float y = (c * d - 2 * a * e) / (4 * a * b - c * c);
 
     // variance and standard deviation
-    float z = a*x*x + b*y*y + c*x*y + d*x + e*y + f;
+    float z = a * x * x + b * y * y + c * x * y + d * x + e * y + f;
     float sd = std::sqrt(z);
 
 #ifdef DEBUG
@@ -110,12 +112,12 @@ BatchSizeGen::next(float T, float t)
 
     // Subtract random value from N.
     std::random_device rd{};
-    std::mt19937 gen{rd()};
-    std::normal_distribution<> d{100, 50/*sd * 100000*/};
+    std::mt19937 gen{ rd() };
+    std::normal_distribution<> d{ 100, 50 /*sd * 100000*/ };
     float rv = std::round(std::abs(d(gen)));
 #ifdef DEBUG
     std::cout << "rv: " << rv << std::endl;
 #endif
-    N = rv < N ? N - rv : N;    
+    N = rv < N ? N - rv : N;
     return N;
 }

@@ -51,8 +51,8 @@ struct FrameStats
     float scaled_duration = 5.0f;
     float color_duration = 5.0f;
 
-    // Duration of the constant functions, per one frame, 
-    // that does not need to estimate batch size 
+    // Duration of the constant functions, per one frame,
+    // that does not need to estimate batch size
     // (in milliseconds).
     float constant_time = 0.0f;
     // Time left for computation of method with estimated batch
@@ -72,91 +72,93 @@ struct FrameStats
 
     /**
      * @brief Compute durations of the estimation batch sizes computations.
-     * 
+     *
      */
-    void update_times() {
+    void update_times()
+    {
         // First compute statistics
         // if all 4 are computing
-        if(trans_t > 0.00001f && scaled_t > 0.00001f &&
+        if (trans_t > 0.00001f && scaled_t > 0.00001f &&
             embedsom_t > 0.00001f && color_t > 0.00001f) {
             trans_priority = 0.45;
             scaled_priority = 0.45f;
             color_priority = 0.05f;
-            embed_priority = 0.05f;        
-        } 
-        else
-        // if trans finished and all other are computing
-        if(trans_t <= 0.00001f && scaled_t > 0.00001f &&
-            embedsom_t > 0.00001f && color_t > 0.00001f) {
-            trans_priority = 0.0f;
-            scaled_priority = 0.9f;
-            color_priority = 0.05f;
             embed_priority = 0.05f;
-        }
-        else
-        // if scaled finished and all others are computing
-        if(trans_t > 0.00001f && scaled_t <= 0.00001f &&
-            embedsom_t > 0.00001f && color_t > 0.00001f) {
-            trans_priority = 0.9f;
-            scaled_priority = 0.0f;
-            color_priority = 0.05f;
-            embed_priority = 0.05f;
-        }
-        else
-        // if trans and scaled finished computing
-        if(trans_t <= 0.00001f && scaled_t <= 0.00001f &&
-            embedsom_t > 0.00001f && color_t > 0.00001f) {
-            trans_priority = 0.0f;
-            scaled_priority = 0.0f;
-            color_priority = 0.75f;
-            embed_priority = 0.25f;
-        }
-        else
-        // if trans, scaled and color finished computing
-        if(trans_t <= 0.00001f && scaled_t <= 0.00001f &&
-            embedsom_t > 0.00001f && color_t <= 0.00001f) {
-            trans_priority = 0.0f;
-            scaled_priority = 0.0f;
-            color_priority = 0.0f;
-            embed_priority = 1.0f;
-        }
-        else
-        // if trans, scaled and embedsom finished computing
-        if(trans_t <= 0.00001f && scaled_t <= 0.00001f &&
-            embedsom_t <= 0.00001f && color_t > 0.00001f) {
-            trans_priority = 0.0f;
-            scaled_priority = 0.0f;
-            color_priority = 1.0f;
-            embed_priority = 0.0f;
-        }
-        else
-        // if trans, scaled, color and embedsom finished computing
-        if(trans_t <= 0.00001f && scaled_t <= 0.00001f &&
-            embedsom_t <= 0.00001f && color_t <= 0.00001f) {
-            trans_priority = 0.0f;
-            scaled_priority = 0.0f;
-            color_priority = 0.0f;
-            embed_priority = 0.0f;
-        }
+        } else
+            // if trans finished and all other are computing
+            if (trans_t <= 0.00001f && scaled_t > 0.00001f &&
+                embedsom_t > 0.00001f && color_t > 0.00001f) {
+                trans_priority = 0.0f;
+                scaled_priority = 0.9f;
+                color_priority = 0.05f;
+                embed_priority = 0.05f;
+            } else
+                // if scaled finished and all others are computing
+                if (trans_t > 0.00001f && scaled_t <= 0.00001f &&
+                    embedsom_t > 0.00001f && color_t > 0.00001f) {
+                    trans_priority = 0.9f;
+                    scaled_priority = 0.0f;
+                    color_priority = 0.05f;
+                    embed_priority = 0.05f;
+                } else
+                    // if trans and scaled finished computing
+                    if (trans_t <= 0.00001f && scaled_t <= 0.00001f &&
+                        embedsom_t > 0.00001f && color_t > 0.00001f) {
+                        trans_priority = 0.0f;
+                        scaled_priority = 0.0f;
+                        color_priority = 0.75f;
+                        embed_priority = 0.25f;
+                    } else
+                        // if trans, scaled and color finished computing
+                        if (trans_t <= 0.00001f && scaled_t <= 0.00001f &&
+                            embedsom_t > 0.00001f && color_t <= 0.00001f) {
+                            trans_priority = 0.0f;
+                            scaled_priority = 0.0f;
+                            color_priority = 0.0f;
+                            embed_priority = 1.0f;
+                        } else
+                            // if trans, scaled and embedsom finished computing
+                            if (trans_t <= 0.00001f && scaled_t <= 0.00001f &&
+                                embedsom_t <= 0.00001f && color_t > 0.00001f) {
+                                trans_priority = 0.0f;
+                                scaled_priority = 0.0f;
+                                color_priority = 1.0f;
+                                embed_priority = 0.0f;
+                            } else
+                                // if trans, scaled, color and embedsom finished
+                                // computing
+                                if (trans_t <= 0.00001f &&
+                                    scaled_t <= 0.00001f &&
+                                    embedsom_t <= 0.00001f &&
+                                    color_t <= 0.00001f) {
+                                    trans_priority = 0.0f;
+                                    scaled_priority = 0.0f;
+                                    color_priority = 0.0f;
+                                    embed_priority = 0.0f;
+                                }
 
         float alpha = 0.05f;
         float coalpha = 1 - 0.05f;
-        if(trans_priority == 0.0f) trans_duration = 0.0f;
-        else trans_duration =
-            trans_duration * coalpha + 
-            est_time * trans_priority * alpha;
-        if(embed_priority == 0.0f) embedsom_duration = 0.0f;
-        else embedsom_duration =
-            embedsom_duration * coalpha +
-            est_time * embed_priority * alpha;
-        if(scaled_priority == 0.0f) scaled_duration = 0.0f;
-        else scaled_duration =
-            scaled_duration * coalpha +
-            est_time * scaled_priority * alpha;
-        if(color_priority == 0.0f) color_duration = 0.0f;
-        else color_duration = 
-            color_duration * coalpha + 
-            est_time * color_priority * alpha;    
+        if (trans_priority == 0.0f)
+            trans_duration = 0.0f;
+        else
+            trans_duration =
+              trans_duration * coalpha + est_time * trans_priority * alpha;
+        if (embed_priority == 0.0f)
+            embedsom_duration = 0.0f;
+        else
+            embedsom_duration =
+              embedsom_duration * coalpha + est_time * embed_priority * alpha;
+        if (scaled_priority == 0.0f)
+            scaled_duration = 0.0f;
+        else
+            scaled_duration =
+              scaled_duration * coalpha + est_time * scaled_priority * alpha;
+        if (color_priority == 0.0f)
+            color_duration = 0.0f;
+        else
+            color_duration =
+              color_duration * coalpha + est_time * color_priority * alpha;
     }
 };
 

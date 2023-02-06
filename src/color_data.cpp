@@ -105,7 +105,7 @@ ColorData::update(const TransData &td, FrameStats &frame_stats)
 
     auto [ri, rn] = dirty_range(td);
     if (!rn) {
-        frame_stats.color_t = 0.00001f;        
+        frame_stats.color_t = 0.00001f;
         frame_stats.color_n = 0;
         batch_size_gen.reset();
         return;
@@ -124,8 +124,7 @@ ColorData::update(const TransData &td, FrameStats &frame_stats)
     clean_range(td, rn);
 
     frame_stats.timer.tick();
-    frame_stats.constant_time += 
-        frame_stats.timer.frametime * 1000;
+    frame_stats.constant_time += frame_stats.timer.frametime * 1000;
 
     frame_stats.timer.tick();
     switch (coloring) {
