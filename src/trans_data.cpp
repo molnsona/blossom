@@ -79,28 +79,26 @@ TransData::update(const DataModel &dm,
 
     // make sure we're the right size
     auto [ri, rn] = dirty_range(dm);
-    if (!rn) {             
-        frame_stats.trans_t = 0.00001f;        
+    if (!rn) {
+        frame_stats.trans_t = 0.00001f;
         frame_stats.trans_n = 0;
         batch_size_gen.reset();
         return;
     }
 
-     frame_stats.trans_n =
+    frame_stats.trans_n =
       batch_size_gen.next(frame_stats.trans_t, frame_stats.trans_duration);
     const size_t max_points = frame_stats.trans_n;
 
     if (rn > max_points)
         rn = max_points;
 
-
     clean_range(dm, rn);
     const size_t d = dim();
     std::vector<float> sums_adjust(d, 0), sqsums_adjust(d, 0);
 
     frame_stats.timer.tick();
-    frame_stats.constant_time += 
-        frame_stats.timer.frametime * 1000;
+    frame_stats.constant_time += frame_stats.timer.frametime * 1000;
 
     frame_stats.timer.tick();
     for (; rn-- > 0; ++ri) {

@@ -67,7 +67,7 @@ State::update(float actual_time, bool vert_pressed, int vert_ind)
         tsne_layout_step(tsne_data, vert_pressed, vert_ind, landmarks, time);
 
     if (training_conf.som_landmark)
-       som_landmark_step(kmeans_data,
+        som_landmark_step(kmeans_data,
                           scaled,
                           training_conf.som_iters,
                           training_conf.som_alpha,

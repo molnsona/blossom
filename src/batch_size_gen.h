@@ -31,7 +31,7 @@ class BatchSizeGen
 public:
     BatchSizeGen();
 
-    void reset() ;
+    void reset();
 
     size_t next(float T, float t);
 

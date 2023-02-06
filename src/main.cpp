@@ -70,7 +70,7 @@ main()
 
 #ifdef DEBUG
         state.frame_stats.dt = timer.frametime * 1000;
-#endif   
+#endif
 
         state.frame_stats.timer.tick();
         input_handler.update(view, renderer, state);
@@ -78,34 +78,33 @@ main()
         view.update(timer.frametime,
                     input_handler.input.fb_width,
                     input_handler.input.fb_height);
-        
+
         state.update(timer.frametime,
                      renderer.get_vert_pressed(),
                      renderer.get_vert_ind());
 
         renderer.render(state, view);
-        
+
         imgui.render(
           input_handler.input.fb_width, input_handler.input.fb_height, state);
-       
+
         input_handler.reset();
         glfw.end_frame(state.frame_stats);
 
         state.frame_stats.timer.tick();
-        state.frame_stats.constant_time += 
-            state.frame_stats.timer.frametime * 1000;  
-            
+        state.frame_stats.constant_time +=
+          state.frame_stats.timer.frametime * 1000;
+
 #ifdef DEBUG
         state.frame_stats.prev_const_time = state.frame_stats.constant_time;
 #endif
 
         // // Because we want the frame to last ~17ms (~60 FPS).
         // float diff = 17.0f - state.frame_stats.constant_time;
-        // Because we want the frame to last ~20ms (~50 FPS).        
+        // Because we want the frame to last ~20ms (~50 FPS).
         float diff = 20.0f - state.frame_stats.constant_time;
-        state.frame_stats.est_time =
-            diff < 0.0001f ? 1.0f : diff;   
-        state.frame_stats.constant_time = 0.0f;           
+        state.frame_stats.est_time = diff < 0.0001f ? 1.0f : diff;
+        state.frame_stats.constant_time = 0.0f;
     }
 
     imgui.destroy();
