@@ -79,28 +79,28 @@ struct FrameStats
         // if all 4 are computing
         if(trans_t > 0.00001f && scaled_t > 0.00001f &&
             embedsom_t > 0.00001f && color_t > 0.00001f) {
-            trans_priority = 0.375f;
-            scaled_priority = 0.375f;
-            color_priority = 0.125f;
-            embed_priority = 0.125f;        
+            trans_priority = 0.45;
+            scaled_priority = 0.45f;
+            color_priority = 0.05f;
+            embed_priority = 0.05f;        
         } 
         else
         // if trans finished and all other are computing
         if(trans_t <= 0.00001f && scaled_t > 0.00001f &&
             embedsom_t > 0.00001f && color_t > 0.00001f) {
             trans_priority = 0.0f;
-            scaled_priority = 0.75f;
-            color_priority = 0.125f;
-            embed_priority = 0.125f;
+            scaled_priority = 0.9f;
+            color_priority = 0.05f;
+            embed_priority = 0.05f;
         }
         else
         // if scaled finished and all others are computing
         if(trans_t > 0.00001f && scaled_t <= 0.00001f &&
             embedsom_t > 0.00001f && color_t > 0.00001f) {
-            trans_priority = 0.75f;
+            trans_priority = 0.9f;
             scaled_priority = 0.0f;
-            color_priority = 0.125f;
-            embed_priority = 0.125f;
+            color_priority = 0.05f;
+            embed_priority = 0.05f;
         }
         else
         // if trans and scaled finished computing
@@ -108,8 +108,8 @@ struct FrameStats
             embedsom_t > 0.00001f && color_t > 0.00001f) {
             trans_priority = 0.0f;
             scaled_priority = 0.0f;
-            color_priority = 0.5f;
-            embed_priority = 0.5f;
+            color_priority = 0.75f;
+            embed_priority = 0.25f;
         }
         else
         // if trans, scaled and color finished computing
