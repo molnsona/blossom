@@ -29,18 +29,6 @@
 
 #define DEBUG
 
-#define MEASURE(name, method)\
-    state.frame_stats.timer.tick();\
-    state.frame_stats.constant_time +=\
-        state.frame_stats.timer.frametime * 1000;\
-    state.frame_stats.timer.tick();\
-    method;\
-    state.frame_stats.timer.tick();\
-    state.frame_stats.constant_time +=\
-        state.frame_stats.timer.frametime * 1000;\
-    std::cout << name << state.frame_stats.timer.frametime * 1000 << std::endl;\
-    state.frame_stats.timer.tick();
-
 int
 main()
 {
@@ -108,7 +96,7 @@ main()
             state.frame_stats.timer.frametime * 1000;  
             
 #ifdef DEBUG
-    state.frame_stats.prev_const_time = state.frame_stats.constant_time;
+        state.frame_stats.prev_const_time = state.frame_stats.constant_time;
 #endif
 
         // // Because we want the frame to last ~17ms (~60 FPS).

@@ -22,32 +22,6 @@
 #include "fcs_parser.h"
 #include "tsv_parser.h"
 
-//#define DEBUG
-#include <iostream>
-#define MEASURE_CONST(name, method)\
-    frame_stats.timer.tick();\
-    frame_stats.constant_time +=\
-        frame_stats.timer.frametime * 1000;\
-    frame_stats.timer.tick();\
-    method;\
-    frame_stats.timer.tick();\
-    frame_stats.constant_time +=\
-        frame_stats.timer.frametime * 1000;\
-    std::cout << name << frame_stats.timer.frametime * 1000 << std::endl;\
-    frame_stats.timer.tick();
-
-#define MEASURE_NON_CONST(name, T, method)\
-    frame_stats.timer.tick();\
-    frame_stats.constant_time += \
-        frame_stats.timer.frametime * 1000;\
-    frame_stats.timer.tick();  \
-    method;\
-    frame_stats.timer.tick();\
-    T =\
-      frame_stats.timer.frametime * 1000; /* to get milliseconds*/\
-    std::cout << name << T << std::endl;\
-    frame_stats.timer.tick();
-
 void
 State::update(float actual_time, bool vert_pressed, int vert_ind)
 {
@@ -57,7 +31,7 @@ State::update(float actual_time, bool vert_pressed, int vert_ind)
         time = 0.05;
 
     // Compute time for estimation batch sizes computations.
-    compute_time(frame_stats);
+    frame_stats.update_times();
 
     stats.update(data);
 
@@ -66,11 +40,11 @@ State::update(float actual_time, bool vert_pressed, int vert_ind)
 
     // TODO only run this on data reset, ideally from trans or from a common
     // trigger
-// #ifdef DEBUG // TODO remove
-//     landmarks.update_dim(3);
-// #else
+#ifdef STATE_DEBUG // TODO remove
+    landmarks.update_dim(3);
+#else
     landmarks.update_dim(scaled.dim());
-// #endif
+#endif
 
     if (training_conf.kmeans_landmark)
         kmeans_landmark_step(kmeans_data,
@@ -102,90 +76,4 @@ State::update(float actual_time, bool vert_pressed, int vert_ind)
 
     colors.update(trans, frame_stats);
     scatter.update(scaled, landmarks, training_conf, frame_stats);
-}
-
-void State::compute_time(FrameStats& fs)
-{    
-    // First compute statistics
-    // if all 4 are computing
-    if(fs.trans_t > 0.00001f && fs.scaled_t > 0.00001f &&
-        fs.embedsom_t > 0.00001f && fs.color_t > 0.00001f) {
-        fs.trans_priority = 0.375f;
-        fs.scaled_priority = 0.375f;
-        fs.color_priority = 0.125f;
-        fs.embed_priority = 0.125f;        
-    } 
-    else
-    // if trans finished and all other are computing
-    if(fs.trans_t <= 0.00001f && fs.scaled_t > 0.00001f &&
-        fs.embedsom_t > 0.00001f && fs.color_t > 0.00001f) {
-        fs.trans_priority = 0.0f;
-        fs.scaled_priority = 0.75f;
-        fs.color_priority = 0.125f;
-        fs.embed_priority = 0.125f;
-    }
-    else
-    // if scaled finished and all others are computing
-    if(fs.trans_t > 0.00001f && fs.scaled_t <= 0.00001f &&
-        fs.embedsom_t > 0.00001f && fs.color_t > 0.00001f) {
-        fs.trans_priority = 0.75f;
-        fs.scaled_priority = 0.0f;
-        fs.color_priority = 0.125f;
-        fs.embed_priority = 0.125f;
-    }
-    else
-    // if trans and scaled finished computing
-    if(fs.trans_t <= 0.00001f && fs.scaled_t <= 0.00001f &&
-        fs.embedsom_t > 0.00001f && fs.color_t > 0.00001f) {
-        fs.trans_priority = 0.0f;
-        fs.scaled_priority = 0.0f;
-        fs.color_priority = 0.5f;
-        fs.embed_priority = 0.5f;
-    }
-    else
-    // if trans, scaled and color finished computing
-    if(fs.trans_t <= 0.00001f && fs.scaled_t <= 0.00001f &&
-        fs.embedsom_t > 0.00001f && fs.color_t <= 0.00001f) {
-        fs.trans_priority = 0.0f;
-        fs.scaled_priority = 0.0f;
-        fs.color_priority = 0.0f;
-        fs.embed_priority = 1.0f;
-    }
-    else
-    // if trans, scaled and embedsom finished computing
-    if(fs.trans_t <= 0.00001f && fs.scaled_t <= 0.00001f &&
-        fs.embedsom_t <= 0.00001f && fs.color_t > 0.00001f) {
-        fs.trans_priority = 0.0f;
-        fs.scaled_priority = 0.0f;
-        fs.color_priority = 1.0f;
-        fs.embed_priority = 0.0f;
-    }
-    else
-    // if trans, scaled, color and embedsom finished computing
-    if(fs.trans_t <= 0.00001f && fs.scaled_t <= 0.00001f &&
-        fs.embedsom_t <= 0.00001f && fs.color_t <= 0.00001f) {
-        fs.trans_priority = 0.0f;
-        fs.scaled_priority = 0.0f;
-        fs.color_priority = 0.0f;
-        fs.embed_priority = 0.0f;
-    }
-
-    float alpha = 0.05f;
-    float coalpha = 1 - 0.05f;
-    if(fs.trans_priority == 0.0f) fs.trans_duration = 0.0f;
-    else fs.trans_duration =
-        fs.trans_duration * coalpha + 
-        fs.est_time * fs.trans_priority * alpha;
-    if(fs.embed_priority == 0.0f) fs.embedsom_duration = 0.0f;
-    else fs.embedsom_duration =
-        fs.embedsom_duration * coalpha +
-        fs.est_time * fs.embed_priority * alpha;
-    if(fs.scaled_priority == 0.0f) fs.scaled_duration = 0.0f;
-    else fs.scaled_duration =
-        fs.scaled_duration * coalpha +
-        fs.est_time * fs.scaled_priority * alpha;
-    if(fs.color_priority == 0.0f) fs.color_duration = 0.0f;
-    else fs.color_duration = 
-        fs.color_duration * coalpha + 
-        fs.est_time * fs.color_priority * alpha;       
 }
