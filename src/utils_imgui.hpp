@@ -81,7 +81,7 @@ add2window(const char *name, float t, size_t n)
     // ImGui::InputText(
     //   name, inputText, 4096, ImGuiInputTextFlags_ReadOnly);
    
-   ImGui::Text("%d, %f\t\t\t%s", n, t, name);
+   ImGui::Text("%zu, %f\t\t\t%s", n, t, name);
 }
 
 static void
