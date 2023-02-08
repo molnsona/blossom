@@ -2,6 +2,7 @@ set(BLOSSOM_SOURCES
     batch_size_gen.cpp
     color_data.cpp
     embedsom.cpp
+    estimator.cpp
     fcs_parser.cpp
     graph_layout.cpp
     graph_renderer.cpp

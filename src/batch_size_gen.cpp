@@ -20,11 +20,7 @@
 
 #include <cmath>
 #include <random>
-
-//#define DEBUG
-#ifdef DEBUG
-#include <iostream>
-#endif
+#include <tuple>
 
 BatchSizeGen::BatchSizeGen()
 {
@@ -34,14 +30,7 @@ BatchSizeGen::BatchSizeGen()
 void
 BatchSizeGen::reset()
 {
-    a = 0.00001;
-    b = 0.00001;
-    c = 0.00001;
-    d = 0.00001;
-    e = 0.00001;
-    f = 0.00001;
-    alpha = 0.05;
-    coalpha = 1 - alpha;
+    estimator.reset();
     N = 100;
     prevT = 0.0f;
 }
@@ -63,61 +52,22 @@ BatchSizeGen::next(float T, float t)
         return N;
     }
 
-    // Computation time of one point.
-    float TN = T / N;
-    // Normalized normal line to the line with slope (-T, T/N).
-    // The normal line before normalization is (T, T/N).
-    float n1 = TN * (1 / (std::sqrt(TN * TN + T * T)));
-    float n2 = T * (1 / (std::sqrt(TN * TN + T * T)));
-    // Distance of the line from origin [0,0].
-    float n3 = T * n1;
+    estimator.process_measurement(N, T);
+    auto [const_time, time_per_point] = estimator.get_estimate();
 
-    a = a * coalpha + n1 * n1 * alpha;
-    b = b * coalpha + n2 * n2 * alpha;
-    c = c * coalpha + (2 * n1 * n2) * alpha;
-    d = d * coalpha + (-2 * n1 * n3) * alpha;
-    e = e * coalpha + (-2 * n2 * n3) * alpha;
-    f = f * coalpha + n3 * n3 * alpha;
+    // TODO add variance
 
-    float x = (c * e - 2 * b * d) / (4 * a * b - c * c);
-    float y = (c * d - 2 * a * e) / (4 * a * b - c * c);
-
-    // variance and standard deviation
-    float z = a * x * x + b * y * y + c * x * y + d * x + e * y + f;
-    float sd = std::sqrt(z);
-
-#ifdef DEBUG
-    // std::cout << "N: " << N << std::endl;
-    // std::cout << "T: " << T << std::endl;
-    // std::cout << "TN: " << TN << std::endl;
-    // std::cout << "n1: " << n1 << std::endl;
-    // std::cout << "n2: " << n2 << std::endl;
-    // std::cout << "n3: " << n3 << std::endl;
-
-    // std::cout << "a: " << a << std::endl;
-    // std::cout << "b: " << b << std::endl;
-    // std::cout << "c: " << c << std::endl;
-    // std::cout << "d: " << d << std::endl;
-    // std::cout << "e: " << e << std::endl;
-    // std::cout << "f: " << f << std::endl;
-
-    // std::cout << "x: " << x << std::endl;
-    // std::cout << "y: " << y << std::endl;
-    std::cout << "sd: " << sd << std::endl;
-#endif
-
-    float n = (t - x) / y;
+    // Compute estimated number of points.
+    float n = (t - const_time) / time_per_point;
     N = n <= 0 ? 100 : n;
     prevT = T;
 
     // Subtract random value from N.
     std::random_device rd{};
     std::mt19937 gen{ rd() };
-    std::normal_distribution<> d{ 100, 50 /*sd * 100000*/ };
+    std::normal_distribution<> d{ 100, 50 };
     float rv = std::round(std::abs(d(gen)));
-#ifdef DEBUG
-    std::cout << "rv: " << rv << std::endl;
-#endif
+
     N = rv < N ? N - rv : N;
     return N;
 }

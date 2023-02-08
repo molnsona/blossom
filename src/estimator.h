@@ -16,31 +16,29 @@
  * BlosSOM. If not, see <https://www.gnu.org/licenses/>.
  */
 
-#ifndef BATCH_SIZE_GEN_H
-#define BATCH_SIZE_GEN_H
+#ifndef ESTIMATOR_H
+#define ESTIMATOR_H
 
 #include <cstddef>
+#include <tuple>
 
-#include "estimator.h"
-
-/**
- * @brief Generator of the size of the next point batch. It implements MLEM
- * algorithm described in the thesis text.
- *
- */
-class BatchSizeGen
+class Estimator
 {
 public:
-    BatchSizeGen();
-
+    Estimator();
+    void process_measurement(size_t n, float t);
+    std::tuple<float, float> get_estimate();
     void reset();
 
-    size_t next(float T, float t);
-
 private:
-    Estimator estimator;
-    size_t N;
-    float prevT;
+    float a;
+    float b;
+    float c;
+    float d;
+    float e;
+    float f;
+    float alpha;
+    float coalpha;
 };
 
-#endif // #ifndef BATCH_SIZE_GEN_H
+#endif // #ifndef ESTIMATOR_H
