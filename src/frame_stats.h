@@ -59,10 +59,10 @@ struct FrameStats
     // size for the next frame.
     float est_time = 0.1f;
 
-    float embed_priority = 0.125f;
-    float color_priority = 0.125f;
-    float trans_priority = 0.375f;
-    float scaled_priority = 0.375f;
+    float embed_priority = 0.05f;
+    float color_priority = 0.05f;
+    float trans_priority = 0.45f;
+    float scaled_priority = 0.45f;
 
 #ifdef DEBUG
     float gl_finish_time = 0.0f;
