@@ -19,8 +19,12 @@
 #ifndef ESTIMATOR_H
 #define ESTIMATOR_H
 
+#include <array>
 #include <cstddef>
 #include <tuple>
+
+typedef std::array<float, 4> mat2x2;
+typedef std::array<float, 2> mat2x1;
 
 class Estimator
 {
@@ -28,6 +32,9 @@ public:
     Estimator();
     void process_measurement(size_t n, float t);
     std::tuple<float, float> get_estimate();
+    float get_z(float x, float y);
+    float get_var();
+    mat2x2 get_cov_matrix();
     void reset();
 
 private:
