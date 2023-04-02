@@ -24,6 +24,12 @@
 #include <random>
 #include <tuple>
 
+#define DEBUG
+#ifdef DEBUG
+#include <iostream>
+#include <string>
+#endif
+
 BatchSizeGen::BatchSizeGen()
 {
     reset();
@@ -46,6 +52,7 @@ BatchSizeGen::next(float T, float t)
         reset();
         return N;
     }
+    
     // Prevent increase of batch size to inifinity
     // when SOM or kmeans is turned off or when no
     // data set is loaded.
@@ -76,10 +83,24 @@ BatchSizeGen::next(float T, float t)
     return N;
 }
 
+#ifdef DEBUG
+template<typename T>
+static void write_array(std::string s, const T& a)
+{
+    std::cout << s << "="<< std::endl; 
+    for (size_t i = 0; i < a.size(); i++)
+    {
+        std::cout << a[i] << " ";
+        if(i % 2 != 0 ) std::cout << std::endl;
+    }
+    
+}
+#endif
+
 void
 BatchSizeGen::compute_n(float t, float x, float y)
 {
-    std::array<float, 2> mu{ y, x };
+    mat2x1 mu{ y, x };
     auto cov_m = estimator.get_cov_matrix();
     auto [U, SIGMA, V] = get_svd(cov_m);
 
@@ -107,15 +128,32 @@ BatchSizeGen::compute_n(float t, float x, float y)
     float c1 = mu[0];
     float c2 = mu[1];
     float w = 1.64;
-    float qa = pow(t - c2, 2) - (pow(a2, 2) + pow(b2, 2)) * pow(w, 2);
-    float qb = -(2 * c1 * (t - c2) + 2 * (a1 * a2 + b1 * b2) * pow(w, 2));
-    float qc = pow(c1, 2) - (pow(a1, 2) + pow(b1, 2)) * pow(w, 2);
+    float qa = c1-(pow(a1,2) +pow(b1,2))*pow(w,2);
+    float qb = 2*(c1*c2 - c1*t - (a1*a2+b1*b2)*pow(w,2));
+    float qc = pow(c2,2)-2*c2*t + pow(t,2) -(pow(a2,2) +pow(b2,2))*pow(w,2);
 
     // Find N
+    float N1 = 100;
+    float N2 = 100;
     constexpr size_t max = std::numeric_limits<size_t>::max();
     float D = pow(qb, 2) - 4 * qa * qc;
-    float N1 = (-qb + sqrt(D)) / 2 * qa;
-    float N2 = (-qb - sqrt(D)) / 2 * qa;
+    if(D > 0) {
+        N1 = (-qb + sqrt(D)) / (2 * qa);
+        N2 = (-qb - sqrt(D)) / (2 * qa);
+    }
+
+#ifdef DEBUG
+// write_array<mat2x2>("U", U);
+// write_array<mat2x1>("s", SIGMA);
+// write_array<mat2x1>("aaxis", aaxis);
+// write_array<mat2x1>("baxis", baxis);
+// write_array<mat2x1>("mu", mu);
+
+    // std::cout << "qa: "<< qa << std::endl;
+    std::cout << "N1: "<< N1 << std::endl;
+    std::cout << "N2: "<< N2 << std::endl;
+#endif
+
     if (N1 > 0.6 && N1 < max)
         N = round(N1);
     else if (N2 > 0.6 && N2 < max)
@@ -171,8 +209,8 @@ BatchSizeGen::get_svd(mat2x2 A)
     mat2x2 U{ u1[0], u2[0], u1[1], u2[1] };
 
     // Singular values
-    float sigma1 = abs(lambda1);
-    float sigma2 = abs(lambda2);
+    float sigma1 = fabs(lambda1);
+    float sigma2 = fabs(lambda2);
 
     // Singular values must be in decreasing order
     if (sigma1 < sigma2) {

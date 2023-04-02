@@ -46,6 +46,10 @@ Estimator::reset()
 void
 Estimator::process_measurement(size_t N, float T)
 {
+    // Prevent the division with zero.
+    if(N == 0) N = 100;
+    if(T == 0) T = 0.00001;
+
     // Computation time of one point.
     float TN = T / N;
     // Normalized normal line to the line with slope (-T, T/N).
