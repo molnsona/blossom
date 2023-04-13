@@ -80,8 +80,7 @@ TransData::update(const DataModel &dm,
     // make sure we're the right size
     auto [ri, rn] = dirty_range(dm);
     if (!rn) {
-        frame_stats.trans_t = 0.00001f;
-        frame_stats.trans_n = 0;
+        frame_stats.reset(frame_stats.trans_t, frame_stats.trans_n);
         batch_size_gen.reset();
         return;
     }

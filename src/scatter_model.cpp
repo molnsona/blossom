@@ -43,12 +43,11 @@ ScatterModel::update(const ScaledData &d,
 
     // It gives the beginning index ri of the data that should be
     // processed and the number of elements rn that should be
-    // processed. The number of the elements can be zero if nothing 
+    // processed. The number of the elements can be zero if nothing
     // has to be recomputed.
     auto [ri, rn] = dirty_range(d);
     if (!rn) {
-        frame_stats.embedsom_t = 0.00001f;
-        frame_stats.embedsom_n = 0;
+        frame_stats.reset(frame_stats.embedsom_t, frame_stats.embedsom_n);
         batch_size_gen.reset();
         return;
     }
@@ -64,8 +63,7 @@ ScatterModel::update(const ScaledData &d,
         rn = max_points;
 
     if (lm.d != d.dim()) {
-        frame_stats.embedsom_t = 0.00001f;
-        frame_stats.embedsom_n = 0;
+        frame_stats.reset(frame_stats.embedsom_t, frame_stats.embedsom_n);
         batch_size_gen.reset();
         return;
     }

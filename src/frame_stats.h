@@ -99,6 +99,12 @@ struct FrameStats
         to = timer.frametime * 1000; // to get milliseconds
     }
 
+    void reset(float &t, size_t &n)
+    {
+        t = 0.00001f;
+        n = 0;
+    }
+
     /**
      * @brief Compute durations of the estimation batch sizes computations.
      *
