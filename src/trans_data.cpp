@@ -97,10 +97,8 @@ TransData::update(const DataModel &dm,
     const size_t d = dim();
     std::vector<float> sums_adjust(d, 0), sqsums_adjust(d, 0);
 
-    frame_stats.timer.tick();
-    frame_stats.constant_time += frame_stats.timer.frametime * 1000;
+    frame_stats.add_const_time();
 
-    frame_stats.timer.tick();
     for (; rn-- > 0; ++ri) {
         if (ri >= n)
             ri = 0;
@@ -126,11 +124,9 @@ TransData::update(const DataModel &dm,
         sums[di] += sums_adjust[di];
         sqsums[di] += sqsums_adjust[di];
     }
-    frame_stats.timer.tick();
-    frame_stats.trans_t =
-      frame_stats.timer.frametime * 1000; // to get milliseconds
 
-    frame_stats.timer.tick();
+    frame_stats.store_time(frame_stats.trans_t);
+
     touch();
 }
 

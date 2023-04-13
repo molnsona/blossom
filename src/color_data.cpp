@@ -123,10 +123,8 @@ ColorData::update(const TransData &td, FrameStats &frame_stats)
 
     clean_range(td, rn);
 
-    frame_stats.timer.tick();
-    frame_stats.constant_time += frame_stats.timer.frametime * 1000;
+    frame_stats.add_const_time();
 
-    frame_stats.timer.tick();
     switch (coloring) {
         case int(ColorData::Coloring::EXPR): {
             if (expr_col >= d)
@@ -175,11 +173,8 @@ ColorData::update(const TransData &td, FrameStats &frame_stats)
             }
             break;
     }
-    frame_stats.timer.tick();
-    frame_stats.color_t =
-      frame_stats.timer.frametime * 1000; // to get milliseconds
 
-    frame_stats.timer.tick();
+    frame_stats.store_time(frame_stats.color_t);
 }
 
 void

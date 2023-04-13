@@ -70,6 +70,35 @@ struct FrameStats
     float dt;
 #endif
 
+    void start_frame()
+    {
+        constant_time = 0.0f;
+        timer.tick();
+    }
+
+    void end_frame()
+    {
+        add_const_time();
+
+        // // Because we want the frame to last ~17ms (~60 FPS).
+        // float diff = 17.0f - constant_time;
+        // Because we want the frame to last ~20ms (~50 FPS).
+        float diff = 20.0f - constant_time;
+        est_time = diff < 0.0001f ? 1.0f : diff;
+    }
+
+    void add_const_time()
+    {
+        timer.tick();
+        constant_time += timer.frametime * 1000; // to get milliseconds
+    }
+
+    void store_time(float &to)
+    {
+        timer.tick();
+        to = timer.frametime * 1000; // to get milliseconds
+    }
+
     /**
      * @brief Compute durations of the estimation batch sizes computations.
      *
@@ -142,23 +171,23 @@ struct FrameStats
         if (trans_priority == 0.0f)
             trans_duration = 0.0f;
         else
-            trans_duration =
-              trans_duration * coalpha + est_time * trans_priority * alpha;
+            trans_duration = est_time * trans_priority;
+        //   trans_duration * coalpha + est_time * trans_priority * alpha;
         if (embed_priority == 0.0f)
             embedsom_duration = 0.0f;
         else
-            embedsom_duration =
-              embedsom_duration * coalpha + est_time * embed_priority * alpha;
+            embedsom_duration = est_time * embed_priority;
+        //   embedsom_duration * coalpha + est_time * embed_priority * alpha;
         if (scaled_priority == 0.0f)
             scaled_duration = 0.0f;
         else
-            scaled_duration =
-              scaled_duration * coalpha + est_time * scaled_priority * alpha;
+            scaled_duration = est_time * scaled_priority;
+        //   scaled_duration * coalpha + est_time * scaled_priority * alpha;
         if (color_priority == 0.0f)
             color_duration = 0.0f;
         else
-            color_duration =
-              color_duration * coalpha + est_time * color_priority * alpha;
+            color_duration = est_time * color_priority;
+        //   color_duration * coalpha + est_time * color_priority * alpha;
     }
 };
 

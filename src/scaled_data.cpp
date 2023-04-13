@@ -52,10 +52,8 @@ ScaledData::update(const TransData &td, FrameStats &frame_stats)
     std::vector<float> isds = td.sqsums;
     size_t d = dim();
 
-    frame_stats.timer.tick();
-    frame_stats.constant_time += frame_stats.timer.frametime * 1000;
+    frame_stats.add_const_time();
 
-    frame_stats.timer.tick();
     for (size_t di = 0; di < d; ++di) {
         means[di] /= n;
         isds[di] /= n;
@@ -72,11 +70,9 @@ ScaledData::update(const TransData &td, FrameStats &frame_stats)
               (td.data[ri * d + di] - means[di]) *
               (config[di].scale ? config[di].sdev * isds[di] : 1);
     }
-    frame_stats.timer.tick();
-    frame_stats.scaled_t =
-      frame_stats.timer.frametime * 1000; // to get milliseconds
 
-    frame_stats.timer.tick();
+    frame_stats.store_time(frame_stats.scaled_t);
+
     touch();
 }
 

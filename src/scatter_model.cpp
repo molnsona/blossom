@@ -41,6 +41,10 @@ ScatterModel::update(const ScaledData &d,
         lm_watch.clean(lm);
     }
 
+    // It gives the beginning index ri of the data that should be
+    // processed and the number of elements rn that should be
+    // processed. The number of the elements can be zero if nothing 
+    // has to be recomputed.
     auto [ri, rn] = dirty_range(d);
     if (!rn) {
         frame_stats.embedsom_t = 0.00001f;
@@ -53,6 +57,9 @@ ScatterModel::update(const ScaledData &d,
                                                  frame_stats.embedsom_duration);
     const size_t max_points = frame_stats.embedsom_n;
 
+    // If the number of elements that need to be recomputed is larger
+    // than the maximum possible points that can be processed in this
+    // frame, the number of elements lowers to this value.
     if (rn > max_points)
         rn = max_points;
 
@@ -63,13 +70,13 @@ ScatterModel::update(const ScaledData &d,
         return;
     }
 
+    // Say that rn data in the cache will be refreshed. Where rn is the
+    // number of the data that will be refreshed.
     clean_range(d, rn);
 
     auto do_embedsom = [&](size_t from, size_t n) {
-        frame_stats.timer.tick();
-        frame_stats.constant_time += frame_stats.timer.frametime * 1000;
+        frame_stats.add_const_time();
 
-        frame_stats.timer.tick();
 #ifdef ENABLE_CUDA
         embedsom_cuda.run
 #else
@@ -85,20 +92,26 @@ ScatterModel::update(const ScaledData &d,
            lm.hidim_vertices.data(),
            &lm.lodim_vertices[0][0],
            &points[from][0]);
-        frame_stats.timer.tick();
-        frame_stats.embedsom_t =
-          frame_stats.timer.frametime * 1000; // to get milliseconds
 
-        frame_stats.timer.tick();
+        frame_stats.store_time(frame_stats.embedsom_t);
     };
 
+    // If the index in the elements is over the size of the data
+    // It means it is cyclic and needs to continue from the
+    // beginning of the data.
     if (ri + rn >= d.n) {
+        // So firstly the elements that remain to the end of the data
+        // are processed.
         size_t diff = d.n - ri;
         do_embedsom(ri, diff);
+        // Then the index cycles back to the beginning
         ri = 0;
+        // And the number of elements that need to be processed
+        // is lowered by the already processed elements.
         rn -= diff;
     }
 
+    // Process the elements that are left to processing.
     if (rn)
         do_embedsom(ri, rn);
 }
