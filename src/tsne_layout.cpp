@@ -44,6 +44,7 @@ tsne_layout_step(TSNELayoutData &data,
     if (heap.size() != n)
         heap.resize(n);
 
+    // Compute distances between hidim landmarks
     for (size_t i = 0; i < n; ++i) {
         pji[n * i + i] = 0;
         for (size_t j = i + 1; j < n; ++j) {
@@ -93,6 +94,7 @@ tsne_layout_step(TSNELayoutData &data,
         return out;
     };
 
+    // Compute similarity matrix for high-dim vertices
     for (size_t i = 0; i < n; ++i) {
         for (size_t j = 0; j < n - 1; ++j)
             heap[j] = j < i ? j : j + 1;
@@ -109,6 +111,7 @@ tsne_layout_step(TSNELayoutData &data,
             pji[i * n + j] *= wsum;
     }
 
+    // Make similarities symmetric
     for (size_t i = 0; i < n; ++i)
         for (size_t j = i + 1; j < n; ++j)
             pji[i * n + j] = pji[j * n + i] =
@@ -131,6 +134,7 @@ tsne_layout_step(TSNELayoutData &data,
 
     float update_weight = 0;
 
+    // Compute the forces applied to each vertex.
     for (size_t i = 0; i < n; ++i)
         for (size_t j = i + 1; j < n; ++j) {
             auto vji = lm.lodim_vertices[i] - lm.lodim_vertices[j];
@@ -149,6 +153,7 @@ tsne_layout_step(TSNELayoutData &data,
 
     update_weight = 100 / update_weight;
 
+    // Apply forces to low dim landmarks
     for (size_t i = 0; i < n; ++i)
         if (!vert_pressed || vert_ind != i)
             lm.lodim_vertices[i] += update_weight * time * ups[i];
