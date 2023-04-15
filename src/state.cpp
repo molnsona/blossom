@@ -72,6 +72,6 @@ State::update(float actual_time, bool vert_pressed, int vert_ind)
                           training_conf.sigma,
                           landmarks);
 
-    colors.update(trans);
+    colors.update(trans, landmarks);
     scatter.update(scaled, landmarks, training_conf);
 }

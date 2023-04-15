@@ -251,8 +251,6 @@ GraphRenderer::prepare_vertices(float current_zoom, const LandmarkModel &model,
         add_circle(vertices[i].x, vertices[i].y, current_zoom, all_vtxs, all_colors, colors.landmarks[i]);
     }
 
-    std::cout << all_colors.size() << std::endl;
-
     glBindVertexArray(VAO_v);
 
     glBindBuffer(GL_ARRAY_BUFFER, VBO_v_pos);

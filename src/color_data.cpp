@@ -96,12 +96,19 @@ create_col_palette(
 }
 
 void
-ColorData::update(const TransData &td)
+ColorData::update(const TransData &td, const LandmarkModel &lm)
 {
     if (td.n != data.size()) {
         data.resize(td.n, glm::vec4(0, 0, 0, 0));
         refresh(td);
     }
+
+    if (lm_watch.dirty(lm)) {
+        landmarks.resize(lm.n_landmarks(), {0.4,0.4,0.4,0.6});
+        refresh(td);
+        lm_watch.clean(lm);
+    }
+
 
     const size_t max_points =
 #ifndef ENABLE_CUDA

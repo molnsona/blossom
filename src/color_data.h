@@ -23,6 +23,7 @@
 #include <glm/glm.hpp>
 
 #include "dirty.h"
+#include "landmark_model.h"
 #include "trans_data.h"
 
 #include <string>
@@ -44,13 +45,15 @@ struct ColorData : public Sweeper
         CLUSTER
     };
 
+    Cleaner lm_watch;
+
     /** Colors of the 2D data points. Array has the size of the number of 2D data
      * points.
      */
     std::vector<glm::vec4> data;
     /** Colors of the landmarks. Array has the size of the number of landmarks.
      */
-    std::vector<glm::vec4> landmarks = std::vector<glm::vec4>(4, {0.4,0.4,0.4,0.6});
+    std::vector<glm::vec4> landmarks;
     /** Type of the coloring method. */
     int coloring;
     /** Index of the column used in expression coloring. */
@@ -79,7 +82,7 @@ struct ColorData : public Sweeper
      *
      * @param td Transformed data received from the data flow pipeline.
      */
-    void update(const TransData &td);
+    void update(const TransData &td, const LandmarkModel &lm);
     /**
      * @brief Notifies @ref Sweeper that the color settings has been modified
      * and that the data has to be recomputed.
