@@ -22,6 +22,7 @@
 
 #include <vector>
 
+#include "color_data.h"
 #include "landmark_model.h"
 #include "shader.h"
 #include "view.h"
@@ -62,7 +63,8 @@ struct GraphRenderer
      * \todo TODO: this should not know about actual Landmarks, we should pass
      * actual vertex + edge positions as with the layouter.
      */
-    void draw(const View &v, const LandmarkModel &m);
+    void draw(const View &v, const LandmarkModel &m,
+                      const ColorData &colors);
 
     /**
      * @brief Checks if some vertex was pressed.
@@ -96,7 +98,8 @@ private:
 
     Shader shader_v;
     unsigned int VAO_v;
-    unsigned int VBO_v;
+    unsigned int VBO_v_pos;
+    unsigned int VBO_v_col;
 
     Shader shader_e;
     unsigned int VAO_e;
@@ -125,14 +128,16 @@ private:
      * @param current_zoom Current zoom of the "camera".
      * @param model Data source
      */
-    void prepare_data(float current_zoom, const LandmarkModel &model);
+    void prepare_data(float current_zoom, const LandmarkModel &model,
+                      const ColorData &colors);
     /**
      * @brief Prepare graph vertices that are rendered as circles.
      *
      * @param current_zoom Current zoom of the "camera".
      * @param model Data source
      */
-    void prepare_vertices(float current_zoom, const LandmarkModel &model);
+    void prepare_vertices(float current_zoom, const LandmarkModel &model,
+                      const ColorData &colors);
     /**
      * @brief Prepare graph edges that are rendered as lines.
      *
@@ -158,7 +163,9 @@ private:
     void add_circle(float middle_x,
                     float middle_y,
                     float zoom,
-                    std::vector<float> &all_vtxs);
+                    std::vector<float> &all_vtxs,
+                    std::vector<glm::vec4> &all_colors,
+                    const glm::vec4 &color);
 
     bool is_within_rect(glm::vec2 point) const;
 };

@@ -44,10 +44,13 @@ struct ColorData : public Sweeper
         CLUSTER
     };
 
-    /** Colors of the 2D data points. Array has the size of number of 2D data
+    /** Colors of the 2D data points. Array has the size of the number of 2D data
      * points.
      */
     std::vector<glm::vec4> data;
+    /** Colors of the landmarks. Array has the size of the number of landmarks.
+     */
+    std::vector<glm::vec4> landmarks = std::vector<glm::vec4>(4, {0.4,0.4,0.4,0.6});
     /** Type of the coloring method. */
     int coloring;
     /** Index of the column used in expression coloring. */

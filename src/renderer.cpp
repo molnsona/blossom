@@ -26,7 +26,7 @@ Renderer::render(const State &state, const View &view)
     glClear(GL_COLOR_BUFFER_BIT);
 
     scatter_renderer.draw(view, state.scatter, state.colors);
-    graph_renderer.draw(view, state.landmarks);
+    graph_renderer.draw(view, state.landmarks, state.colors);
 }
 
 void
