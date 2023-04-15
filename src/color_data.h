@@ -22,6 +22,7 @@
 
 #include <glm/glm.hpp>
 
+#include "cluster_data.h"
 #include "dirty.h"
 #include "landmark_model.h"
 #include "trans_data.h"
@@ -42,7 +43,8 @@ struct ColorData : public Sweeper
     enum Coloring
     {
         EXPR,
-        CLUSTER
+        CLUSTER,
+        BRUSHING
     };
 
     Cleaner lm_watch;
@@ -60,10 +62,8 @@ struct ColorData : public Sweeper
     int expr_col;
     /** Name of the currently used color palette. */
     std::string col_palette;
-    /**  Index of the column used in cluster coloring. */
-    int cluster_col;
-    /** Count of the clusters used in cluster coloring. */
-    int cluster_cnt;
+
+    ClusterData cluster_coloring;
     /** Alpha channel of RGBA color. It is the same for all 2D data points. */
     float alpha;
     /** Flag indicating if the colors of the color palette should be reversed.

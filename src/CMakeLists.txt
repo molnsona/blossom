@@ -1,4 +1,5 @@
 set(BLOSSOM_SOURCES
+    cluster_data.cpp
     color_data.cpp
     embedsom.cpp
     fcs_parser.cpp

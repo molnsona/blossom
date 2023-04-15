@@ -113,10 +113,10 @@ UiColorSettings::render(State &state, ImGuiWindowFlags window_flags)
                     state.colors.touch_config();
             } break;
             case int(ColorData::Coloring::CLUSTER):
-                column_combo("##columnscluster", state.colors.cluster_col);
+                column_combo("##columnscluster", state.colors.cluster_coloring.cluster_col);
 
                 if (ImGui::SliderInt(
-                      "Cluster count", &state.colors.cluster_cnt, 1, 50))
+                      "Cluster count", &state.colors.cluster_coloring.cluster_cnt, 1, 50))
                     state.colors.touch_config();
 
                 break;
