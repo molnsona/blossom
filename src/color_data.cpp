@@ -30,7 +30,7 @@ ColorData::update(const TransData &td, const LandmarkModel &lm)
     }
 
     if (lm_watch.dirty(lm)) {
-        landmarks.resize(lm.n_landmarks(), {0.4,0.4,0.4,0.6});
+        landmarks.resize(lm.n_landmarks(), default_landmark_color);
         refresh(td);
         lm_watch.clean(lm);
     }
@@ -95,5 +95,7 @@ ColorData::reset()
     alpha = 0.5f;
     reverse = false;
     clustering.reset();
+    auto lnds_size = landmarks.size();
+    landmarks = {lnds_size, default_landmark_color};
     touch_config();
 }

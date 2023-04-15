@@ -70,6 +70,16 @@ InputHandler::process_mouse_button(View &view, Renderer &renderer, State &state)
         case GLFW_MOUSE_BUTTON_LEFT:
             switch (action) {
                 case GLFW_PRESS:
+                    if(state.colors.clustering.active_cluster != -1)
+                    {
+                        renderer.check_pressed_vertex(view, pos);
+                        auto vert_ind = renderer.get_vert_ind();
+                        auto index = state.colors.clustering.active_cluster;
+                        auto color = state.colors.clustering.clusters[index].first;
+                        state.colors.landmarks[vert_ind] = color;
+                        break;
+                    }
+
                     if (renderer.is_passive_multiselect()) {
                         renderer.check_pressed_rect(model_mouse_pos);
                         break;
@@ -129,6 +139,8 @@ InputHandler::process_mouse_button(View &view, Renderer &renderer, State &state)
         default:
             break;
     }
+
+    if(state.colors.clustering.active_cluster != -1) return;
 
     if (renderer.is_active_multiselect() && input.keyboard.shift_pressed) {
         renderer.update_multiselect(model_mouse_pos);

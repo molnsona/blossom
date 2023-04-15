@@ -47,6 +47,8 @@ struct ColorData : public Sweeper
         BRUSHING
     };
 
+    const glm::vec4 default_landmark_color = {0.4,0.4,0.4,0.6};
+
     Cleaner lm_watch;
 
     /** Colors of the 2D data points. Array has the size of the number of 2D data

@@ -33,7 +33,7 @@
  */
 struct ClusterData
 {
-    const glm::vec3 default_cluster_color = {114.0f / 255.0f, 144.0f / 255.0f, 154.0f / 255.0f};
+    const glm::vec4 default_cluster_color = {114.0f / 255.0f, 144.0f / 255.0f, 154.0f / 255.0f, 255.0f / 255.0f};
 
     /**  Index of the column used in cluster coloring. */
     int cluster_col;
@@ -42,9 +42,9 @@ struct ClusterData
 
     /** Cluster colors and names for brushing.
      * <color, name>*/
-    std::vector<std::pair<glm::vec3, std::string>> clusters;    
+    std::vector<std::pair<glm::vec4, std::string>> clusters;    
 
-    /** Index of the active cluster that is used for brushing.*/
+    /** Index of the active cluster (into @ref clusters) that is used for brushing.*/
     int active_cluster;
 
     void do_cluster_coloring(float alpha, size_t ri, size_t rn,

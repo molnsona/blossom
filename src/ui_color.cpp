@@ -142,9 +142,9 @@ UiColorSettings::render(State &state, ImGuiWindowFlags window_flags)
                                         &clustering.active_cluster,
                                         int(i));
                     ImGui::SameLine();
-                    ImGui::ColorEdit3(("##ClusterColor"+std::to_string(i)).data(),
+                    ImGui::ColorEdit4(("##ClusterColor"+std::to_string(i)).data(),
                         (float*)&clustering.clusters[i].first, 
-                        ImGuiColorEditFlags_NoInputs | ImGuiColorEditFlags_NoLabel);
+                        ImGuiColorEditFlags_NoInputs | ImGuiColorEditFlags_NoLabel | ImGuiColorEditFlags_AlphaPreview);
                     ImGui::SameLine();
                     ImGui::InputText(("##ClusterName" + std::to_string(i)).data(),
                         &clustering.clusters[i].second);
