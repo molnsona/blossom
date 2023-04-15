@@ -78,7 +78,7 @@ ColorData::update(const TransData &td, const LandmarkModel &lm)
         } break;
 
         case int(ColorData::Coloring::CLUSTER):
-            cluster_coloring.do_cluster_coloring(alpha, ri, rn, td, data);
+            clustering.do_cluster_coloring(alpha, ri, rn, td, data);
             break;
         case int(ColorData::Coloring::BRUSHING):
 
@@ -94,6 +94,6 @@ ColorData::reset()
     col_palette = "rdbu";
     alpha = 0.5f;
     reverse = false;
-    cluster_coloring.reset();
+    clustering.reset();
     touch_config();
 }

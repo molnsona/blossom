@@ -21,6 +21,8 @@
 
 #include <glm/glm.hpp>
 
+#include <string>
+#include <tuple>
 #include <vector>
 
 #include "trans_data.h"
@@ -31,14 +33,25 @@
  */
 struct ClusterData
 {
+    const glm::vec3 default_cluster_color = {114.0f / 255.0f, 144.0f / 255.0f, 154.0f / 255.0f};
+
     /**  Index of the column used in cluster coloring. */
     int cluster_col;
     /** Count of the clusters used in cluster coloring. */
     int cluster_cnt;
 
+    /** Cluster colors and names for brushing.
+     * <color, name>*/
+    std::vector<std::pair<glm::vec3, std::string>> clusters;    
+
+    /** Index of the active cluster that is used for brushing.*/
+    int active_cluster;
+
     void do_cluster_coloring(float alpha, size_t ri, size_t rn,
         const TransData& td, std::vector<glm::vec4> &point_colors);
     void do_brushing();
+
+    void add_cluster();
 
     void reset();
 };

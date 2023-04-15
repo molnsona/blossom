@@ -122,8 +122,17 @@ void ClusterData::do_cluster_coloring(float alpha, size_t ri, size_t rn,
     }
 }
 
+void ClusterData::add_cluster()
+{
+    clusters.emplace_back(std::make_pair(default_cluster_color, "cluster name"));
+}
+
 void ClusterData::reset()
 {
     cluster_col = 0;
     cluster_cnt = 10;
+
+    active_cluster = -1;
+
+    clusters.clear();
 }

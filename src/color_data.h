@@ -63,7 +63,7 @@ struct ColorData : public Sweeper
     /** Name of the currently used color palette. */
     std::string col_palette;
 
-    ClusterData cluster_coloring;
+    ClusterData clustering;
     /** Alpha channel of RGBA color. It is the same for all 2D data points. */
     float alpha;
     /** Flag indicating if the colors of the color palette should be reversed.
