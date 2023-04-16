@@ -134,13 +134,15 @@ UiColorSettings::render(State &state, ImGuiWindowFlags window_flags)
                     ImGui::RadioButton("None",
                                &clustering.active_cluster,
                                -1);
-                
-                size_t i = 0;
+                                
                 for (auto iter = clustering.clusters.begin(); iter != clustering.clusters.end();)
                 {
+                    int i = iter->first;
+                    
                     ImGui::RadioButton(("##BrushingCluster"+std::to_string(i)).data(), 
                                         &clustering.active_cluster,
                                         int(i));
+
                     ImGui::SameLine();
                     ImGui::ColorEdit4(("##ClusterColor"+std::to_string(i)).data(),
                         (float*)&clustering.clusters[i].first, 
@@ -153,9 +155,9 @@ UiColorSettings::render(State &state, ImGuiWindowFlags window_flags)
                     {
                         clustering.active_cluster = -1;
                         iter = clustering.clusters.erase(iter);
+                        state.colors.reset_landmark_color(i);
                     } else {
                         ++iter;
-                        ++i;
                     }
                     tooltip("Remove cluster");
                 }                            

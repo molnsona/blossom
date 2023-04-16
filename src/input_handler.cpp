@@ -73,10 +73,10 @@ InputHandler::process_mouse_button(View &view, Renderer &renderer, State &state)
                     if(state.colors.clustering.active_cluster != -1)
                     {
                         renderer.check_pressed_vertex(view, pos);
-                        auto vert_ind = renderer.get_vert_ind();
-                        auto index = state.colors.clustering.active_cluster;
-                        auto color = state.colors.clustering.clusters[index].first;
-                        state.colors.landmarks[vert_ind] = color;
+                        if(renderer.get_vert_pressed()) {
+                            auto vert_ind = renderer.get_vert_ind();
+                            state.colors.color_landmark(vert_ind);
+                        }
                         break;
                     }
 

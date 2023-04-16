@@ -30,7 +30,8 @@ ColorData::update(const TransData &td, const LandmarkModel &lm)
     }
 
     if (lm_watch.dirty(lm)) {
-        landmarks.resize(lm.n_landmarks(), default_landmark_color);
+        landmarks.resize(lm.n_landmarks(), 
+            {default_landmark_color, -1});
         refresh(td);
         lm_watch.clean(lm);
     }
@@ -86,6 +87,25 @@ ColorData::update(const TransData &td, const LandmarkModel &lm)
     }
 }
 
+void ColorData::color_landmark(size_t ind)
+{
+    auto index = clustering.active_cluster;
+    auto color = clustering.clusters[index].first;
+    landmarks[ind] = {color, index};
+
+    touch_config();
+}
+
+void ColorData::reset_landmark_color(int id)
+{
+    for (auto &&l : landmarks)
+    {
+        if(l.second == id)
+            l = {default_landmark_color, -1};
+    }
+    touch_config();
+}
+
 void
 ColorData::reset()
 {
@@ -96,6 +116,6 @@ ColorData::reset()
     reverse = false;
     clustering.reset();
     auto lnds_size = landmarks.size();
-    landmarks = {lnds_size, default_landmark_color};
+    landmarks = {lnds_size, {default_landmark_color, clustering.active_cluster}};
     touch_config();
 }

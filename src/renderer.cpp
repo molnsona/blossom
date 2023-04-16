@@ -52,7 +52,7 @@ Renderer::get_vert_pressed()
     return graph_renderer.vert_pressed;
 }
 
-int
+size_t
 Renderer::get_vert_ind()
 {
     return graph_renderer.vert_ind;

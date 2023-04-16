@@ -55,9 +55,10 @@ struct ColorData : public Sweeper
      * points.
      */
     std::vector<glm::vec4> data;
-    /** Colors of the landmarks. Array has the size of the number of landmarks.
+    /** Colors of the landmarks and id of the cluster. Array has the size of the number of landmarks.
+     * <color, cluster id>
      */
-    std::vector<glm::vec4> landmarks;
+    std::vector<std::pair<glm::vec4,int>> landmarks;
     /** Type of the coloring method. */
     int coloring;
     /** Index of the column used in expression coloring. */
@@ -90,6 +91,17 @@ struct ColorData : public Sweeper
      * and that the data has to be recomputed.
      *
      */
+
+    /** Color the landmark according to the active cluster.*/
+    void color_landmark(size_t ind);
+    /**
+     * @brief Reset colors and cluster ids of all landmarks
+     * in the cluster with input id.
+     * 
+     * @param id Input 
+     */
+    void reset_landmark_color(int id);    
+
     void touch_config() { refresh(data.size()); }
     /**
      * @brief Resets color settings to their initial values.

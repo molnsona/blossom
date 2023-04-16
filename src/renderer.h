@@ -56,7 +56,7 @@ public:
     void reset_pressed_vert();
 
     bool get_vert_pressed();
-    int get_vert_ind();
+    size_t get_vert_ind();
 
     void add_vert(State &state, View &view, glm::vec2 mouse_pos);
     void remove_vert(State &state);

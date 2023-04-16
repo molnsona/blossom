@@ -21,6 +21,7 @@
 
 #include <glm/glm.hpp>
 
+#include <map>
 #include <string>
 #include <tuple>
 #include <vector>
@@ -40,12 +41,15 @@ struct ClusterData
     /** Count of the clusters used in cluster coloring. */
     int cluster_cnt;
 
-    /** Cluster colors and names for brushing.
-     * <color, name>*/
-    std::vector<std::pair<glm::vec4, std::string>> clusters;    
+    /** Cluster colors and names for brushing, with id of cluster as a key.
+     * <cluster id, <color, name>>*/
+    std::map<int, std::pair<glm::vec4, std::string>> clusters;    
 
     /** Index of the active cluster (into @ref clusters) that is used for brushing.*/
     int active_cluster;
+
+    /** Last used id, new cluster will get this value plus one.*/
+    int last_id;
 
     void do_cluster_coloring(float alpha, size_t ri, size_t rn,
         const TransData& td, std::vector<glm::vec4> &point_colors);
