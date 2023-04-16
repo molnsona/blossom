@@ -227,8 +227,8 @@ GraphRenderer::add_circle(float middle_x,
                           float zoom,
                           std::vector<float> &all_vtxs,
                           std::vector<float> &vtxs_outlines,
-                          std::vector<glm::vec4> &all_colors,
-                          const glm::vec4 &color)
+                          std::vector<glm::vec3> &all_colors,
+                          const glm::vec3 &color)
 {
     int sides = 12;
     float radius = 0.05f;
@@ -273,7 +273,7 @@ GraphRenderer::prepare_vertices(float current_zoom, const LandmarkModel &model,
 
     std::vector<float> all_vtxs;
     std::vector<float> vtx_outlines;
-    std::vector<glm::vec4> all_colors;
+    std::vector<glm::vec3> all_colors;
 
     for (size_t i = 0; i < vertices.size(); ++i) {
         vertices[i] = model.lodim_vertices[i];        
@@ -293,11 +293,11 @@ GraphRenderer::prepare_vertices(float current_zoom, const LandmarkModel &model,
 
     glBindBuffer(GL_ARRAY_BUFFER, VBO_v_col);
     glBufferData(GL_ARRAY_BUFFER,
-                 all_colors.size() * sizeof(glm::vec4),
+                 all_colors.size() * sizeof(glm::vec3),
                  &all_colors[0],
                  GL_DYNAMIC_DRAW);
     glVertexAttribPointer(
-      1, 4, GL_FLOAT, GL_FALSE, sizeof(glm::vec4), (void *)0);
+      1, 3, GL_FLOAT, GL_FALSE, sizeof(glm::vec3), (void *)0);
     glEnableVertexAttribArray(1);
 
     glBindVertexArray(VAO_v_outline);

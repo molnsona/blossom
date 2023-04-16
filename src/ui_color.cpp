@@ -146,7 +146,7 @@ UiColorSettings::render(State &state, ImGuiWindowFlags window_flags)
                                         int(i));
 
                     ImGui::SameLine();
-                    ImGui::ColorEdit4(("##ClusterColor"+std::to_string(i)).data(),
+                    ImGui::ColorEdit3(("##ClusterColor"+std::to_string(i)).data(),
                         (float*)&clustering.clusters[i].first, 
                         ImGuiColorEditFlags_NoInputs | ImGuiColorEditFlags_NoLabel | ImGuiColorEditFlags_AlphaPreview);
                     ImGui::SameLine();

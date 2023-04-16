@@ -170,8 +170,8 @@ private:
                     float zoom,
                     std::vector<float> &all_vtxs,
                     std::vector<float> &vtxs_outlines,
-                    std::vector<glm::vec4> &all_colors,
-                    const glm::vec4 &color);
+                    std::vector<glm::vec3> &all_colors,
+                    const glm::vec3 &color);
 
     bool is_within_rect(glm::vec2 point) const;
 };

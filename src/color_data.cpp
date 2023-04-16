@@ -82,7 +82,7 @@ ColorData::update(const TransData &td, const LandmarkModel &lm)
             clustering.do_cluster_coloring(alpha, ri, rn, td, data);
             break;
         case int(ColorData::Coloring::BRUSHING):
-            clustering.do_brushing(landmarks, lm, ri, rn, td, data);
+            clustering.do_brushing(alpha, landmarks, lm, ri, rn, td, data);
             break;
     }
 }
