@@ -19,6 +19,7 @@
 #include "cluster_data.h"
 
 #include <cmath>
+#include <limits>
 #include <tuple>
 #include <vector>
 
@@ -119,6 +120,46 @@ void ClusterData::do_cluster_coloring(float alpha, size_t ri, size_t rn,
                                 unsigned char>(128, 128, 128)
             : pal[(int)roundf(cluster) % (cluster_cnt)];
         point_colors[ri] = glm::vec4(r / 255.0f, g / 255.0f, b / 255.0f, alpha);
+    }
+}
+
+void ClusterData::do_brushing(
+        const std::vector<std::pair<glm::vec4,int>> &landmark_colors,
+        const LandmarkModel &lm,
+        size_t ri, size_t rn,
+        const TransData& td,
+        std::vector<glm::vec4> &point_colors
+        )
+{
+    size_t n = td.n;
+    size_t d = td.dim();
+
+    // Loop in a cycle of data.
+    // Compute the closest landmark for each data point
+    // and paint the point according the color of the 
+    // landmark.
+    for (; rn-- > 0; ++ri) {
+        if (ri >= n)
+            ri = 0;
+                
+        // Find the closest landmark.
+        size_t best = 0;
+        float best_sqdist = std::numeric_limits<float>::infinity();
+        for (size_t i = 0; i < lm.n_landmarks(); ++i)
+        {
+            float sqd = 0;
+            for (size_t di = 0; di < d; ++di)
+                sqd += pow(lm.hidim_vertices[i * d + di] -
+                    td.data[ri * d + di],2);
+
+            if (sqd < best_sqdist) {
+                best = i;
+                best_sqdist = sqd;
+            }
+        }
+
+        // Color the point with the color of the landmark.
+        point_colors[ri] = landmark_colors[best].first;        
     }
 }
 
