@@ -52,6 +52,9 @@ struct ClusterData
     /** Last used id, new cluster will get this value plus one.*/
     int last_id;
 
+    /** If the brushing is active.*/
+    bool is_active;
+
     void do_cluster_coloring(float alpha, size_t ri, size_t rn,
         const TransData& td, std::vector<glm::vec4> &point_colors);
     void do_brushing(float alpha,
@@ -63,6 +66,10 @@ struct ClusterData
         );
 
     void add_cluster();
+
+    void start_brushing(){is_active = true;}
+    bool is_brushing_active() {return is_active;}
+    void stop_brushing(){is_active = false;}
 
     void reset();
 };

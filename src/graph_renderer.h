@@ -41,11 +41,6 @@ struct GraphRenderer
     /** Index of the pressed vertex. If the vertex was not pressed, it is UB. */
     size_t vert_ind;
 
-    bool draw_rect;
-    bool update_rect_pos;
-
-    bool rect_pressed;
-
     GraphRenderer();
 
     void init();
@@ -75,21 +70,10 @@ struct GraphRenderer
      * @return true If a vertex was pressed.
      * @return false If no vertex was pressed.
      */
-    bool is_vert_pressed(const View &view, glm::vec2 mouse);
+    bool is_vert_pressed(const View &view, glm::vec2 mouse, float radius);
 
-    bool is_rect_pressed(glm::vec2 mouse_pos);
-
-    void set_rect_start_point(glm::vec2 mouse_pos);
-    void set_rect_end_point(glm::vec2 mouse_pos);
-
-    void move_selection(glm::vec2 mouse_pos, LandmarkModel &landmarks);
 
 private:
-    /** Radius of the vertex for rendering.
-     * \todo TODO: Make dynamic according to the depth of the zoom.
-     */
-    static constexpr float vertex_size = 5.0f;
-
     /** Cached screen coordinates of the vertices. */
     std::vector<glm::vec2> vertices;
 
@@ -109,21 +93,6 @@ private:
     Shader shader_e;
     unsigned int VAO_e;
     unsigned int VBO_e;
-
-    Shader shader_r;
-    unsigned int VAO_r;
-    unsigned int VBO_r;
-    unsigned int EBO_r;
-
-    std::array<glm::vec2, 4> rect_vtxs;
-    const std::array<unsigned int, 6> rect_indices;
-
-    float max_diff_x;
-    float min_diff_x;
-    float max_diff_y;
-    float min_diff_y;
-
-    std::vector<size_t> selected_landmarks;
 
     /**
      * @brief Prepare data to render vertices and edges.
@@ -151,12 +120,6 @@ private:
     void prepare_edges(const LandmarkModel &model);
 
     /**
-     * @brief Prepare rectangle data used for multiselect.
-     *
-     */
-    void prepare_rectangle();
-
-    /**
      * @brief Add vertices for TRIANGLE_FAN that creates circle
      * at given position.
      *
@@ -172,8 +135,6 @@ private:
                     std::vector<float> &vtxs_outlines,
                     std::vector<glm::vec3> &all_colors,
                     const glm::vec3 &color);
-
-    bool is_within_rect(glm::vec2 point) const;
 };
 
 #endif // #ifndef GRAPH_RENDERER_H

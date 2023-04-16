@@ -22,6 +22,7 @@
 #include "graph_renderer.h"
 #include "scatter_renderer.h"
 #include "state.h"
+#include "ui_renderer.h"
 #include "view.h"
 
 /**
@@ -51,7 +52,7 @@ public:
      * @return true
      * @return false
      */
-    void check_pressed_vertex(const View &view, glm::vec2 mouse_pos);
+    void check_pressed_vertex(const View &view, glm::vec2 mouse_pos, float r = radius);
 
     void reset_pressed_vert();
 
@@ -67,19 +68,27 @@ public:
     bool is_active_multiselect();
     bool is_passive_multiselect();
 
-    void update_multiselect(glm::vec2 mouse_pos);
+    void update_multiselect(glm::vec2 mouse_pos, const LandmarkModel &model);
 
     void reset_multiselect();
     void stop_multiselect();
 
     bool check_pressed_rect(glm::vec2 mouse_pos);
-    bool get_rect_pressed() { return graph_renderer.rect_pressed; }
+    bool get_rect_pressed() { return ui_renderer.rect_pressed; }
 
     void move_selection(glm::vec2 mouse_pos, LandmarkModel &landmarks);
 
+    void draw_cursor_radius(glm::vec2 mouse_pos, float r);
+
 private:
+    /** Radius around mouse cursor for checking pressed vertex.    
+     */
+    static constexpr float radius = 5.0f;
+
+
     ScatterRenderer scatter_renderer;
     GraphRenderer graph_renderer;
+    UiRenderer ui_renderer;
 };
 
 #endif // RENDERER_H

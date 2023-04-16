@@ -15,6 +15,7 @@ Renderer::init()
 
     scatter_renderer.init();
     graph_renderer.init();
+    ui_renderer.init();
 
     return true;
 }
@@ -27,14 +28,15 @@ Renderer::render(const State &state, const View &view)
 
     scatter_renderer.draw(view, state.scatter, state.colors);
     graph_renderer.draw(view, state.landmarks, state.colors);
+    ui_renderer.draw(view);
 }
 
 void
-Renderer::check_pressed_vertex(const View &view, glm::vec2 mouse_pos)
+Renderer::check_pressed_vertex(const View &view, glm::vec2 mouse_pos, float r)
 {
     if (!graph_renderer.vert_pressed) {
         glm::vec2 screen_mouse = view.screen_mouse_coords(mouse_pos);
-        if (graph_renderer.is_vert_pressed(view, screen_mouse)) {
+        if (graph_renderer.is_vert_pressed(view, screen_mouse, r)) {
             graph_renderer.vert_pressed = true;
         }
     }
@@ -89,48 +91,53 @@ Renderer::move_vert(State &state, View &view, glm::vec2 mouse_pos)
 void
 Renderer::start_multiselect(glm::vec2 mouse_pos)
 {
-    graph_renderer.set_rect_start_point(mouse_pos);
+    ui_renderer.set_rect_start_point(mouse_pos);
 }
 
 bool
 Renderer::is_active_multiselect()
 {
-    return graph_renderer.update_rect_pos;
+    return ui_renderer.update_rect_pos;
 }
 
 bool
 Renderer::is_passive_multiselect()
 {
-    return graph_renderer.draw_rect && !graph_renderer.update_rect_pos;
+    return ui_renderer.draw_rect && !ui_renderer.update_rect_pos;
 }
 
 void
-Renderer::update_multiselect(glm::vec2 mouse_pos)
+Renderer::update_multiselect(glm::vec2 mouse_pos, const LandmarkModel &model)
 {
-    graph_renderer.set_rect_end_point(mouse_pos);
+    ui_renderer.set_rect_end_point(mouse_pos, model);
 }
 
 void
 Renderer::reset_multiselect()
 {
-    graph_renderer.update_rect_pos = false;
-    graph_renderer.rect_pressed = false;
+    ui_renderer.update_rect_pos = false;
+    ui_renderer.rect_pressed = false;
 }
 
 void
 Renderer::stop_multiselect()
 {
-    graph_renderer.draw_rect = graph_renderer.update_rect_pos = false;
+    ui_renderer.draw_rect = ui_renderer.update_rect_pos = false;
 }
 
 bool
 Renderer::check_pressed_rect(glm::vec2 mouse_pos)
 {
-    return graph_renderer.is_rect_pressed(mouse_pos);
+    return ui_renderer.is_rect_pressed(mouse_pos);
 }
 
 void
 Renderer::move_selection(glm::vec2 mouse_pos, LandmarkModel &landmarks)
 {
-    graph_renderer.move_selection(mouse_pos, landmarks);
+    ui_renderer.move_selection(mouse_pos, landmarks);
+}
+
+void Renderer::draw_cursor_radius(glm::vec2 mouse_pos, float r)
+{
+
 }

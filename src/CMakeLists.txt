@@ -26,6 +26,7 @@ set(BLOSSOM_SOURCES
     ui_menu.cpp
     ui_save.cpp
     ui_scale.cpp
+    ui_renderer.cpp
     ui_train.cpp
     wrapper_glad.cpp
     wrapper_glfw.cpp
