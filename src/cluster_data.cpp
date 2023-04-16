@@ -124,7 +124,7 @@ void ClusterData::do_cluster_coloring(float alpha, size_t ri, size_t rn,
 }
 
 void ClusterData::do_brushing(
-        const std::vector<std::pair<glm::vec4,int>> &landmark_colors,
+        const std::vector<std::pair<const glm::vec4*,int>> &landmark_colors,
         const LandmarkModel &lm,
         size_t ri, size_t rn,
         const TransData& td,
@@ -159,7 +159,7 @@ void ClusterData::do_brushing(
         }
 
         // Color the point with the color of the landmark.
-        point_colors[ri] = landmark_colors[best].first;        
+        point_colors[ri] = *landmark_colors[best].first;        
     }
 }
 

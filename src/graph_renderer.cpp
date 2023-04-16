@@ -248,7 +248,7 @@ GraphRenderer::prepare_vertices(float current_zoom, const LandmarkModel &model,
 
     for (size_t i = 0; i < vertices.size(); ++i) {
         vertices[i] = model.lodim_vertices[i];        
-        add_circle(vertices[i].x, vertices[i].y, current_zoom, all_vtxs, all_colors, colors.landmarks[i].first);
+        add_circle(vertices[i].x, vertices[i].y, current_zoom, all_vtxs, all_colors, *colors.landmarks[i].first);
     }
 
     glBindVertexArray(VAO_v);
