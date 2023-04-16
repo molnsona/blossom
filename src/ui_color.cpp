@@ -33,8 +33,10 @@ UiColorSettings::UiColorSettings()
 void
 UiColorSettings::render(State &state, ImGuiWindowFlags window_flags)
 {
-    if (!show_window)
+    if (!show_window){
+        state.colors.clustering.active_cluster = -1;
         return;
+    }
 
     auto column_combo = [&](const std::string &combo_name, int &column_ind) {
         ImGui::Text("Column for colors:");

@@ -45,6 +45,11 @@ GraphRenderer::init()
 
     shader_v.build(graph_v_vs, graph_v_fs);
 
+    glGenVertexArrays(1, &VAO_v_outline);
+    glGenBuffers(1, &VBO_v_pos_outline);
+
+    shader_v_outline.build(graph_v_outline_vs, graph_v_outline_fs);
+
     glGenVertexArrays(1, &VAO_e);
     glGenBuffers(1, &VBO_e);
 
@@ -82,6 +87,16 @@ GraphRenderer::draw(const View &view, const LandmarkModel &model,
 
     for (size_t i = 0; i < model.lodim_vertices.size(); ++i) {
         glDrawArrays(GL_TRIANGLE_FAN, i * num_all_vtxs, num_all_vtxs);
+    }
+
+    shader_v_outline.use();
+    shader_v_outline.set_mat4("model", glm::mat4(1.0f));
+    shader_v_outline.set_mat4("view", view.get_view_matrix());
+    shader_v_outline.set_mat4("proj", view.get_proj_matrix());
+
+    glBindVertexArray(VAO_v_outline);
+    for (size_t i = 0; i < model.lodim_vertices.size(); ++i) {
+        glDrawArrays(GL_LINES, i * num_all_vtxs_outlines, num_all_vtxs_outlines);
     }
 
     if (draw_rect) {
@@ -211,26 +226,39 @@ GraphRenderer::add_circle(float middle_x,
                           float middle_y,
                           float zoom,
                           std::vector<float> &all_vtxs,
+                          std::vector<float> &vtxs_outlines,
                           std::vector<glm::vec4> &all_colors,
                           const glm::vec4 &color)
 {
     int sides = 12;
     float radius = 0.05f;
     num_all_vtxs = sides + 2;
+    num_all_vtxs_outlines = sides * 2;
 
     double two_pi = 2.0f * M_PI;
 
     all_vtxs.emplace_back(middle_x);
     all_vtxs.emplace_back(middle_y);
-
     all_colors.emplace_back(color);
 
     for (int i = 1; i < num_all_vtxs; i++) {
-        all_vtxs.emplace_back(middle_x +
-                              (radius * cos(i * two_pi / sides)) * zoom * 130);
-        all_vtxs.emplace_back(middle_y +
-                              (radius * sin(i * two_pi / sides)) * zoom * 130);
-        all_colors.emplace_back(color);                              
+        float x_coor = 
+            middle_x + (radius * cos(i * two_pi / sides)) * zoom * 130;
+        float y_coor = 
+            middle_y + (radius * sin(i * two_pi / sides)) * zoom * 130;                       
+        all_vtxs.emplace_back(x_coor);
+        all_vtxs.emplace_back(y_coor);
+
+        all_colors.emplace_back(color);  
+
+        vtxs_outlines.emplace_back(x_coor);
+        vtxs_outlines.emplace_back(y_coor);
+        // Add each point twice --- end of line and start
+        // of next line.
+        if(i != 1 && i != num_all_vtxs -1) {
+            vtxs_outlines.emplace_back(x_coor);
+            vtxs_outlines.emplace_back(y_coor);
+        }                                    
     }
 }
 
@@ -244,11 +272,12 @@ GraphRenderer::prepare_vertices(float current_zoom, const LandmarkModel &model,
     }
 
     std::vector<float> all_vtxs;
+    std::vector<float> vtx_outlines;
     std::vector<glm::vec4> all_colors;
 
     for (size_t i = 0; i < vertices.size(); ++i) {
         vertices[i] = model.lodim_vertices[i];        
-        add_circle(vertices[i].x, vertices[i].y, current_zoom, all_vtxs, all_colors, *colors.landmarks[i].first);
+        add_circle(vertices[i].x, vertices[i].y, current_zoom, all_vtxs, vtx_outlines, all_colors, *colors.landmarks[i].first);
     }
 
     glBindVertexArray(VAO_v);
@@ -271,6 +300,16 @@ GraphRenderer::prepare_vertices(float current_zoom, const LandmarkModel &model,
       1, 4, GL_FLOAT, GL_FALSE, sizeof(glm::vec4), (void *)0);
     glEnableVertexAttribArray(1);
 
+    glBindVertexArray(VAO_v_outline);
+
+    glBindBuffer(GL_ARRAY_BUFFER, VBO_v_pos_outline);
+    glBufferData(GL_ARRAY_BUFFER,
+                 vtx_outlines.size() * sizeof(float),
+                 &vtx_outlines[0],
+                 GL_DYNAMIC_DRAW);
+    glVertexAttribPointer(
+      0, 2, GL_FLOAT, GL_FALSE, 2 * sizeof(float), (void *)0);
+    glEnableVertexAttribArray(0);
 }
 
 void

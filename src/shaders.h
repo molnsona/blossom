@@ -64,6 +64,24 @@ const std::string graph_v_fs = "#version 330 core\n"
                                "   FragColor = outColor;\n"
                                "}\0";
 
+const std::string graph_v_outline_vs =
+  "#version 330 core\n"
+  "layout (location = 0) in vec2 aPos;\n"
+  "uniform mat4 model;\n"
+  "uniform mat4 view;\n"
+  "uniform mat4 proj;\n"
+  "void main()\n"
+  "{\n"
+  "   gl_Position = proj * view * model * vec4(aPos, 0.1, 1.0);\n"
+  "}\0";
+const std::string graph_v_outline_fs = "#version 330 core\n"
+                               "out vec4 FragColor;\n"
+                               "in vec4 outColor;\n"
+                               "void main()\n"
+                               "{\n"
+                               "   FragColor = vec4(0.4, 0.4, 0.4, 0.6);\n"
+                               "}\0";
+
 const std::string graph_e_vs =
   "#version 330 core\n"
   "layout (location = 0) in vec2 aPos;\n"

@@ -101,6 +101,11 @@ private:
     unsigned int VBO_v_pos;
     unsigned int VBO_v_col;
 
+    int num_all_vtxs_outlines;
+    Shader shader_v_outline;
+    unsigned int VAO_v_outline;
+    unsigned int VBO_v_pos_outline;
+
     Shader shader_e;
     unsigned int VAO_e;
     unsigned int VBO_e;
@@ -164,6 +169,7 @@ private:
                     float middle_y,
                     float zoom,
                     std::vector<float> &all_vtxs,
+                    std::vector<float> &vtxs_outlines,
                     std::vector<glm::vec4> &all_colors,
                     const glm::vec4 &color);
 
