@@ -20,8 +20,8 @@
 #include "ui_color.h"
 
 #include "imgui_stdlib.h"
-#include "vendor/colormap/palettes.hpp"
 #include "vendor/IconsFontAwesome5.h"
+#include "vendor/colormap/palettes.hpp"
 
 #include "utils_imgui.hpp"
 
@@ -33,7 +33,7 @@ UiColorSettings::UiColorSettings()
 void
 UiColorSettings::render(State &state, ImGuiWindowFlags window_flags)
 {
-    if (!show_window){
+    if (!show_window) {
         state.colors.clustering.active_cluster = -1;
         return;
     }
@@ -122,47 +122,53 @@ UiColorSettings::render(State &state, ImGuiWindowFlags window_flags)
                     state.colors.touch_config();
             } break;
             case int(ColorData::Coloring::CLUSTER):
-                column_combo("##columnscluster", state.colors.clustering.cluster_col);
+                column_combo("##columnscluster",
+                             state.colors.clustering.cluster_col);
 
-                if (ImGui::SliderInt(
-                      "Cluster count", &state.colors.clustering.cluster_cnt, 1, 50))
+                if (ImGui::SliderInt("Cluster count",
+                                     &state.colors.clustering.cluster_cnt,
+                                     1,
+                                     50))
                     state.colors.touch_config();
 
                 break;
             case int(ColorData::Coloring::BRUSHING):
-                auto& clustering = state.colors.clustering;
+                auto &clustering = state.colors.clustering;
                 auto cluster_size = clustering.clusters.size();
                 if (cluster_size != 0) {
                     ImGui::SliderFloat("Radius##mouseradiuscircle",
-                               &state.colors.clustering.radius_size,
-                               1.0f,
-                               100.0f,
-                               "%.3f",
-                               ImGuiSliderFlags_AlwaysClamp);
+                                       &state.colors.clustering.radius_size,
+                                       1.0f,
+                                       100.0f,
+                                       "%.3f",
+                                       ImGuiSliderFlags_AlwaysClamp);
 
-                    ImGui::RadioButton("None",
-                               &clustering.active_cluster,
-                               -1);
+                    ImGui::RadioButton("None", &clustering.active_cluster, -1);
                 }
-                                
-                for (auto iter = clustering.clusters.begin(); iter != clustering.clusters.end();)
-                {
+
+                for (auto iter = clustering.clusters.begin();
+                     iter != clustering.clusters.end();) {
                     int i = iter->first;
-                    
-                    ImGui::RadioButton(("##BrushingCluster"+std::to_string(i)).data(), 
-                                        &clustering.active_cluster,
-                                        int(i));
+
+                    ImGui::RadioButton(
+                      ("##BrushingCluster" + std::to_string(i)).data(),
+                      &clustering.active_cluster,
+                      int(i));
 
                     ImGui::SameLine();
-                    ImGui::ColorEdit3(("##ClusterColor"+std::to_string(i)).data(),
-                        (float*)&clustering.clusters[i].first, 
-                        ImGuiColorEditFlags_NoInputs | ImGuiColorEditFlags_NoLabel | ImGuiColorEditFlags_AlphaPreview);
+                    ImGui::ColorEdit3(
+                      ("##ClusterColor" + std::to_string(i)).data(),
+                      (float *)&clustering.clusters[i].first,
+                      ImGuiColorEditFlags_NoInputs |
+                        ImGuiColorEditFlags_NoLabel |
+                        ImGuiColorEditFlags_AlphaPreview);
                     ImGui::SameLine();
-                    ImGui::InputText(("##ClusterName" + std::to_string(i)).data(),
-                        &clustering.clusters[i].second);
+                    ImGui::InputText(
+                      ("##ClusterName" + std::to_string(i)).data(),
+                      &clustering.clusters[i].second);
                     ImGui::SameLine();
-                    if(ImGui::Button((ICON_FA_TIMES "##"+std::to_string(i)).data()))
-                    {
+                    if (ImGui::Button(
+                          (ICON_FA_TIMES "##" + std::to_string(i)).data())) {
                         clustering.active_cluster = -1;
                         iter = clustering.clusters.erase(iter);
                         state.colors.reset_landmark_color(i);
@@ -170,10 +176,9 @@ UiColorSettings::render(State &state, ImGuiWindowFlags window_flags)
                         ++iter;
                     }
                     tooltip("Remove cluster");
-                }                            
+                }
 
-                if(ImGui::Button("+ Add cluster"))
-                {
+                if (ImGui::Button("+ Add cluster")) {
                     clustering.add_cluster();
                 }
                 break;

@@ -93,8 +93,12 @@ create_col_palette(
           float(i) / (clusters), i % 2 ? 1.0f : 0.7f, i % 2 ? 0.7f : 1.0f);
 }
 
-void ClusterData::do_cluster_coloring(float alpha, size_t ri, size_t rn,
-        const TransData& td, std::vector<glm::vec4> &point_colors)
+void
+ClusterData::do_cluster_coloring(float alpha,
+                                 size_t ri,
+                                 size_t rn,
+                                 const TransData &td,
+                                 std::vector<glm::vec4> &point_colors)
 {
     size_t n = td.n;
     size_t d = td.dim();
@@ -102,8 +106,7 @@ void ClusterData::do_cluster_coloring(float alpha, size_t ri, size_t rn,
     if (cluster_col >= d)
         cluster_col = 0;
 
-    std::vector<std::tuple<unsigned char, unsigned char, unsigned char>>
-        pal;
+    std::vector<std::tuple<unsigned char, unsigned char, unsigned char>> pal;
 
     create_col_palette(cluster_cnt, pal);
 
@@ -114,44 +117,43 @@ void ClusterData::do_cluster_coloring(float alpha, size_t ri, size_t rn,
         auto cluster = td.data[ri * d + cluster_col];
 
         auto [r, g, b] =
-            std::isnan(cluster)
-            ? std::make_tuple<unsigned char,
-                                unsigned char,
-                                unsigned char>(128, 128, 128)
+          std::isnan(cluster)
+            ? std::make_tuple<unsigned char, unsigned char, unsigned char>(
+                128, 128, 128)
             : pal[(int)roundf(cluster) % (cluster_cnt)];
         point_colors[ri] = glm::vec4(r / 255.0f, g / 255.0f, b / 255.0f, alpha);
     }
 }
 
-void ClusterData::do_brushing(
-        float alpha,
-        const std::vector<std::pair<const glm::vec3*,int>> &landmark_colors,
-        const LandmarkModel &lm,
-        size_t ri, size_t rn,
-        const TransData& td,
-        std::vector<glm::vec4> &point_colors
-        )
+void
+ClusterData::do_brushing(
+  float alpha,
+  const std::vector<std::pair<const glm::vec3 *, int>> &landmark_colors,
+  const LandmarkModel &lm,
+  size_t ri,
+  size_t rn,
+  const TransData &td,
+  std::vector<glm::vec4> &point_colors)
 {
     size_t n = td.n;
     size_t d = td.dim();
 
     // Loop in a cycle of data.
     // Compute the closest landmark for each data point
-    // and paint the point according the color of the 
+    // and paint the point according the color of the
     // landmark.
     for (; rn-- > 0; ++ri) {
         if (ri >= n)
             ri = 0;
-                
+
         // Find the closest landmark.
         size_t best = 0;
         float best_sqdist = std::numeric_limits<float>::infinity();
-        for (size_t i = 0; i < lm.n_landmarks(); ++i)
-        {
+        for (size_t i = 0; i < lm.n_landmarks(); ++i) {
             float sqd = 0;
             for (size_t di = 0; di < d; ++di)
-                sqd += pow(lm.hidim_vertices[i * d + di] -
-                    td.data[ri * d + di],2);
+                sqd +=
+                  pow(lm.hidim_vertices[i * d + di] - td.data[ri * d + di], 2);
 
             if (sqd < best_sqdist) {
                 best = i;
@@ -160,23 +162,25 @@ void ClusterData::do_brushing(
         }
 
         // Color the point with the color of the landmark.
-        point_colors[ri] = glm::vec4(*landmark_colors[best].first, alpha);        
+        point_colors[ri] = glm::vec4(*landmark_colors[best].first, alpha);
     }
 }
 
-void ClusterData::add_cluster()
-{ 
+void
+ClusterData::add_cluster()
+{
     clusters[++last_id] = std::make_pair(default_cluster_color, "cluster name");
 }
 
-void ClusterData::reset()
+void
+ClusterData::reset()
 {
     cluster_col = 0;
     cluster_cnt = 10;
 
     active_cluster = -1;
     last_id = -1;
-    
+
     radius_size = 20.0f;
 
     clusters.clear();

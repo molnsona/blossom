@@ -21,17 +21,17 @@
 #include "shaders.h"
 
 UiRenderer::UiRenderer()
-    : rect_indices({ 0, 1, 3, 1, 2, 3 })
-    , draw_rect(false)
-    , update_rect_pos(false)
-    , rect_pressed(false)
-    , is_brushing_active(false)
-    , draw_circle(false)
+  : rect_indices({ 0, 1, 3, 1, 2, 3 })
+  , draw_rect(false)
+  , update_rect_pos(false)
+  , rect_pressed(false)
+  , is_brushing_active(false)
+  , draw_circle(false)
 {
-
 }
 
-bool UiRenderer::init()
+bool
+UiRenderer::init()
 {
     glGenVertexArrays(1, &VAO_r);
     glGenBuffers(1, &VBO_r);
@@ -40,12 +40,13 @@ bool UiRenderer::init()
     shader_r.build(ui_r_vs, ui_r_fs);
 
     glGenVertexArrays(1, &VAO_c);
-    glGenBuffers(1, &VBO_c);    
+    glGenBuffers(1, &VBO_c);
 
     shader_c.build(ui_c_vs, ui_c_fs);
 }
 
-void UiRenderer::draw(const View &view)
+void
+UiRenderer::draw(const View &view)
 {
     glEnable(GL_BLEND);
 
@@ -61,8 +62,7 @@ void UiRenderer::draw(const View &view)
         glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, 0);
     }
 
-    if(draw_circle)
-    {
+    if (draw_circle) {
         shader_c.use();
         shader_c.set_mat4("model", glm::mat4(1.0f));
         shader_c.set_mat4("view", view.get_view_matrix());
@@ -163,7 +163,8 @@ UiRenderer::move_selection(glm::vec2 mouse_pos, LandmarkModel &landmarks)
     rect_vtxs[3] = new_upper_l;
 }
 
-void UiRenderer::should_draw_circle(const View &view, glm::vec2 mouse_pos, float r)
+void
+UiRenderer::should_draw_circle(const View &view, glm::vec2 mouse_pos, float r)
 {
     // Convert radius from screen to model space
     // Compute mouse + radius point in model
@@ -171,7 +172,7 @@ void UiRenderer::should_draw_circle(const View &view, glm::vec2 mouse_pos, float
     auto model_right = view.model_mouse_coords(right);
     auto model_mouse = view.model_mouse_coords(mouse_pos);
     float model_radius = fabs((model_right - model_mouse).x);
-    
+
     draw_circle = true;
     circle_pos = model_mouse;
     circle_radius = model_radius;
@@ -210,20 +211,18 @@ UiRenderer::prepare_circle(float zoom)
     double two_pi = 2.0f * M_PI;
 
     for (int i = 0; i < sides + 1; ++i) {
-        float x_coor = 
-            circle_pos.x + (circle_radius * cos(i * two_pi / sides));
-        float y_coor = 
-            circle_pos.y + (circle_radius * sin(i * two_pi / sides));
+        float x_coor = circle_pos.x + (circle_radius * cos(i * two_pi / sides));
+        float y_coor = circle_pos.y + (circle_radius * sin(i * two_pi / sides));
 
         circle_vtxs.emplace_back(x_coor);
         circle_vtxs.emplace_back(y_coor);
 
         // Add each point twice --- end of line and start
         // of next line.
-        if(i != 0 && i != sides) {
+        if (i != 0 && i != sides) {
             circle_vtxs.emplace_back(x_coor);
             circle_vtxs.emplace_back(y_coor);
-        }   
+        }
     }
 
     glBindVertexArray(VAO_c);
@@ -256,13 +255,15 @@ UiRenderer::is_within_rect(glm::vec2 point) const
         return false;
 }
 
-bool UiRenderer::is_within_circle(const glm::vec2 &vert, 
-    const glm::vec2 &pos, float radius)
+bool
+UiRenderer::is_within_circle(const glm::vec2 &vert,
+                             const glm::vec2 &pos,
+                             float radius)
 {
     if ((pos.x + radius >= roundf(vert.x)) &&
-        (pos.x - radius <= roundf(vert.x) ) &&
-        (pos.y + radius >= roundf(vert.y) ) &&
-        (pos.y - radius <= roundf(vert.y) )) {
+        (pos.x - radius <= roundf(vert.x)) &&
+        (pos.y + radius >= roundf(vert.y)) &&
+        (pos.y - radius <= roundf(vert.y))) {
         return true;
     }
 }

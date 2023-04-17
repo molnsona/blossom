@@ -74,13 +74,14 @@ const std::string graph_v_outline_vs =
   "{\n"
   "   gl_Position = proj * view * model * vec4(aPos, 0.1, 1.0);\n"
   "}\0";
-const std::string graph_v_outline_fs = "#version 330 core\n"
-                               "out vec4 FragColor;\n"
-                               "in vec4 outColor;\n"
-                               "void main()\n"
-                               "{\n"
-                               "   FragColor = vec4(0.2, 0.2, 0.2, 0.6);\n"
-                               "}\0";
+const std::string graph_v_outline_fs =
+  "#version 330 core\n"
+  "out vec4 FragColor;\n"
+  "in vec4 outColor;\n"
+  "void main()\n"
+  "{\n"
+  "   FragColor = vec4(0.2, 0.2, 0.2, 0.6);\n"
+  "}\0";
 
 const std::string graph_e_vs =
   "#version 330 core\n"
@@ -110,11 +111,11 @@ const std::string ui_r_vs =
   "   gl_Position = proj * view * model * vec4(aPos, 0.2, 1.0);\n"
   "}\0";
 const std::string ui_r_fs = "#version 330 core\n"
-                               "out vec4 FragColor;\n"
-                               "void main()\n"
-                               "{\n"
-                               "   FragColor = vec4(0.0, 0.0, 0.0, 0.3);\n"
-                               "}\0";
+                            "out vec4 FragColor;\n"
+                            "void main()\n"
+                            "{\n"
+                            "   FragColor = vec4(0.0, 0.0, 0.0, 0.3);\n"
+                            "}\0";
 
 const std::string ui_c_vs =
   "#version 330 core\n"
@@ -127,11 +128,11 @@ const std::string ui_c_vs =
   "   gl_Position = proj * view * model * vec4(aPos, 0.1, 1.0);\n"
   "}\0";
 const std::string ui_c_fs = "#version 330 core\n"
-                               "out vec4 FragColor;\n"
-                               "in vec4 outColor;\n"
-                               "void main()\n"
-                               "{\n"
-                               "   FragColor = vec4(0.2, 0.2, 0.2, 0.8);\n"
-                               "}\0";
+                            "out vec4 FragColor;\n"
+                            "in vec4 outColor;\n"
+                            "void main()\n"
+                            "{\n"
+                            "   FragColor = vec4(0.2, 0.2, 0.2, 0.8);\n"
+                            "}\0";
 
 #endif // SHADERS_H

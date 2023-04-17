@@ -47,18 +47,18 @@ struct ColorData : public Sweeper
         BRUSHING
     };
 
-    const glm::vec3 default_landmark_color = {0.4,0.4,0.4};
+    const glm::vec3 default_landmark_color = { 0.4, 0.4, 0.4 };
 
     Cleaner lm_watch;
 
-    /** Colors of the 2D data points. Array has the size of the number of 2D data
-     * points.
+    /** Colors of the 2D data points. Array has the size of the number of 2D
+     * data points.
      */
     std::vector<glm::vec4> data;
-    /** Colors of the landmarks and id of the cluster. Array has the size of the number of landmarks.
-     * <color, cluster id>
+    /** Colors of the landmarks and id of the cluster. Array has the size of the
+     * number of landmarks. <color, cluster id>
      */
-    std::vector<std::pair<const glm::vec3*,int>> landmarks;
+    std::vector<std::pair<const glm::vec3 *, int>> landmarks;
     /** Type of the coloring method. */
     int coloring;
     /** Index of the column used in expression coloring. */
@@ -94,7 +94,7 @@ struct ColorData : public Sweeper
 
     /**
      * @brief Color landmarks by active cluster.
-     * 
+     *
      * @param idxs Ids of landmarks that will be colored.
      */
     void color_landmarks(const std::vector<size_t> &idxs);
@@ -102,10 +102,10 @@ struct ColorData : public Sweeper
     /**
      * @brief Reset colors and cluster ids of all landmarks
      * in the cluster with input id.
-     * 
-     * @param id Input 
+     *
+     * @param id Input
      */
-    void reset_landmark_color(int id);    
+    void reset_landmark_color(int id);
 
     void touch_config() { refresh(data.size()); }
     /**

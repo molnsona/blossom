@@ -30,9 +30,10 @@
 /**
  * @brief Renderer of the objects that are needed in the user
  * interaction with the dataset.
- * 
+ *
  */
-struct UiRenderer{
+struct UiRenderer
+{
     bool draw_rect;
     bool update_rect_pos;
 
@@ -56,8 +57,10 @@ struct UiRenderer{
     void move_selection(glm::vec2 mouse_pos, LandmarkModel &landmarks);
 
     void should_draw_circle(const View &view, glm::vec2 mouse_pos, float r);
-    bool is_within_circle(const glm::vec2 &vert, 
-        const glm::vec2 &pos, float radius);
+    bool is_within_circle(const glm::vec2 &vert,
+                          const glm::vec2 &pos,
+                          float radius);
+
 private:
     Shader shader_r;
     unsigned int VAO_r;
@@ -91,7 +94,6 @@ private:
     void prepare_circle(float current_zoom);
 
     bool is_within_rect(glm::vec2 point) const;
-
 };
 
 #endif //#ifndef UI_RENDERER_H

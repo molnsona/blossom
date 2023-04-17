@@ -138,24 +138,24 @@ Renderer::move_selection(glm::vec2 mouse_pos, LandmarkModel &landmarks)
     ui_renderer.move_selection(mouse_pos, landmarks);
 }
 
-void Renderer::draw_cursor_radius(const View &v, glm::vec2 mouse_pos, float r)
+void
+Renderer::draw_cursor_radius(const View &v, glm::vec2 mouse_pos, float r)
 {
     ui_renderer.should_draw_circle(v, mouse_pos, r);
 }
 
-std::vector<size_t> Renderer::get_landmarks_within_circle(
-        const View &view, 
-        const glm::vec2 &pos, 
-        float radius, 
-        const LandmarkModel &landmarks)
+std::vector<size_t>
+Renderer::get_landmarks_within_circle(const View &view,
+                                      const glm::vec2 &pos,
+                                      float radius,
+                                      const LandmarkModel &landmarks)
 {
     std::vector<size_t> ids;
-    for (size_t i = 0; i < landmarks.n_landmarks(); ++i)
-    {
+    for (size_t i = 0; i < landmarks.n_landmarks(); ++i) {
         glm::vec2 screen_mouse = view.screen_mouse_coords(pos);
         glm::vec2 vert = view.screen_coords(landmarks.lodim_vertices[i]);
-        if(ui_renderer.is_within_circle(vert, screen_mouse, radius))
+        if (ui_renderer.is_within_circle(vert, screen_mouse, radius))
             ids.emplace_back(i);
-    }    
+    }
     return ids;
 }

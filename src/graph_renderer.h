@@ -58,8 +58,7 @@ struct GraphRenderer
      * \todo TODO: this should not know about actual Landmarks, we should pass
      * actual vertex + edge positions as with the layouter.
      */
-    void draw(const View &v, const LandmarkModel &m,
-                      const ColorData &colors);
+    void draw(const View &v, const LandmarkModel &m, const ColorData &colors);
 
     /**
      * @brief Checks if some vertex was pressed.
@@ -73,7 +72,7 @@ struct GraphRenderer
     bool is_vert_pressed(const View &view, glm::vec2 mouse);
 
 private:
-    /** Radius of the vertex used for comparing, if 
+    /** Radius of the vertex used for comparing, if
      * the landmark was pressed.
      */
     static constexpr float vertex_size = 5.0f;
@@ -106,7 +105,8 @@ private:
      * @param current_zoom Current zoom of the "camera".
      * @param model Data source
      */
-    void prepare_data(float current_zoom, const LandmarkModel &model,
+    void prepare_data(float current_zoom,
+                      const LandmarkModel &model,
                       const ColorData &colors);
     /**
      * @brief Prepare graph vertices that are rendered as circles.
@@ -114,8 +114,9 @@ private:
      * @param current_zoom Current zoom of the "camera".
      * @param model Data source
      */
-    void prepare_vertices(float current_zoom, const LandmarkModel &model,
-                      const ColorData &colors);
+    void prepare_vertices(float current_zoom,
+                          const LandmarkModel &model,
+                          const ColorData &colors);
     /**
      * @brief Prepare graph edges that are rendered as lines.
      *

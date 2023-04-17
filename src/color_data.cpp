@@ -30,12 +30,10 @@ ColorData::update(const TransData &td, const LandmarkModel &lm)
     }
 
     if (lm_watch.dirty(lm)) {
-        landmarks.resize(lm.n_landmarks(), 
-            {&default_landmark_color, -1});
+        landmarks.resize(lm.n_landmarks(), { &default_landmark_color, -1 });
         refresh(td);
         lm_watch.clean(lm);
     }
-
 
     const size_t max_points =
 #ifndef ENABLE_CUDA
@@ -87,20 +85,20 @@ ColorData::update(const TransData &td, const LandmarkModel &lm)
     }
 }
 
-void ColorData::color_landmarks(const std::vector<size_t> &idxs)
+void
+ColorData::color_landmarks(const std::vector<size_t> &idxs)
 {
-    for (auto &&i : idxs)
-    {
+    for (auto &&i : idxs) {
         color_landmark(i);
     }
 }
 
-void ColorData::reset_landmark_color(int id)
+void
+ColorData::reset_landmark_color(int id)
 {
-    for (auto &&l : landmarks)
-    {
-        if(l.second == id)
-            l = {&default_landmark_color, -1};
+    for (auto &&l : landmarks) {
+        if (l.second == id)
+            l = { &default_landmark_color, -1 };
     }
     touch_config();
 }
@@ -115,14 +113,16 @@ ColorData::reset()
     reverse = false;
     clustering.reset();
     auto lnds_size = landmarks.size();
-    landmarks = {lnds_size, {&default_landmark_color, clustering.active_cluster}};
+    landmarks = { lnds_size,
+                  { &default_landmark_color, clustering.active_cluster } };
     touch_config();
 }
 
-void ColorData::color_landmark(size_t ind)
+void
+ColorData::color_landmark(size_t ind)
 {
     auto index = clustering.active_cluster;
-    landmarks[ind] = {&clustering.clusters[index].first, index};
+    landmarks[ind] = { &clustering.clusters[index].first, index };
 
     touch_config();
 }

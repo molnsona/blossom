@@ -53,8 +53,9 @@ GraphRenderer::init()
 }
 
 void
-GraphRenderer::draw(const View &view, const LandmarkModel &model,
-                      const ColorData &colors)
+GraphRenderer::draw(const View &view,
+                    const LandmarkModel &model,
+                    const ColorData &colors)
 {
     glEnable(GL_BLEND);
 
@@ -86,7 +87,8 @@ GraphRenderer::draw(const View &view, const LandmarkModel &model,
 
     glBindVertexArray(VAO_v_outline);
     for (size_t i = 0; i < model.lodim_vertices.size(); ++i) {
-        glDrawArrays(GL_LINES, i * num_all_vtxs_outlines, num_all_vtxs_outlines);
+        glDrawArrays(
+          GL_LINES, i * num_all_vtxs_outlines, num_all_vtxs_outlines);
     }
 
     glDisable(GL_BLEND);
@@ -112,8 +114,9 @@ GraphRenderer::is_vert_pressed(const View &view, glm::vec2 mouse)
     return false;
 }
 void
-GraphRenderer::prepare_data(float current_zoom, const LandmarkModel &model,
-                      const ColorData &colors)
+GraphRenderer::prepare_data(float current_zoom,
+                            const LandmarkModel &model,
+                            const ColorData &colors)
 {
     prepare_vertices(current_zoom, model, colors);
     prepare_edges(model);
@@ -140,29 +143,30 @@ GraphRenderer::add_circle(float middle_x,
     all_colors.emplace_back(color);
 
     for (int i = 1; i < num_all_vtxs; i++) {
-        float x_coor = 
-            middle_x + (radius * cos(i * two_pi / sides)) * zoom * 130;
-        float y_coor = 
-            middle_y + (radius * sin(i * two_pi / sides)) * zoom * 130;                       
+        float x_coor =
+          middle_x + (radius * cos(i * two_pi / sides)) * zoom * 130;
+        float y_coor =
+          middle_y + (radius * sin(i * two_pi / sides)) * zoom * 130;
         all_vtxs.emplace_back(x_coor);
         all_vtxs.emplace_back(y_coor);
 
-        all_colors.emplace_back(color);  
+        all_colors.emplace_back(color);
 
         vtxs_outlines.emplace_back(x_coor);
         vtxs_outlines.emplace_back(y_coor);
         // Add each point twice --- end of line and start
         // of next line.
-        if(i != 1 && i != num_all_vtxs -1) {
+        if (i != 1 && i != num_all_vtxs - 1) {
             vtxs_outlines.emplace_back(x_coor);
             vtxs_outlines.emplace_back(y_coor);
-        }                                    
+        }
     }
 }
 
 void
-GraphRenderer::prepare_vertices(float current_zoom, const LandmarkModel &model,
-                      const ColorData &colors)
+GraphRenderer::prepare_vertices(float current_zoom,
+                                const LandmarkModel &model,
+                                const ColorData &colors)
 {
     if (vertices.size() != model.lodim_vertices.size()) {
         vertices.clear();
@@ -174,8 +178,14 @@ GraphRenderer::prepare_vertices(float current_zoom, const LandmarkModel &model,
     std::vector<glm::vec3> all_colors;
 
     for (size_t i = 0; i < vertices.size(); ++i) {
-        vertices[i] = model.lodim_vertices[i];        
-        add_circle(vertices[i].x, vertices[i].y, current_zoom, all_vtxs, vtx_outlines, all_colors, *colors.landmarks[i].first);
+        vertices[i] = model.lodim_vertices[i];
+        add_circle(vertices[i].x,
+                   vertices[i].y,
+                   current_zoom,
+                   all_vtxs,
+                   vtx_outlines,
+                   all_colors,
+                   *colors.landmarks[i].first);
     }
 
     glBindVertexArray(VAO_v);
@@ -230,4 +240,3 @@ GraphRenderer::prepare_edges(const LandmarkModel &model)
       0, 2, GL_FLOAT, GL_FALSE, sizeof(glm::vec2), (void *)0);
     glEnableVertexAttribArray(0);
 }
-
