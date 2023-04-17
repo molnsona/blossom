@@ -107,6 +107,7 @@ void
 ColorData::remove_landmark(size_t ind)
 {
     landmarks.erase(landmarks.begin() + ind);
+    touch_config();
 }
 
 void
