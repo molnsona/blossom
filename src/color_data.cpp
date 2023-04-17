@@ -122,6 +122,9 @@ ColorData::reset()
     auto lnds_size = landmarks.size();
     landmarks = { lnds_size,
                   { &default_landmark_color, clustering.active_cluster } };
+    // Add none cluster, only for export of the data.
+    clustering.clusters[-1] = {default_landmark_color, "none"};                  
+    
     touch_config();
 }
 

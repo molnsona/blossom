@@ -150,6 +150,13 @@ UiColorSettings::render(State &state, ImGuiWindowFlags window_flags)
                      iter != clustering.clusters.end();) {
                     int i = iter->first;
 
+                    // Skip none cluster, it is there only for
+                    // exporting the data.
+                    if(iter->first == -1) {
+                        ++iter; 
+                        continue;
+                    }
+
                     ImGui::RadioButton(
                       ("##BrushingCluster" + std::to_string(i)).data(),
                       &clustering.active_cluster,
