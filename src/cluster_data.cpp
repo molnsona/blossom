@@ -176,8 +176,6 @@ void ClusterData::reset()
 
     active_cluster = -1;
     last_id = -1;
-
-    is_active = false;
-
+    
     clusters.clear();
 }

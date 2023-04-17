@@ -38,9 +38,14 @@ struct UiRenderer{
 
     bool rect_pressed;
 
+    /** If the brushing is active.*/
+    bool is_brushing_active;
+
+    bool draw_circle;
+
     UiRenderer();
     bool init();
-    
+
     void draw(const View &v);
 
     bool is_rect_pressed(glm::vec2 mouse_pos);
@@ -50,11 +55,18 @@ struct UiRenderer{
 
     void move_selection(glm::vec2 mouse_pos, LandmarkModel &landmarks);
 
+    void should_draw_circle(const View &view, glm::vec2 mouse_pos, float r);
+
 private:
     Shader shader_r;
     unsigned int VAO_r;
     unsigned int VBO_r;
     unsigned int EBO_r;
+
+    int num_all_vtxs_circle;
+    Shader shader_c;
+    unsigned int VAO_c;
+    unsigned int VBO_c;
 
     std::array<glm::vec2, 4> rect_vtxs;
     const std::array<unsigned int, 6> rect_indices;
@@ -66,12 +78,16 @@ private:
 
     std::vector<size_t> selected_landmarks;
 
-    void prepare_data();
+    glm::vec2 circle_pos;
+    float circle_radius;
+
+    void prepare_data(float current_zoom);
     /**
      * @brief Prepare rectangle data used for multiselect.
      *
      */
     void prepare_rectangle();
+    void prepare_circle(float current_zoom);
 
     bool is_within_rect(glm::vec2 point) const;
 

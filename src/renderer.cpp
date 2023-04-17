@@ -137,7 +137,7 @@ Renderer::move_selection(glm::vec2 mouse_pos, LandmarkModel &landmarks)
     ui_renderer.move_selection(mouse_pos, landmarks);
 }
 
-void Renderer::draw_cursor_radius(glm::vec2 mouse_pos, float r)
+void Renderer::draw_cursor_radius(const View &v, glm::vec2 mouse_pos, float r)
 {
-
+    ui_renderer.should_draw_circle(v, mouse_pos, r);
 }

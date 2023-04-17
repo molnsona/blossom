@@ -78,7 +78,12 @@ public:
 
     void move_selection(glm::vec2 mouse_pos, LandmarkModel &landmarks);
 
-    void draw_cursor_radius(glm::vec2 mouse_pos, float r);
+    void start_brushing(){ui_renderer.is_brushing_active = true;}
+    bool is_brushing_active() {return ui_renderer.is_brushing_active;}
+    void stop_brushing(){ui_renderer.is_brushing_active = false;}
+
+    void draw_cursor_radius(const View &v, glm::vec2 mouse_pos, float r);
+    void stop_cursor_radius(){ui_renderer.draw_circle = false;}
 
 private:
     /** Radius around mouse cursor for checking pressed vertex.    

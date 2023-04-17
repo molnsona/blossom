@@ -25,6 +25,8 @@ UiRenderer::UiRenderer()
     , draw_rect(false)
     , update_rect_pos(false)
     , rect_pressed(false)
+    , is_brushing_active(false)
+    , draw_circle(false)
 {
 
 }
@@ -35,15 +37,19 @@ bool UiRenderer::init()
     glGenBuffers(1, &VBO_r);
     glGenBuffers(1, &EBO_r);
 
-    shader_r.build(graph_r_vs, graph_r_fs);
+    shader_r.build(ui_r_vs, ui_r_fs);
+
+    glGenVertexArrays(1, &VAO_c);
+    glGenBuffers(1, &VBO_c);    
+
+    shader_c.build(ui_c_vs, ui_c_fs);
 }
 
 void UiRenderer::draw(const View &view)
 {
     glEnable(GL_BLEND);
 
-    prepare_data();
-
+    prepare_data(view.current_zoom);
 
     if (draw_rect) {
         shader_r.use();
@@ -55,13 +61,25 @@ void UiRenderer::draw(const View &view)
         glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, 0);
     }
 
+    if(draw_circle)
+    {
+        shader_c.use();
+        shader_c.set_mat4("model", glm::mat4(1.0f));
+        shader_c.set_mat4("view", view.get_view_matrix());
+        shader_c.set_mat4("proj", view.get_proj_matrix());
+
+        glBindVertexArray(VAO_c);
+        glDrawArrays(GL_LINES, 0, num_all_vtxs_circle);
+    }
+
     glDisable(GL_BLEND);
 }
 
 void
-UiRenderer::prepare_data()
+UiRenderer::prepare_data(float current_zoom)
 {
     prepare_rectangle();
+    prepare_circle(current_zoom);
 }
 
 bool
@@ -145,6 +163,20 @@ UiRenderer::move_selection(glm::vec2 mouse_pos, LandmarkModel &landmarks)
     rect_vtxs[3] = new_upper_l;
 }
 
+void UiRenderer::should_draw_circle(const View &view, glm::vec2 mouse_pos, float r)
+{
+    // Convert radius from screen to model space
+    // Compute mouse + radius point in model
+    auto right = mouse_pos + glm::vec2(r, 0);
+    auto model_right = view.model_mouse_coords(right);
+    auto model_mouse = view.model_mouse_coords(mouse_pos);
+    float model_radius = fabs((model_right - model_mouse).x);
+    
+    draw_circle = true;
+    circle_pos = model_mouse;
+    circle_radius = model_radius;
+}
+
 void
 UiRenderer::prepare_rectangle()
 {
@@ -164,6 +196,45 @@ UiRenderer::prepare_rectangle()
 
     glVertexAttribPointer(
       0, 2, GL_FLOAT, GL_FALSE, sizeof(glm::vec2), (void *)0);
+    glEnableVertexAttribArray(0);
+}
+
+void
+UiRenderer::prepare_circle(float zoom)
+{
+    std::vector<float> circle_vtxs;
+
+    int sides = 12;
+    num_all_vtxs_circle = sides * 2;
+
+    double two_pi = 2.0f * M_PI;
+
+    for (int i = 0; i < sides + 1; ++i) {
+        float x_coor = 
+            circle_pos.x + (circle_radius * cos(i * two_pi / sides))*zoom*130;
+        float y_coor = 
+            circle_pos.y + (circle_radius * sin(i * two_pi / sides)) * zoom * 130;
+
+        circle_vtxs.emplace_back(x_coor);
+        circle_vtxs.emplace_back(y_coor);
+
+        // Add each point twice --- end of line and start
+        // of next line.
+        if(i != 0 && i != sides) {
+            circle_vtxs.emplace_back(x_coor);
+            circle_vtxs.emplace_back(y_coor);
+        }   
+    }
+
+    glBindVertexArray(VAO_c);
+
+    glBindBuffer(GL_ARRAY_BUFFER, VBO_c);
+    glBufferData(GL_ARRAY_BUFFER,
+                 circle_vtxs.size() * sizeof(float),
+                 &circle_vtxs[0],
+                 GL_DYNAMIC_DRAW);
+    glVertexAttribPointer(
+      0, 2, GL_FLOAT, GL_FALSE, 2 * sizeof(float), (void *)0);
     glEnableVertexAttribArray(0);
 }
 

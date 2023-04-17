@@ -72,7 +72,7 @@ InputHandler::process_mouse_button(View &view, Renderer &renderer, State &state)
                 case GLFW_PRESS:
                     if(state.colors.clustering.active_cluster != -1)
                     {
-                        state.colors.clustering.start_brushing();
+                        renderer.start_brushing();
                         break;
                     }
 
@@ -97,7 +97,7 @@ InputHandler::process_mouse_button(View &view, Renderer &renderer, State &state)
                 case GLFW_RELEASE:
                     renderer.reset_pressed_vert();
                     renderer.reset_multiselect();
-                    state.colors.clustering.stop_brushing();
+                    renderer.stop_brushing();
                     break;
                 default:
                     break;
@@ -138,9 +138,9 @@ InputHandler::process_mouse_button(View &view, Renderer &renderer, State &state)
     }
 
     if(state.colors.clustering.active_cluster != -1) {
-        float radius = 20.0f;
-        renderer.draw_cursor_radius(pos, radius);
-        if(state.colors.clustering.is_brushing_active())
+        float radius = 20.0f;        
+        renderer.draw_cursor_radius(view, pos, radius);
+        if(renderer.is_brushing_active())
         {            
             renderer.check_pressed_vertex(view, pos, radius);
             if(renderer.get_vert_pressed()) {
@@ -151,7 +151,8 @@ InputHandler::process_mouse_button(View &view, Renderer &renderer, State &state)
 
         }
         return;
-    }
+    } else 
+        renderer.stop_cursor_radius();
 
     if (renderer.is_active_multiselect() && input.keyboard.shift_pressed) {
         renderer.update_multiselect(model_mouse_pos, state.landmarks);
