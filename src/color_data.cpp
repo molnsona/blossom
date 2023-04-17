@@ -87,12 +87,12 @@ ColorData::update(const TransData &td, const LandmarkModel &lm)
     }
 }
 
-void ColorData::color_landmark(size_t ind)
+void ColorData::color_landmarks(const std::vector<size_t> &idxs)
 {
-    auto index = clustering.active_cluster;
-    landmarks[ind] = {&clustering.clusters[index].first, index};
-
-    touch_config();
+    for (auto &&i : idxs)
+    {
+        color_landmark(i);
+    }
 }
 
 void ColorData::reset_landmark_color(int id)
@@ -116,5 +116,13 @@ ColorData::reset()
     clustering.reset();
     auto lnds_size = landmarks.size();
     landmarks = {lnds_size, {&default_landmark_color, clustering.active_cluster}};
+    touch_config();
+}
+
+void ColorData::color_landmark(size_t ind)
+{
+    auto index = clustering.active_cluster;
+    landmarks[ind] = {&clustering.clusters[index].first, index};
+
     touch_config();
 }

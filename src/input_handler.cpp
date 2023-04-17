@@ -138,17 +138,11 @@ InputHandler::process_mouse_button(View &view, Renderer &renderer, State &state)
     }
 
     if(state.colors.clustering.active_cluster != -1) {
-        float radius = 20.0f;        
+        float radius = state.colors.clustering.radius_size;        
         renderer.draw_cursor_radius(view, pos, radius);
-        if(renderer.is_brushing_active())
-        {            
-            renderer.check_pressed_vertex(view, pos, radius);
-            if(renderer.get_vert_pressed()) {
-                auto vert_ind = renderer.get_vert_ind();
-                state.colors.color_landmark(vert_ind);
-                renderer.reset_pressed_vert();
-            }
-
+        if(renderer.is_brushing_active()){
+            std::vector<size_t> idxs = renderer.get_landmarks_within_circle(view, pos, radius, state.landmarks);
+            state.colors.color_landmarks(idxs);        
         }
         return;
     } else 

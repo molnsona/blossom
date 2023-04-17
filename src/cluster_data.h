@@ -52,6 +52,9 @@ struct ClusterData
     /** Last used id, new cluster will get this value plus one.*/
     int last_id;
 
+    /** Size of the brushing radius circle for mouse.*/
+    float radius_size;
+
     void do_cluster_coloring(float alpha, size_t ri, size_t rn,
         const TransData& td, std::vector<glm::vec4> &point_colors);
     void do_brushing(float alpha,

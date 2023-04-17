@@ -92,8 +92,13 @@ struct ColorData : public Sweeper
      *
      */
 
-    /** Color the landmark according to the active cluster.*/
-    void color_landmark(size_t ind);
+    /**
+     * @brief Color landmarks by active cluster.
+     * 
+     * @param idxs Ids of landmarks that will be colored.
+     */
+    void color_landmarks(const std::vector<size_t> &idxs);
+
     /**
      * @brief Reset colors and cluster ids of all landmarks
      * in the cluster with input id.
@@ -108,6 +113,10 @@ struct ColorData : public Sweeper
      *
      */
     void reset();
+
+private:
+    /** Color the landmark according to the active cluster.*/
+    void color_landmark(size_t ind);
 };
 
 #endif

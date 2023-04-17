@@ -52,7 +52,7 @@ public:
      * @return true
      * @return false
      */
-    void check_pressed_vertex(const View &view, glm::vec2 mouse_pos, float r = radius);
+    void check_pressed_vertex(const View &view, glm::vec2 mouse_pos);
 
     void reset_pressed_vert();
 
@@ -85,12 +85,13 @@ public:
     void draw_cursor_radius(const View &v, glm::vec2 mouse_pos, float r);
     void stop_cursor_radius(){ui_renderer.draw_circle = false;}
 
+    std::vector<size_t> get_landmarks_within_circle(
+        const View &view, 
+        const glm::vec2 &pos, 
+        float radius, 
+        const LandmarkModel &landmarks);
+
 private:
-    /** Radius around mouse cursor for checking pressed vertex.    
-     */
-    static constexpr float radius = 5.0f;
-
-
     ScatterRenderer scatter_renderer;
     GraphRenderer graph_renderer;
     UiRenderer ui_renderer;

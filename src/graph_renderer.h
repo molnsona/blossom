@@ -70,10 +70,14 @@ struct GraphRenderer
      * @return true If a vertex was pressed.
      * @return false If no vertex was pressed.
      */
-    bool is_vert_pressed(const View &view, glm::vec2 mouse, float radius);
-
+    bool is_vert_pressed(const View &view, glm::vec2 mouse);
 
 private:
+    /** Radius of the vertex used for comparing, if 
+     * the landmark was pressed.
+     */
+    static constexpr float vertex_size = 5.0f;
+
     /** Cached screen coordinates of the vertices. */
     std::vector<glm::vec2> vertices;
 

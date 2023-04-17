@@ -93,9 +93,10 @@ GraphRenderer::draw(const View &view, const LandmarkModel &model,
 }
 
 bool
-GraphRenderer::is_vert_pressed(const View &view, glm::vec2 mouse,
-    float radius)
-{ 
+GraphRenderer::is_vert_pressed(const View &view, glm::vec2 mouse)
+{
+    float radius = vertex_size;
+
     for (size_t i = 0; i < vertices.size(); ++i) {
         glm::vec2 vert = view.screen_coords(vertices[i]);
 
@@ -110,7 +111,6 @@ GraphRenderer::is_vert_pressed(const View &view, glm::vec2 mouse,
 
     return false;
 }
-
 void
 GraphRenderer::prepare_data(float current_zoom, const LandmarkModel &model,
                       const ColorData &colors)

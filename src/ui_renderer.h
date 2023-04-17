@@ -56,7 +56,8 @@ struct UiRenderer{
     void move_selection(glm::vec2 mouse_pos, LandmarkModel &landmarks);
 
     void should_draw_circle(const View &view, glm::vec2 mouse_pos, float r);
-
+    bool is_within_circle(const glm::vec2 &vert, 
+        const glm::vec2 &pos, float radius);
 private:
     Shader shader_r;
     unsigned int VAO_r;

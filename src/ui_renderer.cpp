@@ -204,16 +204,16 @@ UiRenderer::prepare_circle(float zoom)
 {
     std::vector<float> circle_vtxs;
 
-    int sides = 12;
+    int sides = 24;
     num_all_vtxs_circle = sides * 2;
 
     double two_pi = 2.0f * M_PI;
 
     for (int i = 0; i < sides + 1; ++i) {
         float x_coor = 
-            circle_pos.x + (circle_radius * cos(i * two_pi / sides))*zoom*130;
+            circle_pos.x + (circle_radius * cos(i * two_pi / sides));
         float y_coor = 
-            circle_pos.y + (circle_radius * sin(i * two_pi / sides)) * zoom * 130;
+            circle_pos.y + (circle_radius * sin(i * two_pi / sides));
 
         circle_vtxs.emplace_back(x_coor);
         circle_vtxs.emplace_back(y_coor);
@@ -254,4 +254,15 @@ UiRenderer::is_within_rect(glm::vec2 point) const
         return true;
     else
         return false;
+}
+
+bool UiRenderer::is_within_circle(const glm::vec2 &vert, 
+    const glm::vec2 &pos, float radius)
+{
+    if ((pos.x + radius >= roundf(vert.x)) &&
+        (pos.x - radius <= roundf(vert.x) ) &&
+        (pos.y + radius >= roundf(vert.y) ) &&
+        (pos.y - radius <= roundf(vert.y) )) {
+        return true;
+    }
 }

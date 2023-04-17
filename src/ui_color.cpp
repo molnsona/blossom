@@ -132,10 +132,18 @@ UiColorSettings::render(State &state, ImGuiWindowFlags window_flags)
             case int(ColorData::Coloring::BRUSHING):
                 auto& clustering = state.colors.clustering;
                 auto cluster_size = clustering.clusters.size();
-                if (cluster_size != 0)
+                if (cluster_size != 0) {
+                    ImGui::SliderFloat("Radius##mouseradiuscircle",
+                               &state.colors.clustering.radius_size,
+                               1.0f,
+                               100.0f,
+                               "%.3f",
+                               ImGuiSliderFlags_AlwaysClamp);
+
                     ImGui::RadioButton("None",
                                &clustering.active_cluster,
                                -1);
+                }
                                 
                 for (auto iter = clustering.clusters.begin(); iter != clustering.clusters.end();)
                 {
