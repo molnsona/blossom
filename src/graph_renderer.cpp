@@ -29,10 +29,6 @@
 GraphRenderer::GraphRenderer()
   : vert_pressed(false)
   , vert_ind(0)
-  , rect_indices({ 0, 1, 3, 1, 2, 3 })
-  , draw_rect(false)
-  , update_rect_pos(false)
-  , rect_pressed(false)
 {
 }
 
@@ -40,28 +36,30 @@ void
 GraphRenderer::init()
 {
     glGenVertexArrays(1, &VAO_v);
-    glGenBuffers(1, &VBO_v);
+    glGenBuffers(1, &VBO_v_pos);
+    glGenBuffers(1, &VBO_v_col);
 
     shader_v.build(graph_v_vs, graph_v_fs);
+
+    glGenVertexArrays(1, &VAO_v_outline);
+    glGenBuffers(1, &VBO_v_pos_outline);
+
+    shader_v_outline.build(graph_v_outline_vs, graph_v_outline_fs);
 
     glGenVertexArrays(1, &VAO_e);
     glGenBuffers(1, &VBO_e);
 
     shader_e.build(graph_e_vs, graph_e_fs);
-
-    glGenVertexArrays(1, &VAO_r);
-    glGenBuffers(1, &VBO_r);
-    glGenBuffers(1, &EBO_r);
-
-    shader_r.build(graph_r_vs, graph_r_fs);
 }
 
 void
-GraphRenderer::draw(const View &view, const LandmarkModel &model)
+GraphRenderer::draw(const View &view,
+                    const LandmarkModel &model,
+                    const ColorData &colors)
 {
     glEnable(GL_BLEND);
 
-    prepare_data(view.current_zoom, model);
+    prepare_data(view.current_zoom, model, colors);
 
     shader_e.use();
     shader_e.set_mat4("model", glm::mat4(1.0f));
@@ -82,14 +80,15 @@ GraphRenderer::draw(const View &view, const LandmarkModel &model)
         glDrawArrays(GL_TRIANGLE_FAN, i * num_all_vtxs, num_all_vtxs);
     }
 
-    if (draw_rect) {
-        shader_r.use();
-        shader_r.set_mat4("model", glm::mat4(1.0f));
-        shader_r.set_mat4("view", view.get_view_matrix());
-        shader_r.set_mat4("proj", view.get_proj_matrix());
+    shader_v_outline.use();
+    shader_v_outline.set_mat4("model", glm::mat4(1.0f));
+    shader_v_outline.set_mat4("view", view.get_view_matrix());
+    shader_v_outline.set_mat4("proj", view.get_proj_matrix());
 
-        glBindVertexArray(VAO_r);
-        glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, 0);
+    glBindVertexArray(VAO_v_outline);
+    for (size_t i = 0; i < model.lodim_vertices.size(); ++i) {
+        glDrawArrays(
+          GL_LINES, i * num_all_vtxs_outlines, num_all_vtxs_outlines);
     }
 
     glDisable(GL_BLEND);
@@ -114,120 +113,60 @@ GraphRenderer::is_vert_pressed(const View &view, glm::vec2 mouse)
 
     return false;
 }
-
-bool
-GraphRenderer::is_rect_pressed(glm::vec2 mouse_pos)
-{
-    float mouse_x = mouse_pos.x;
-    float mouse_y = mouse_pos.y;
-
-    float min_x = std::min(rect_vtxs[0].x, rect_vtxs[3].x);
-    float min_y = std::min(rect_vtxs[0].y, rect_vtxs[1].y);
-    float max_x = std::max(rect_vtxs[0].x, rect_vtxs[3].x);
-    float max_y = std::max(rect_vtxs[0].y, rect_vtxs[1].y);
-
-    if ((mouse_x >= min_x && mouse_x <= max_x) &&
-        (mouse_y >= min_y && mouse_y <= max_y))
-        rect_pressed = true;
-    else
-        rect_pressed = false;
-
-    max_diff_x = max_x - mouse_x;
-    min_diff_x = mouse_x - min_x;
-    max_diff_y = max_y - mouse_y;
-    min_diff_y = mouse_y - min_y;
-
-    return rect_pressed;
-}
-
 void
-GraphRenderer::set_rect_start_point(glm::vec2 mouse_pos)
+GraphRenderer::prepare_data(float current_zoom,
+                            const LandmarkModel &model,
+                            const ColorData &colors)
 {
-    draw_rect = update_rect_pos = true;
-
-    rect_vtxs[0] = mouse_pos;
-    rect_vtxs[1] = mouse_pos;
-    rect_vtxs[2] = mouse_pos;
-    rect_vtxs[3] = mouse_pos;
-}
-
-void
-GraphRenderer::set_rect_end_point(glm::vec2 mouse_pos)
-{
-    float delta_x = mouse_pos.x - rect_vtxs[3].x;
-    float delta_y = mouse_pos.y - rect_vtxs[3].y;
-    rect_vtxs[0] = { rect_vtxs[3].x + delta_x, rect_vtxs[3].y };
-    rect_vtxs[1] = { rect_vtxs[3].x + delta_x, rect_vtxs[3].y + delta_y };
-    rect_vtxs[2] = { rect_vtxs[3].x, rect_vtxs[3].y + delta_y };
-
-    selected_landmarks.clear();
-
-    for (size_t i = 0; i < vertices.size(); ++i) {
-        if (is_within_rect(vertices[i]))
-            selected_landmarks.emplace_back(i);
-    }
-}
-
-void
-GraphRenderer::move_selection(glm::vec2 mouse_pos, LandmarkModel &landmarks)
-{
-    float x = mouse_pos.x;
-    float y = mouse_pos.y;
-
-    auto new_upper_r = glm::vec2(x + max_diff_x, y + max_diff_y);
-    auto new_bottom_r = glm::vec2(x + max_diff_x, y - min_diff_y);
-    auto new_bottom_l = glm::vec2(x - min_diff_x, y - min_diff_y);
-    auto new_upper_l = glm::vec2(x - min_diff_x, y + max_diff_y);
-
-    float delta_x = new_upper_r.x - rect_vtxs[0].x;
-    float delta_y = new_upper_r.y - rect_vtxs[0].y;
-
-    for (size_t i = 0; i < selected_landmarks.size(); ++i) {
-        size_t ind = selected_landmarks[i];
-        auto old_pos = landmarks.lodim_vertices[ind];
-        glm::vec2 new_pos = old_pos + glm::vec2(delta_x, delta_y);
-        landmarks.move(ind, new_pos);
-    }
-
-    rect_vtxs[0] = new_upper_r;
-    rect_vtxs[1] = new_bottom_r;
-    rect_vtxs[2] = new_bottom_l;
-    rect_vtxs[3] = new_upper_l;
-}
-
-void
-GraphRenderer::prepare_data(float current_zoom, const LandmarkModel &model)
-{
-    prepare_vertices(current_zoom, model);
+    prepare_vertices(current_zoom, model, colors);
     prepare_edges(model);
-    prepare_rectangle();
 }
 
 void
 GraphRenderer::add_circle(float middle_x,
                           float middle_y,
                           float zoom,
-                          std::vector<float> &all_vtxs)
+                          std::vector<float> &all_vtxs,
+                          std::vector<float> &vtxs_outlines,
+                          std::vector<glm::vec3> &all_colors,
+                          const glm::vec3 &color)
 {
     int sides = 12;
     float radius = 0.05f;
     num_all_vtxs = sides + 2;
+    num_all_vtxs_outlines = sides * 2;
 
     double two_pi = 2.0f * M_PI;
 
     all_vtxs.emplace_back(middle_x);
     all_vtxs.emplace_back(middle_y);
+    all_colors.emplace_back(color);
 
     for (int i = 1; i < num_all_vtxs; i++) {
-        all_vtxs.emplace_back(middle_x +
-                              (radius * cos(i * two_pi / sides)) * zoom * 130);
-        all_vtxs.emplace_back(middle_y +
-                              (radius * sin(i * two_pi / sides)) * zoom * 130);
+        float x_coor =
+          middle_x + (radius * cos(i * two_pi / sides)) * zoom * 130;
+        float y_coor =
+          middle_y + (radius * sin(i * two_pi / sides)) * zoom * 130;
+        all_vtxs.emplace_back(x_coor);
+        all_vtxs.emplace_back(y_coor);
+
+        all_colors.emplace_back(color);
+
+        vtxs_outlines.emplace_back(x_coor);
+        vtxs_outlines.emplace_back(y_coor);
+        // Add each point twice --- end of line and start
+        // of next line.
+        if (i != 1 && i != num_all_vtxs - 1) {
+            vtxs_outlines.emplace_back(x_coor);
+            vtxs_outlines.emplace_back(y_coor);
+        }
     }
 }
 
 void
-GraphRenderer::prepare_vertices(float current_zoom, const LandmarkModel &model)
+GraphRenderer::prepare_vertices(float current_zoom,
+                                const LandmarkModel &model,
+                                const ColorData &colors)
 {
     if (vertices.size() != model.lodim_vertices.size()) {
         vertices.clear();
@@ -235,18 +174,48 @@ GraphRenderer::prepare_vertices(float current_zoom, const LandmarkModel &model)
     }
 
     std::vector<float> all_vtxs;
+    std::vector<float> vtx_outlines;
+    std::vector<glm::vec3> all_colors;
 
     for (size_t i = 0; i < vertices.size(); ++i) {
         vertices[i] = model.lodim_vertices[i];
-        add_circle(vertices[i].x, vertices[i].y, current_zoom, all_vtxs);
+        add_circle(vertices[i].x,
+                   vertices[i].y,
+                   current_zoom,
+                   all_vtxs,
+                   vtx_outlines,
+                   all_colors,
+                   (colors.coloring == colors.BRUSHING
+                      ? *colors.landmarks[i].first
+                      : colors.default_landmark_color));
     }
 
     glBindVertexArray(VAO_v);
 
-    glBindBuffer(GL_ARRAY_BUFFER, VBO_v);
+    glBindBuffer(GL_ARRAY_BUFFER, VBO_v_pos);
     glBufferData(GL_ARRAY_BUFFER,
                  all_vtxs.size() * sizeof(float),
                  &all_vtxs[0],
+                 GL_DYNAMIC_DRAW);
+    glVertexAttribPointer(
+      0, 2, GL_FLOAT, GL_FALSE, 2 * sizeof(float), (void *)0);
+    glEnableVertexAttribArray(0);
+
+    glBindBuffer(GL_ARRAY_BUFFER, VBO_v_col);
+    glBufferData(GL_ARRAY_BUFFER,
+                 all_colors.size() * sizeof(glm::vec3),
+                 &all_colors[0],
+                 GL_DYNAMIC_DRAW);
+    glVertexAttribPointer(
+      1, 3, GL_FLOAT, GL_FALSE, sizeof(glm::vec3), (void *)0);
+    glEnableVertexAttribArray(1);
+
+    glBindVertexArray(VAO_v_outline);
+
+    glBindBuffer(GL_ARRAY_BUFFER, VBO_v_pos_outline);
+    glBufferData(GL_ARRAY_BUFFER,
+                 vtx_outlines.size() * sizeof(float),
+                 &vtx_outlines[0],
                  GL_DYNAMIC_DRAW);
     glVertexAttribPointer(
       0, 2, GL_FLOAT, GL_FALSE, 2 * sizeof(float), (void *)0);
@@ -272,44 +241,4 @@ GraphRenderer::prepare_edges(const LandmarkModel &model)
     glVertexAttribPointer(
       0, 2, GL_FLOAT, GL_FALSE, sizeof(glm::vec2), (void *)0);
     glEnableVertexAttribArray(0);
-}
-
-void
-GraphRenderer::prepare_rectangle()
-{
-    glBindVertexArray(VAO_r);
-
-    glBindBuffer(GL_ARRAY_BUFFER, VBO_r);
-    glBufferData(GL_ARRAY_BUFFER,
-                 rect_vtxs.size() * sizeof(glm::vec2),
-                 &rect_vtxs[0],
-                 GL_DYNAMIC_DRAW);
-
-    glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, EBO_r);
-    glBufferData(GL_ELEMENT_ARRAY_BUFFER,
-                 rect_indices.size() * sizeof(unsigned int),
-                 &rect_indices[0],
-                 GL_STATIC_DRAW);
-
-    glVertexAttribPointer(
-      0, 2, GL_FLOAT, GL_FALSE, sizeof(glm::vec2), (void *)0);
-    glEnableVertexAttribArray(0);
-}
-
-bool
-GraphRenderer::is_within_rect(glm::vec2 point) const
-{
-    float point_x = point.x;
-    float point_y = point.y;
-
-    float min_x = std::min(rect_vtxs[0].x, rect_vtxs[3].x);
-    float min_y = std::min(rect_vtxs[0].y, rect_vtxs[1].y);
-    float max_x = std::max(rect_vtxs[0].x, rect_vtxs[3].x);
-    float max_y = std::max(rect_vtxs[0].y, rect_vtxs[1].y);
-
-    if ((point_x >= min_x && point_x <= max_x) &&
-        (point_y >= min_y && point_y <= max_y))
-        return true;
-    else
-        return false;
 }

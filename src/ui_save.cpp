@@ -32,11 +32,12 @@ UiSaver::UiSaver()
   , saver(ImGuiFileBrowserFlags_SelectDirectory |
           ImGuiFileBrowserFlags_CreateNewDir)
   , all(false)
-  , data_flags{ false, false, false, false }
+  , data_flags{ false, false, false, false, false }
   , file_names{ "points_hd.tsv",
                 "landmarks_hd.tsv",
                 "points_2d.tsv",
-                "landmarks_2d.tsv" }
+                "landmarks_2d.tsv",
+                "clusters.tsv" }
 {
     saver.SetTitle("Select directory");
 }
@@ -87,6 +88,7 @@ UiSaver::render(State &state, ImGuiWindowFlags window_flags)
 
         save_line("Save 2D landmarks:", UiSaver::Types::LAND_2D);
 
+        save_line("Save clusters:", UiSaver::Types::CLUSTERS);
         ImGui::NewLine();
 
         if (ImGui::Checkbox("Save all", &all))
@@ -118,6 +120,9 @@ UiSaver::save_data(const State &state, const std::string &dir_name) const
 
     if (data_flags[UiSaver::Types::LAND_2D])
         write(UiSaver::Types::LAND_2D, state, dir_name);
+
+    if (data_flags[UiSaver::Types::CLUSTERS])
+        write(UiSaver::Types::CLUSTERS, state, dir_name);
 }
 
 /**
@@ -154,6 +159,20 @@ write_data_2d(const std::vector<glm::vec2> &data, std::ofstream &handle)
     }
 };
 
+static void
+write_clusters(std::vector<std::pair<const glm::vec3 *, int>> landmarks,
+               const std::map<int, std::pair<glm::vec3, std::string>> &clusters,
+               std::ofstream &handle)
+{
+    for (size_t i = 0; i < landmarks.size(); ++i) {
+        auto id = landmarks[i].second;
+        auto color = clusters.at(id).first;
+        auto name = clusters.at(id).second;
+        handle << i << '\t' << color.r << '\t' << color.g << '\t' << color.b
+               << '\t' << name << '\n';
+    }
+}
+
 void
 UiSaver::write(Types type,
                const State &state,
@@ -177,6 +196,10 @@ UiSaver::write(Types type,
             break;
         case UiSaver::Types::LAND_2D:
             write_data_2d(state.landmarks.lodim_vertices, handle);
+            break;
+        case UiSaver::Types::CLUSTERS:
+            write_clusters(
+              state.colors.landmarks, state.colors.clustering.clusters, handle);
             break;
     }
 

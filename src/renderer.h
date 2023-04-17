@@ -22,6 +22,7 @@
 #include "graph_renderer.h"
 #include "scatter_renderer.h"
 #include "state.h"
+#include "ui_renderer.h"
 #include "view.h"
 
 /**
@@ -56,7 +57,7 @@ public:
     void reset_pressed_vert();
 
     bool get_vert_pressed();
-    int get_vert_ind();
+    size_t get_vert_ind();
 
     void add_vert(State &state, View &view, glm::vec2 mouse_pos);
     void remove_vert(State &state);
@@ -67,19 +68,33 @@ public:
     bool is_active_multiselect();
     bool is_passive_multiselect();
 
-    void update_multiselect(glm::vec2 mouse_pos);
+    void update_multiselect(glm::vec2 mouse_pos, const LandmarkModel &model);
 
     void reset_multiselect();
     void stop_multiselect();
 
     bool check_pressed_rect(glm::vec2 mouse_pos);
-    bool get_rect_pressed() { return graph_renderer.rect_pressed; }
+    bool get_rect_pressed() { return ui_renderer.rect_pressed; }
 
     void move_selection(glm::vec2 mouse_pos, LandmarkModel &landmarks);
+
+    void start_brushing() { ui_renderer.is_brushing_active = true; }
+    bool is_brushing_active() { return ui_renderer.is_brushing_active; }
+    void stop_brushing() { ui_renderer.is_brushing_active = false; }
+
+    void draw_cursor_radius(const View &v, glm::vec2 mouse_pos, float r);
+    void stop_cursor_radius() { ui_renderer.draw_circle = false; }
+
+    std::vector<size_t> get_landmarks_within_circle(
+      const View &view,
+      const glm::vec2 &pos,
+      float radius,
+      const LandmarkModel &landmarks);
 
 private:
     ScatterRenderer scatter_renderer;
     GraphRenderer graph_renderer;
+    UiRenderer ui_renderer;
 };
 
 #endif // RENDERER_H

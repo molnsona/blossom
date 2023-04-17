@@ -70,6 +70,12 @@ InputHandler::process_mouse_button(View &view, Renderer &renderer, State &state)
         case GLFW_MOUSE_BUTTON_LEFT:
             switch (action) {
                 case GLFW_PRESS:
+                    if (state.colors.clustering.active_cluster != -1 &&
+                        state.colors.coloring == state.colors.BRUSHING) {
+                        renderer.start_brushing();
+                        break;
+                    }
+
                     if (renderer.is_passive_multiselect()) {
                         renderer.check_pressed_rect(model_mouse_pos);
                         break;
@@ -91,6 +97,7 @@ InputHandler::process_mouse_button(View &view, Renderer &renderer, State &state)
                 case GLFW_RELEASE:
                     renderer.reset_pressed_vert();
                     renderer.reset_multiselect();
+                    renderer.stop_brushing();
                     break;
                 default:
                     break;
@@ -130,8 +137,21 @@ InputHandler::process_mouse_button(View &view, Renderer &renderer, State &state)
             break;
     }
 
+    if (state.colors.clustering.active_cluster != -1 &&
+        state.colors.coloring == state.colors.BRUSHING) {
+        float radius = state.colors.clustering.radius_size;
+        renderer.draw_cursor_radius(view, pos, radius);
+        if (renderer.is_brushing_active()) {
+            std::vector<size_t> idxs = renderer.get_landmarks_within_circle(
+              view, pos, radius, state.landmarks);
+            state.colors.color_landmarks(idxs);
+        }
+        return;
+    } else
+        renderer.stop_cursor_radius();
+
     if (renderer.is_active_multiselect() && input.keyboard.shift_pressed) {
-        renderer.update_multiselect(model_mouse_pos);
+        renderer.update_multiselect(model_mouse_pos, state.landmarks);
     } else if (renderer.get_rect_pressed()) {
         renderer.move_selection(model_mouse_pos, state.landmarks);
     } else if (renderer.get_vert_pressed() &&

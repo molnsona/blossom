@@ -21,86 +21,18 @@
 #include "pnorm.h"
 #include "vendor/colormap/palettes.hpp"
 
-#include <cmath>
-#include <tuple>
-#include <vector>
-
-/**
- * @brief Converts hsv color to rgb color system.
- *
- * @param h Hue
- * @param s Saturation
- * @param v Value
- * @return std::tuple<uint8_t, uint8_t, uint8_t> Color in the RGB color system.
- */
-static std::tuple<uint8_t, uint8_t, uint8_t>
-hsv2rgb(float h, float s, float v)
-{
-    float chroma = v * s;
-    float m = v - chroma;
-    h *= 6;
-    int hi = truncf(h);
-    float rest = h - hi;
-    hi %= 6;
-
-    float rgb[3] = { 0, 0, 0 };
-    switch (hi) {
-        case 0:
-            rgb[0] = 1;
-            rgb[1] = rest;
-            break;
-        case 1:
-            rgb[1] = 1;
-            rgb[0] = 1 - rest;
-            break;
-        case 2:
-            rgb[1] = 1;
-            rgb[2] = rest;
-            break;
-        case 3:
-            rgb[2] = 1;
-            rgb[1] = 1 - rest;
-            break;
-        case 4:
-            rgb[2] = 1;
-            rgb[0] = rest;
-            break;
-        case 5:
-        default:
-            rgb[0] = 1;
-            rgb[2] = 1 - rest;
-            break;
-    }
-
-    for (size_t i = 0; i < 3; ++i)
-        rgb[i] = (chroma * rgb[i] + m) * 255;
-    return { rgb[0], rgb[1], rgb[2] };
-}
-
-/**
- * @brief Creates color palette with the size of the cluster count.
- *
- * @param[in] clusters The number of colors used in the new color palette.
- * @param[out] color_palette Created color palette.
- */
-static void
-create_col_palette(
-  size_t clusters,
-  std::vector<std::tuple<unsigned char, unsigned char, unsigned char>>
-    &color_palette)
-{
-    color_palette.resize(clusters);
-    for (size_t i = 0; i < clusters; ++i)
-        color_palette[i] = hsv2rgb(
-          float(i) / (clusters), i % 2 ? 1.0f : 0.7f, i % 2 ? 0.7f : 1.0f);
-}
-
 void
-ColorData::update(const TransData &td)
+ColorData::update(const TransData &td, const LandmarkModel &lm)
 {
     if (td.n != data.size()) {
         data.resize(td.n, glm::vec4(0, 0, 0, 0));
         refresh(td);
+    }
+
+    if (lm_watch.dirty(lm)) {
+        landmarks.resize(lm.n_landmarks(), { &default_landmark_color, -1 });
+        refresh(td);
+        lm_watch.clean(lm);
     }
 
     const size_t max_points =
@@ -145,30 +77,37 @@ ColorData::update(const TransData &td)
         } break;
 
         case int(ColorData::Coloring::CLUSTER):
-            if (cluster_col >= d)
-                cluster_col = 0;
-
-            std::vector<std::tuple<unsigned char, unsigned char, unsigned char>>
-              pal;
-
-            create_col_palette(cluster_cnt, pal);
-
-            for (; rn-- > 0; ++ri) {
-                if (ri >= n)
-                    ri = 0;
-
-                auto cluster = td.data[ri * d + cluster_col];
-
-                auto [r, g, b] =
-                  std::isnan(cluster)
-                    ? std::make_tuple<unsigned char,
-                                      unsigned char,
-                                      unsigned char>(128, 128, 128)
-                    : pal[(int)roundf(cluster) % (cluster_cnt)];
-                data[ri] = glm::vec4(r / 255.0f, g / 255.0f, b / 255.0f, alpha);
-            }
+            clustering.do_cluster_coloring(alpha, ri, rn, td, data);
+            break;
+        case int(ColorData::Coloring::BRUSHING):
+            clustering.do_brushing(alpha, landmarks, lm, ri, rn, td, data);
             break;
     }
+}
+
+void
+ColorData::color_landmarks(const std::vector<size_t> &idxs)
+{
+    for (auto &&i : idxs) {
+        color_landmark(i);
+    }
+}
+
+void
+ColorData::reset_landmark_color(int id)
+{
+    for (auto &&l : landmarks) {
+        if (l.second == id)
+            l = { &default_landmark_color, -1 };
+    }
+    touch_config();
+}
+
+void
+ColorData::remove_landmark(size_t ind)
+{
+    landmarks.erase(landmarks.begin() + ind);
+    touch_config();
 }
 
 void
@@ -177,9 +116,23 @@ ColorData::reset()
     coloring = (int)Coloring::EXPR;
     expr_col = 0;
     col_palette = "rdbu";
-    cluster_col = 0;
-    cluster_cnt = 10;
     alpha = 0.5f;
     reverse = false;
+    clustering.reset();
+    auto lnds_size = landmarks.size();
+    landmarks = { lnds_size,
+                  { &default_landmark_color, clustering.active_cluster } };
+    // Add none cluster, only for export of the data.
+    clustering.clusters[-1] = { default_landmark_color, "none" };
+
+    touch_config();
+}
+
+void
+ColorData::color_landmark(size_t ind)
+{
+    auto index = clustering.active_cluster;
+    landmarks[ind] = { &clustering.clusters[index].first, index };
+
     touch_config();
 }

@@ -44,6 +44,7 @@ struct UiSaver
         LAND_HD,
         POINTS_2D,
         LAND_2D,
+        CLUSTERS,
         COUNT // Number of possible export types
     };
 

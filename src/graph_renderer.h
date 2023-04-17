@@ -22,6 +22,7 @@
 
 #include <vector>
 
+#include "color_data.h"
 #include "landmark_model.h"
 #include "shader.h"
 #include "view.h"
@@ -40,11 +41,6 @@ struct GraphRenderer
     /** Index of the pressed vertex. If the vertex was not pressed, it is UB. */
     size_t vert_ind;
 
-    bool draw_rect;
-    bool update_rect_pos;
-
-    bool rect_pressed;
-
     GraphRenderer();
 
     void init();
@@ -62,7 +58,7 @@ struct GraphRenderer
      * \todo TODO: this should not know about actual Landmarks, we should pass
      * actual vertex + edge positions as with the layouter.
      */
-    void draw(const View &v, const LandmarkModel &m);
+    void draw(const View &v, const LandmarkModel &m, const ColorData &colors);
 
     /**
      * @brief Checks if some vertex was pressed.
@@ -75,16 +71,9 @@ struct GraphRenderer
      */
     bool is_vert_pressed(const View &view, glm::vec2 mouse);
 
-    bool is_rect_pressed(glm::vec2 mouse_pos);
-
-    void set_rect_start_point(glm::vec2 mouse_pos);
-    void set_rect_end_point(glm::vec2 mouse_pos);
-
-    void move_selection(glm::vec2 mouse_pos, LandmarkModel &landmarks);
-
 private:
-    /** Radius of the vertex for rendering.
-     * \todo TODO: Make dynamic according to the depth of the zoom.
+    /** Radius of the vertex used for comparing, if
+     * the landmark was pressed.
      */
     static constexpr float vertex_size = 5.0f;
 
@@ -96,26 +85,17 @@ private:
 
     Shader shader_v;
     unsigned int VAO_v;
-    unsigned int VBO_v;
+    unsigned int VBO_v_pos;
+    unsigned int VBO_v_col;
+
+    int num_all_vtxs_outlines;
+    Shader shader_v_outline;
+    unsigned int VAO_v_outline;
+    unsigned int VBO_v_pos_outline;
 
     Shader shader_e;
     unsigned int VAO_e;
     unsigned int VBO_e;
-
-    Shader shader_r;
-    unsigned int VAO_r;
-    unsigned int VBO_r;
-    unsigned int EBO_r;
-
-    std::array<glm::vec2, 4> rect_vtxs;
-    const std::array<unsigned int, 6> rect_indices;
-
-    float max_diff_x;
-    float min_diff_x;
-    float max_diff_y;
-    float min_diff_y;
-
-    std::vector<size_t> selected_landmarks;
 
     /**
      * @brief Prepare data to render vertices and edges.
@@ -125,26 +105,24 @@ private:
      * @param current_zoom Current zoom of the "camera".
      * @param model Data source
      */
-    void prepare_data(float current_zoom, const LandmarkModel &model);
+    void prepare_data(float current_zoom,
+                      const LandmarkModel &model,
+                      const ColorData &colors);
     /**
      * @brief Prepare graph vertices that are rendered as circles.
      *
      * @param current_zoom Current zoom of the "camera".
      * @param model Data source
      */
-    void prepare_vertices(float current_zoom, const LandmarkModel &model);
+    void prepare_vertices(float current_zoom,
+                          const LandmarkModel &model,
+                          const ColorData &colors);
     /**
      * @brief Prepare graph edges that are rendered as lines.
      *
      * @param model Data source
      */
     void prepare_edges(const LandmarkModel &model);
-
-    /**
-     * @brief Prepare rectangle data used for multiselect.
-     *
-     */
-    void prepare_rectangle();
 
     /**
      * @brief Add vertices for TRIANGLE_FAN that creates circle
@@ -158,9 +136,10 @@ private:
     void add_circle(float middle_x,
                     float middle_y,
                     float zoom,
-                    std::vector<float> &all_vtxs);
-
-    bool is_within_rect(glm::vec2 point) const;
+                    std::vector<float> &all_vtxs,
+                    std::vector<float> &vtxs_outlines,
+                    std::vector<glm::vec3> &all_colors,
+                    const glm::vec3 &color);
 };
 
 #endif // #ifndef GRAPH_RENDERER_H
