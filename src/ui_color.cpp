@@ -152,8 +152,8 @@ UiColorSettings::render(State &state, ImGuiWindowFlags window_flags)
 
                     // Skip none cluster, it is there only for
                     // exporting the data.
-                    if(iter->first == -1) {
-                        ++iter; 
+                    if (iter->first == -1) {
+                        ++iter;
                         continue;
                     }
 

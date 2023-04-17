@@ -123,7 +123,6 @@ UiSaver::save_data(const State &state, const std::string &dir_name) const
 
     if (data_flags[UiSaver::Types::CLUSTERS])
         write(UiSaver::Types::CLUSTERS, state, dir_name);
-
 }
 
 /**
@@ -161,21 +160,16 @@ write_data_2d(const std::vector<glm::vec2> &data, std::ofstream &handle)
 };
 
 static void
-write_clusters(
-    std::vector<std::pair<const glm::vec3 *, int>> landmarks,
-    const std::map<int, std::pair<glm::vec3, std::string>> &clusters,
-    std::ofstream &handle)
+write_clusters(std::vector<std::pair<const glm::vec3 *, int>> landmarks,
+               const std::map<int, std::pair<glm::vec3, std::string>> &clusters,
+               std::ofstream &handle)
 {
-    for (size_t i = 0; i < landmarks.size(); ++i)
-    {
+    for (size_t i = 0; i < landmarks.size(); ++i) {
         auto id = landmarks[i].second;
         auto color = clusters.at(id).first;
         auto name = clusters.at(id).second;
-        handle << i << '\t' 
-            << color.r << '\t'
-            << color.g << '\t'
-            << color.b << '\t'
-            << name << '\n';
+        handle << i << '\t' << color.r << '\t' << color.g << '\t' << color.b
+               << '\t' << name << '\n';
     }
 }
 
@@ -204,7 +198,8 @@ UiSaver::write(Types type,
             write_data_2d(state.landmarks.lodim_vertices, handle);
             break;
         case UiSaver::Types::CLUSTERS:
-            write_clusters(state.colors.landmarks, state.colors.clustering.clusters, handle);
+            write_clusters(
+              state.colors.landmarks, state.colors.clustering.clusters, handle);
             break;
     }
 
