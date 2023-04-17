@@ -107,6 +107,8 @@ struct ColorData : public Sweeper
      */
     void reset_landmark_color(int id);
 
+    void remove_landmark(size_t ind);
+
     void touch_config() { refresh(data.size()); }
     /**
      * @brief Resets color settings to their initial values.
