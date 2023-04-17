@@ -75,10 +75,11 @@ Renderer::add_vert(State &state, View &view, glm::vec2 mouse_pos)
 void
 Renderer::remove_vert(State &state)
 {
-    if (graph_renderer.vert_pressed)
+    if (graph_renderer.vert_pressed) {
         // Remove landmark
         state.landmarks.remove(graph_renderer.vert_ind);
         state.colors.remove_landmark(graph_renderer.vert_ind);
+    }
 }
 
 void
