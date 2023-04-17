@@ -70,7 +70,8 @@ InputHandler::process_mouse_button(View &view, Renderer &renderer, State &state)
         case GLFW_MOUSE_BUTTON_LEFT:
             switch (action) {
                 case GLFW_PRESS:
-                    if (state.colors.clustering.active_cluster != -1) {
+                    if (state.colors.clustering.active_cluster != -1
+                        && state.colors.coloring == state.colors.BRUSHING) {
                         renderer.start_brushing();
                         break;
                     }
@@ -136,7 +137,7 @@ InputHandler::process_mouse_button(View &view, Renderer &renderer, State &state)
             break;
     }
 
-    if (state.colors.clustering.active_cluster != -1) {
+    if (state.colors.clustering.active_cluster != -1 && state.colors.coloring == state.colors.BRUSHING) {
         float radius = state.colors.clustering.radius_size;
         renderer.draw_cursor_radius(view, pos, radius);
         if (renderer.is_brushing_active()) {

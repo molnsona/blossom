@@ -35,9 +35,9 @@
  */
 struct ClusterData
 {
-    const glm::vec3 default_cluster_color = { 114.0f / 255.0f,
-                                              144.0f / 255.0f,
-                                              154.0f / 255.0f };
+    const glm::vec3 default_cluster_color = { 17.0f / 255.0f,
+                                              170.0f / 255.0f,
+                                              222.0f / 255.0f };
 
     /**  Index of the column used in cluster coloring. */
     int cluster_col;

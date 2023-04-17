@@ -185,7 +185,7 @@ GraphRenderer::prepare_vertices(float current_zoom,
                    all_vtxs,
                    vtx_outlines,
                    all_colors,
-                   *colors.landmarks[i].first);
+                   (colors.coloring == colors.BRUSHING ? *colors.landmarks[i].first : colors.default_landmark_color));
     }
 
     glBindVertexArray(VAO_v);

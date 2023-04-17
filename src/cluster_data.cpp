@@ -181,7 +181,7 @@ ClusterData::reset()
     active_cluster = -1;
     last_id = -1;
 
-    radius_size = 20.0f;
+    radius_size = 40.0f;
 
     clusters.clear();
 }
