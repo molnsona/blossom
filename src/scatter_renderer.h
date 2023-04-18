@@ -45,7 +45,7 @@ struct ScatterRenderer
      * @param m Model that contains 2D coordinates.
      * @param colors Data that contains colors of the points.
      */
-    void draw(const View &v, const ScatterModel &m, const ColorData &colors);
+    void draw(const glm::vec2 &fb_size, const View &v, const ScatterModel &m, const ColorData &colors);
 
 private:
     Shader shader;

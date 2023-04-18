@@ -57,10 +57,17 @@ ScatterRenderer::init()
 }
 
 void
-ScatterRenderer::draw(const View &view,
+ScatterRenderer::draw(const glm::vec2 &fb_size, 
+                      const View &view,
                       const ScatterModel &model,
                       const ColorData &colors)
 {
+    glBindFramebuffer(GL_FRAMEBUFFER, fb);
+    glBindTexture(GL_TEXTURE_2D, texture);
+    glTexImage2D(GL_TEXTURE_2D, 0,GL_RGB, fb_size.x, fb_size.y, 0,GL_RGB, GL_UNSIGNED_BYTE, NULL);  
+    glFramebufferTexture2D(GL_FRAMEBUFFER, GL_COLOR_ATTACHMENT0, GL_TEXTURE_2D, texture, 0);
+    glBindFramebuffer(GL_FRAMEBUFFER, 0);
+
     GLenum DrawBuffers[1] = {GL_COLOR_ATTACHMENT0};
     glDrawBuffers(1, DrawBuffers);
 
@@ -90,7 +97,7 @@ ScatterRenderer::draw(const View &view,
 
     glBindTexture(GL_TEXTURE_2D, 0);
     glBindFramebuffer(GL_FRAMEBUFFER, 0);
-    glViewport(0,0,800,600);
+    // glViewport(0,0,fb_size.x,fb_size.y);
 
     //glClearColor(1.0f, 1.0f, 1.0f, 1.0f);
     glClear( GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);

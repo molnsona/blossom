@@ -21,12 +21,12 @@ Renderer::init()
 }
 
 void
-Renderer::render(const State &state, const View &view)
+Renderer::render(const glm::vec2 &fb_size, const State &state, const View &view)
 {
     glClearColor(1.0f, 1.0f, 1.0f, 1.0f);
     glClear(GL_COLOR_BUFFER_BIT);
 
-    scatter_renderer.draw(view, state.scatter, state.colors);
+    scatter_renderer.draw(fb_size, view, state.scatter, state.colors);
     graph_renderer.draw(view, state.landmarks, state.colors);
     ui_renderer.draw(view);
 }
