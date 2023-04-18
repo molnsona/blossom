@@ -29,18 +29,25 @@ const std::string scatter_vs =
   "uniform mat4 view;\n"
   "uniform mat4 proj;\n"
   "out vec4 outColor;\n"
+"out vec2 UV;\n"
   "void main()\n"
   "{\n"
   "   gl_Position = proj * view * model * vec4(aPos, 0.0, 1.0);\n"
   "   outColor = aCol;\n"
+  "UV = (gl_Position.xy+vec2(1,1))/2.0;\n"
   "}\0";
 
 const std::string scatter_fs = "#version 400 core\n"
                                "out vec4 FragColor;\n"
                                "in vec4 outColor;\n"
+                                "in vec2 UV;\n"
+
+                                "uniform sampler2D in_texture;\n"
+
                                "void main()\n"
                                "{\n"
-                               "   gl_FragColor = outColor;\n"
+                               //"   gl_FragColor = outColor;\n"
+                               "gl_FragColor = texture( in_texture, UV) * outColor;\n"
                                "}\0";
 
 const std::string graph_v_vs =

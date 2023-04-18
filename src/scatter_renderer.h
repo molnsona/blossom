@@ -53,6 +53,9 @@ private:
     unsigned int VBO_pos;
     unsigned int VBO_col;
 
+    unsigned int fb;
+    unsigned int texture;
+
     /**
      * @brief Prepare data to render scatterplot with colors.
      *

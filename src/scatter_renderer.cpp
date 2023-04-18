@@ -34,7 +34,24 @@ ScatterRenderer::init()
     glGenBuffers(1, &VBO_pos);
     glGenBuffers(1, &VBO_col);
 
+    glGenFramebuffers(1, &fb);
+    glGenTextures(1, &texture);
+
     shader.build(scatter_vs, scatter_fs);
+
+    glBindFramebuffer(GL_FRAMEBUFFER, fb);
+    glBindTexture(GL_TEXTURE_2D, texture);
+    glTexImage2D(GL_TEXTURE_2D, 0,GL_RGB, 800, 600, 0,GL_RGB, GL_UNSIGNED_BYTE, NULL);
+    
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST); 
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE);
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE);
+    glBindTexture(GL_TEXTURE_2D, 0);
+   
+    glFramebufferTexture2D(GL_FRAMEBUFFER, GL_COLOR_ATTACHMENT0, GL_TEXTURE_2D, texture, 0);
+    glBindFramebuffer(GL_FRAMEBUFFER, 0);
+
 }
 
 void
@@ -42,6 +59,9 @@ ScatterRenderer::draw(const View &view,
                       const ScatterModel &model,
                       const ColorData &colors)
 {
+    glBindFramebuffer(GL_FRAMEBUFFER, fb);
+		glClear(GL_COLOR_BUFFER_BIT);
+		glClearColor(0.3, 0.3, 0.3, 0.0);
 
     size_t n =
       std::min(model.points.size(),
@@ -54,11 +74,19 @@ ScatterRenderer::draw(const View &view,
     shader.set_mat4("view", view.get_view_matrix());
     shader.set_mat4("proj", view.get_proj_matrix());
 
+    glActiveTexture(GL_TEXTURE0);
+    glBindTexture(GL_TEXTURE_2D, texture);
+ 
+    glUniform1i(glGetUniformLocation(shader.ID, "in_texture"),0);
+    
     glBindVertexArray(VAO);
     glEnable(GL_BLEND);
     glDrawArrays(GL_POINTS, 0, n);
 
     glDisable(GL_BLEND);
+
+    glBindTexture(GL_TEXTURE_2D, 0);
+    glBindFramebuffer(GL_FRAMEBUFFER, 0);
 }
 
 void
