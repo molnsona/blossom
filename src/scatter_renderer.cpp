@@ -66,7 +66,7 @@ ScatterRenderer::draw(const View &view,
 
     glBindFramebuffer(GL_FRAMEBUFFER, fb);
 		glClear(GL_COLOR_BUFFER_BIT);
-		glClearColor(0.8, 0.8, 0.8, 0.0);
+		//glClearColor(0.8, 0.8, 0.8, 0.0);
 
     size_t n =
       std::min(model.points.size(),
@@ -92,6 +92,7 @@ ScatterRenderer::draw(const View &view,
     glBindFramebuffer(GL_FRAMEBUFFER, 0);
     glViewport(0,0,800,600);
 
+    //glClearColor(1.0f, 1.0f, 1.0f, 1.0f);
     glClear( GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
     GLuint quad_VertexArrayID;
@@ -99,12 +100,12 @@ ScatterRenderer::draw(const View &view,
     glBindVertexArray(quad_VertexArrayID);
 
     static const GLfloat g_quad_vertex_buffer_data[] = {
-        -1.0f, -1.0f, 0.0f,
-        1.0f, -1.0f, 0.0f,
-        -1.0f,  1.0f, 0.0f,
-        -1.0f,  1.0f, 0.0f,
-        1.0f, -1.0f, 0.0f,
-        1.0f,  1.0f, 0.0f,
+        -10.0f, -10.0f, 0.0f,
+        10.0f, -10.0f, 0.0f,
+        -10.0f,  10.0f, 0.0f,
+        -10.0f,  10.0f, 0.0f,
+        10.0f, -10.0f, 0.0f,
+        10.0f,  10.0f, 0.0f,
     };
 
     GLuint quad_vertexbuffer;
