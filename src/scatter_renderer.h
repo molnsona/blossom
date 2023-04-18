@@ -53,6 +53,7 @@ private:
     unsigned int VBO_pos;
     unsigned int VBO_col;
 
+    Shader shader_tex;
     unsigned int fb;
     unsigned int texture;
 
