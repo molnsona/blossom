@@ -35,20 +35,25 @@ struct TextureRenderer
 
     void init();
 
-    void activate();
-    void deactivate();
+    void bind_default_fb();
     void render();
     void bind_fb(const glm::vec2 &fb_size);
 
 private:
+    const std::array<float, 12> screen_quad_data;
+
     Shader shader_tex;
     unsigned int VAO_quad;
     unsigned int VBO_quad;
 
-    unsigned int fb;
-    unsigned int texture;
+    size_t current_fb;
+    std::array<unsigned int,2> fbs;
+    std::array<unsigned int,2> textures;
 
-    const std::array<float, 12> screen_quad_data;
+    void gen_fbs();
+    void gen_textures();
+
+    void bind_fbs_and_textures();
 
     void resize_fb(const glm::vec2 &fb_size);
     void prepare_screen_quad_data();
