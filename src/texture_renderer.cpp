@@ -68,16 +68,23 @@ TextureRenderer::render()
     shader_tex.set_int("renderedTexture", 0);    
 
     glBindVertexArray(VAO_quad);
-    glEnable(GL_BLEND);
+
+    glDisable(GL_BLEND);    
+
     glBindTexture(GL_TEXTURE_2D, textures[current_fb]);
     glDrawArrays(
       GL_TRIANGLES, 0, 6); // 2*3 indices starting at 0 -> 2 triangles
-    glDisable(GL_BLEND);
+    glBindTexture(GL_TEXTURE_2D, textures[(current_fb+1)%2]);
+    glDrawArrays(
+      GL_TRIANGLES, 0, 6);
+    glDisable(GL_BLEND);    
 }
 
 void
 TextureRenderer::bind_fb(const glm::vec2 &fb_size)
 {
+    current_fb = (current_fb + 1) % 2;
+
     resize_fb(fb_size);
 
     GLenum DrawBuffers[1] = { GL_COLOR_ATTACHMENT0 };
@@ -111,7 +118,7 @@ void TextureRenderer::bind_fbs_and_textures()
         glBindFramebuffer(GL_FRAMEBUFFER, fbs[i]);
         glBindTexture(GL_TEXTURE_2D, textures[i]);
         glTexImage2D(
-        GL_TEXTURE_2D, 0, GL_RGB, 800, 600, 0, GL_RGB, GL_UNSIGNED_BYTE, NULL);
+        GL_TEXTURE_2D, 0, GL_RGBA, 800, 600, 0, GL_RGBA, GL_UNSIGNED_BYTE, NULL);
 
         glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
         glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
@@ -132,11 +139,11 @@ TextureRenderer::resize_fb(const glm::vec2 &fb_size)
     glBindTexture(GL_TEXTURE_2D, textures[current_fb]);
     glTexImage2D(GL_TEXTURE_2D,
                  0,
-                 GL_RGB,
+                 GL_RGBA,
                  fb_size.x,
                  fb_size.y,
                  0,
-                 GL_RGB,
+                 GL_RGBA,
                  GL_UNSIGNED_BYTE,
                  NULL);
     glFramebufferTexture2D(

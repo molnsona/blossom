@@ -35,7 +35,10 @@ const std::string tex_fs = "#version 400 core\n"
                            "uniform sampler2D renderedTexture;\n"
                            "void main()\n"
                            "{\n"
-                           "   FragColor = texture( renderedTexture, UV) ;\n"
+                           "   vec4 texColor = texture( renderedTexture, UV) ;\n"
+                           "   if(texColor.a == 0.0)\n"
+                           "        discard;\n"
+                           "    FragColor = texColor;\n"
                            "}\0";
 
 const std::string scatter_vs =
