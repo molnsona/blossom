@@ -20,8 +20,6 @@
 
 #include "shaders.h"
 
-#include <iostream>
-
 TextureRenderer::TextureRenderer()
   : screen_quad_data({ -1.0f,
                        -1.0f,
@@ -35,7 +33,7 @@ TextureRenderer::TextureRenderer()
                        -1.0f,
                        1.0f,
                        1.0f })
-  , current_fb(5)
+  , current_fb(num_of_textures - 1)
   , fb_size({ 800.0f, 600.0f })
 {
 }
