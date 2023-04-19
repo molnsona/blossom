@@ -29,17 +29,18 @@ const std::string tex_vs = "#version 400 core\n"
                            "   gl_Position = vec4(aPos, 0.0, 1.0);\n"
                            "   UV = (gl_Position.xy+vec2(1,1))/2.0;\n"
                            "}\0";
-const std::string tex_fs = "#version 400 core\n"
-                           "in vec2 UV;\n"
-                           "out vec4 FragColor;\n"
-                           "uniform sampler2D renderedTexture;\n"
-                           "void main()\n"
-                           "{\n"
-                           "   vec4 texColor = texture( renderedTexture, UV) ;\n"
-                           "   if(texColor.a == 0.0)\n"
-                           "        discard;\n"
-                           "    FragColor = texColor;\n"
-                           "}\0";
+const std::string tex_fs =
+  "#version 400 core\n"
+  "in vec2 UV;\n"
+  "out vec4 FragColor;\n"
+  "uniform sampler2D renderedTexture;\n"
+  "void main()\n"
+  "{\n"
+  "   vec4 texColor = texture( renderedTexture, UV) ;\n"
+  "   if(texColor.a == 0.0)\n"
+  "        discard;\n"
+  "    FragColor = texColor;\n"
+  "}\0";
 
 const std::string scatter_vs =
   "#version 400 core\n"

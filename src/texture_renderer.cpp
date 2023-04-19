@@ -35,8 +35,8 @@ TextureRenderer::TextureRenderer()
                        -1.0f,
                        1.0f,
                        1.0f })
-    , current_fb(5) 
-    , fb_size({800.0f,600.0f})
+  , current_fb(5)
+  , fb_size({ 800.0f, 600.0f })
 {
 }
 
@@ -47,12 +47,12 @@ TextureRenderer::init()
     glGenBuffers(1, &VBO_quad);
 
     shader_tex.build(tex_vs, tex_fs);
-    
+
     GLenum DrawBuffers[1] = { GL_COLOR_ATTACHMENT0 };
     glDrawBuffers(1, DrawBuffers);
 
     gen_fbs();
-    gen_textures();    
+    gen_textures();
 
     bind_fbs_and_textures();
 
@@ -63,7 +63,7 @@ void
 TextureRenderer::bind_default_fb()
 {
     glBindFramebuffer(GL_FRAMEBUFFER, 0);
-    glClearColor(1.0f, 1.0f, 1.0f, 1.0f);     
+    glClearColor(1.0f, 1.0f, 1.0f, 1.0f);
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 }
 
@@ -71,14 +71,13 @@ void
 TextureRenderer::render()
 {
     shader_tex.use();
-    shader_tex.set_int("renderedTexture", 0);    
+    shader_tex.set_int("renderedTexture", 0);
 
     glBindVertexArray(VAO_quad);
 
-    glDisable(GL_BLEND);    
+    glDisable(GL_BLEND);
 
-    for (size_t i = 0; i < num_of_textures; ++i)
-    {
+    for (size_t i = 0; i < num_of_textures; ++i) {
         glBindTexture(GL_TEXTURE_2D, textures[i]);
         glDrawArrays(GL_TRIANGLES, 0, 6);
     }
@@ -89,37 +88,45 @@ TextureRenderer::bind_fb(const glm::vec2 &s)
 {
     current_fb = (current_fb + 1) % num_of_textures;
 
-    if(fb_size != s) resize_fbs(s);
+    if (fb_size != s)
+        resize_fbs(s);
 
     glBindFramebuffer(GL_FRAMEBUFFER, fbs[current_fb]);
     glClearColor(1.0f, 1.0f, 1.0f, 0.0f);
     glClear(GL_COLOR_BUFFER_BIT);
 }
 
-void TextureRenderer::gen_fbs()
+void
+TextureRenderer::gen_fbs()
 {
-    for (size_t i = 0; i < fbs.size(); ++i)
-    {
+    for (size_t i = 0; i < fbs.size(); ++i) {
         glGenFramebuffers(1, &fbs[i]);
-    }    
+    }
 }
 
-void TextureRenderer::gen_textures()
+void
+TextureRenderer::gen_textures()
 {
-    for (size_t i = 0; i < textures.size(); ++i)
-    {
+    for (size_t i = 0; i < textures.size(); ++i) {
         glGenTextures(1, &textures[i]);
-    }    
+    }
 }
 
-void TextureRenderer::bind_fbs_and_textures()
+void
+TextureRenderer::bind_fbs_and_textures()
 {
-    for (size_t i = 0; i < fbs.size(); ++i)
-    {
+    for (size_t i = 0; i < fbs.size(); ++i) {
         glBindFramebuffer(GL_FRAMEBUFFER, fbs[i]);
         glBindTexture(GL_TEXTURE_2D, textures[i]);
-        glTexImage2D(
-        GL_TEXTURE_2D, 0, GL_RGBA, 800, 600, 0, GL_RGBA, GL_UNSIGNED_BYTE, NULL);
+        glTexImage2D(GL_TEXTURE_2D,
+                     0,
+                     GL_RGBA,
+                     800,
+                     600,
+                     0,
+                     GL_RGBA,
+                     GL_UNSIGNED_BYTE,
+                     NULL);
 
         glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
         glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
@@ -128,7 +135,7 @@ void TextureRenderer::bind_fbs_and_textures()
         glBindTexture(GL_TEXTURE_2D, 0);
 
         glFramebufferTexture2D(
-        GL_FRAMEBUFFER, GL_COLOR_ATTACHMENT0, GL_TEXTURE_2D, textures[i], 0);
+          GL_FRAMEBUFFER, GL_COLOR_ATTACHMENT0, GL_TEXTURE_2D, textures[i], 0);
         glBindFramebuffer(GL_FRAMEBUFFER, 0);
     }
 }
@@ -137,21 +144,20 @@ void
 TextureRenderer::resize_fbs(const glm::vec2 &s)
 {
     fb_size = s;
-    for (size_t i = 0; i < num_of_textures; ++i)
-    {
+    for (size_t i = 0; i < num_of_textures; ++i) {
         glBindFramebuffer(GL_FRAMEBUFFER, fbs[i]);
         glBindTexture(GL_TEXTURE_2D, textures[i]);
         glTexImage2D(GL_TEXTURE_2D,
-                    0,
-                    GL_RGBA,
-                    fb_size.x,
-                    fb_size.y,
-                    0,
-                    GL_RGBA,
-                    GL_UNSIGNED_BYTE,
-                    NULL);
+                     0,
+                     GL_RGBA,
+                     fb_size.x,
+                     fb_size.y,
+                     0,
+                     GL_RGBA,
+                     GL_UNSIGNED_BYTE,
+                     NULL);
         glFramebufferTexture2D(
-        GL_FRAMEBUFFER, GL_COLOR_ATTACHMENT0, GL_TEXTURE_2D, textures[i], 0);
+          GL_FRAMEBUFFER, GL_COLOR_ATTACHMENT0, GL_TEXTURE_2D, textures[i], 0);
         glBindFramebuffer(GL_FRAMEBUFFER, 0);
     }
 }
