@@ -75,7 +75,10 @@ main()
                      renderer.get_vert_pressed(),
                      renderer.get_vert_ind());
 
-        renderer.render(state, view);
+        renderer.render(glm::vec2(input_handler.input.fb_width,
+                                  input_handler.input.fb_height),
+                        state,
+                        view);
 
         imgui.render(
           input_handler.input.fb_width, input_handler.input.fb_height, state);

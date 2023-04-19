@@ -18,6 +18,7 @@ set(BLOSSOM_SOURCES
     scatter_renderer.cpp
     shader.cpp
     state.cpp
+    texture_renderer.cpp
     trans_data.cpp
     tsne_layout.cpp
     tsv_parser.cpp

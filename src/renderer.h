@@ -41,7 +41,7 @@ public:
      * @param state
      * @param view
      */
-    void render(const State &state, const View &view);
+    void render(const glm::vec2 &fb_size, const State &state, const View &view);
 
     /**
      * @brief Check whether the vertex was pressed and set flags.

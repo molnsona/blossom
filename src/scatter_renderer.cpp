@@ -35,13 +35,17 @@ ScatterRenderer::init()
     glGenBuffers(1, &VBO_col);
 
     shader.build(scatter_vs, scatter_fs);
+
+    texture_renderer.init();
 }
 
 void
-ScatterRenderer::draw(const View &view,
+ScatterRenderer::draw(const glm::vec2 &fb_size,
+                      const View &view,
                       const ScatterModel &model,
                       const ColorData &colors)
 {
+    texture_renderer.bind_fb(fb_size);
 
     size_t n =
       std::min(model.points.size(),
@@ -56,9 +60,15 @@ ScatterRenderer::draw(const View &view,
 
     glBindVertexArray(VAO);
     glEnable(GL_BLEND);
-    glDrawArrays(GL_POINTS, 0, n);
+    size_t points_size = n / texture_renderer.get_num_of_texts();
+    size_t start_index = texture_renderer.get_active_fb() * points_size;
+    glDrawArrays(GL_POINTS, start_index, points_size);
 
     glDisable(GL_BLEND);
+
+    texture_renderer.bind_default_fb();
+
+    texture_renderer.render();
 }
 
 void

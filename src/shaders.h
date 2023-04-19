@@ -21,6 +21,27 @@
 
 #include <string>
 
+const std::string tex_vs = "#version 400 core\n"
+                           "layout (location = 0) in vec2 aPos;\n"
+                           "out vec2 UV;\n"
+                           "void main()\n"
+                           "{\n"
+                           "   gl_Position = vec4(aPos, 0.0, 1.0);\n"
+                           "   UV = (gl_Position.xy+vec2(1,1))/2.0;\n"
+                           "}\0";
+const std::string tex_fs =
+  "#version 400 core\n"
+  "in vec2 UV;\n"
+  "out vec4 FragColor;\n"
+  "uniform sampler2D renderedTexture;\n"
+  "void main()\n"
+  "{\n"
+  "   vec4 texColor = texture( renderedTexture, UV) ;\n"
+  "   if(texColor.a == 0.0)\n"
+  "        discard;\n"
+  "    FragColor = texColor;\n"
+  "}\0";
+
 const std::string scatter_vs =
   "#version 400 core\n"
   "layout (location = 0) in vec2 aPos;\n"
@@ -36,11 +57,11 @@ const std::string scatter_vs =
   "}\0";
 
 const std::string scatter_fs = "#version 400 core\n"
-                               "out vec4 FragColor;\n"
                                "in vec4 outColor;\n"
+                               "layout(location = 0) out vec4 color;"
                                "void main()\n"
                                "{\n"
-                               "   gl_FragColor = outColor;\n"
+                               "   color = outColor;\n"
                                "}\0";
 
 const std::string graph_v_vs =
