@@ -22,6 +22,7 @@
 
 #include "color_data.h"
 #include "scatter_model.h"
+#include "texture_renderer.h"
 #include "view.h"
 
 #include "shader.h"
@@ -48,14 +49,12 @@ struct ScatterRenderer
     void draw(const glm::vec2 &fb_size, const View &v, const ScatterModel &m, const ColorData &colors);
 
 private:
+    TextureRenderer texture_renderer;
+
     Shader shader;
     unsigned int VAO;
     unsigned int VBO_pos;
     unsigned int VBO_col;
-
-    Shader shader_tex;
-    unsigned int fb;
-    unsigned int texture;
 
     /**
      * @brief Prepare data to render scatterplot with colors.

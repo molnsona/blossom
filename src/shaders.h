@@ -31,7 +31,7 @@ const std::string tex_vs =
   "out vec2 UV;\n"
   "void main()\n"
   "{\n"
-  "   gl_Position = proj * view * model * vec4(aPos, 0.0, 1.0);\n"
+  "   gl_Position = vec4(aPos, 0.0, 1.0);\n"
   "   UV = (gl_Position.xy+vec2(1,1))/2.0;\n"
   "}\0";
 const std::string tex_fs = "#version 400 core\n"

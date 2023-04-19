@@ -36,24 +36,7 @@ ScatterRenderer::init()
 
     shader.build(scatter_vs, scatter_fs);
 
-    glGenFramebuffers(1, &fb);
-    glGenTextures(1, &texture);
-
-    shader_tex.build(tex_vs, tex_fs);
-
-    glBindFramebuffer(GL_FRAMEBUFFER, fb);
-    glBindTexture(GL_TEXTURE_2D, texture);
-    glTexImage2D(GL_TEXTURE_2D, 0,GL_RGB, 800, 600, 0,GL_RGB, GL_UNSIGNED_BYTE, NULL);
-    
-    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
-    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST); 
-    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE);
-    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE);
-    glBindTexture(GL_TEXTURE_2D, 0);
-   
-    glFramebufferTexture2D(GL_FRAMEBUFFER, GL_COLOR_ATTACHMENT0, GL_TEXTURE_2D, texture, 0);
-    glBindFramebuffer(GL_FRAMEBUFFER, 0);
-
+    texture_renderer.init();
 }
 
 void
@@ -62,19 +45,10 @@ ScatterRenderer::draw(const glm::vec2 &fb_size,
                       const ScatterModel &model,
                       const ColorData &colors)
 {
-    glBindFramebuffer(GL_FRAMEBUFFER, fb);
-    glBindTexture(GL_TEXTURE_2D, texture);
-    glTexImage2D(GL_TEXTURE_2D, 0,GL_RGB, fb_size.x, fb_size.y, 0,GL_RGB, GL_UNSIGNED_BYTE, NULL);  
-    glFramebufferTexture2D(GL_FRAMEBUFFER, GL_COLOR_ATTACHMENT0, GL_TEXTURE_2D, texture, 0);
-    glBindFramebuffer(GL_FRAMEBUFFER, 0);
+    texture_renderer.resize_fb(fb_size);
 
-    GLenum DrawBuffers[1] = {GL_COLOR_ATTACHMENT0};
-    glDrawBuffers(1, DrawBuffers);
-
-    glBindFramebuffer(GL_FRAMEBUFFER, fb);
-		glClear(GL_COLOR_BUFFER_BIT);
-		//glClearColor(0.8, 0.8, 0.8, 0.0);
-
+    texture_renderer.bind_fb();
+    
     size_t n =
       std::min(model.points.size(),
                colors.data.size()); // misalignment aborts it, be careful
@@ -86,72 +60,18 @@ ScatterRenderer::draw(const glm::vec2 &fb_size,
     shader.set_mat4("view", view.get_view_matrix());
     shader.set_mat4("proj", view.get_proj_matrix());
 
-    glActiveTexture(GL_TEXTURE0);
-    glBindTexture(GL_TEXTURE_2D, texture);
-     
+    texture_renderer.activate(fb_size);
+    
     glBindVertexArray(VAO);
     glEnable(GL_BLEND);
     glDrawArrays(GL_POINTS, 0, n);
 
     glDisable(GL_BLEND);
 
-    glBindTexture(GL_TEXTURE_2D, 0);
-    glBindFramebuffer(GL_FRAMEBUFFER, 0);
-    // glViewport(0,0,fb_size.x,fb_size.y);
+    texture_renderer.deactivate();
 
-    //glClearColor(1.0f, 1.0f, 1.0f, 1.0f);
-    glClear( GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-
-    GLuint quad_VertexArrayID;
-    glGenVertexArrays(1, &quad_VertexArrayID);
-    glBindVertexArray(quad_VertexArrayID);
-
-    static const GLfloat g_quad_vertex_buffer_data[] = {
-        -10.0f, -10.0f, 0.0f,
-        10.0f, -10.0f, 0.0f,
-        -10.0f,  10.0f, 0.0f,
-        -10.0f,  10.0f, 0.0f,
-        10.0f, -10.0f, 0.0f,
-        10.0f,  10.0f, 0.0f,
-    };
-
-    GLuint quad_vertexbuffer;
-    glGenBuffers(1, &quad_vertexbuffer);
-    glBindBuffer(GL_ARRAY_BUFFER, quad_vertexbuffer);
-    glBufferData(GL_ARRAY_BUFFER, sizeof(g_quad_vertex_buffer_data), g_quad_vertex_buffer_data, GL_STATIC_DRAW);
-
-    GLuint texID = glGetUniformLocation(shader_tex.ID, "renderedTexture");
-    GLuint timeID = glGetUniformLocation(shader_tex.ID, "time");
-
-    shader_tex.use();
-    shader_tex.set_mat4("model", glm::mat4(1.0f));
-    shader_tex.set_mat4("view", view.get_view_matrix());
-    shader_tex.set_mat4("proj", view.get_proj_matrix());
-
-    glActiveTexture(GL_TEXTURE0);
-		glBindTexture(GL_TEXTURE_2D, texture);
-		// Set our "renderedTexture" sampler to use Texture Unit 0
-		glUniform1i(texID, 0);
-
-		glUniform1f(timeID, (float)(10.0f) );
-
-		// 1rst attribute buffer : vertices
-		glEnableVertexAttribArray(0);
-		glBindBuffer(GL_ARRAY_BUFFER, quad_vertexbuffer);
-		glVertexAttribPointer(
-			0,                  // attribute 0. No particular reason for 0, but must match the layout in the shader.
-			3,                  // size
-			GL_FLOAT,           // type
-			GL_FALSE,           // normalized?
-			0,                  // stride
-			(void*)0            // array buffer offset
-		);
-
-		// Draw the triangles !
-		glDrawArrays(GL_TRIANGLES, 0, 6); // 2*3 indices starting at 0 -> 2 triangles
-
-		glDisableVertexAttribArray(0);
-
+    texture_renderer.prepare_screen_quad_data();
+    texture_renderer.render(view);
 }
 
 void
