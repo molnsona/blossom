@@ -40,15 +40,13 @@ ScatterRenderer::init()
 }
 
 void
-ScatterRenderer::draw(const glm::vec2 &fb_size, 
+ScatterRenderer::draw(const glm::vec2 &fb_size,
                       const View &view,
                       const ScatterModel &model,
                       const ColorData &colors)
 {
-    texture_renderer.resize_fb(fb_size);
+    texture_renderer.bind_fb(fb_size);
 
-    texture_renderer.bind_fb();
-    
     size_t n =
       std::min(model.points.size(),
                colors.data.size()); // misalignment aborts it, be careful
@@ -60,8 +58,8 @@ ScatterRenderer::draw(const glm::vec2 &fb_size,
     shader.set_mat4("view", view.get_view_matrix());
     shader.set_mat4("proj", view.get_proj_matrix());
 
-    texture_renderer.activate(fb_size);
-    
+    texture_renderer.activate();
+
     glBindVertexArray(VAO);
     glEnable(GL_BLEND);
     glDrawArrays(GL_POINTS, 0, n);
@@ -70,8 +68,7 @@ ScatterRenderer::draw(const glm::vec2 &fb_size,
 
     texture_renderer.deactivate();
 
-    texture_renderer.prepare_screen_quad_data();
-    texture_renderer.render(view);
+    texture_renderer.render();
 }
 
 void

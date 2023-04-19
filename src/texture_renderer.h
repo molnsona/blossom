@@ -19,13 +19,15 @@
 #ifndef TEXTURE_RENDERER_H
 #define TEXTURE_RENDERER_H
 
+#include <array>
+
 #include "shader.h"
 #include "view.h"
 
 /**
  * @brief Takes care of the rendering to the texture
  * and then rendering the texture to the screen.
- * 
+ *
  */
 struct TextureRenderer
 {
@@ -33,23 +35,23 @@ struct TextureRenderer
 
     void init();
 
-    void activate(const glm::vec2 &fb_size);
+    void activate();
     void deactivate();
-    void render(const View &view);
+    void render();
+    void bind_fb(const glm::vec2 &fb_size);
+
+private:
     Shader shader_tex;
     unsigned int VAO_quad;
     unsigned int VBO_quad;
 
     unsigned int fb;
     unsigned int texture;
+
+    const std::array<float, 18> screen_quad_data;
+
     void resize_fb(const glm::vec2 &fb_size);
-    void bind_fb();
-
-    GLuint texID;
-    GLuint timeID;
-
     void prepare_screen_quad_data();
-private:
 };
 
 #endif // #ifndef TEXTURE_RENDERER_H

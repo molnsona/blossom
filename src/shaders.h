@@ -21,28 +21,22 @@
 
 #include <string>
 
-const std::string tex_vs =
-  "#version 400 core\n"
-  "layout (location = 0) in vec2 aPos;\n"
-  "layout (location = 1) in vec4 aCol;\n"
-  "uniform mat4 model;\n"
-  "uniform mat4 view;\n"
-  "uniform mat4 proj;\n"
-  "out vec2 UV;\n"
-  "void main()\n"
-  "{\n"
-  "   gl_Position = vec4(aPos, 0.0, 1.0);\n"
-  "   UV = (gl_Position.xy+vec2(1,1))/2.0;\n"
-  "}\0";
+const std::string tex_vs = "#version 400 core\n"
+                           "layout (location = 0) in vec2 aPos;\n"
+                           "out vec2 UV;\n"
+                           "void main()\n"
+                           "{\n"
+                           "   gl_Position = vec4(aPos, 0.0, 1.0);\n"
+                           "   UV = (gl_Position.xy+vec2(1,1))/2.0;\n"
+                           "}\0";
 const std::string tex_fs = "#version 400 core\n"
-                               "in vec2 UV;\n"
-                               "out vec4 FragColor;\n"
-                               "uniform sampler2D renderedTexture;\n"
-                               "uniform float time;"
-                               "void main()\n"
-                               "{\n"
-                               "   FragColor = texture( renderedTexture, UV) ;\n"
-                               "}\0";
+                           "in vec2 UV;\n"
+                           "out vec4 FragColor;\n"
+                           "uniform sampler2D renderedTexture;\n"
+                           "void main()\n"
+                           "{\n"
+                           "   FragColor = texture( renderedTexture, UV) ;\n"
+                           "}\0";
 
 const std::string scatter_vs =
   "#version 400 core\n"
