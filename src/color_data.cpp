@@ -29,7 +29,7 @@ ColorData::update(const TransData &td, const LandmarkModel &lm, FrameStats &fram
         refresh(td);
     }
 
-    if (lm_watch.dirty(lm)) {
+    if (lm_watch.dirty(lm) && coloring == ColorData::Coloring::BRUSHING) {
         landmarks.resize(lm.n_landmarks(), { &default_landmark_color, -1 });
         refresh(td);
         lm_watch.clean(lm);

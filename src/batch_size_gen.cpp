@@ -67,19 +67,19 @@ BatchSizeGen::next(float T, float t)
     // TODO add variance
 
     // Compute estimated number of points.
-    // float n = (t - const_time) / time_per_point;
-    // N = n <= 0 ? 100 : n;
-    // prevT = T;
+    float n = (t - const_time) / time_per_point;
+    N = n <= 0 ? 100 : n;
+    prevT = T;
 
-    // // Subtract random value from N.
-    // std::random_device rd{};
-    // std::mt19937 gen{ rd() };
-    // std::normal_distribution<> d{ 100, 50 };
-    // float rv = std::round(std::abs(d(gen)));
+    // Subtract random value from N.
+    std::random_device rd{};
+    std::mt19937 gen{ rd() };
+    std::normal_distribution<> d{ 100, 50 };
+    float rv = std::round(std::abs(d(gen)));
 
-    // N = rv < N ? N - rv : N;
+    N = rv < N ? N - rv : N;
 
-    compute_n(t, const_time, time_per_point);
+    // compute_n(t, const_time, time_per_point);
     return N;
 }
 
