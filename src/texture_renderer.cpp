@@ -20,6 +20,8 @@
 
 #include "shaders.h"
 
+#include <iostream>
+
 TextureRenderer::TextureRenderer()
   : screen_quad_data({ -1.0f,
                        -1.0f,
@@ -33,7 +35,8 @@ TextureRenderer::TextureRenderer()
                        -1.0f,
                        1.0f,
                        1.0f })
-    , current_fb(0) 
+    , current_fb(5) 
+    , fb_size({800.0f,600.0f})
 {
 }
 
@@ -45,6 +48,9 @@ TextureRenderer::init()
 
     shader_tex.build(tex_vs, tex_fs);
     
+    GLenum DrawBuffers[1] = { GL_COLOR_ATTACHMENT0 };
+    glDrawBuffers(1, DrawBuffers);
+
     gen_fbs();
     gen_textures();    
 
@@ -71,24 +77,19 @@ TextureRenderer::render()
 
     glDisable(GL_BLEND);    
 
-    glBindTexture(GL_TEXTURE_2D, textures[current_fb]);
-    glDrawArrays(
-      GL_TRIANGLES, 0, 6); // 2*3 indices starting at 0 -> 2 triangles
-    glBindTexture(GL_TEXTURE_2D, textures[(current_fb+1)%2]);
-    glDrawArrays(
-      GL_TRIANGLES, 0, 6);
-    glDisable(GL_BLEND);    
+    for (size_t i = 0; i < num_of_textures; ++i)
+    {
+        glBindTexture(GL_TEXTURE_2D, textures[i]);
+        glDrawArrays(GL_TRIANGLES, 0, 6);
+    }
 }
 
 void
-TextureRenderer::bind_fb(const glm::vec2 &fb_size)
+TextureRenderer::bind_fb(const glm::vec2 &s)
 {
-    current_fb = (current_fb + 1) % 2;
+    current_fb = (current_fb + 1) % num_of_textures;
 
-    resize_fb(fb_size);
-
-    GLenum DrawBuffers[1] = { GL_COLOR_ATTACHMENT0 };
-    glDrawBuffers(1, DrawBuffers);
+    if(fb_size != s) resize_fbs(s);
 
     glBindFramebuffer(GL_FRAMEBUFFER, fbs[current_fb]);
     glClearColor(1.0f, 1.0f, 1.0f, 0.0f);
@@ -120,8 +121,8 @@ void TextureRenderer::bind_fbs_and_textures()
         glTexImage2D(
         GL_TEXTURE_2D, 0, GL_RGBA, 800, 600, 0, GL_RGBA, GL_UNSIGNED_BYTE, NULL);
 
-        glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
-        glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
+        glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+        glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
         glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE);
         glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE);
         glBindTexture(GL_TEXTURE_2D, 0);
@@ -133,22 +134,26 @@ void TextureRenderer::bind_fbs_and_textures()
 }
 
 void
-TextureRenderer::resize_fb(const glm::vec2 &fb_size)
+TextureRenderer::resize_fbs(const glm::vec2 &s)
 {
-    glBindFramebuffer(GL_FRAMEBUFFER, fbs[current_fb]);
-    glBindTexture(GL_TEXTURE_2D, textures[current_fb]);
-    glTexImage2D(GL_TEXTURE_2D,
-                 0,
-                 GL_RGBA,
-                 fb_size.x,
-                 fb_size.y,
-                 0,
-                 GL_RGBA,
-                 GL_UNSIGNED_BYTE,
-                 NULL);
-    glFramebufferTexture2D(
-      GL_FRAMEBUFFER, GL_COLOR_ATTACHMENT0, GL_TEXTURE_2D, textures[current_fb], 0);
-    glBindFramebuffer(GL_FRAMEBUFFER, 0);
+    fb_size = s;
+    for (size_t i = 0; i < num_of_textures; ++i)
+    {
+        glBindFramebuffer(GL_FRAMEBUFFER, fbs[i]);
+        glBindTexture(GL_TEXTURE_2D, textures[i]);
+        glTexImage2D(GL_TEXTURE_2D,
+                    0,
+                    GL_RGBA,
+                    fb_size.x,
+                    fb_size.y,
+                    0,
+                    GL_RGBA,
+                    GL_UNSIGNED_BYTE,
+                    NULL);
+        glFramebufferTexture2D(
+        GL_FRAMEBUFFER, GL_COLOR_ATTACHMENT0, GL_TEXTURE_2D, textures[i], 0);
+        glBindFramebuffer(GL_FRAMEBUFFER, 0);
+    }
 }
 
 void

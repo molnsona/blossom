@@ -57,19 +57,14 @@ ScatterRenderer::draw(const glm::vec2 &fb_size,
     shader.set_mat4("model", glm::mat4(1.0f));
     shader.set_mat4("view", view.get_view_matrix());
     shader.set_mat4("proj", view.get_proj_matrix());
-
-  
-    glBindVertexArray(VAO);
-    glEnable(GL_BLEND);
-    glDrawArrays(GL_POINTS, 0, n/2);
     
-    glDisable(GL_BLEND);
-  
-    texture_renderer.bind_fb(fb_size);
     glBindVertexArray(VAO);
     glEnable(GL_BLEND);
-    glDrawArrays(GL_POINTS, n/2, n/2);
-
+    size_t points_size = n / texture_renderer.get_num_of_texts();
+    size_t start_index = texture_renderer.get_active_fb() 
+      * points_size;
+    glDrawArrays(GL_POINTS, start_index, points_size);
+    
     glDisable(GL_BLEND);
 
     texture_renderer.bind_default_fb();
