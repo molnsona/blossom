@@ -48,7 +48,7 @@ private:
     unsigned int fb;
     unsigned int texture;
 
-    const std::array<float, 18> screen_quad_data;
+    const std::array<float, 12> screen_quad_data;
 
     void resize_fb(const glm::vec2 &fb_size);
     void prepare_screen_quad_data();

@@ -23,22 +23,16 @@
 TextureRenderer::TextureRenderer()
   : screen_quad_data({ -1.0f,
                        -1.0f,
-                       0.0f,
                        1.0f,
                        -1.0f,
-                       0.0f,
                        -1.0f,
                        1.0f,
-                       0.0f,
                        -1.0f,
                        1.0f,
-                       0.0f,
                        1.0f,
                        -1.0f,
-                       0.0f,
                        1.0f,
-                       1.0f,
-                       0.0f })
+                       1.0f })
 {
 }
 
@@ -146,6 +140,6 @@ TextureRenderer::prepare_screen_quad_data()
                  screen_quad_data.size() * sizeof(float),
                  &screen_quad_data[0],
                  GL_STATIC_DRAW);
-    glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 0, (void *)0);
+    glVertexAttribPointer(0, 2, GL_FLOAT, GL_FALSE, 0, (void *)0);
     glEnableVertexAttribArray(0);
 }
