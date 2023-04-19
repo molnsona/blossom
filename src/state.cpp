@@ -22,8 +22,6 @@
 #include "fcs_parser.h"
 #include "tsv_parser.h"
 
-//#define DEBUG
-
 void
 State::update(float actual_time, bool vert_pressed, int vert_ind)
 {
@@ -32,13 +30,17 @@ State::update(float actual_time, bool vert_pressed, int vert_ind)
     if (time > 0.05)
         time = 0.05;
 
+    // Compute time for estimation batch sizes computations.
+    frame_stats.update_times();
+
     stats.update(data);
-    trans.update(data, stats);
-    scaled.update(trans);
+
+    trans.update(data, stats, frame_stats);
+    scaled.update(trans, frame_stats);
 
     // TODO only run this on data reset, ideally from trans or from a common
     // trigger
-#ifdef DEBUG // TODO remove
+#ifdef STATE_DEBUG // TODO remove
     landmarks.update_dim(3);
 #else
     landmarks.update_dim(scaled.dim());
@@ -72,6 +74,6 @@ State::update(float actual_time, bool vert_pressed, int vert_ind)
                           training_conf.sigma,
                           landmarks);
 
-    colors.update(trans, landmarks);
-    scatter.update(scaled, landmarks, training_conf);
+    colors.update(trans, landmarks, frame_stats);    
+    scatter.update(scaled, landmarks, training_conf, frame_stats);
 }

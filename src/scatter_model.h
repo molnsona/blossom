@@ -24,6 +24,7 @@
 
 #include <vector>
 
+#include "batch_size_gen.h"
 #include "dirty.h"
 #include "landmark_model.h"
 #include "scaled_data.h"
@@ -48,6 +49,8 @@ struct ScatterModel : public Sweeper
 
     Cleaner lm_watch;
 
+    BatchSizeGen batch_size_gen;
+
     /**
      * @brief Recomputes the coordinates if any of the the parameters of the
      * embedsom algorithm has changed.
@@ -58,7 +61,8 @@ struct ScatterModel : public Sweeper
      */
     void update(const ScaledData &d,
                 const LandmarkModel &lm,
-                const TrainingConfig &tc);
+                const TrainingConfig &tc,
+                FrameStats &frame_stats);
 
     /**
      * @brief Notifies @ref Sweeper that the parameters of the embedsom

@@ -20,6 +20,11 @@
 #include "trans_data.h"
 #include <cmath>
 
+#define DEBUG
+#ifdef DEBUG
+#include <iostream>
+#endif
+
 void
 RawDataStats::update(const DataModel &dm)
 {
@@ -50,7 +55,9 @@ RawDataStats::update(const DataModel &dm)
 }
 
 void
-TransData::update(const DataModel &dm, const RawDataStats &s)
+TransData::update(const DataModel &dm,
+                  const RawDataStats &s,
+                  FrameStats &frame_stats)
 {
     if (dirty(dm)) {
         config.resize(dm.d);
@@ -70,24 +77,26 @@ TransData::update(const DataModel &dm, const RawDataStats &s)
         stat_watch.clean(s);
     }
 
-    const size_t max_points =
-#ifndef ENABLE_CUDA
-      10000
-#else
-      50000
-#endif
-      ;
-
     // make sure we're the right size
     auto [ri, rn] = dirty_range(dm);
-    if (!rn)
+    if (!rn) {
+        frame_stats.reset(frame_stats.trans_t, frame_stats.trans_n);
+        batch_size_gen.reset();
         return;
+    }
+
+    frame_stats.trans_n =
+      batch_size_gen.next(frame_stats.trans_t, frame_stats.trans_duration);
+    const size_t max_points = frame_stats.trans_n;
+
     if (rn > max_points)
         rn = max_points;
 
     clean_range(dm, rn);
     const size_t d = dim();
     std::vector<float> sums_adjust(d, 0), sqsums_adjust(d, 0);
+
+    frame_stats.add_const_time();
 
     for (; rn-- > 0; ++ri) {
         if (ri >= n)
@@ -114,6 +123,8 @@ TransData::update(const DataModel &dm, const RawDataStats &s)
         sums[di] += sums_adjust[di];
         sqsums[di] += sqsums_adjust[di];
     }
+
+    frame_stats.store_time(frame_stats.trans_t);
 
     touch();
 }

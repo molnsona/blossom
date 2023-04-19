@@ -22,7 +22,7 @@
 #include "vendor/colormap/palettes.hpp"
 
 void
-ColorData::update(const TransData &td, const LandmarkModel &lm)
+ColorData::update(const TransData &td, const LandmarkModel &lm, FrameStats &frame_stats)
 {
     if (td.n != data.size()) {
         data.resize(td.n, glm::vec4(0, 0, 0, 0));
@@ -35,17 +35,17 @@ ColorData::update(const TransData &td, const LandmarkModel &lm)
         lm_watch.clean(lm);
     }
 
-    const size_t max_points =
-#ifndef ENABLE_CUDA
-      1000
-#else
-      50000
-#endif
-      ;
-
     auto [ri, rn] = dirty_range(td);
-    if (!rn)
+    if (!rn) {
+        frame_stats.reset(frame_stats.color_t, frame_stats.color_n);
+        batch_size_gen.reset();
         return;
+    }
+
+    frame_stats.color_n =
+      batch_size_gen.next(frame_stats.color_t, frame_stats.color_duration);
+    const size_t max_points = frame_stats.color_n;
+
     if (rn > max_points)
         rn = max_points;
 
@@ -53,6 +53,9 @@ ColorData::update(const TransData &td, const LandmarkModel &lm)
     size_t d = td.dim();
 
     clean_range(td, rn);
+
+    frame_stats.add_const_time();
+
     switch (coloring) {
         case int(ColorData::Coloring::EXPR): {
             if (expr_col >= d)
@@ -83,6 +86,8 @@ ColorData::update(const TransData &td, const LandmarkModel &lm)
             clustering.do_brushing(alpha, landmarks, lm, ri, rn, td, data);
             break;
     }
+
+    frame_stats.store_time(frame_stats.color_t);
 }
 
 void

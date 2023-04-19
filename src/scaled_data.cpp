@@ -22,7 +22,7 @@
 #include <cmath>
 
 void
-ScaledData::update(const TransData &td)
+ScaledData::update(const TransData &td, FrameStats &frame_stats)
 {
     if (dirty(td) && (td.dim() != dim() || td.n != n)) {
         n = td.n;
@@ -32,17 +32,17 @@ ScaledData::update(const TransData &td)
         clean(td);
     }
 
-    const size_t max_points =
-#ifndef ENABLE_CUDA
-      10000
-#else
-      50000
-#endif
-      ;
-
     auto [ri, rn] = dirty_range(td);
-    if (!rn)
+    if (!rn) {
+        frame_stats.reset(frame_stats.scaled_t, frame_stats.scaled_n);
+        batch_size_gen.reset();
         return;
+    }
+
+    frame_stats.scaled_n =
+      batch_size_gen.next(frame_stats.scaled_t, frame_stats.scaled_duration);
+    const size_t max_points = frame_stats.scaled_n;
+
     if (rn > max_points)
         rn = max_points;
     clean_range(td, rn);
@@ -50,6 +50,9 @@ ScaledData::update(const TransData &td)
     std::vector<float> means = td.sums;
     std::vector<float> isds = td.sqsums;
     size_t d = dim();
+
+    frame_stats.add_const_time();
+
     for (size_t di = 0; di < d; ++di) {
         means[di] /= n;
         isds[di] /= n;
@@ -66,6 +69,9 @@ ScaledData::update(const TransData &td)
               (td.data[ri * d + di] - means[di]) *
               (config[di].scale ? config[di].sdev * isds[di] : 1);
     }
+
+    frame_stats.store_time(frame_stats.scaled_t);
+
     touch();
 }
 

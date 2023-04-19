@@ -27,6 +27,8 @@
 
 #include <string>
 
+#include "frame_stats.h"
+
 /**
  * @brief Wrapper of the Glfw library.
  *
@@ -39,7 +41,7 @@ public:
     GlfwWrapper();
     bool init(const std::string &window_name, InputData &input);
     bool window_should_close();
-    void end_frame();
+    void end_frame(FrameStats &fs);
     void destroy();
 
     GLFWwindow *window;

@@ -27,6 +27,8 @@
 #include "wrapper_glfw.h"
 #include "wrapper_imgui.h"
 
+#define DEBUG
+
 int
 main()
 {
@@ -65,12 +67,18 @@ main()
 
     while (!glfw.window_should_close()) {
         timer.tick();
+        state.frame_stats.start_frame();
+
+#ifdef DEBUG
+        state.frame_stats.dt = timer.frametime * 1000;
+#endif
 
         input_handler.update(view, renderer, state);
 
         view.update(timer.frametime,
                     input_handler.input.fb_width,
                     input_handler.input.fb_height);
+
         state.update(timer.frametime,
                      renderer.get_vert_pressed(),
                      renderer.get_vert_ind());
@@ -84,7 +92,12 @@ main()
           input_handler.input.fb_width, input_handler.input.fb_height, state);
 
         input_handler.reset();
-        glfw.end_frame();
+        glfw.end_frame(state.frame_stats);
+        state.frame_stats.end_frame();
+
+#ifdef DEBUG
+        state.frame_stats.prev_const_time = state.frame_stats.constant_time;
+#endif
     }
 
     imgui.destroy();

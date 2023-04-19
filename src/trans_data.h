@@ -23,7 +23,9 @@
 #include <thread>
 #include <vector>
 
+#include "batch_size_gen.h"
 #include "data_model.h"
+#include "frame_stats.h"
 
 /** Statistics from the untransformed dataset
  *
@@ -81,6 +83,8 @@ struct TransData
     /** Separate configurations for each dimension. */
     std::vector<TransConfig> config;
 
+    BatchSizeGen batch_size_gen;
+
     /**
      * @brief Returns dimension of the transformed data.
      *
@@ -102,7 +106,9 @@ struct TransData
      * @param dm Original data parsed from the input file.
      * @param s Statistics from the untransformed dataset.
      */
-    void update(const DataModel &dm, const RawDataStats &s);
+    void update(const DataModel &dm,
+                const RawDataStats &s,
+                FrameStats &frame_stats);
     /**
      * @brief Resets configurations to their initial values.
      *
