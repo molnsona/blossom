@@ -48,23 +48,6 @@ private:
     Estimator estimator;
     size_t N;
     float prevT;
-
-    /**
-     * @brief Computes the size of the next batch.
-     *
-     * @param t How long the computation should run.
-     * @param x Constant time of the computation.
-     * @param y Time spent per one point.
-     */
-    void compute_n(float t, float x, float y);
-
-    /**
-     * @brief Compute SVD from a 2x2 symmetric matrix.
-     *
-     * @param A 2x2 symmetric matrix
-     * @return std::tuple<mat2x2, mat2x1, mat2x2> SVD of matrix A = U SIGMA V.
-     */
-    std::tuple<mat2x2, mat2x1, mat2x2> get_svd(mat2x2 A);
 };
 
 #endif // #ifndef BATCH_SIZE_GEN_H

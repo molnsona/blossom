@@ -83,6 +83,7 @@ struct FrameStats
         // // Because we want the frame to last ~17ms (~60 FPS).
         // float diff = 17.0f - constant_time;
         // Because we want the frame to last ~20ms (~50 FPS).
+        // Because we want the frame to last ~50ms (~20 FPS).
         float diff = 50.0f - constant_time;
         est_time = diff < 0.0001f ? 1.0f : diff;
     }
@@ -111,30 +112,32 @@ struct FrameStats
      */
     void update_times()
     {
+        float high = 0.45f;
+        float low = 0.5f;
         // First compute statistics
         // if all 4 are computing
         if (trans_t > 0.00001f && scaled_t > 0.00001f &&
             embedsom_t > 0.00001f && color_t > 0.00001f) {
-            trans_priority = 0.45;
-            scaled_priority = 0.45f;
-            color_priority = 0.05f;
-            embed_priority = 0.05f;
+            trans_priority = high;
+            scaled_priority = high;
+            color_priority = low;
+            embed_priority = low;
         } else
             // if trans finished and all other are computing
             if (trans_t <= 0.00001f && scaled_t > 0.00001f &&
                 embedsom_t > 0.00001f && color_t > 0.00001f) {
                 trans_priority = 0.0f;
-                scaled_priority = 0.9f;
-                color_priority = 0.05f;
-                embed_priority = 0.05f;
+                scaled_priority = high+high;
+                color_priority = low;
+                embed_priority = low;
             } else
                 // if scaled finished and all others are computing
                 if (trans_t > 0.00001f && scaled_t <= 0.00001f &&
                     embedsom_t > 0.00001f && color_t > 0.00001f) {
-                    trans_priority = 0.9f;
+                    trans_priority = high+high;
                     scaled_priority = 0.0f;
-                    color_priority = 0.05f;
-                    embed_priority = 0.05f;
+                    color_priority = low;
+                    embed_priority = low;
                 } else
                     // if trans and scaled finished computing
                     if (trans_t <= 0.00001f && scaled_t <= 0.00001f &&

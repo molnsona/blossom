@@ -93,21 +93,3 @@ Estimator::get_estimate()
 #endif
     return { x, y };
 }
-
-float
-Estimator::get_z(float x, float y)
-{
-    return a * pow(x, 2) + b * pow(y, 2) + c * x * y + d * x + e * y + f;
-}
-
-float
-Estimator::get_var()
-{
-    return a + b;
-}
-
-mat2x2
-Estimator::get_cov_matrix()
-{
-    return { a, c / 2, c / 2, b };
-}
