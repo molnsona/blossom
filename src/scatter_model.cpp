@@ -34,6 +34,8 @@ ScatterModel::update(const ScaledData &d,
         points.resize(d.n);
         refresh(d);
         clean(d);
+        frame_stats.reset(frame_stats.embedsom_t, frame_stats.embedsom_n);
+        batch_size_gen.reset();
     }
 
     if (lm_watch.dirty(lm)) {
@@ -47,8 +49,7 @@ ScatterModel::update(const ScaledData &d,
     // has to be recomputed.
     auto [ri, rn] = dirty_range(d);
     if (!rn) {
-        frame_stats.reset(frame_stats.embedsom_t, frame_stats.embedsom_n);
-        batch_size_gen.reset();
+        frame_stats.embedsom_t = 0.00001f;
         return;
     }
 
