@@ -175,28 +175,22 @@ struct FrameStats
                                     embed_priority = 0.0f;
                                 }
 
-        float alpha = 0.05f;
-        float coalpha = 1 - 0.05f;
         if (trans_priority == 0.0f)
             trans_duration = 0.0f;
         else
             trans_duration = est_time * trans_priority;
-        //   trans_duration * coalpha + est_time * trans_priority * alpha;
         if (embed_priority == 0.0f)
             embedsom_duration = 0.0f;
         else
             embedsom_duration = est_time * embed_priority;
-        //   embedsom_duration * coalpha + est_time * embed_priority * alpha;
         if (scaled_priority == 0.0f)
             scaled_duration = 0.0f;
         else
             scaled_duration = est_time * scaled_priority;
-        //   scaled_duration * coalpha + est_time * scaled_priority * alpha;
         if (color_priority == 0.0f)
             color_duration = 0.0f;
         else
             color_duration = est_time * color_priority;
-        //   color_duration * coalpha + est_time * color_priority * alpha;
     }
 };
 
