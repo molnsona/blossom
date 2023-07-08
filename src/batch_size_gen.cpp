@@ -24,12 +24,6 @@
 #include <random>
 #include <tuple>
 
-#define DEBUG
-#ifdef DEBUG
-#include <iostream>
-#include <string>
-#endif
-
 BatchSizeGen::BatchSizeGen()
 {
     reset();

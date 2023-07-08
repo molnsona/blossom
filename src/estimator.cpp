@@ -20,11 +20,6 @@
 
 #include <cmath>
 
-//#define DEBUG
-#ifdef DEBUG
-#include <iostream>
-#endif
-
 Estimator::Estimator()
 {
     reset();
@@ -65,21 +60,6 @@ Estimator::process_measurement(size_t N, float T)
     d = d * coalpha + (-2 * n1 * n3) * alpha;
     e = e * coalpha + (-2 * n2 * n3) * alpha;
     f = f * coalpha + n3 * n3 * alpha;
-#ifdef DEBUG
-    std::cout << "N: " << N << std::endl;
-    std::cout << "T: " << T << std::endl;
-    std::cout << "TN: " << TN << std::endl;
-    std::cout << "n1: " << n1 << std::endl;
-    std::cout << "n2: " << n2 << std::endl;
-    std::cout << "n3: " << n3 << std::endl;
-
-    std::cout << "a: " << a << std::endl;
-    std::cout << "b: " << b << std::endl;
-    std::cout << "c: " << c << std::endl;
-    std::cout << "d: " << d << std::endl;
-    std::cout << "e: " << e << std::endl;
-    std::cout << "f: " << f << std::endl;
-#endif
 }
 
 std::tuple<float, float>
@@ -87,9 +67,5 @@ Estimator::get_estimate()
 {
     float x = (c * e - 2 * b * d) / (4 * a * b - c * c);
     float y = (c * d - 2 * a * e) / (4 * a * b - c * c);
-#ifdef DEBUG
-    std::cout << "x: " << x << std::endl;
-    std::cout << "y: " << y << std::endl;
-#endif
     return { x, y };
 }

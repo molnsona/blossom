@@ -1,22 +1,27 @@
+/* This file is part of BlosSOM.
+ *
+ * Copyright (C) 2021 Sona Molnarova
+ *
+ * BlosSOM is free software: you can redistribute it and/or modify it under
+ * the terms of the GNU General Public License as published by the Free
+ * Software Foundation, either version 3 of the License, or (at your option)
+ * any later version.
+ *
+ * BlosSOM is distributed in the hope that it will be useful, but WITHOUT ANY
+ * WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
+ * FOR A PARTICULAR PURPOSE.  See the GNU General Public License for more
+ * details.
+ *
+ * You should have received a copy of the GNU General Public License along with
+ * BlosSOM. If not, see <https://www.gnu.org/licenses/>.
+ */
+
 #include "wrapper_glfw.h"
 
 #include "imgui.h"
 #include <glm/glm.hpp>
 
 #include <iostream>
-
-#define DEBUG
-#ifdef DEBUG
-#define MEASURE(name, method)                                                  \
-    fs.timer.tick();                                                           \
-    fs.constant_time += fs.timer.frametime * 1000;                             \
-    fs.timer.tick();                                                           \
-    method;                                                                    \
-    fs.timer.tick();                                                           \
-    fs.constant_time += fs.timer.frametime * 1000;                             \
-    fs.gl_finish_time = fs.timer.frametime * 1000;                             \
-    fs.timer.tick();
-#endif
 
 GlfwWrapper::GlfwWrapper() {}
 
@@ -66,11 +71,7 @@ GlfwWrapper::window_should_close()
 void
 GlfwWrapper::end_frame(FrameStats &fs)
 {
-#ifdef DEBUG
-    MEASURE("glFinish:  ", glFinish());
-#else
     glFinish();
-#endif
     glfwSwapBuffers(window);
     // Calls registered callbacks if any events were triggered
     glfwPollEvents();

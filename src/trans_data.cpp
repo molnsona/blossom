@@ -20,11 +20,6 @@
 #include "trans_data.h"
 #include <cmath>
 
-#define DEBUG
-#ifdef DEBUG
-#include <iostream>
-#endif
-
 void
 RawDataStats::update(const DataModel &dm)
 {

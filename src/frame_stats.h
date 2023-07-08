@@ -24,8 +24,6 @@
 
 #include "timer.h"
 
-#define DEBUG
-
 struct FrameStats
 {
     // TODO: remove these Ns, they are only
@@ -64,12 +62,6 @@ struct FrameStats
     float trans_priority = 0.45f;
     float scaled_priority = 0.45f;
 
-#ifdef DEBUG
-    float gl_finish_time = 0.0f;
-    float prev_const_time = 0.0f;
-    float dt;
-#endif
-
     void start_frame()
     {
         constant_time = 0.0f;
@@ -80,11 +72,8 @@ struct FrameStats
     {
         add_const_time();
 
-        // // Because we want the frame to last ~17ms (~60 FPS).
-        // float diff = 17.0f - constant_time;
-        // Because we want the frame to last ~20ms (~50 FPS).
         // Because we want the frame to last ~50ms (~20 FPS).
-        float diff = 40.0f - constant_time;
+        float diff = 50.0f - constant_time;
         est_time = diff < 0.0001f ? 1.0f : diff;
     }
 
