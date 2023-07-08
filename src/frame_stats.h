@@ -113,7 +113,7 @@ struct FrameStats
     void update_times()
     {
         float high = 0.45f;
-        float low = 0.5f;
+        float low = 0.05f;
         // First compute statistics
         // if all 4 are computing
         if (trans_t > 0.00001f && scaled_t > 0.00001f &&
