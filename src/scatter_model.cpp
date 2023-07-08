@@ -34,7 +34,7 @@ ScatterModel::update(const ScaledData &d,
         points.resize(d.n);
         refresh(d);
         clean(d);
-        frame_stats.reset(frame_stats.embedsom_t, frame_stats.embedsom_n);
+        frame_stats.reset(frame_stats.embedsom_t);
         batch_size_gen.reset();
     }
 
@@ -49,13 +49,12 @@ ScatterModel::update(const ScaledData &d,
     // has to be recomputed.
     auto [ri, rn] = dirty_range(d);
     if (!rn) {
-        frame_stats.embedsom_t = 0.00001f;
+        frame_stats.reset(frame_stats.embedsom_t);
         return;
     }
 
-    frame_stats.embedsom_n = batch_size_gen.next(frame_stats.embedsom_t,
+    const size_t max_points = batch_size_gen.next(frame_stats.embedsom_t,
                                                  frame_stats.embedsom_duration);
-    const size_t max_points = frame_stats.embedsom_n;
 
     // If the number of elements that need to be recomputed is larger
     // than the maximum possible points that can be processed in this
@@ -64,7 +63,7 @@ ScatterModel::update(const ScaledData &d,
         rn = max_points;
 
     if (lm.d != d.dim()) {
-        frame_stats.reset(frame_stats.embedsom_t, frame_stats.embedsom_n);
+        frame_stats.reset(frame_stats.embedsom_t);
         batch_size_gen.reset();
         return;
     }

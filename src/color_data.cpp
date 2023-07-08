@@ -27,7 +27,7 @@ ColorData::update(const TransData &td, const LandmarkModel &lm, FrameStats &fram
     if (td.n != data.size()) {
         data.resize(td.n, glm::vec4(0, 0, 0, 0));
         refresh(td);
-        frame_stats.reset(frame_stats.color_t, frame_stats.color_n);
+        frame_stats.reset(frame_stats.color_t);
         batch_size_gen.reset();
     }
 
@@ -39,13 +39,11 @@ ColorData::update(const TransData &td, const LandmarkModel &lm, FrameStats &fram
 
     auto [ri, rn] = dirty_range(td);
     if (!rn) {
-        frame_stats.color_t = 0.00001f;
+        frame_stats.reset(frame_stats.color_t);
         return;
     }
-
-    frame_stats.color_n =
-      batch_size_gen.next(frame_stats.color_t, frame_stats.color_duration);
-    const size_t max_points = frame_stats.color_n;
+      
+    const size_t max_points = batch_size_gen.next(frame_stats.color_t, frame_stats.color_duration);
 
     if (rn > max_points)
         rn = max_points;

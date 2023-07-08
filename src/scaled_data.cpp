@@ -30,19 +30,17 @@ ScaledData::update(const TransData &td, FrameStats &frame_stats)
         touch_config();
         data.resize(n * dim());
         clean(td);
-        frame_stats.reset(frame_stats.scaled_t, frame_stats.scaled_n);
+        frame_stats.reset(frame_stats.scaled_t);
         batch_size_gen.reset();
     }
 
     auto [ri, rn] = dirty_range(td);
     if (!rn) {
-        frame_stats.scaled_t = 0.00001f;
+        frame_stats.reset(frame_stats.scaled_t);
         return;
     }
 
-    frame_stats.scaled_n =
-      batch_size_gen.next(frame_stats.scaled_t, frame_stats.scaled_duration);
-    const size_t max_points = frame_stats.scaled_n;
+    const size_t max_points = batch_size_gen.next(frame_stats.scaled_t, frame_stats.scaled_duration);
 
     if (rn > max_points)
         rn = max_points;

@@ -65,7 +65,7 @@ TransData::update(const DataModel &dm,
         sqsums = sums;
         touch();
         clean(dm);
-        frame_stats.reset(frame_stats.trans_t, frame_stats.trans_n);
+        frame_stats.reset(frame_stats.trans_t);
         batch_size_gen.reset();
     }
 
@@ -77,13 +77,11 @@ TransData::update(const DataModel &dm,
     // make sure we're the right size
     auto [ri, rn] = dirty_range(dm);
     if (!rn) {
-        frame_stats.trans_t = 0.00001f;
+        frame_stats.reset(frame_stats.trans_t);
         return;
     }
-
-    frame_stats.trans_n =
-      batch_size_gen.next(frame_stats.trans_t, frame_stats.trans_duration);
-    const size_t max_points = frame_stats.trans_n;
+      
+    const size_t max_points = batch_size_gen.next(frame_stats.trans_t, frame_stats.trans_duration);
 
     if (rn > max_points)
         rn = max_points;

@@ -26,13 +26,6 @@
 
 struct FrameStats
 {
-    // TODO: remove these Ns, they are only
-    // for debug output
-    size_t trans_n;
-    size_t embedsom_n;
-    size_t scaled_n;
-    size_t color_n;
-
     // Actual computation time of the methods.
     float trans_t = 0.00001f;
     float embedsom_t = 0.00001f;
@@ -89,10 +82,9 @@ struct FrameStats
         to = timer.frametime * 1000; // to get milliseconds
     }
 
-    void reset(float &t, size_t &n)
+    void reset(float &t)
     {
         t = 0.00001f;
-        n = 0;
     }
 
     /**
