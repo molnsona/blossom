@@ -49,6 +49,7 @@ public:
      * @param state
      */
     void render(int w, int h, State &state);
+
 private:
     UiMenu menu;
 };

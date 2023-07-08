@@ -82,10 +82,7 @@ struct FrameStats
         to = timer.frametime * 1000; // to get milliseconds
     }
 
-    void reset(float &t)
-    {
-        t = 0.00001f;
-    }
+    void reset(float &t) { t = 0.00001f; }
 
     /**
      * @brief Compute durations of the estimation batch sizes computations.
@@ -108,14 +105,14 @@ struct FrameStats
             if (trans_t <= 0.00001f && scaled_t > 0.00001f &&
                 embedsom_t > 0.00001f && color_t > 0.00001f) {
                 trans_priority = 0.0f;
-                scaled_priority = high+high;
+                scaled_priority = high + high;
                 color_priority = low;
                 embed_priority = low;
             } else
                 // if scaled finished and all others are computing
                 if (trans_t > 0.00001f && scaled_t <= 0.00001f &&
                     embedsom_t > 0.00001f && color_t > 0.00001f) {
-                    trans_priority = high+high;
+                    trans_priority = high + high;
                     scaled_priority = 0.0f;
                     color_priority = low;
                     embed_priority = low;

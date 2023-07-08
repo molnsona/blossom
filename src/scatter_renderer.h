@@ -68,8 +68,9 @@ private:
      * @param colors Source of the color data.
      */
     void prepare_data(size_t start_index,
-                              size_t points_size,
-                              const ScatterModel &model, const ColorData &colors);
+                      size_t points_size,
+                      const ScatterModel &model,
+                      const ColorData &colors);
 };
 
 #endif

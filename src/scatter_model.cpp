@@ -53,8 +53,8 @@ ScatterModel::update(const ScaledData &d,
         return;
     }
 
-    const size_t max_points = batch_size_gen.next(frame_stats.embedsom_t,
-                                                 frame_stats.embedsom_duration);
+    const size_t max_points = batch_size_gen.next(
+      frame_stats.embedsom_t, frame_stats.embedsom_duration);
 
     // If the number of elements that need to be recomputed is larger
     // than the maximum possible points that can be processed in this

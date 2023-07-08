@@ -73,8 +73,7 @@ ScatterRenderer::draw(const glm::vec2 &fb_size,
 }
 
 void
-ScatterRenderer::prepare_data(
-                              size_t start_index,
+ScatterRenderer::prepare_data(size_t start_index,
                               size_t points_size,
                               const ScatterModel &model,
                               const ColorData &colors)

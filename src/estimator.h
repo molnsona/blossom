@@ -30,6 +30,7 @@ public:
     void process_measurement(size_t n, float t);
     std::tuple<float, float> get_estimate();
     void reset();
+
 private:
     float a;
     float b;

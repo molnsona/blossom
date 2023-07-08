@@ -10,7 +10,7 @@ ImGuiWrapper::~ImGuiWrapper()
 {
     ImGui_ImplOpenGL3_Shutdown();
     ImGui_ImplGlfw_Shutdown();
-    ImGui::DestroyContext();    
+    ImGui::DestroyContext();
 }
 
 bool

@@ -40,7 +40,8 @@ ScaledData::update(const TransData &td, FrameStats &frame_stats)
         return;
     }
 
-    const size_t max_points = batch_size_gen.next(frame_stats.scaled_t, frame_stats.scaled_duration);
+    const size_t max_points =
+      batch_size_gen.next(frame_stats.scaled_t, frame_stats.scaled_duration);
 
     if (rn > max_points)
         rn = max_points;

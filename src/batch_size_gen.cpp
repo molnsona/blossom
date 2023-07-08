@@ -46,7 +46,7 @@ BatchSizeGen::next(float T, float t)
         reset();
         return N;
     }
-    
+
     // Prevent increase of batch size to inifinity
     // when SOM or kmeans is turned off or when no
     // data set is loaded.

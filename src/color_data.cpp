@@ -22,7 +22,9 @@
 #include "vendor/colormap/palettes.hpp"
 
 void
-ColorData::update(const TransData &td, const LandmarkModel &lm, FrameStats &frame_stats)
+ColorData::update(const TransData &td,
+                  const LandmarkModel &lm,
+                  FrameStats &frame_stats)
 {
     if (td.n != data.size()) {
         data.resize(td.n, glm::vec4(0, 0, 0, 0));
@@ -42,8 +44,9 @@ ColorData::update(const TransData &td, const LandmarkModel &lm, FrameStats &fram
         frame_stats.reset(frame_stats.color_t);
         return;
     }
-      
-    const size_t max_points = batch_size_gen.next(frame_stats.color_t, frame_stats.color_duration);
+
+    const size_t max_points =
+      batch_size_gen.next(frame_stats.color_t, frame_stats.color_duration);
 
     if (rn > max_points)
         rn = max_points;

@@ -38,7 +38,7 @@
 class GlfwWrapper
 {
 public:
-    GlfwWrapper();    
+    GlfwWrapper();
     ~GlfwWrapper();
     bool init(const std::string &window_name, InputData &input);
     bool window_should_close();

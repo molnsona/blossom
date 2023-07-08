@@ -25,7 +25,8 @@
 
 GlfwWrapper::GlfwWrapper() {}
 
-GlfwWrapper::~GlfwWrapper() {
+GlfwWrapper::~GlfwWrapper()
+{
     glfwDestroyWindow(window);
     glfwTerminate();
 }

@@ -45,17 +45,17 @@ main()
     }
 
     if (!glad.init()) {
-        std::cout << "GLAD initialization failed." << std::endl;        
+        std::cout << "GLAD initialization failed." << std::endl;
         return -1;
     }
 
     if (!imgui.init(glfw.window)) {
-        std::cout << "Dear ImGui initialization failed." << std::endl;        
+        std::cout << "Dear ImGui initialization failed." << std::endl;
         return -1;
     }
 
     if (!renderer.init()) {
-        std::cout << "Renderer initialization failed." << std::endl;        
+        std::cout << "Renderer initialization failed." << std::endl;
         return -1;
     }
 
@@ -85,6 +85,6 @@ main()
         glfw.end_frame(state.frame_stats);
         state.frame_stats.end_frame();
     }
-    
+
     return 0;
 }
