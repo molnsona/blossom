@@ -66,6 +66,8 @@ reset_button()
     return res;
 }
 
+static std::string res_out = "";
+
 static void
 add2window(const char *name, float t, size_t n)
 {
@@ -93,6 +95,18 @@ debug_windows(FrameStats &fs)
     add2window("scaled", fs.scaled_t, fs.scaled_n);
     add2window("embedsom", fs.embedsom_t, fs.embedsom_n);
     add2window("color", fs.color_t, fs.color_n);
+    if(fs.trans_t >0.00001f ||
+        fs.scaled_t >0.00001f ||
+        fs.embedsom_t >0.00001f ||
+        fs.color_t >0.00001f)
+        {
+            res_out.append(std::to_string(fs.dt));
+            res_out.append("\n");
+            char inputText[20000];
+            strcpy(inputText, res_out.c_str());
+            ImGui::InputText(
+            "dts", inputText, 20000, ImGuiInputTextFlags_ReadOnly);
+        }
     ImGui::End();
 
     ImGui::Begin("debug times", &open);

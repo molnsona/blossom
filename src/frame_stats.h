@@ -84,7 +84,7 @@ struct FrameStats
         // float diff = 17.0f - constant_time;
         // Because we want the frame to last ~20ms (~50 FPS).
         // Because we want the frame to last ~50ms (~20 FPS).
-        float diff = 50.0f - constant_time;
+        float diff = 40.0f - constant_time;
         est_time = diff < 0.0001f ? 1.0f : diff;
     }
 
