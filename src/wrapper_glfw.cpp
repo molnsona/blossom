@@ -25,6 +25,11 @@
 
 GlfwWrapper::GlfwWrapper() {}
 
+GlfwWrapper::~GlfwWrapper() {
+    glfwDestroyWindow(window);
+    glfwTerminate();
+}
+
 bool
 GlfwWrapper::init(const std::string &window_name, InputData &input)
 {
@@ -75,13 +80,6 @@ GlfwWrapper::end_frame(FrameStats &fs)
     glfwSwapBuffers(window);
     // Calls registered callbacks if any events were triggered
     glfwPollEvents();
-}
-
-void
-GlfwWrapper::destroy()
-{
-    glfwDestroyWindow(window);
-    glfwTerminate();
 }
 
 void

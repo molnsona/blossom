@@ -33,6 +33,7 @@
 class ImGuiWrapper
 {
 public:
+    ~ImGuiWrapper();
     /**
      * @brief Initialize ImGui and load fonts.
      *
@@ -48,9 +49,6 @@ public:
      * @param state
      */
     void render(int w, int h, State &state);
-
-    void destroy();
-
 private:
     UiMenu menu;
 };
