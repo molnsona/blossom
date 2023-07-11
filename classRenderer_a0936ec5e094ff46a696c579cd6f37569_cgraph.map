@@ -1,0 +1,25 @@
+<map id="Renderer::render" name="Renderer::render">
+<area shape="rect" id="node1" title="Render graph and scatterplot." alt="" coords="5,457,136,483"/>
+<area shape="rect" id="node2" href="$structScatterRenderer.html#ac3fe7953a924ede8ad6dd989970b9374" title="Draw event of the 2D data points." alt="" coords="184,305,351,331"/>
+<area shape="rect" id="node15" href="$structUiRenderer.html#a3ef14402100a1b5fe0e0d96ae98b0fe8" title=" " alt="" coords="200,457,335,483"/>
+<area shape="rect" id="node19" href="$structGraphRenderer.html#a69da926110c3259b3d992ce7c1639036" title="Draw event of the 2D landmark graph." alt="" coords="187,507,347,534"/>
+<area shape="rect" id="node3" href="$structTextureRenderer.html#a7938ee44735633cb0d48a01e153d3d13" title=" " alt="" coords="427,5,592,47"/>
+<area shape="rect" id="node4" href="$structTextureRenderer.html#a460e879555a29d007634eba9fbcabae4" title=" " alt="" coords="417,71,602,98"/>
+<area shape="rect" id="node6" href="$structTextureRenderer.html#a8f8bace363e1347869a93a99eccca361" title=" " alt="" coords="430,123,589,164"/>
+<area shape="rect" id="node7" href="$structTextureRenderer.html#ae86ac715223c083b2d38c67fbcd441a2" title=" " alt="" coords="430,188,589,229"/>
+<area shape="rect" id="node8" href="$classView.html#a9e79788c1b06ba8176273672d6fc5d1f" title="Compute projection matrix for orthographic projection." alt="" coords="427,406,591,433"/>
+<area shape="rect" id="node9" href="$classView.html#ae2675b41a3c49d8b52784955d128234a" title="Compute view matrix for drawing into the &quot;view&quot; space." alt="" coords="424,457,595,483"/>
+<area shape="rect" id="node10" href="$structScatterRenderer.html#a272c4d987a0f354b2e5a92277e5c44f1" title="Prepare data to render scatterplot with colors." alt="" coords="399,305,620,331"/>
+<area shape="rect" id="node11" href="$structTextureRenderer.html#a11edf29ec53771f0ed32b968715aa742" title=" " alt="" coords="420,254,599,281"/>
+<area shape="rect" id="node13" href="$classShader.html#a870fa9f13d69e558815d6fd351a469dc" title="Activate built shader." alt="" coords="720,445,819,471"/>
+<area shape="rect" id="node14" href="$classShader.html#a6c9fea6dbcf014be7a335386f3d9761b" title="Bind the matrix 4x4 variable to the shader." alt="" coords="441,507,577,534"/>
+<area shape="rect" id="node5" href="$structTextureRenderer.html#a306a13725375197b8ca79a17b7fb5c1a" title=" " alt="" coords="668,71,871,98"/>
+<area shape="rect" id="node12" href="$classShader.html#a4eb3fe17d173f56a44b8c04ce2686920" title="Bind the integer variable to the shader." alt="" coords="710,254,829,281"/>
+<area shape="rect" id="node16" href="$structUiRenderer.html#a9b81a40a0beeef2020d4e5174a2d37c9" title=" " alt="" coords="415,659,604,686"/>
+<area shape="rect" id="node17" href="$structUiRenderer.html#adc70125394bf754a8c644d4c746e986f" title=" " alt="" coords="693,652,846,693"/>
+<area shape="rect" id="node18" href="$structUiRenderer.html#af75f2c6f6fd3296ad32c8c3225093cf5" title="Prepare rectangle data used for multiselect." alt="" coords="693,587,846,628"/>
+<area shape="rect" id="node20" href="$structGraphRenderer.html#ab6d77112b2fb9d7f760f617bfa1a4524" title="Prepare data to render vertices and edges." alt="" coords="402,725,617,751"/>
+<area shape="rect" id="node21" href="$structGraphRenderer.html#ab03002d4fb41f225d20bf951b7052bf5" title="Prepare graph edges that are rendered as lines." alt="" coords="680,783,859,824"/>
+<area shape="rect" id="node22" href="$structGraphRenderer.html#a140884d996c5422b7a21433a5aa59d17" title="Prepare graph vertices that are rendered as circles." alt="" coords="680,717,859,759"/>
+<area shape="rect" id="node23" href="$structGraphRenderer.html#a7530878e152d51beab450825d44c5859" title="Add vertices for TRIANGLE_FAN that creates circle at given position." alt="" coords="919,717,1071,759"/>
+</map>

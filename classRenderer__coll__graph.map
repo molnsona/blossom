@@ -1,6 +1,8 @@
 <map id="Renderer" name="Renderer">
-<area shape="rect" id="node1" title="Handles rendering of the graph and scatter plot and handles IO." alt="" coords="101,199,183,225"/>
-<area shape="rect" id="node2" href="$structScatterRenderer.html" title="Renderer of the 2D data points." alt="" coords="5,109,132,136"/>
-<area shape="rect" id="node3" href="$classShader.html" title="Abstracts working with shaders." alt="" coords="109,5,175,32"/>
-<area shape="rect" id="node4" href="$structGraphRenderer.html" title="Renderer of the 2D landmark graph." alt="" coords="157,109,277,136"/>
+<area shape="rect" id="node1" title="Handles rendering of the graph and scatter plot and handles IO." alt="" coords="199,315,280,341"/>
+<area shape="rect" id="node2" href="$structScatterRenderer.html" title="Renderer of the 2D data points." alt="" coords="5,225,132,252"/>
+<area shape="rect" id="node3" href="$structTextureRenderer.html" title="Takes care of the rendering to the texture and then rendering the texture to the screen." alt="" coords="79,124,208,151"/>
+<area shape="rect" id="node4" href="$classShader.html" title="Abstracts working with shaders." alt="" coords="161,5,227,32"/>
+<area shape="rect" id="node5" href="$structGraphRenderer.html" title="Renderer of the 2D landmark graph." alt="" coords="189,175,309,201"/>
+<area shape="rect" id="node6" href="$structUiRenderer.html" title="Renderer of the objects that are needed in the user interaction with the dataset." alt="" coords="344,175,439,201"/>
 </map>

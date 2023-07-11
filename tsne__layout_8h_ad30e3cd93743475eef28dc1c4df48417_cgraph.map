@@ -1,0 +1,6 @@
+<map id="tsne_layout_step" name="tsne_layout_step">
+<area shape="rect" id="node1" title="Optimize the positions of low&#45;dimensional landmarks using the t&#45;SNE algorithm." alt="" coords="5,56,139,83"/>
+<area shape="rect" id="node2" href="$structLandmarkModel.html#a128124429b96766980b0cbd2a6980d5f" title="Reurns number of the 2D landmarks." alt="" coords="187,5,405,32"/>
+<area shape="rect" id="node3" href="$tsne__layout_8cpp.html#adcc333968422095a1a9fbbbe84a52cad" title=" " alt="" coords="273,56,319,83"/>
+<area shape="rect" id="node4" href="$structDirt.html#a6753e4542f5254af6366b36b5864a37e" title="Make the cache dirty." alt="" coords="251,107,341,133"/>
+</map>

@@ -1,0 +1,8 @@
+<map id="Renderer::move_vert" name="Renderer::move_vert">
+<area shape="rect" id="node1" title=" " alt="" coords="5,81,164,108"/>
+<area shape="rect" id="node2" href="$classView.html#aeda343862d3aa831814d252c6361cb90" title="Convert mouse coordinates ([0,0] in the upper left corner), to model coordinates ([0,..." alt="" coords="212,56,415,83"/>
+<area shape="rect" id="node5" href="$structLandmarkModel.html#a1d65e93179cc9de8bb158a4ca9a08625" title="Sets two&#45;dimensional position of the pressed landmark to mouse position." alt="" coords="227,107,399,133"/>
+<area shape="rect" id="node3" href="$classView.html#a9e79788c1b06ba8176273672d6fc5d1f" title="Compute projection matrix for orthographic projection." alt="" coords="466,5,630,32"/>
+<area shape="rect" id="node4" href="$classView.html#ae2675b41a3c49d8b52784955d128234a" title="Compute view matrix for drawing into the &quot;view&quot; space." alt="" coords="463,56,633,83"/>
+<area shape="rect" id="node6" href="$structDirt.html#a6753e4542f5254af6366b36b5864a37e" title="Make the cache dirty." alt="" coords="503,107,593,133"/>
+</map>

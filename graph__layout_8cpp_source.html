@@ -94,59 +94,60 @@ $(function() {
 <div class="line"><a id="l00022" name="l00022"></a><span class="lineno">   22</span><span class="comment">// TODO: parametrize the constants</span></div>
 <div class="line"><a id="l00023" name="l00023"></a><span class="lineno">   23</span> </div>
 <div class="line"><a id="l00024" name="l00024"></a><span class="lineno">   24</span><span class="keywordtype">void</span></div>
-<div class="line"><a id="l00025" name="l00025"></a><span class="lineno"><a class="line" href="graph__layout_8cpp.html#acdb73b81c2565027fba9889d06426a07">   25</a></span><a class="code hl_function" href="graph__layout_8cpp.html#acdb73b81c2565027fba9889d06426a07">graph_layout_step</a>(<a class="code hl_struct" href="structGraphLayoutData.html">GraphLayoutData</a> &amp;data,</div>
-<div class="line"><a id="l00026" name="l00026"></a><span class="lineno">   26</span>                  <span class="keyword">const</span> <a class="code hl_struct" href="structMouseData.html">MouseData</a> &amp;mouse,</div>
-<div class="line"><a id="l00027" name="l00027"></a><span class="lineno">   27</span>                  <a class="code hl_struct" href="structLandmarkModel.html">LandmarkModel</a> &amp;lm,</div>
-<div class="line"><a id="l00028" name="l00028"></a><span class="lineno">   28</span>                  <span class="keywordtype">float</span> time)</div>
-<div class="line"><a id="l00029" name="l00029"></a><span class="lineno">   29</span>{</div>
-<div class="line"><a id="l00030" name="l00030"></a><span class="lineno">   30</span>    <span class="keyword">auto</span> &amp;vertices = lm.<a class="code hl_variable" href="structLandmarkModel.html#a44e708e20068d500421d20fc54ea66d1">lodim_vertices</a>;</div>
-<div class="line"><a id="l00031" name="l00031"></a><span class="lineno">   31</span>    <span class="keyword">const</span> <span class="keyword">auto</span> &amp;edges = lm.<a class="code hl_variable" href="structLandmarkModel.html#af9d1e80cb9e8763ed370d7c3e415d85a">edges</a>;</div>
-<div class="line"><a id="l00032" name="l00032"></a><span class="lineno">   32</span>    <span class="keyword">const</span> <span class="keyword">auto</span> &amp;edge_lengths = lm.<a class="code hl_variable" href="structLandmarkModel.html#a8af34f783cbc1a5ef63eb7153a24094c">edge_lengths</a>;</div>
-<div class="line"><a id="l00033" name="l00033"></a><span class="lineno">   33</span> </div>
-<div class="line"><a id="l00034" name="l00034"></a><span class="lineno">   34</span>    <span class="keywordflow">if</span> (time &gt; 0.05)</div>
-<div class="line"><a id="l00035" name="l00035"></a><span class="lineno">   35</span>        time = 0.05;</div>
-<div class="line"><a id="l00036" name="l00036"></a><span class="lineno">   36</span>    <span class="comment">// check if data is m&#39;kay</span></div>
-<div class="line"><a id="l00037" name="l00037"></a><span class="lineno">   37</span>    <span class="keywordflow">if</span> (data.<a class="code hl_variable" href="structGraphLayoutData.html#a7e36e55b2ab0646d3b8c5c48a511d9aa">velocities</a>.size() != vertices.size())</div>
-<div class="line"><a id="l00038" name="l00038"></a><span class="lineno">   38</span>        data.<a class="code hl_variable" href="structGraphLayoutData.html#a7e36e55b2ab0646d3b8c5c48a511d9aa">velocities</a>.resize(vertices.size(), glm::vec2(0, 0));</div>
-<div class="line"><a id="l00039" name="l00039"></a><span class="lineno">   39</span>    <span class="keywordflow">if</span> (data.<a class="code hl_variable" href="structGraphLayoutData.html#a1fce88b724f1915252f3185a65092838">forces</a>.size() != vertices.size())</div>
-<div class="line"><a id="l00040" name="l00040"></a><span class="lineno">   40</span>        data.<a class="code hl_variable" href="structGraphLayoutData.html#a1fce88b724f1915252f3185a65092838">forces</a>.resize(vertices.size());</div>
-<div class="line"><a id="l00041" name="l00041"></a><span class="lineno">   41</span> </div>
-<div class="line"><a id="l00042" name="l00042"></a><span class="lineno">   42</span>    <span class="comment">// clean up the forces</span></div>
-<div class="line"><a id="l00043" name="l00043"></a><span class="lineno">   43</span>    <span class="keywordflow">for</span> (<span class="keyword">auto</span> &amp;v : data.<a class="code hl_variable" href="structGraphLayoutData.html#a1fce88b724f1915252f3185a65092838">forces</a>)</div>
-<div class="line"><a id="l00044" name="l00044"></a><span class="lineno">   44</span>        v = glm::vec2(0, 0);</div>
-<div class="line"><a id="l00045" name="l00045"></a><span class="lineno">   45</span> </div>
-<div class="line"><a id="l00046" name="l00046"></a><span class="lineno">   46</span>    <span class="comment">// add repulsive forces</span></div>
-<div class="line"><a id="l00047" name="l00047"></a><span class="lineno">   47</span>    <span class="keywordflow">for</span> (<span class="keywordtype">size_t</span> i = 1; i &lt; vertices.size(); ++i)</div>
-<div class="line"><a id="l00048" name="l00048"></a><span class="lineno">   48</span>        <span class="keywordflow">for</span> (<span class="keywordtype">size_t</span> j = 0; j &lt; i; ++j) {</div>
-<div class="line"><a id="l00049" name="l00049"></a><span class="lineno">   49</span>            <span class="keyword">auto</span> d = vertices[j] - vertices[i];</div>
-<div class="line"><a id="l00050" name="l00050"></a><span class="lineno">   50</span>            <span class="keywordtype">float</span> q = exp(-glm::length(d) * 3) * 1000 * time;</div>
-<div class="line"><a id="l00051" name="l00051"></a><span class="lineno">   51</span>            data.<a class="code hl_variable" href="structGraphLayoutData.html#a1fce88b724f1915252f3185a65092838">forces</a>[i] += -q * d;</div>
-<div class="line"><a id="l00052" name="l00052"></a><span class="lineno">   52</span>            data.<a class="code hl_variable" href="structGraphLayoutData.html#a1fce88b724f1915252f3185a65092838">forces</a>[j] += q * d;</div>
-<div class="line"><a id="l00053" name="l00053"></a><span class="lineno">   53</span>        }</div>
-<div class="line"><a id="l00054" name="l00054"></a><span class="lineno">   54</span> </div>
-<div class="line"><a id="l00055" name="l00055"></a><span class="lineno">   55</span>    <span class="comment">// add compulsive forces</span></div>
-<div class="line"><a id="l00056" name="l00056"></a><span class="lineno">   56</span>    <span class="keywordflow">for</span> (<span class="keywordtype">size_t</span> i = 0; i &lt; edges.size(); ++i) {</div>
-<div class="line"><a id="l00057" name="l00057"></a><span class="lineno">   57</span>        <span class="keyword">auto</span> [p1, p2] = edges[i];</div>
-<div class="line"><a id="l00058" name="l00058"></a><span class="lineno">   58</span>        <span class="keyword">auto</span> d = vertices[p2] - vertices[p1];</div>
-<div class="line"><a id="l00059" name="l00059"></a><span class="lineno">   59</span>        <span class="keyword">auto</span> q = (edge_lengths[i] - glm::length(d)) * 1000 * time;</div>
-<div class="line"><a id="l00060" name="l00060"></a><span class="lineno">   60</span>        data.<a class="code hl_variable" href="structGraphLayoutData.html#a1fce88b724f1915252f3185a65092838">forces</a>[p1] += -q * d;</div>
-<div class="line"><a id="l00061" name="l00061"></a><span class="lineno">   61</span>        data.<a class="code hl_variable" href="structGraphLayoutData.html#a1fce88b724f1915252f3185a65092838">forces</a>[p2] += q * d;</div>
-<div class="line"><a id="l00062" name="l00062"></a><span class="lineno">   62</span>    }</div>
-<div class="line"><a id="l00063" name="l00063"></a><span class="lineno">   63</span> </div>
-<div class="line"><a id="l00064" name="l00064"></a><span class="lineno">   64</span>    <span class="comment">// update velocities and positions</span></div>
-<div class="line"><a id="l00065" name="l00065"></a><span class="lineno">   65</span>    <span class="keyword">auto</span> slowdown = pow(0.1f, time);</div>
-<div class="line"><a id="l00066" name="l00066"></a><span class="lineno">   66</span>    <span class="keywordflow">for</span> (<span class="keywordtype">size_t</span> i = 0; i &lt; vertices.size(); ++i) {</div>
-<div class="line"><a id="l00067" name="l00067"></a><span class="lineno">   67</span>        <span class="keywordflow">if</span> (mouse.<a class="code hl_variable" href="structMouseData.html#a2260c1d596b0f4e653d1745754be00a4">vert_pressed</a> &amp;&amp; mouse.<a class="code hl_variable" href="structMouseData.html#a57c0b939cccf83e5e98b4df1e36c630d">vert_ind</a> == i)</div>
-<div class="line"><a id="l00068" name="l00068"></a><span class="lineno">   68</span>            <span class="keywordflow">continue</span>;</div>
-<div class="line"><a id="l00069" name="l00069"></a><span class="lineno">   69</span> </div>
-<div class="line"><a id="l00070" name="l00070"></a><span class="lineno">   70</span>        data.<a class="code hl_variable" href="structGraphLayoutData.html#a7e36e55b2ab0646d3b8c5c48a511d9aa">velocities</a>[i] += data.<a class="code hl_variable" href="structGraphLayoutData.html#a1fce88b724f1915252f3185a65092838">forces</a>[i] * time;</div>
-<div class="line"><a id="l00071" name="l00071"></a><span class="lineno">   71</span>        vertices[i] += data.<a class="code hl_variable" href="structGraphLayoutData.html#a7e36e55b2ab0646d3b8c5c48a511d9aa">velocities</a>[i] * time;</div>
-<div class="line"><a id="l00072" name="l00072"></a><span class="lineno">   72</span>        data.<a class="code hl_variable" href="structGraphLayoutData.html#a7e36e55b2ab0646d3b8c5c48a511d9aa">velocities</a>[i] *= slowdown;</div>
-<div class="line"><a id="l00073" name="l00073"></a><span class="lineno">   73</span>    }</div>
-<div class="line"><a id="l00074" name="l00074"></a><span class="lineno">   74</span> </div>
-<div class="line"><a id="l00075" name="l00075"></a><span class="lineno">   75</span>    lm.<a class="code hl_function" href="structDirt.html#a6753e4542f5254af6366b36b5864a37e">touch</a>();</div>
-<div class="line"><a id="l00076" name="l00076"></a><span class="lineno">   76</span>}</div>
-<div class="ttc" id="agraph__layout_8cpp_html_acdb73b81c2565027fba9889d06426a07"><div class="ttname"><a href="graph__layout_8cpp.html#acdb73b81c2565027fba9889d06426a07">graph_layout_step</a></div><div class="ttdeci">void graph_layout_step(GraphLayoutData &amp;data, const MouseData &amp;mouse, LandmarkModel &amp;lm, float time)</div><div class="ttdoc">One iteration step of the landmark layouting algorithm.</div><div class="ttdef"><b>Definition:</b> <a href="graph__layout_8cpp_source.html#l00025">graph_layout.cpp:25</a></div></div>
+<div class="line"><a id="l00025" name="l00025"></a><span class="lineno"><a class="line" href="graph__layout_8cpp.html#a3493cffa0d852dcb2e768a33e360d841">   25</a></span><a class="code hl_function" href="graph__layout_8cpp.html#a3493cffa0d852dcb2e768a33e360d841">graph_layout_step</a>(<a class="code hl_struct" href="structGraphLayoutData.html">GraphLayoutData</a> &amp;data,</div>
+<div class="line"><a id="l00026" name="l00026"></a><span class="lineno">   26</span>                  <span class="keywordtype">bool</span> vert_pressed,</div>
+<div class="line"><a id="l00027" name="l00027"></a><span class="lineno">   27</span>                  <span class="keywordtype">int</span> vert_ind,</div>
+<div class="line"><a id="l00028" name="l00028"></a><span class="lineno">   28</span>                  <a class="code hl_struct" href="structLandmarkModel.html">LandmarkModel</a> &amp;lm,</div>
+<div class="line"><a id="l00029" name="l00029"></a><span class="lineno">   29</span>                  <span class="keywordtype">float</span> time)</div>
+<div class="line"><a id="l00030" name="l00030"></a><span class="lineno">   30</span>{</div>
+<div class="line"><a id="l00031" name="l00031"></a><span class="lineno">   31</span>    <span class="keyword">auto</span> &amp;vertices = lm.<a class="code hl_variable" href="structLandmarkModel.html#a44e708e20068d500421d20fc54ea66d1">lodim_vertices</a>;</div>
+<div class="line"><a id="l00032" name="l00032"></a><span class="lineno">   32</span>    <span class="keyword">const</span> <span class="keyword">auto</span> &amp;edges = lm.<a class="code hl_variable" href="structLandmarkModel.html#af9d1e80cb9e8763ed370d7c3e415d85a">edges</a>;</div>
+<div class="line"><a id="l00033" name="l00033"></a><span class="lineno">   33</span>    <span class="keyword">const</span> <span class="keyword">auto</span> &amp;edge_lengths = lm.<a class="code hl_variable" href="structLandmarkModel.html#a8af34f783cbc1a5ef63eb7153a24094c">edge_lengths</a>;</div>
+<div class="line"><a id="l00034" name="l00034"></a><span class="lineno">   34</span> </div>
+<div class="line"><a id="l00035" name="l00035"></a><span class="lineno">   35</span>    <span class="keywordflow">if</span> (time &gt; 0.05)</div>
+<div class="line"><a id="l00036" name="l00036"></a><span class="lineno">   36</span>        time = 0.05;</div>
+<div class="line"><a id="l00037" name="l00037"></a><span class="lineno">   37</span>    <span class="comment">// check if data is m&#39;kay</span></div>
+<div class="line"><a id="l00038" name="l00038"></a><span class="lineno">   38</span>    <span class="keywordflow">if</span> (data.<a class="code hl_variable" href="structGraphLayoutData.html#a7e36e55b2ab0646d3b8c5c48a511d9aa">velocities</a>.size() != vertices.size())</div>
+<div class="line"><a id="l00039" name="l00039"></a><span class="lineno">   39</span>        data.<a class="code hl_variable" href="structGraphLayoutData.html#a7e36e55b2ab0646d3b8c5c48a511d9aa">velocities</a>.resize(vertices.size(), glm::vec2(0, 0));</div>
+<div class="line"><a id="l00040" name="l00040"></a><span class="lineno">   40</span>    <span class="keywordflow">if</span> (data.<a class="code hl_variable" href="structGraphLayoutData.html#a1fce88b724f1915252f3185a65092838">forces</a>.size() != vertices.size())</div>
+<div class="line"><a id="l00041" name="l00041"></a><span class="lineno">   41</span>        data.<a class="code hl_variable" href="structGraphLayoutData.html#a1fce88b724f1915252f3185a65092838">forces</a>.resize(vertices.size());</div>
+<div class="line"><a id="l00042" name="l00042"></a><span class="lineno">   42</span> </div>
+<div class="line"><a id="l00043" name="l00043"></a><span class="lineno">   43</span>    <span class="comment">// clean up the forces</span></div>
+<div class="line"><a id="l00044" name="l00044"></a><span class="lineno">   44</span>    <span class="keywordflow">for</span> (<span class="keyword">auto</span> &amp;v : data.<a class="code hl_variable" href="structGraphLayoutData.html#a1fce88b724f1915252f3185a65092838">forces</a>)</div>
+<div class="line"><a id="l00045" name="l00045"></a><span class="lineno">   45</span>        v = glm::vec2(0, 0);</div>
+<div class="line"><a id="l00046" name="l00046"></a><span class="lineno">   46</span> </div>
+<div class="line"><a id="l00047" name="l00047"></a><span class="lineno">   47</span>    <span class="comment">// add repulsive forces</span></div>
+<div class="line"><a id="l00048" name="l00048"></a><span class="lineno">   48</span>    <span class="keywordflow">for</span> (<span class="keywordtype">size_t</span> i = 1; i &lt; vertices.size(); ++i)</div>
+<div class="line"><a id="l00049" name="l00049"></a><span class="lineno">   49</span>        <span class="keywordflow">for</span> (<span class="keywordtype">size_t</span> j = 0; j &lt; i; ++j) {</div>
+<div class="line"><a id="l00050" name="l00050"></a><span class="lineno">   50</span>            <span class="keyword">auto</span> d = vertices[j] - vertices[i];</div>
+<div class="line"><a id="l00051" name="l00051"></a><span class="lineno">   51</span>            <span class="keywordtype">float</span> q = exp(-glm::length(d) * 3) * 1000 * time;</div>
+<div class="line"><a id="l00052" name="l00052"></a><span class="lineno">   52</span>            data.<a class="code hl_variable" href="structGraphLayoutData.html#a1fce88b724f1915252f3185a65092838">forces</a>[i] += -q * d;</div>
+<div class="line"><a id="l00053" name="l00053"></a><span class="lineno">   53</span>            data.<a class="code hl_variable" href="structGraphLayoutData.html#a1fce88b724f1915252f3185a65092838">forces</a>[j] += q * d;</div>
+<div class="line"><a id="l00054" name="l00054"></a><span class="lineno">   54</span>        }</div>
+<div class="line"><a id="l00055" name="l00055"></a><span class="lineno">   55</span> </div>
+<div class="line"><a id="l00056" name="l00056"></a><span class="lineno">   56</span>    <span class="comment">// add compulsive forces</span></div>
+<div class="line"><a id="l00057" name="l00057"></a><span class="lineno">   57</span>    <span class="keywordflow">for</span> (<span class="keywordtype">size_t</span> i = 0; i &lt; edges.size(); ++i) {</div>
+<div class="line"><a id="l00058" name="l00058"></a><span class="lineno">   58</span>        <span class="keyword">auto</span> [p1, p2] = edges[i];</div>
+<div class="line"><a id="l00059" name="l00059"></a><span class="lineno">   59</span>        <span class="keyword">auto</span> d = vertices[p2] - vertices[p1];</div>
+<div class="line"><a id="l00060" name="l00060"></a><span class="lineno">   60</span>        <span class="keyword">auto</span> q = (edge_lengths[i] - glm::length(d)) * 1000 * time;</div>
+<div class="line"><a id="l00061" name="l00061"></a><span class="lineno">   61</span>        data.<a class="code hl_variable" href="structGraphLayoutData.html#a1fce88b724f1915252f3185a65092838">forces</a>[p1] += -q * d;</div>
+<div class="line"><a id="l00062" name="l00062"></a><span class="lineno">   62</span>        data.<a class="code hl_variable" href="structGraphLayoutData.html#a1fce88b724f1915252f3185a65092838">forces</a>[p2] += q * d;</div>
+<div class="line"><a id="l00063" name="l00063"></a><span class="lineno">   63</span>    }</div>
+<div class="line"><a id="l00064" name="l00064"></a><span class="lineno">   64</span> </div>
+<div class="line"><a id="l00065" name="l00065"></a><span class="lineno">   65</span>    <span class="comment">// update velocities and positions</span></div>
+<div class="line"><a id="l00066" name="l00066"></a><span class="lineno">   66</span>    <span class="keyword">auto</span> slowdown = pow(0.1f, time);</div>
+<div class="line"><a id="l00067" name="l00067"></a><span class="lineno">   67</span>    <span class="keywordflow">for</span> (<span class="keywordtype">size_t</span> i = 0; i &lt; vertices.size(); ++i) {</div>
+<div class="line"><a id="l00068" name="l00068"></a><span class="lineno">   68</span>        <span class="keywordflow">if</span> (vert_pressed &amp;&amp; vert_ind == i)</div>
+<div class="line"><a id="l00069" name="l00069"></a><span class="lineno">   69</span>            <span class="keywordflow">continue</span>;</div>
+<div class="line"><a id="l00070" name="l00070"></a><span class="lineno">   70</span> </div>
+<div class="line"><a id="l00071" name="l00071"></a><span class="lineno">   71</span>        data.<a class="code hl_variable" href="structGraphLayoutData.html#a7e36e55b2ab0646d3b8c5c48a511d9aa">velocities</a>[i] += data.<a class="code hl_variable" href="structGraphLayoutData.html#a1fce88b724f1915252f3185a65092838">forces</a>[i] * time;</div>
+<div class="line"><a id="l00072" name="l00072"></a><span class="lineno">   72</span>        vertices[i] += data.<a class="code hl_variable" href="structGraphLayoutData.html#a7e36e55b2ab0646d3b8c5c48a511d9aa">velocities</a>[i] * time;</div>
+<div class="line"><a id="l00073" name="l00073"></a><span class="lineno">   73</span>        data.<a class="code hl_variable" href="structGraphLayoutData.html#a7e36e55b2ab0646d3b8c5c48a511d9aa">velocities</a>[i] *= slowdown;</div>
+<div class="line"><a id="l00074" name="l00074"></a><span class="lineno">   74</span>    }</div>
+<div class="line"><a id="l00075" name="l00075"></a><span class="lineno">   75</span> </div>
+<div class="line"><a id="l00076" name="l00076"></a><span class="lineno">   76</span>    lm.<a class="code hl_function" href="structDirt.html#a6753e4542f5254af6366b36b5864a37e">touch</a>();</div>
+<div class="line"><a id="l00077" name="l00077"></a><span class="lineno">   77</span>}</div>
+<div class="ttc" id="agraph__layout_8cpp_html_a3493cffa0d852dcb2e768a33e360d841"><div class="ttname"><a href="graph__layout_8cpp.html#a3493cffa0d852dcb2e768a33e360d841">graph_layout_step</a></div><div class="ttdeci">void graph_layout_step(GraphLayoutData &amp;data, bool vert_pressed, int vert_ind, LandmarkModel &amp;lm, float time)</div><div class="ttdoc">One iteration step of the landmark layouting algorithm.</div><div class="ttdef"><b>Definition:</b> <a href="graph__layout_8cpp_source.html#l00025">graph_layout.cpp:25</a></div></div>
 <div class="ttc" id="agraph__layout_8h_html"><div class="ttname"><a href="graph__layout_8h.html">graph_layout.h</a></div></div>
 <div class="ttc" id="astructDirt_html_a6753e4542f5254af6366b36b5864a37e"><div class="ttname"><a href="structDirt.html#a6753e4542f5254af6366b36b5864a37e">Dirt::touch</a></div><div class="ttdeci">void touch()</div><div class="ttdoc">Make the cache dirty.</div><div class="ttdef"><b>Definition:</b> <a href="dirty_8h_source.html#l00043">dirty.h:43</a></div></div>
 <div class="ttc" id="astructGraphLayoutData_html"><div class="ttname"><a href="structGraphLayoutData.html">GraphLayoutData</a></div><div class="ttdoc">Data for landmark graph layouting algorithm using forces.</div><div class="ttdef"><b>Definition:</b> <a href="graph__layout_8h_source.html#l00034">graph_layout.h:35</a></div></div>
@@ -156,9 +157,6 @@ $(function() {
 <div class="ttc" id="astructLandmarkModel_html_a44e708e20068d500421d20fc54ea66d1"><div class="ttname"><a href="structLandmarkModel.html#a44e708e20068d500421d20fc54ea66d1">LandmarkModel::lodim_vertices</a></div><div class="ttdeci">std::vector&lt; glm::vec2 &gt; lodim_vertices</div><div class="ttdoc">Array storing two-dimensional landmark coordinates.</div><div class="ttdef"><b>Definition:</b> <a href="landmark__model_8h_source.html#l00041">landmark_model.h:41</a></div></div>
 <div class="ttc" id="astructLandmarkModel_html_a8af34f783cbc1a5ef63eb7153a24094c"><div class="ttname"><a href="structLandmarkModel.html#a8af34f783cbc1a5ef63eb7153a24094c">LandmarkModel::edge_lengths</a></div><div class="ttdeci">std::vector&lt; float &gt; edge_lengths</div><div class="ttdoc">Lengths of all edges.</div><div class="ttdef"><b>Definition:</b> <a href="landmark__model_8h_source.html#l00047">landmark_model.h:47</a></div></div>
 <div class="ttc" id="astructLandmarkModel_html_af9d1e80cb9e8763ed370d7c3e415d85a"><div class="ttname"><a href="structLandmarkModel.html#af9d1e80cb9e8763ed370d7c3e415d85a">LandmarkModel::edges</a></div><div class="ttdeci">std::vector&lt; std::pair&lt; size_t, size_t &gt; &gt; edges</div><div class="ttdoc">Array of vertex ID pairs.</div><div class="ttdef"><b>Definition:</b> <a href="landmark__model_8h_source.html#l00055">landmark_model.h:55</a></div></div>
-<div class="ttc" id="astructMouseData_html"><div class="ttname"><a href="structMouseData.html">MouseData</a></div><div class="ttdoc">Mouse events data storage.</div><div class="ttdef"><b>Definition:</b> <a href="mouse__data_8h_source.html#l00028">mouse_data.h:29</a></div></div>
-<div class="ttc" id="astructMouseData_html_a2260c1d596b0f4e653d1745754be00a4"><div class="ttname"><a href="structMouseData.html#a2260c1d596b0f4e653d1745754be00a4">MouseData::vert_pressed</a></div><div class="ttdeci">bool vert_pressed</div><div class="ttdoc">Flag indicating if a vertex was pressed.</div><div class="ttdef"><b>Definition:</b> <a href="mouse__data_8h_source.html#l00038">mouse_data.h:38</a></div></div>
-<div class="ttc" id="astructMouseData_html_a57c0b939cccf83e5e98b4df1e36c630d"><div class="ttname"><a href="structMouseData.html#a57c0b939cccf83e5e98b4df1e36c630d">MouseData::vert_ind</a></div><div class="ttdeci">size_t vert_ind</div><div class="ttdoc">Index of the pressed vertex.</div><div class="ttdef"><b>Definition:</b> <a href="mouse__data_8h_source.html#l00040">mouse_data.h:40</a></div></div>
 </div><!-- fragment --></div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>

@@ -96,9 +96,9 @@ Include dependency graph for tsne_layout.cpp:</div>
 Functions</h2></td></tr>
 <tr class="memitem:adcc333968422095a1a9fbbbe84a52cad"><td class="memItemLeft" align="right" valign="top">constexpr float&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="tsne__layout_8cpp.html#adcc333968422095a1a9fbbbe84a52cad">sqrf</a> (float x)</td></tr>
 <tr class="separator:adcc333968422095a1a9fbbbe84a52cad"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a7bd33978ed338ff6c51d80d6cf5a0fb3"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="tsne__layout_8cpp.html#a7bd33978ed338ff6c51d80d6cf5a0fb3">tsne_layout_step</a> (<a class="el" href="structTSNELayoutData.html">TSNELayoutData</a> &amp;data, const <a class="el" href="structMouseData.html">MouseData</a> &amp;mouse, <a class="el" href="structLandmarkModel.html">LandmarkModel</a> &amp;lm, float time)</td></tr>
-<tr class="memdesc:a7bd33978ed338ff6c51d80d6cf5a0fb3"><td class="mdescLeft">&#160;</td><td class="mdescRight">Optimize the positions of low-dimensional landmarks using the t-SNE algorithm.  <a href="tsne__layout_8cpp.html#a7bd33978ed338ff6c51d80d6cf5a0fb3">More...</a><br /></td></tr>
-<tr class="separator:a7bd33978ed338ff6c51d80d6cf5a0fb3"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad30e3cd93743475eef28dc1c4df48417"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="tsne__layout_8cpp.html#ad30e3cd93743475eef28dc1c4df48417">tsne_layout_step</a> (<a class="el" href="structTSNELayoutData.html">TSNELayoutData</a> &amp;data, bool vert_pressed, int vert_ind, <a class="el" href="structLandmarkModel.html">LandmarkModel</a> &amp;lm, float time)</td></tr>
+<tr class="memdesc:ad30e3cd93743475eef28dc1c4df48417"><td class="mdescLeft">&#160;</td><td class="mdescRight">Optimize the positions of low-dimensional landmarks using the t-SNE algorithm.  <a href="tsne__layout_8cpp.html#ad30e3cd93743475eef28dc1c4df48417">More...</a><br /></td></tr>
+<tr class="separator:ad30e3cd93743475eef28dc1c4df48417"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <h2 class="groupheader">Function Documentation</h2>
 <a id="adcc333968422095a1a9fbbbe84a52cad" name="adcc333968422095a1a9fbbbe84a52cad"></a>
@@ -132,16 +132,16 @@ Here is the caller graph for this function:</div>
 <div class="center"><img src="tsne__layout_8cpp_adcc333968422095a1a9fbbbe84a52cad_icgraph.png" border="0" usemap="#atsne__layout_8cpp_adcc333968422095a1a9fbbbe84a52cad_icgraph" alt=""/></div>
 <map name="atsne__layout_8cpp_adcc333968422095a1a9fbbbe84a52cad_icgraph" id="atsne__layout_8cpp_adcc333968422095a1a9fbbbe84a52cad_icgraph">
 <area shape="rect" title=" " alt="" coords="447,5,493,32"/>
-<area shape="rect" href="tsne__layout_8cpp.html#a7bd33978ed338ff6c51d80d6cf5a0fb3" title="Optimize the positions of low&#45;dimensional landmarks using the t&#45;SNE algorithm." alt="" coords="265,5,399,32"/>
-<area shape="rect" href="structState.html#adcd0d835af130aa668bcc5799e8bb0c7" title="Performs simulation steps of all active algorithms and updates data according to the user interaction..." alt="" coords="108,5,217,32"/>
+<area shape="rect" href="tsne__layout_8cpp.html#ad30e3cd93743475eef28dc1c4df48417" title="Optimize the positions of low&#45;dimensional landmarks using the t&#45;SNE algorithm." alt="" coords="265,5,399,32"/>
+<area shape="rect" href="structState.html#a08edb55dfdad9afc055fa9440564b04a" title="Performs simulation steps of all active algorithms and updates data according to the user interaction..." alt="" coords="108,5,217,32"/>
 <area shape="rect" href="main_8cpp.html#ae66f6b31b5ad750f1fe042a706a4e3d4" title=" " alt="" coords="5,5,60,32"/>
 </map>
 </div>
 
 </div>
 </div>
-<a id="a7bd33978ed338ff6c51d80d6cf5a0fb3" name="a7bd33978ed338ff6c51d80d6cf5a0fb3"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a7bd33978ed338ff6c51d80d6cf5a0fb3">&#9670;&nbsp;</a></span>tsne_layout_step()</h2>
+<a id="ad30e3cd93743475eef28dc1c4df48417" name="ad30e3cd93743475eef28dc1c4df48417"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ad30e3cd93743475eef28dc1c4df48417">&#9670;&nbsp;</a></span>tsne_layout_step()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -155,8 +155,14 @@ Here is the caller graph for this function:</div>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">const <a class="el" href="structMouseData.html">MouseData</a> &amp;&#160;</td>
-          <td class="paramname"><em>mouse</em>, </td>
+          <td class="paramtype">bool&#160;</td>
+          <td class="paramname"><em>vert_pressed</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>vert_ind</em>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
@@ -184,8 +190,8 @@ Here is the caller graph for this function:</div>
 <div class="dynheader">
 Here is the call graph for this function:</div>
 <div class="dyncontent">
-<div class="center"><img src="tsne__layout_8cpp_a7bd33978ed338ff6c51d80d6cf5a0fb3_cgraph.png" border="0" usemap="#atsne__layout_8cpp_a7bd33978ed338ff6c51d80d6cf5a0fb3_cgraph" alt=""/></div>
-<map name="atsne__layout_8cpp_a7bd33978ed338ff6c51d80d6cf5a0fb3_cgraph" id="atsne__layout_8cpp_a7bd33978ed338ff6c51d80d6cf5a0fb3_cgraph">
+<div class="center"><img src="tsne__layout_8cpp_ad30e3cd93743475eef28dc1c4df48417_cgraph.png" border="0" usemap="#atsne__layout_8cpp_ad30e3cd93743475eef28dc1c4df48417_cgraph" alt=""/></div>
+<map name="atsne__layout_8cpp_ad30e3cd93743475eef28dc1c4df48417_cgraph" id="atsne__layout_8cpp_ad30e3cd93743475eef28dc1c4df48417_cgraph">
 <area shape="rect" title="Optimize the positions of low&#45;dimensional landmarks using the t&#45;SNE algorithm." alt="" coords="5,56,139,83"/>
 <area shape="rect" href="structLandmarkModel.html#a128124429b96766980b0cbd2a6980d5f" title="Reurns number of the 2D landmarks." alt="" coords="187,5,405,32"/>
 <area shape="rect" href="tsne__layout_8cpp.html#adcc333968422095a1a9fbbbe84a52cad" title=" " alt="" coords="273,56,319,83"/>
@@ -195,10 +201,10 @@ Here is the call graph for this function:</div>
 <div class="dynheader">
 Here is the caller graph for this function:</div>
 <div class="dyncontent">
-<div class="center"><img src="tsne__layout_8cpp_a7bd33978ed338ff6c51d80d6cf5a0fb3_icgraph.png" border="0" usemap="#atsne__layout_8cpp_a7bd33978ed338ff6c51d80d6cf5a0fb3_icgraph" alt=""/></div>
-<map name="atsne__layout_8cpp_a7bd33978ed338ff6c51d80d6cf5a0fb3_icgraph" id="atsne__layout_8cpp_a7bd33978ed338ff6c51d80d6cf5a0fb3_icgraph">
+<div class="center"><img src="tsne__layout_8cpp_ad30e3cd93743475eef28dc1c4df48417_icgraph.png" border="0" usemap="#atsne__layout_8cpp_ad30e3cd93743475eef28dc1c4df48417_icgraph" alt=""/></div>
+<map name="atsne__layout_8cpp_ad30e3cd93743475eef28dc1c4df48417_icgraph" id="atsne__layout_8cpp_ad30e3cd93743475eef28dc1c4df48417_icgraph">
 <area shape="rect" title="Optimize the positions of low&#45;dimensional landmarks using the t&#45;SNE algorithm." alt="" coords="265,5,399,32"/>
-<area shape="rect" href="structState.html#adcd0d835af130aa668bcc5799e8bb0c7" title="Performs simulation steps of all active algorithms and updates data according to the user interaction..." alt="" coords="108,5,217,32"/>
+<area shape="rect" href="structState.html#a08edb55dfdad9afc055fa9440564b04a" title="Performs simulation steps of all active algorithms and updates data according to the user interaction..." alt="" coords="108,5,217,32"/>
 <area shape="rect" href="main_8cpp.html#ae66f6b31b5ad750f1fe042a706a4e3d4" title=" " alt="" coords="5,5,60,32"/>
 </map>
 </div>

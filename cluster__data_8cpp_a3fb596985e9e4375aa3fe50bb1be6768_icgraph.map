@@ -1,0 +1,7 @@
+<map id="create_col_palette" name="create_col_palette">
+<area shape="rect" id="node1" title="Creates color palette with the size of the cluster count." alt="" coords="676,13,819,39"/>
+<area shape="rect" id="node2" href="$structClusterData.html#a6eb37e26ff8be5a02fab28671d4890ad" title=" " alt="" coords="453,5,628,47"/>
+<area shape="rect" id="node3" href="$structColorData.html#a0307bbbea7bea14b441e20dd13422dba" title="Recomputes color of the 2D data points if user has changed any of the color settings." alt="" coords="265,13,405,39"/>
+<area shape="rect" id="node4" href="$structState.html#a08edb55dfdad9afc055fa9440564b04a" title="Performs simulation steps of all active algorithms and updates data according to the user interaction..." alt="" coords="108,13,217,39"/>
+<area shape="rect" id="node5" href="$main_8cpp.html#ae66f6b31b5ad750f1fe042a706a4e3d4" title=" " alt="" coords="5,13,60,39"/>
+</map>

@@ -1,0 +1,4 @@
+<map id="UiMenu::draw_menu_window" name="UiMenu::draw_menu_window">
+<area shape="rect" id="node1" title="Draws main menu window." alt="" coords="5,5,219,32"/>
+<area shape="rect" id="node2" href="$utils__imgui_8hpp.html#ad96c1b9779c23d1779f8f2d8cffefa64" title="ImGUI wrapper for setting tooltip." alt="" coords="267,5,331,32"/>
+</map>

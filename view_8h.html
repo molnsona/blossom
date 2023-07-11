@@ -68,34 +68,30 @@ $(function() {
 </div><!-- top -->
 <div class="header">
   <div class="summary">
-<a href="#nested-classes">Classes</a> &#124;
-<a href="#define-members">Macros</a>  </div>
+<a href="#nested-classes">Classes</a>  </div>
   <div class="headertitle"><div class="title">view.h File Reference</div></div>
 </div><!--header-->
 <div class="contents">
-<div class="textblock"><code>#include &lt;GLFW/glfw3.h&gt;</code><br />
-<code>#include &lt;glad/glad.h&gt;</code><br />
-<code>#include &lt;glm/glm.hpp&gt;</code><br />
+<div class="textblock"><code>#include &lt;glm/glm.hpp&gt;</code><br />
 <code>#include &lt;glm/gtc/matrix_transform.hpp&gt;</code><br />
 <code>#include &lt;cmath&gt;</code><br />
 <code>#include &lt;iostream&gt;</code><br />
 <code>#include &lt;vector&gt;</code><br />
-<code>#include &quot;<a class="el" href="wrapper__glfw_8h_source.html">wrapper_glfw.h</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="input__data_8h_source.html">input_data.h</a>&quot;</code><br />
 </div><div class="textblock"><div class="dynheader">
 Include dependency graph for view.h:</div>
 <div class="dyncontent">
 <div class="center"><img src="view_8h__incl.png" border="0" usemap="#asrc_2view_8h" alt=""/></div>
 <map name="asrc_2view_8h" id="asrc_2view_8h">
-<area shape="rect" title=" " alt="" coords="405,5,492,32"/>
-<area shape="rect" title=" " alt="" coords="5,155,116,181"/>
-<area shape="rect" title=" " alt="" coords="224,155,319,181"/>
-<area shape="rect" title=" " alt="" coords="305,80,409,107"/>
-<area shape="rect" title=" " alt="" coords="433,80,651,107"/>
-<area shape="rect" title=" " alt="" coords="675,80,737,107"/>
-<area shape="rect" title=" " alt="" coords="762,80,842,107"/>
-<area shape="rect" title=" " alt="" coords="867,80,929,107"/>
-<area shape="rect" href="wrapper__glfw_8h.html" title=" " alt="" coords="110,80,230,107"/>
-<area shape="rect" title=" " alt="" coords="141,155,199,181"/>
+<area shape="rect" title=" " alt="" coords="310,5,397,32"/>
+<area shape="rect" title=" " alt="" coords="247,229,351,256"/>
+<area shape="rect" title=" " alt="" coords="33,80,250,107"/>
+<area shape="rect" title=" " alt="" coords="274,80,337,107"/>
+<area shape="rect" title=" " alt="" coords="362,80,442,107"/>
+<area shape="rect" title=" " alt="" coords="466,80,529,107"/>
+<area shape="rect" href="input__data_8h.html" title=" " alt="" coords="553,80,656,107"/>
+<area shape="rect" href="keyboard__data_8h.html" title=" " alt="" coords="392,155,523,181"/>
+<area shape="rect" href="mouse__data_8h.html" title=" " alt="" coords="547,155,662,181"/>
 </map>
 </div>
 </div><div class="textblock"><div class="dynheader">
@@ -103,14 +99,20 @@ This graph shows which files directly or indirectly include this file:</div>
 <div class="dyncontent">
 <div class="center"><img src="view_8h__dep__incl.png" border="0" usemap="#asrc_2view_8hdep" alt=""/></div>
 <map name="asrc_2view_8hdep" id="asrc_2view_8hdep">
-<area shape="rect" title=" " alt="" coords="297,5,383,32"/>
-<area shape="rect" href="graph__renderer_8h.html" title=" " alt="" coords="89,80,244,107"/>
-<area shape="rect" href="renderer_8h.html" title=" " alt="" coords="201,155,311,181"/>
-<area shape="rect" href="main_8cpp.html" title=" " alt="" coords="421,229,526,256"/>
-<area shape="rect" href="scatter__renderer_8h.html" title=" " alt="" coords="319,80,481,107"/>
-<area shape="rect" href="graph__renderer_8cpp.html" title=" " alt="" coords="5,155,176,181"/>
-<area shape="rect" href="renderer_8cpp.html" title=" " alt="" coords="193,229,319,256"/>
-<area shape="rect" href="scatter__renderer_8cpp.html" title=" " alt="" coords="336,155,515,181"/>
+<area shape="rect" title=" " alt="" coords="338,5,425,32"/>
+<area shape="rect" href="graph__renderer_8h.html" title=" " alt="" coords="137,80,292,107"/>
+<area shape="rect" href="renderer_8h.html" title=" " alt="" coords="213,229,323,256"/>
+<area shape="rect" href="input__handler_8h.html" title=" " alt="" coords="73,304,218,331"/>
+<area shape="rect" href="main_8cpp.html" title=" " alt="" coords="227,379,333,405"/>
+<area shape="rect" href="scatter__renderer_8h.html" title=" " alt="" coords="501,155,664,181"/>
+<area shape="rect" href="texture__renderer_8h.html" title=" " alt="" coords="521,80,687,107"/>
+<area shape="rect" href="ui__renderer_8h.html" title=" " alt="" coords="316,80,447,107"/>
+<area shape="rect" href="graph__renderer_8cpp.html" title=" " alt="" coords="35,155,205,181"/>
+<area shape="rect" href="renderer_8cpp.html" title=" " alt="" coords="306,304,433,331"/>
+<area shape="rect" href="input__handler_8cpp.html" title=" " alt="" coords="43,379,203,405"/>
+<area shape="rect" href="scatter__renderer_8cpp.html" title=" " alt="" coords="493,229,672,256"/>
+<area shape="rect" href="texture__renderer_8cpp.html" title=" " alt="" coords="689,155,869,181"/>
+<area shape="rect" href="ui__renderer_8cpp.html" title=" " alt="" coords="331,155,477,181"/>
 </map>
 </div>
 </div>
@@ -121,29 +123,7 @@ Classes</h2></td></tr>
 <tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classView.html">View</a></td></tr>
 <tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">A small utility class that manages the viewport coordinates, together with the virtual "camera" position and zoom.  <a href="classView.html#details">More...</a><br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-</table><table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="define-members" name="define-members"></a>
-Macros</h2></td></tr>
-<tr class="memitem:a088324ad8995e3eb76024e3e79083d48"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="view_8h.html#a088324ad8995e3eb76024e3e79083d48">GLFW_INCLUDE_NONE</a></td></tr>
-<tr class="separator:a088324ad8995e3eb76024e3e79083d48"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
-<h2 class="groupheader">Macro Definition Documentation</h2>
-<a id="a088324ad8995e3eb76024e3e79083d48" name="a088324ad8995e3eb76024e3e79083d48"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a088324ad8995e3eb76024e3e79083d48">&#9670;&nbsp;</a></span>GLFW_INCLUDE_NONE</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">#define GLFW_INCLUDE_NONE</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p class="definition">Definition at line <a class="el" href="view_8h_source.html#l00023">23</a> of file <a class="el" href="view_8h_source.html">view.h</a>.</p>
-
-</div>
-</div>
 </div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>

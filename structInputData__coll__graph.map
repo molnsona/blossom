@@ -1,0 +1,5 @@
+<map id="InputData" name="InputData">
+<area shape="rect" id="node1" title="Input events data storage." alt="" coords="74,95,161,121"/>
+<area shape="rect" id="node2" href="$structMouseData.html" title="Mouse events data storage." alt="" coords="5,5,101,32"/>
+<area shape="rect" id="node3" href="$structKeyboardData.html" title="Keyboard events data storage." alt="" coords="125,5,240,32"/>
+</map>

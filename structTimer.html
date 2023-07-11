@@ -94,7 +94,7 @@ Public Member Functions</h2></td></tr>
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-attribs" name="pub-attribs"></a>
 Public Attributes</h2></td></tr>
 <tr class="memitem:ac756221bf55abd26f19d0af3413b20d8"><td class="memItemLeft" align="right" valign="top">float&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structTimer.html#ac756221bf55abd26f19d0af3413b20d8">frametime</a></td></tr>
-<tr class="memdesc:ac756221bf55abd26f19d0af3413b20d8"><td class="mdescLeft">&#160;</td><td class="mdescRight">Duration of the last frame.  <a href="structTimer.html#ac756221bf55abd26f19d0af3413b20d8">More...</a><br /></td></tr>
+<tr class="memdesc:ac756221bf55abd26f19d0af3413b20d8"><td class="mdescLeft">&#160;</td><td class="mdescRight">Duration of the last frame (in seconds).  <a href="structTimer.html#ac756221bf55abd26f19d0af3413b20d8">More...</a><br /></td></tr>
 <tr class="separator:ac756221bf55abd26f19d0af3413b20d8"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a2b85644218a9b6e5ed9a52a95a9d5937"><td class="memItemLeft" align="right" valign="top"><a class="el" href="structTimer.html#ab1faab808feeaa564888d3743db2ddd9">timepoint</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structTimer.html#a2b85644218a9b6e5ed9a52a95a9d5937">last_tick</a></td></tr>
 <tr class="memdesc:a2b85644218a9b6e5ed9a52a95a9d5937"><td class="mdescLeft">&#160;</td><td class="mdescRight">Time of the last tick.  <a href="structTimer.html#a2b85644218a9b6e5ed9a52a95a9d5937">More...</a><br /></td></tr>
@@ -192,9 +192,18 @@ Here is the caller graph for this function:</div>
 <div class="dyncontent">
 <div class="center"><img src="structTimer_a6f4dc6b9e9f333fa4c60ddf2ff33c801_icgraph.png" border="0" usemap="#astructTimer_a6f4dc6b9e9f333fa4c60ddf2ff33c801_icgraph" alt=""/></div>
 <map name="astructTimer_a6f4dc6b9e9f333fa4c60ddf2ff33c801_icgraph" id="astructTimer_a6f4dc6b9e9f333fa4c60ddf2ff33c801_icgraph">
-<area shape="rect" title="Counts frametime and sets last_tick variable to current time." alt="" coords="160,31,252,57"/>
-<area shape="rect" href="main_8cpp.html#ae66f6b31b5ad750f1fe042a706a4e3d4" title=" " alt="" coords="31,5,86,32"/>
-<area shape="rect" href="structTimer.html#a5f16e8da27d2a5a5242dead46de05d97" title="Calls tick() and sets frametime to zero." alt="" coords="5,56,112,83"/>
+<area shape="rect" title="Counts frametime and sets last_tick variable to current time." alt="" coords="800,174,892,200"/>
+<area shape="rect" href="structFrameStats.html#a1d7c7c0ba39c41dde8797db556aabf4d" title=" " alt="" coords="545,123,752,150"/>
+<area shape="rect" href="main_8cpp.html#ae66f6b31b5ad750f1fe042a706a4e3d4" title=" " alt="" coords="5,72,60,99"/>
+<area shape="rect" href="structFrameStats.html#aa55b4955413de2654cd7032f9ca4d6dc" title=" " alt="" coords="108,224,288,251"/>
+<area shape="rect" href="structFrameStats.html#a35f1a18179979b4a7ac5281ac1c83b79" title=" " alt="" coords="561,174,736,200"/>
+<area shape="rect" href="structTimer.html#a5f16e8da27d2a5a5242dead46de05d97" title="Calls tick() and sets frametime to zero." alt="" coords="595,326,702,352"/>
+<area shape="rect" href="structFrameStats.html#a9bf1328055dd2563fc35e83106d081d9" title=" " alt="" coords="111,47,285,74"/>
+<area shape="rect" href="structTransData.html#a20e6d97d3d1f000c1b2fbe23a87e1dcc" title="Recomputes the data if any of the config has been touched." alt="" coords="347,72,487,99"/>
+<area shape="rect" href="structScatterModel.html#aece3d7c5774154aa7636f5727c98acba" title="Recomputes the coordinates if any of the the parameters of the embedsom algorithm has changed." alt="" coords="336,123,497,150"/>
+<area shape="rect" href="structColorData.html#a0307bbbea7bea14b441e20dd13422dba" title="Recomputes color of the 2D data points if user has changed any of the color settings." alt="" coords="347,174,487,200"/>
+<area shape="rect" href="structScaledData.html#a2c3fda8694a3005d0594e09cb88c0160" title="Recomputes the data if any of the config has been touched." alt="" coords="342,224,491,251"/>
+<area shape="rect" href="structState.html#a08edb55dfdad9afc055fa9440564b04a" title="Performs simulation steps of all active algorithms and updates data according to the user interaction..." alt="" coords="143,123,253,150"/>
 </map>
 </div>
 
@@ -213,7 +222,7 @@ Here is the caller graph for this function:</div>
       </table>
 </div><div class="memdoc">
 
-<p>Duration of the last frame. </p>
+<p>Duration of the last frame (in seconds). </p>
 
 <p class="definition">Definition at line <a class="el" href="timer_8h_source.html#l00033">33</a> of file <a class="el" href="timer_8h_source.html">timer.h</a>.</p>
 

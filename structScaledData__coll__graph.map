@@ -1,7 +1,9 @@
 <map id="ScaledData" name="ScaledData">
-<area shape="rect" id="node1" title="Storage of the scaled data." alt="" coords="42,155,138,181"/>
-<area shape="rect" id="node2" href="$structSweeper.html" title="A piece of multi&#45;object cache." alt="" coords="5,80,84,107"/>
+<area shape="rect" id="node1" title="Storage of the scaled data." alt="" coords="87,184,183,211"/>
+<area shape="rect" id="node2" href="$structSweeper.html" title="A piece of multi&#45;object cache." alt="" coords="5,95,84,121"/>
 <area shape="rect" id="node3" href="$structCleaner.html" title="A piece of cache that keeps track of the dirty status." alt="" coords="9,5,81,32"/>
-<area shape="rect" id="node4" href="$structDirts.html" title="Multi&#45;piece cache&#45;dirtying object." alt="" coords="109,80,162,107"/>
+<area shape="rect" id="node4" href="$structDirts.html" title="Multi&#45;piece cache&#45;dirtying object." alt="" coords="109,95,162,121"/>
 <area shape="rect" id="node5" href="$structDirt.html" title="A piece of dirt for dirtying the caches." alt="" coords="112,5,159,32"/>
+<area shape="rect" id="node6" href="$classBatchSizeGen.html" title="Generator of the size of the next point batch." alt="" coords="186,95,298,121"/>
+<area shape="rect" id="node7" href="$classEstimator.html" title=" " alt="" coords="199,5,285,32"/>
 </map>

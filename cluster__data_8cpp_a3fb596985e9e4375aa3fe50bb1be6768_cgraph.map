@@ -1,0 +1,4 @@
+<map id="create_col_palette" name="create_col_palette">
+<area shape="rect" id="node1" title="Creates color palette with the size of the cluster count." alt="" coords="5,5,148,32"/>
+<area shape="rect" id="node2" href="$cluster__data_8cpp.html#a58fc559a4db9fefd04bbefe0663cf817" title="Converts hsv color to rgb color system." alt="" coords="196,5,271,32"/>
+</map>

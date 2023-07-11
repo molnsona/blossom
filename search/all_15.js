@@ -15,6 +15,7 @@ var searchData=
   ['wrapper_5fimgui_2ecpp_12',['wrapper_imgui.cpp',['../wrapper__imgui_8cpp.html',1,'']]],
   ['wrapper_5fimgui_2eh_13',['wrapper_imgui.h',['../wrapper__imgui_8h.html',1,'']]],
   ['write_14',['write',['../structUiSaver.html#a81bc0114fd138146360a69e405cf724a',1,'UiSaver']]],
-  ['write_5fdata_5f2d_15',['write_data_2d',['../ui__save_8cpp.html#a9f2fffd114bf09ee4c717fe3a6250e83',1,'ui_save.cpp']]],
-  ['write_5fdata_5ffloat_16',['write_data_float',['../ui__save_8cpp.html#ac9ae3c0966bd8b2a91b979de0963049f',1,'ui_save.cpp']]]
+  ['write_5fclusters_15',['write_clusters',['../ui__save_8cpp.html#ab55f03cbbb1bed1a93e77412213e51da',1,'ui_save.cpp']]],
+  ['write_5fdata_5f2d_16',['write_data_2d',['../ui__save_8cpp.html#a9f2fffd114bf09ee4c717fe3a6250e83',1,'ui_save.cpp']]],
+  ['write_5fdata_5ffloat_17',['write_data_float',['../ui__save_8cpp.html#ac9ae3c0966bd8b2a91b979de0963049f',1,'ui_save.cpp']]]
 ];

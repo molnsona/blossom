@@ -1,0 +1,6 @@
+<map id="ClusterData::do_cluster_coloring" name="ClusterData::do_cluster_coloring">
+<area shape="rect" id="node1" title=" " alt="" coords="5,23,180,65"/>
+<area shape="rect" id="node2" href="$cluster__data_8cpp.html#a3fb596985e9e4375aa3fe50bb1be6768" title="Creates color palette with the size of the cluster count." alt="" coords="228,5,371,32"/>
+<area shape="rect" id="node4" href="$structTransData.html#a3208334ef7d269f3bcee47a3f7d91860" title="Returns dimension of the transformed data." alt="" coords="239,56,359,83"/>
+<area shape="rect" id="node3" href="$cluster__data_8cpp.html#a58fc559a4db9fefd04bbefe0663cf817" title="Converts hsv color to rgb color system." alt="" coords="419,5,493,32"/>
+</map>

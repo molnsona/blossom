@@ -1,0 +1,52 @@
+<map id="InputHandler::update" name="InputHandler::update">
+<area shape="rect" id="node1" title=" " alt="" coords="5,117,164,144"/>
+<area shape="rect" id="node2" href="$classInputHandler.html#a3f9aca388a14a4d004fda42f5a8ddac8" title="Identify which key was pressed and notify other parts (listed in arguments) about it." alt="" coords="212,45,376,86"/>
+<area shape="rect" id="node5" href="$classInputHandler.html#a4acd17428d24191471c39039ec5dd3cf" title="Handle mouse button input." alt="" coords="212,738,376,779"/>
+<area shape="rect" id="node49" href="$classInputHandler.html#a6af2abb38ca607a79c272ef6203be151" title="Process mouse scroll and notify other parts(listed in arguments) about it." alt="" coords="212,110,376,151"/>
+<area shape="rect" id="node3" href="$classView.html#aca4b330ddab799e009009bbb4b345be0" title="Move view along X&#45;axis." alt="" coords="476,56,589,83"/>
+<area shape="rect" id="node4" href="$classView.html#a4286002c32c1dba63e4933aa0bff4210" title="Move view along Y&#45;axis." alt="" coords="476,5,589,32"/>
+<area shape="rect" id="node6" href="$classRenderer.html#a2bd0e4a83b7a2686ff518cc6f41afd8d" title=" " alt="" coords="459,417,606,444"/>
+<area shape="rect" id="node10" href="$classView.html#aeda343862d3aa831814d252c6361cb90" title="Convert mouse coordinates ([0,0] in the upper left corner), to model coordinates ([0,..." alt="" coords="956,700,1159,727"/>
+<area shape="rect" id="node13" href="$classRenderer.html#afd4c115c3519f07d409dd76fa287630f" title=" " alt="" coords="424,1088,641,1115"/>
+<area shape="rect" id="node15" href="$classRenderer.html#a207c39d6d37ae82a629db05b69f32747" title="Check whether the vertex was pressed and set flags." alt="" coords="440,1022,625,1063"/>
+<area shape="rect" id="node19" href="$structColorData.html#a0ff710039a0e62d3d93cabba66ed0532" title="Notifies Sweeper that the color settings has been modified and that the data has to be recomputed." alt="" coords="431,1139,634,1165"/>
+<area shape="rect" id="node21" href="$classRenderer.html#a4e9204e6638cbcbf861565b9b74d807e" title=" " alt="" coords="449,738,617,779"/>
+<area shape="rect" id="node23" href="$classRenderer.html#a7219caca3c8fe45b472fc7edcf02900d" title=" " alt="" coords="439,957,626,998"/>
+<area shape="rect" id="node26" href="$classRenderer.html#ab4eb37cdec4936d07d1d4c83e7739984" title=" " alt="" coords="461,1190,604,1231"/>
+<area shape="rect" id="node27" href="$classRenderer.html#a8103af9bd0a869e729be45f8010136b1" title=" " alt="" coords="461,1255,604,1297"/>
+<area shape="rect" id="node28" href="$classRenderer.html#a5a3b5373f1de4f41d636b3e7315538b6" title=" " alt="" coords="459,1321,606,1362"/>
+<area shape="rect" id="node29" href="$classRenderer.html#aea52111538effc240e4abd03d4f27e65" title=" " alt="" coords="451,1386,614,1427"/>
+<area shape="rect" id="node30" href="$classRenderer.html#ab5d8d91364af6fb4cbf04ecde6648436" title=" " alt="" coords="454,1451,611,1493"/>
+<area shape="rect" id="node31" href="$classView.html#a429fdc29e7533674e16a4cacf4efb5ad" title="Cause the camera to look at the specified point." alt="" coords="744,620,853,647"/>
+<area shape="rect" id="node32" href="$classRenderer.html#ad6dd73f52a96f81be597b3ddbce29722" title=" " alt="" coords="437,905,629,932"/>
+<area shape="rect" id="node35" href="$classRenderer.html#a9edc7edf33955d447b5fd8e4efb5b17f" title=" " alt="" coords="719,788,878,815"/>
+<area shape="rect" id="node36" href="$classRenderer.html#aab72c7e5038cd178943c7ccdea13960f" title=" " alt="" coords="447,164,619,191"/>
+<area shape="rect" id="node39" href="$classRenderer.html#ad455da176c1840d248ea7c4246630468" title=" " alt="" coords="431,215,634,241"/>
+<area shape="rect" id="node40" href="$classRenderer.html#aaff32ae6dc27a40b81492d3badba6234" title=" " alt="" coords="426,265,639,292"/>
+<area shape="rect" id="node41" href="$classRenderer.html#a93efc393fe543f0a65ca74b5d75a9488" title=" " alt="" coords="441,367,624,393"/>
+<area shape="rect" id="node42" href="$classRenderer.html#a7bd9b5c27ba7b85b60555633a96ea503" title=" " alt="" coords="433,316,632,343"/>
+<area shape="rect" id="node44" href="$classRenderer.html#aa7a27e5cb6ab8d7ef57250ab266f5bd7" title=" " alt="" coords="443,468,623,495"/>
+<area shape="rect" id="node45" href="$classRenderer.html#a164c9636165b3e53154131135bec3ba0" title=" " alt="" coords="451,519,615,561"/>
+<area shape="rect" id="node46" href="$classRenderer.html#ac3d731a917d717b111007095a054ce7c" title=" " alt="" coords="434,585,631,612"/>
+<area shape="rect" id="node47" href="$classRenderer.html#ae5fbcfedf22fb56b1eb76f30c9af5ad0" title=" " alt="" coords="425,855,640,881"/>
+<area shape="rect" id="node7" href="$structLandmarkModel.html#a257bfeca44096ff53d4d49a94cffd0c4" title="Creates new landmark with the two&#45; and high&#45;dimensional coordinates as the closeset landmark." alt="" coords="719,396,878,423"/>
+<area shape="rect" id="node9" href="$structLandmarkModel.html#a181ae32a2c6557fa39326eb0d77d1434" title="Creates new landmark with the same two&#45; and high&#45;dimensional coordinates as the given landmark." alt="" coords="701,447,896,473"/>
+<area shape="rect" id="node8" href="$structLandmarkModel.html#aaed0a9dcb4628d7fcb049e326f51ea95" title="Counts closest landmark to the given position." alt="" coords="967,389,1148,430"/>
+<area shape="rect" id="node11" href="$classView.html#a9e79788c1b06ba8176273672d6fc5d1f" title="Compute projection matrix for orthographic projection." alt="" coords="1210,773,1374,800"/>
+<area shape="rect" id="node12" href="$classView.html#ae2675b41a3c49d8b52784955d128234a" title="Compute view matrix for drawing into the &quot;view&quot; space." alt="" coords="1207,868,1377,895"/>
+<area shape="rect" id="node14" href="$structUiRenderer.html#a635fa81c3ea8f49879153b21f346cd2e" title=" " alt="" coords="725,1255,872,1297"/>
+<area shape="rect" id="node16" href="$structGraphRenderer.html#a2610046d8e0c85a1d5a0cc678ebfd846" title="Checks if some vertex was pressed." alt="" coords="713,1190,885,1231"/>
+<area shape="rect" id="node18" href="$classView.html#a13ae0b4ad614e20829b5f34499ae99cc" title="Convert mouse coordinates ([0,0] in the upper left corner), to screen coordinates ([0,..." alt="" coords="721,1125,876,1166"/>
+<area shape="rect" id="node17" href="$classView.html#ae728fdbc1b95ae6fd588d1d2b8d375db" title="Converts point to screen coordinates([0,0] in the middle of the screen)." alt="" coords="980,956,1135,983"/>
+<area shape="rect" id="node20" href="$structColorData.html#aa25126670ee1c55656df1d0267b8d9d0" title="Color the landmark according to the active cluster." alt="" coords="701,1321,897,1348"/>
+<area shape="rect" id="node22" href="$structUiRenderer.html#aa66be6f6bca1ce06840ae15eb4986621" title=" " alt="" coords="725,722,872,763"/>
+<area shape="rect" id="node24" href="$structUiRenderer.html#ad2234ce16774a56440297d71868b42a9" title=" " alt="" coords="718,957,879,998"/>
+<area shape="rect" id="node25" href="$structLandmarkModel.html#a128124429b96766980b0cbd2a6980d5f" title="Reurns number of the 2D landmarks." alt="" coords="689,1023,908,1049"/>
+<area shape="rect" id="node33" href="$structUiRenderer.html#af6acfea548dd6d0f18ae4e6756e32884" title=" " alt="" coords="695,905,902,932"/>
+<area shape="rect" id="node34" href="$structLandmarkModel.html#a1d65e93179cc9de8bb158a4ca9a08625" title="Sets two&#45;dimensional position of the pressed landmark to mouse position." alt="" coords="971,847,1143,873"/>
+<area shape="rect" id="node37" href="$structLandmarkModel.html#ad56183084296cb9969ef854fbeb8cbbb" title="Removes landmark and corresponding edges." alt="" coords="706,164,891,191"/>
+<area shape="rect" id="node38" href="$structColorData.html#a73e8d4473c75daca5a3982b0d0d4f489" title=" " alt="" coords="691,215,906,241"/>
+<area shape="rect" id="node43" href="$structUiRenderer.html#a46eba9811702975460b14c05ddd112c9" title=" " alt="" coords="721,309,876,350"/>
+<area shape="rect" id="node48" href="$structUiRenderer.html#ad42371d19e6ccd475982b6f3b8691716" title=" " alt="" coords="721,839,876,881"/>
+<area shape="rect" id="node50" href="$classView.html#a9188757b9f975297de2104b132be01c0" title="Adjust zoom accordingly." alt="" coords="750,113,847,140"/>
+</map>

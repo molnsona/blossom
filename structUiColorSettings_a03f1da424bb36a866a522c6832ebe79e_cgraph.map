@@ -1,7 +1,10 @@
 <map id="UiColorSettings::render" name="UiColorSettings::render">
-<area shape="rect" id="node1" title="Renders window with corresponding color settings widgets." alt="" coords="5,56,179,83"/>
-<area shape="rect" id="node2" href="$structColorData.html#a0c2ffb8cf9b6cbcce28c928af3b3d624" title="Resets color settings to their initial values." alt="" coords="227,5,355,32"/>
-<area shape="rect" id="node3" href="$structColorData.html#a92a579faa57018d8fd3c4b4bf3cabb02" title="Notifies Sweeper that the color settings has been modified and that the data has to be recomputed." alt="" coords="403,31,580,57"/>
-<area shape="rect" id="node5" href="$utils__imgui_8hpp.html#a7198a716c578110d3a308c526f8f17c3" title="ImGUI wrapper for reset button." alt="" coords="239,107,343,133"/>
-<area shape="rect" id="node4" href="$structSweeper.html#af8cbe558ba3a09298813c9a0d8ee7234" title="Force&#45;refresh the whole range." alt="" coords="628,31,760,57"/>
+<area shape="rect" id="node1" title="Renders window with corresponding color settings widgets." alt="" coords="5,107,179,133"/>
+<area shape="rect" id="node2" href="$structColorData.html#a0c2ffb8cf9b6cbcce28c928af3b3d624" title="Resets color settings to their initial values." alt="" coords="261,5,389,32"/>
+<area shape="rect" id="node4" href="$structColorData.html#a92a579faa57018d8fd3c4b4bf3cabb02" title=" " alt="" coords="472,56,649,83"/>
+<area shape="rect" id="node6" href="$utils__imgui_8hpp.html#a7198a716c578110d3a308c526f8f17c3" title="ImGUI wrapper for reset button." alt="" coords="273,107,377,133"/>
+<area shape="rect" id="node7" href="$structColorData.html#a54086887bb2f45aa6c9f51b09c0accf8" title="Reset colors and cluster ids of all landmarks in the cluster with input id." alt="" coords="227,158,424,199"/>
+<area shape="rect" id="node8" href="$utils__imgui_8hpp.html#ad96c1b9779c23d1779f8f2d8cffefa64" title="ImGUI wrapper for setting tooltip." alt="" coords="293,224,357,251"/>
+<area shape="rect" id="node3" href="$structClusterData.html#a33c6c24fb5cb90e844185babe3ad6fb8" title=" " alt="" coords="491,5,631,32"/>
+<area shape="rect" id="node5" href="$structSweeper.html#af8cbe558ba3a09298813c9a0d8ee7234" title="Force&#45;refresh the whole range." alt="" coords="697,56,829,83"/>
 </map>

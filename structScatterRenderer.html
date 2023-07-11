@@ -81,8 +81,9 @@ Collaboration diagram for ScatterRenderer:</div>
 <div class="dyncontent">
 <div class="center"><img src="structScatterRenderer__coll__graph.png" border="0" usemap="#aScatterRenderer_coll__map" alt="Collaboration graph"/></div>
 <map name="aScatterRenderer_coll__map" id="aScatterRenderer_coll__map">
-<area shape="rect" title="Renderer of the 2D data points." alt="" coords="5,95,132,121"/>
-<area shape="rect" href="classShader.html" title="Abstracts working with shaders." alt="" coords="35,5,102,32"/>
+<area shape="rect" title="Renderer of the 2D data points." alt="" coords="5,184,132,211"/>
+<area shape="rect" href="structTextureRenderer.html" title="Takes care of the rendering to the texture and then rendering the texture to the screen." alt="" coords="97,95,227,121"/>
+<area shape="rect" href="classShader.html" title="Abstracts working with shaders." alt="" coords="11,5,78,32"/>
 </map>
 <center><span class="legend">[<a href="graph_legend.html">legend</a>]</span></center></div>
 <table class="memberdecls">
@@ -92,18 +93,20 @@ Public Member Functions</h2></td></tr>
 <tr class="separator:aa3a47dddf56785e48c9edf8ed829cb97"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a7b66b6232155d50648488f72e6c3ba1d"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structScatterRenderer.html#a7b66b6232155d50648488f72e6c3ba1d">init</a> ()</td></tr>
 <tr class="separator:a7b66b6232155d50648488f72e6c3ba1d"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a37c7029cc2506b81c420691bcff3b207"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structScatterRenderer.html#a37c7029cc2506b81c420691bcff3b207">draw</a> (const <a class="el" href="classView.html">View</a> &amp;v, const <a class="el" href="structScatterModel.html">ScatterModel</a> &amp;m, const <a class="el" href="structColorData.html">ColorData</a> &amp;colors)</td></tr>
-<tr class="memdesc:a37c7029cc2506b81c420691bcff3b207"><td class="mdescLeft">&#160;</td><td class="mdescRight">Draw event of the 2D data points.  <a href="structScatterRenderer.html#a37c7029cc2506b81c420691bcff3b207">More...</a><br /></td></tr>
-<tr class="separator:a37c7029cc2506b81c420691bcff3b207"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ac3fe7953a924ede8ad6dd989970b9374"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structScatterRenderer.html#ac3fe7953a924ede8ad6dd989970b9374">draw</a> (const glm::vec2 &amp;fb_size, const <a class="el" href="classView.html">View</a> &amp;v, const <a class="el" href="structScatterModel.html">ScatterModel</a> &amp;m, const <a class="el" href="structColorData.html">ColorData</a> &amp;colors)</td></tr>
+<tr class="memdesc:ac3fe7953a924ede8ad6dd989970b9374"><td class="mdescLeft">&#160;</td><td class="mdescRight">Draw event of the 2D data points.  <a href="structScatterRenderer.html#ac3fe7953a924ede8ad6dd989970b9374">More...</a><br /></td></tr>
+<tr class="separator:ac3fe7953a924ede8ad6dd989970b9374"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pri-methods" name="pri-methods"></a>
 Private Member Functions</h2></td></tr>
-<tr class="memitem:ab42d67c08d7707b7c9046262eb6be543"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structScatterRenderer.html#ab42d67c08d7707b7c9046262eb6be543">prepare_data</a> (const <a class="el" href="structScatterModel.html">ScatterModel</a> &amp;model, const <a class="el" href="structColorData.html">ColorData</a> &amp;colors)</td></tr>
-<tr class="memdesc:ab42d67c08d7707b7c9046262eb6be543"><td class="mdescLeft">&#160;</td><td class="mdescRight">Prepare data to render scatterplot with colors.  <a href="structScatterRenderer.html#ab42d67c08d7707b7c9046262eb6be543">More...</a><br /></td></tr>
-<tr class="separator:ab42d67c08d7707b7c9046262eb6be543"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a272c4d987a0f354b2e5a92277e5c44f1"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structScatterRenderer.html#a272c4d987a0f354b2e5a92277e5c44f1">prepare_data</a> (size_t start_index, size_t points_size, const <a class="el" href="structScatterModel.html">ScatterModel</a> &amp;model, const <a class="el" href="structColorData.html">ColorData</a> &amp;colors)</td></tr>
+<tr class="memdesc:a272c4d987a0f354b2e5a92277e5c44f1"><td class="mdescLeft">&#160;</td><td class="mdescRight">Prepare data to render scatterplot with colors.  <a href="structScatterRenderer.html#a272c4d987a0f354b2e5a92277e5c44f1">More...</a><br /></td></tr>
+<tr class="separator:a272c4d987a0f354b2e5a92277e5c44f1"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pri-attribs" name="pri-attribs"></a>
 Private Attributes</h2></td></tr>
+<tr class="memitem:a2a377d50b10f7f32e05c66a3d3b5d361"><td class="memItemLeft" align="right" valign="top"><a class="el" href="structTextureRenderer.html">TextureRenderer</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structScatterRenderer.html#a2a377d50b10f7f32e05c66a3d3b5d361">texture_renderer</a></td></tr>
+<tr class="separator:a2a377d50b10f7f32e05c66a3d3b5d361"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a41f68effca4b1acd6d0f093225c623cc"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classShader.html">Shader</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structScatterRenderer.html#a41f68effca4b1acd6d0f093225c623cc">shader</a></td></tr>
 <tr class="separator:a41f68effca4b1acd6d0f093225c623cc"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a765d7b6b91199b59d49e04e1cb8c3bd5"><td class="memItemLeft" align="right" valign="top">unsigned int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structScatterRenderer.html#a765d7b6b91199b59d49e04e1cb8c3bd5">VAO</a></td></tr>
@@ -116,7 +119,7 @@ Private Attributes</h2></td></tr>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p ><a class="el" href="classRenderer.html" title="Handles rendering of the graph and scatter plot and handles IO.">Renderer</a> of the 2D data points. </p>
 
-<p class="definition">Definition at line <a class="el" href="scatter__renderer_8h_source.html#l00033">33</a> of file <a class="el" href="scatter__renderer_8h_source.html">scatter_renderer.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="scatter__renderer_8h_source.html#l00034">34</a> of file <a class="el" href="scatter__renderer_8h_source.html">scatter_renderer.h</a>.</p>
 </div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
 <a id="aa3a47dddf56785e48c9edf8ed829cb97" name="aa3a47dddf56785e48c9edf8ed829cb97"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#aa3a47dddf56785e48c9edf8ed829cb97">&#9670;&nbsp;</a></span>ScatterRenderer()</h2>
@@ -138,8 +141,8 @@ Private Attributes</h2></td></tr>
 </div>
 </div>
 <h2 class="groupheader">Member Function Documentation</h2>
-<a id="a37c7029cc2506b81c420691bcff3b207" name="a37c7029cc2506b81c420691bcff3b207"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a37c7029cc2506b81c420691bcff3b207">&#9670;&nbsp;</a></span>draw()</h2>
+<a id="ac3fe7953a924ede8ad6dd989970b9374" name="ac3fe7953a924ede8ad6dd989970b9374"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ac3fe7953a924ede8ad6dd989970b9374">&#9670;&nbsp;</a></span>draw()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -147,6 +150,12 @@ Private Attributes</h2></td></tr>
         <tr>
           <td class="memname">void ScatterRenderer::draw </td>
           <td>(</td>
+          <td class="paramtype">const glm::vec2 &amp;&#160;</td>
+          <td class="paramname"><em>fb_size</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
           <td class="paramtype">const <a class="el" href="classView.html">View</a> &amp;&#160;</td>
           <td class="paramname"><em>v</em>, </td>
         </tr>
@@ -181,28 +190,34 @@ Private Attributes</h2></td></tr>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="scatter__renderer_8cpp_source.html#l00041">41</a> of file <a class="el" href="scatter__renderer_8cpp_source.html">scatter_renderer.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="scatter__renderer_8cpp_source.html#l00043">43</a> of file <a class="el" href="scatter__renderer_8cpp_source.html">scatter_renderer.cpp</a>.</p>
 <div class="dynheader">
 Here is the call graph for this function:</div>
 <div class="dyncontent">
-<div class="center"><img src="structScatterRenderer_a37c7029cc2506b81c420691bcff3b207_cgraph.png" border="0" usemap="#astructScatterRenderer_a37c7029cc2506b81c420691bcff3b207_cgraph" alt=""/></div>
-<map name="astructScatterRenderer_a37c7029cc2506b81c420691bcff3b207_cgraph" id="astructScatterRenderer_a37c7029cc2506b81c420691bcff3b207_cgraph">
-<area shape="rect" title="Draw event of the 2D data points." alt="" coords="5,107,172,133"/>
-<area shape="rect" href="classView.html#a9e79788c1b06ba8176273672d6fc5d1f" title="Compute projection matrix for orthographic projection." alt="" coords="249,5,413,32"/>
-<area shape="rect" href="classView.html#ae2675b41a3c49d8b52784955d128234a" title="Compute view matrix for drawing into the &quot;view&quot; space." alt="" coords="245,56,416,83"/>
-<area shape="rect" href="structScatterRenderer.html#ab42d67c08d7707b7c9046262eb6be543" title="Prepare data to render scatterplot with colors." alt="" coords="220,107,441,133"/>
-<area shape="rect" href="classShader.html#a6c9fea6dbcf014be7a335386f3d9761b" title="Bind the matrix 4x4 variable to the shader." alt="" coords="263,157,399,184"/>
-<area shape="rect" href="classShader.html#a870fa9f13d69e558815d6fd351a469dc" title="Activate built shader." alt="" coords="281,208,380,235"/>
+<div class="center"><img src="structScatterRenderer_ac3fe7953a924ede8ad6dd989970b9374_cgraph.png" border="0" usemap="#astructScatterRenderer_ac3fe7953a924ede8ad6dd989970b9374_cgraph" alt=""/></div>
+<map name="astructScatterRenderer_ac3fe7953a924ede8ad6dd989970b9374_cgraph" id="astructScatterRenderer_ac3fe7953a924ede8ad6dd989970b9374_cgraph">
+<area shape="rect" title="Draw event of the 2D data points." alt="" coords="5,279,172,306"/>
+<area shape="rect" href="structTextureRenderer.html#a7938ee44735633cb0d48a01e153d3d13" title=" " alt="" coords="248,5,413,47"/>
+<area shape="rect" href="structTextureRenderer.html#a460e879555a29d007634eba9fbcabae4" title=" " alt="" coords="238,71,423,98"/>
+<area shape="rect" href="structTextureRenderer.html#a8f8bace363e1347869a93a99eccca361" title=" " alt="" coords="251,123,410,164"/>
+<area shape="rect" href="structTextureRenderer.html#ae86ac715223c083b2d38c67fbcd441a2" title=" " alt="" coords="251,188,410,229"/>
+<area shape="rect" href="classView.html#a9e79788c1b06ba8176273672d6fc5d1f" title="Compute projection matrix for orthographic projection." alt="" coords="249,254,413,281"/>
+<area shape="rect" href="classView.html#ae2675b41a3c49d8b52784955d128234a" title="Compute view matrix for drawing into the &quot;view&quot; space." alt="" coords="245,305,416,331"/>
+<area shape="rect" href="structScatterRenderer.html#a272c4d987a0f354b2e5a92277e5c44f1" title="Prepare data to render scatterplot with colors." alt="" coords="220,355,441,382"/>
+<area shape="rect" href="structTextureRenderer.html#a11edf29ec53771f0ed32b968715aa742" title=" " alt="" coords="241,406,420,433"/>
+<area shape="rect" href="classShader.html#a870fa9f13d69e558815d6fd351a469dc" title="Activate built shader." alt="" coords="541,457,640,483"/>
+<area shape="rect" href="classShader.html#a6c9fea6dbcf014be7a335386f3d9761b" title="Bind the matrix 4x4 variable to the shader." alt="" coords="263,507,399,534"/>
+<area shape="rect" href="structTextureRenderer.html#a306a13725375197b8ca79a17b7fb5c1a" title=" " alt="" coords="489,71,692,98"/>
+<area shape="rect" href="classShader.html#a4eb3fe17d173f56a44b8c04ce2686920" title="Bind the integer variable to the shader." alt="" coords="531,406,650,433"/>
 </map>
 </div>
 <div class="dynheader">
 Here is the caller graph for this function:</div>
 <div class="dyncontent">
-<div class="center"><img src="structScatterRenderer_a37c7029cc2506b81c420691bcff3b207_icgraph.png" border="0" usemap="#astructScatterRenderer_a37c7029cc2506b81c420691bcff3b207_icgraph" alt=""/></div>
-<map name="astructScatterRenderer_a37c7029cc2506b81c420691bcff3b207_icgraph" id="astructScatterRenderer_a37c7029cc2506b81c420691bcff3b207_icgraph">
-<area shape="rect" title="Draw event of the 2D data points." alt="" coords="469,5,636,32"/>
-<area shape="rect" href="classRenderer.html#ab407870f559dfa892dd1dab1b842523f" title="Render graph and scatterplot." alt="" coords="291,5,421,32"/>
-<area shape="rect" href="classRenderer.html#acc7b3656f13c505a21175802a877e873" title="Process input events and render graph and scatterplot with updated values." alt="" coords="108,5,243,32"/>
+<div class="center"><img src="structScatterRenderer_ac3fe7953a924ede8ad6dd989970b9374_icgraph.png" border="0" usemap="#astructScatterRenderer_ac3fe7953a924ede8ad6dd989970b9374_icgraph" alt=""/></div>
+<map name="astructScatterRenderer_ac3fe7953a924ede8ad6dd989970b9374_icgraph" id="astructScatterRenderer_ac3fe7953a924ede8ad6dd989970b9374_icgraph">
+<area shape="rect" title="Draw event of the 2D data points." alt="" coords="287,5,453,32"/>
+<area shape="rect" href="classRenderer.html#a0936ec5e094ff46a696c579cd6f37569" title="Render graph and scatterplot." alt="" coords="108,5,239,32"/>
 <area shape="rect" href="main_8cpp.html#ae66f6b31b5ad750f1fe042a706a4e3d4" title=" " alt="" coords="5,5,60,32"/>
 </map>
 </div>
@@ -230,8 +245,13 @@ Here is the call graph for this function:</div>
 <div class="dyncontent">
 <div class="center"><img src="structScatterRenderer_a7b66b6232155d50648488f72e6c3ba1d_cgraph.png" border="0" usemap="#astructScatterRenderer_a7b66b6232155d50648488f72e6c3ba1d_cgraph" alt=""/></div>
 <map name="astructScatterRenderer_a7b66b6232155d50648488f72e6c3ba1d_cgraph" id="astructScatterRenderer_a7b66b6232155d50648488f72e6c3ba1d_cgraph">
-<area shape="rect" title=" " alt="" coords="5,5,161,32"/>
-<area shape="rect" href="classShader.html#a9191278846b741fe10cd1019fefc15f2" title="Read and build the shader." alt="" coords="209,5,316,32"/>
+<area shape="rect" title=" " alt="" coords="5,68,161,95"/>
+<area shape="rect" href="classShader.html#a9191278846b741fe10cd1019fefc15f2" title="Read and build the shader." alt="" coords="457,5,563,32"/>
+<area shape="rect" href="structTextureRenderer.html#af3e29e61eab7a8d1bc4cde87314aeaa6" title=" " alt="" coords="209,93,368,120"/>
+<area shape="rect" href="structTextureRenderer.html#a0f8a35b739d7926352c75b310e095ef8" title=" " alt="" coords="427,57,593,98"/>
+<area shape="rect" href="structTextureRenderer.html#a5741993697a2a148ee808f63a5d7c9aa" title=" " alt="" coords="416,123,604,149"/>
+<area shape="rect" href="structTextureRenderer.html#a8fed88a4754e1e65700148403182ff37" title=" " alt="" coords="429,174,591,215"/>
+<area shape="rect" href="structTextureRenderer.html#a18cbfa533e9b611d383bfc5e45227fd9" title=" " alt="" coords="417,239,603,281"/>
 </map>
 </div>
 <div class="dynheader">
@@ -247,8 +267,8 @@ Here is the caller graph for this function:</div>
 
 </div>
 </div>
-<a id="ab42d67c08d7707b7c9046262eb6be543" name="ab42d67c08d7707b7c9046262eb6be543"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ab42d67c08d7707b7c9046262eb6be543">&#9670;&nbsp;</a></span>prepare_data()</h2>
+<a id="a272c4d987a0f354b2e5a92277e5c44f1" name="a272c4d987a0f354b2e5a92277e5c44f1"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a272c4d987a0f354b2e5a92277e5c44f1">&#9670;&nbsp;</a></span>prepare_data()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -259,6 +279,18 @@ Here is the caller graph for this function:</div>
         <tr>
           <td class="memname">void ScatterRenderer::prepare_data </td>
           <td>(</td>
+          <td class="paramtype">size_t&#160;</td>
+          <td class="paramname"><em>start_index</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">size_t&#160;</td>
+          <td class="paramname"><em>points_size</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
           <td class="paramtype">const <a class="el" href="structScatterModel.html">ScatterModel</a> &amp;&#160;</td>
           <td class="paramname"><em>model</em>, </td>
         </tr>
@@ -291,16 +323,15 @@ Here is the caller graph for this function:</div>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="scatter__renderer_8cpp_source.html#l00065">65</a> of file <a class="el" href="scatter__renderer_8cpp_source.html">scatter_renderer.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="scatter__renderer_8cpp_source.html#l00076">76</a> of file <a class="el" href="scatter__renderer_8cpp_source.html">scatter_renderer.cpp</a>.</p>
 <div class="dynheader">
 Here is the caller graph for this function:</div>
 <div class="dyncontent">
-<div class="center"><img src="structScatterRenderer_ab42d67c08d7707b7c9046262eb6be543_icgraph.png" border="0" usemap="#astructScatterRenderer_ab42d67c08d7707b7c9046262eb6be543_icgraph" alt=""/></div>
-<map name="astructScatterRenderer_ab42d67c08d7707b7c9046262eb6be543_icgraph" id="astructScatterRenderer_ab42d67c08d7707b7c9046262eb6be543_icgraph">
-<area shape="rect" title="Prepare data to render scatterplot with colors." alt="" coords="684,5,905,32"/>
-<area shape="rect" href="structScatterRenderer.html#a37c7029cc2506b81c420691bcff3b207" title="Draw event of the 2D data points." alt="" coords="469,5,636,32"/>
-<area shape="rect" href="classRenderer.html#ab407870f559dfa892dd1dab1b842523f" title="Render graph and scatterplot." alt="" coords="291,5,421,32"/>
-<area shape="rect" href="classRenderer.html#acc7b3656f13c505a21175802a877e873" title="Process input events and render graph and scatterplot with updated values." alt="" coords="108,5,243,32"/>
+<div class="center"><img src="structScatterRenderer_a272c4d987a0f354b2e5a92277e5c44f1_icgraph.png" border="0" usemap="#astructScatterRenderer_a272c4d987a0f354b2e5a92277e5c44f1_icgraph" alt=""/></div>
+<map name="astructScatterRenderer_a272c4d987a0f354b2e5a92277e5c44f1_icgraph" id="astructScatterRenderer_a272c4d987a0f354b2e5a92277e5c44f1_icgraph">
+<area shape="rect" title="Prepare data to render scatterplot with colors." alt="" coords="501,5,723,32"/>
+<area shape="rect" href="structScatterRenderer.html#ac3fe7953a924ede8ad6dd989970b9374" title="Draw event of the 2D data points." alt="" coords="287,5,453,32"/>
+<area shape="rect" href="classRenderer.html#a0936ec5e094ff46a696c579cd6f37569" title="Render graph and scatterplot." alt="" coords="108,5,239,32"/>
 <area shape="rect" href="main_8cpp.html#ae66f6b31b5ad750f1fe042a706a4e3d4" title=" " alt="" coords="5,5,60,32"/>
 </map>
 </div>
@@ -328,7 +359,31 @@ Here is the caller graph for this function:</div>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="scatter__renderer_8h_source.html#l00051">51</a> of file <a class="el" href="scatter__renderer_8h_source.html">scatter_renderer.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="scatter__renderer_8h_source.html#l00057">57</a> of file <a class="el" href="scatter__renderer_8h_source.html">scatter_renderer.h</a>.</p>
+
+</div>
+</div>
+<a id="a2a377d50b10f7f32e05c66a3d3b5d361" name="a2a377d50b10f7f32e05c66a3d3b5d361"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a2a377d50b10f7f32e05c66a3d3b5d361">&#9670;&nbsp;</a></span>texture_renderer</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="structTextureRenderer.html">TextureRenderer</a> ScatterRenderer::texture_renderer</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="scatter__renderer_8h_source.html#l00055">55</a> of file <a class="el" href="scatter__renderer_8h_source.html">scatter_renderer.h</a>.</p>
 
 </div>
 </div>
@@ -352,7 +407,7 @@ Here is the caller graph for this function:</div>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="scatter__renderer_8h_source.html#l00052">52</a> of file <a class="el" href="scatter__renderer_8h_source.html">scatter_renderer.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="scatter__renderer_8h_source.html#l00058">58</a> of file <a class="el" href="scatter__renderer_8h_source.html">scatter_renderer.h</a>.</p>
 
 </div>
 </div>
@@ -376,7 +431,7 @@ Here is the caller graph for this function:</div>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="scatter__renderer_8h_source.html#l00054">54</a> of file <a class="el" href="scatter__renderer_8h_source.html">scatter_renderer.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="scatter__renderer_8h_source.html#l00060">60</a> of file <a class="el" href="scatter__renderer_8h_source.html">scatter_renderer.h</a>.</p>
 
 </div>
 </div>
@@ -400,7 +455,7 @@ Here is the caller graph for this function:</div>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="scatter__renderer_8h_source.html#l00053">53</a> of file <a class="el" href="scatter__renderer_8h_source.html">scatter_renderer.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="scatter__renderer_8h_source.html#l00059">59</a> of file <a class="el" href="scatter__renderer_8h_source.html">scatter_renderer.h</a>.</p>
 
 </div>
 </div>

@@ -1,15 +1,15 @@
 <map id="ScaledData::dim" name="ScaledData::dim">
 <area shape="rect" id="node1" title="Returns dimension of the scaled data." alt="" coords="1091,157,1220,184"/>
 <area shape="rect" id="node2" href="$kmeans__landmark_8cpp.html#a0b4aa3989f033bb2e73ec30516da3aa3" title="Run a k&#45;means&#45;like optimization of high&#45;dimensional landmark positions." alt="" coords="864,5,1043,32"/>
-<area shape="rect" id="node3" href="$structState.html#adcd0d835af130aa668bcc5799e8bb0c7" title="Performs simulation steps of all active algorithms and updates data according to the user interaction..." alt="" coords="687,132,797,159"/>
+<area shape="rect" id="node3" href="$structState.html#a08edb55dfdad9afc055fa9440564b04a" title="Performs simulation steps of all active algorithms and updates data according to the user interaction..." alt="" coords="687,132,797,159"/>
 <area shape="rect" id="node5" href="$structUiScaler.html#a4481cf933d9227eebdd010540bfa945d" title="Renders window with corresponding scale&amp;transform widgets." alt="" coords="493,259,620,285"/>
 <area shape="rect" id="node8" href="$kmeans__landmark_8cpp.html#a47b6e968d7438c5eb6e93d07e5870ac6" title="Run a SOM to optimize high&#45;dimensional landmark positions." alt="" coords="876,107,1031,133"/>
-<area shape="rect" id="node9" href="$structScatterModel.html#aedfea70c9bace6079f6f20a9e6736694" title="Recomputes the coordinates if any of the the parameters of the embedsom algorithm has changed." alt="" coords="873,157,1034,184"/>
-<area shape="rect" id="node10" href="$structScaledData.html#ae18b964a4a04746001f816c072761d10" title="Recomputes the data if any of the config has been touched." alt="" coords="879,208,1028,235"/>
+<area shape="rect" id="node9" href="$structScatterModel.html#aece3d7c5774154aa7636f5727c98acba" title="Recomputes the coordinates if any of the the parameters of the embedsom algorithm has changed." alt="" coords="873,157,1034,184"/>
+<area shape="rect" id="node10" href="$structScaledData.html#a2c3fda8694a3005d0594e09cb88c0160" title="Recomputes the data if any of the config has been touched." alt="" coords="879,208,1028,235"/>
 <area shape="rect" id="node11" href="$structUiSaver.html#a81bc0114fd138146360a69e405cf724a" title="Writes given data into the file in the tsv format." alt="" coords="896,309,1011,336"/>
 <area shape="rect" id="node4" href="$main_8cpp.html#ae66f6b31b5ad750f1fe042a706a4e3d4" title=" " alt="" coords="5,195,60,221"/>
 <area shape="rect" id="node6" href="$structUiMenu.html#aa4ed0bb847de6d88a9198e522c5e852e" title="Renders main menu window, the plus button and currently opened menu item windows." alt="" coords="323,259,445,285"/>
-<area shape="rect" id="node7" href="$classImGuiWrapper.html#ae8cc6a14b94ce5e74a9ec18e65930da4" title="Render UI." alt="" coords="108,220,275,247"/>
+<area shape="rect" id="node7" href="$classImGuiWrapper.html#a12022a93acba1bdcafa126e7e44d8f76" title="Render UI." alt="" coords="108,220,275,247"/>
 <area shape="rect" id="node12" href="$structUiSaver.html#a479998247858fa0683fe51a5bd8d7190" title="Calls write() for selected export data types." alt="" coords="668,309,816,336"/>
 <area shape="rect" id="node13" href="$structUiSaver.html#a3174e35d232de5f8dd8e645a006b5763" title="Renders save file window, opens save file dialog window and calls save_data() if a directory was sele..." alt="" coords="495,309,618,336"/>
 </map>

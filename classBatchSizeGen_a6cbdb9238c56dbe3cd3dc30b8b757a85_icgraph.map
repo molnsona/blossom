@@ -1,0 +1,11 @@
+<map id="BatchSizeGen::reset" name="BatchSizeGen::reset">
+<area shape="rect" id="node1" title=" " alt="" coords="733,132,887,159"/>
+<area shape="rect" id="node2" href="$classBatchSizeGen.html#a433f4415ccd11a341fe44a9bdce3f483" title=" " alt="" coords="475,5,685,32"/>
+<area shape="rect" id="node3" href="$classBatchSizeGen.html#a3bb0cbff59acbd46f4a7ebaa4487c1fa" title="Computes size of the next batch." alt="" coords="505,157,655,184"/>
+<area shape="rect" id="node4" href="$structTransData.html#a20e6d97d3d1f000c1b2fbe23a87e1dcc" title="Recomputes the data if any of the config has been touched." alt="" coords="276,81,416,108"/>
+<area shape="rect" id="node7" href="$structScatterModel.html#aece3d7c5774154aa7636f5727c98acba" title="Recomputes the coordinates if any of the the parameters of the embedsom algorithm has changed." alt="" coords="265,132,427,159"/>
+<area shape="rect" id="node8" href="$structColorData.html#a0307bbbea7bea14b441e20dd13422dba" title="Recomputes color of the 2D data points if user has changed any of the color settings." alt="" coords="276,183,416,209"/>
+<area shape="rect" id="node9" href="$structScaledData.html#a2c3fda8694a3005d0594e09cb88c0160" title="Recomputes the data if any of the config has been touched." alt="" coords="271,233,421,260"/>
+<area shape="rect" id="node5" href="$structState.html#a08edb55dfdad9afc055fa9440564b04a" title="Performs simulation steps of all active algorithms and updates data according to the user interaction..." alt="" coords="108,157,217,184"/>
+<area shape="rect" id="node6" href="$main_8cpp.html#ae66f6b31b5ad750f1fe042a706a4e3d4" title=" " alt="" coords="5,157,60,184"/>
+</map>

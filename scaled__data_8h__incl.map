@@ -1,11 +1,17 @@
 <map id="src/scaled_data.h" name="src/scaled_data.h">
-<area shape="rect" id="node1" title=" " alt="" coords="5,5,140,32"/>
-<area shape="rect" id="node2" href="$trans__data_8h.html" title=" " alt="" coords="91,80,193,107"/>
-<area shape="rect" id="node4" title=" " alt="" coords="136,229,199,256"/>
-<area shape="rect" id="node3" title=" " alt="" coords="66,155,130,181"/>
-<area shape="rect" id="node5" href="$data__model_8h.html" title=" " alt="" coords="205,155,316,181"/>
-<area shape="rect" id="node6" title=" " alt="" coords="227,229,286,256"/>
-<area shape="rect" id="node7" href="$dirty_8h.html" title=" " alt="" coords="311,229,373,256"/>
-<area shape="rect" id="node8" title=" " alt="" coords="263,304,333,331"/>
-<area shape="rect" id="node9" title=" " alt="" coords="357,304,412,331"/>
+<area shape="rect" id="node1" title=" " alt="" coords="303,5,438,32"/>
+<area shape="rect" id="node2" href="$batch__size__gen_8h.html" title=" " alt="" coords="74,155,209,181"/>
+<area shape="rect" id="node7" href="$frame__stats_8h.html" title=" " alt="" coords="235,155,347,181"/>
+<area shape="rect" id="node8" title=" " alt="" coords="490,229,553,256"/>
+<area shape="rect" id="node11" href="$trans__data_8h.html" title=" " alt="" coords="353,80,455,107"/>
+<area shape="rect" id="node3" title=" " alt="" coords="114,304,185,331"/>
+<area shape="rect" id="node4" href="$estimator_8h.html" title=" " alt="" coords="5,229,101,256"/>
+<area shape="rect" id="node5" title=" " alt="" coords="25,304,81,331"/>
+<area shape="rect" id="node6" title=" " alt="" coords="217,304,271,331"/>
+<area shape="rect" id="node9" href="$timer_8h.html" title=" " alt="" coords="314,229,382,256"/>
+<area shape="rect" id="node10" title=" " alt="" coords="315,304,381,331"/>
+<area shape="rect" id="node12" title=" " alt="" coords="557,155,621,181"/>
+<area shape="rect" id="node13" href="$data__model_8h.html" title=" " alt="" coords="371,155,482,181"/>
+<area shape="rect" id="node14" title=" " alt="" coords="407,229,465,256"/>
+<area shape="rect" id="node15" href="$dirty_8h.html" title=" " alt="" coords="227,229,290,256"/>
 </map>

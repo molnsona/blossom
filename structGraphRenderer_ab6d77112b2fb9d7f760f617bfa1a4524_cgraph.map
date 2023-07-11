@@ -1,0 +1,6 @@
+<map id="GraphRenderer::prepare_data" name="GraphRenderer::prepare_data">
+<area shape="rect" id="node1" title="Prepare data to render vertices and edges." alt="" coords="5,46,220,73"/>
+<area shape="rect" id="node2" href="$structGraphRenderer.html#ab03002d4fb41f225d20bf951b7052bf5" title="Prepare graph edges that are rendered as lines." alt="" coords="268,5,447,47"/>
+<area shape="rect" id="node3" href="$structGraphRenderer.html#a140884d996c5422b7a21433a5aa59d17" title="Prepare graph vertices that are rendered as circles." alt="" coords="268,71,447,112"/>
+<area shape="rect" id="node4" href="$structGraphRenderer.html#a7530878e152d51beab450825d44c5859" title="Add vertices for TRIANGLE_FAN that creates circle at given position." alt="" coords="495,71,647,112"/>
+</map>

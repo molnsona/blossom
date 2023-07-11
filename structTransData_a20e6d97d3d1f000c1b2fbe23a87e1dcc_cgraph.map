@@ -1,0 +1,19 @@
+<map id="TransData::update" name="TransData::update">
+<area shape="rect" id="node1" title="Recomputes the data if any of the config has been touched." alt="" coords="5,284,145,311"/>
+<area shape="rect" id="node2" href="$structFrameStats.html#a1d7c7c0ba39c41dde8797db556aabf4d" title=" " alt="" coords="193,5,400,32"/>
+<area shape="rect" id="node4" href="$structCleaner.html#a0ab2a86910726bba3cadd22dec4e00ec" title="Call this when the cache is refreshed." alt="" coords="480,120,595,147"/>
+<area shape="rect" id="node5" href="$structSweeper.html#ac14e4c576c9a3d24a777d1e44102c483" title="Clean a range of the cache." alt="" coords="214,309,379,336"/>
+<area shape="rect" id="node6" href="$structTransData.html#a3208334ef7d269f3bcee47a3f7d91860" title="Returns dimension of the transformed data." alt="" coords="237,360,357,387"/>
+<area shape="rect" id="node7" href="$structCleaner.html#a1c6ef6eb6c37d12f318a53f720f93bae" title="Returns true if the cache needs to be refreshed." alt="" coords="482,189,593,216"/>
+<area shape="rect" id="node8" href="$structSweeper.html#a83feb9f88763ea6024500942372a6c16" title="Find the range to refresh." alt="" coords="217,157,377,184"/>
+<area shape="rect" id="node9" href="$structSweeper.html#af8cbe558ba3a09298813c9a0d8ee7234" title="Force&#45;refresh the whole range." alt="" coords="471,249,603,276"/>
+<area shape="rect" id="node10" href="$classBatchSizeGen.html#a3bb0cbff59acbd46f4a7ebaa4487c1fa" title="Computes size of the next batch." alt="" coords="222,411,371,437"/>
+<area shape="rect" id="node13" href="$classBatchSizeGen.html#a6cbdb9238c56dbe3cd3dc30b8b757a85" title=" " alt="" coords="461,461,614,488"/>
+<area shape="rect" id="node15" href="$structFrameStats.html#a46b82e363d4d34052c1b20e2e202511c" title=" " alt="" coords="228,512,365,539"/>
+<area shape="rect" id="node16" href="$structFrameStats.html#a35f1a18179979b4a7ac5281ac1c83b79" title=" " alt="" coords="209,56,384,83"/>
+<area shape="rect" id="node17" href="$structDirt.html#a6753e4542f5254af6366b36b5864a37e" title="Make the cache dirty." alt="" coords="251,563,342,589"/>
+<area shape="rect" id="node3" href="$structTimer.html#a6f4dc6b9e9f333fa4c60ddf2ff33c801" title="Counts frametime and sets last_tick variable to current time." alt="" coords="491,44,583,71"/>
+<area shape="rect" id="node11" href="$classEstimator.html#aac56937d6f7e7cacc3e41901daece7e3" title=" " alt="" coords="448,411,627,437"/>
+<area shape="rect" id="node12" href="$classEstimator.html#a305e7078e18d8d56f56290b21e38c652" title=" " alt="" coords="466,345,609,386"/>
+<area shape="rect" id="node14" href="$classEstimator.html#a604eba93c1acc67ba9022e2d678248c9" title=" " alt="" coords="675,461,801,488"/>
+</map>

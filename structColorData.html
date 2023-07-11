@@ -67,6 +67,7 @@ $(function() {
 <a href="#pub-types">Public Types</a> &#124;
 <a href="#pub-methods">Public Member Functions</a> &#124;
 <a href="#pub-attribs">Public Attributes</a> &#124;
+<a href="#pri-methods">Private Member Functions</a> &#124;
 <a href="structColorData-members.html">List of all members</a>  </div>
   <div class="headertitle"><div class="title">ColorData Struct Reference</div></div>
 </div><!--header-->
@@ -91,9 +92,12 @@ Collaboration diagram for ColorData:</div>
 <div class="dyncontent">
 <div class="center"><img src="structColorData__coll__graph.png" border="0" usemap="#aColorData_coll__map" alt="Collaboration graph"/></div>
 <map name="aColorData_coll__map" id="aColorData_coll__map">
-<area shape="rect" title="Storage of the color data." alt="" coords="5,155,92,181"/>
-<area shape="rect" href="structSweeper.html" title="A piece of multi&#45;object cache." alt="" coords="9,80,88,107"/>
-<area shape="rect" href="structCleaner.html" title="A piece of cache that keeps track of the dirty status." alt="" coords="13,5,85,32"/>
+<area shape="rect" title="Storage of the color data." alt="" coords="174,184,260,211"/>
+<area shape="rect" href="structSweeper.html" title="A piece of multi&#45;object cache." alt="" coords="94,95,172,121"/>
+<area shape="rect" href="structCleaner.html" title="A piece of cache that keeps track of the dirty status." alt="" coords="6,5,78,32"/>
+<area shape="rect" href="structClusterData.html" title="Storage of data used for cluster coloring." alt="" coords="197,95,296,121"/>
+<area shape="rect" href="classBatchSizeGen.html" title="Generator of the size of the next point batch." alt="" coords="320,95,432,121"/>
+<area shape="rect" href="classEstimator.html" title=" " alt="" coords="333,5,418,32"/>
 </map>
 <center><span class="legend">[<a href="graph_legend.html">legend</a>]</span></center></div>
 <table class="memberdecls">
@@ -101,6 +105,7 @@ Collaboration diagram for ColorData:</div>
 Public Types</h2></td></tr>
 <tr class="memitem:a2d438350589c44bd3e88a451a3d05e2a"><td class="memItemLeft" align="right" valign="top">enum &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structColorData.html#a2d438350589c44bd3e88a451a3d05e2a">Coloring</a> { <a class="el" href="structColorData.html#a2d438350589c44bd3e88a451a3d05e2aaadb8e1809c8968fc85288fe43e071606">EXPR</a>
 , <a class="el" href="structColorData.html#a2d438350589c44bd3e88a451a3d05e2aa5105f4013b4e74d052ee793bade21360">CLUSTER</a>
+, <a class="el" href="structColorData.html#a2d438350589c44bd3e88a451a3d05e2aadd4e991a15ff0c00619c17c982159b09">BRUSHING</a>
  }</td></tr>
 <tr class="memdesc:a2d438350589c44bd3e88a451a3d05e2a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Types of coloring.  <a href="structColorData.html#a2d438350589c44bd3e88a451a3d05e2a">More...</a><br /></td></tr>
 <tr class="separator:a2d438350589c44bd3e88a451a3d05e2a"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -110,11 +115,18 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:accf4e0c0d4549051a46783e964c95164"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structColorData.html#accf4e0c0d4549051a46783e964c95164">ColorData</a> ()</td></tr>
 <tr class="memdesc:accf4e0c0d4549051a46783e964c95164"><td class="mdescLeft">&#160;</td><td class="mdescRight">Calls <a class="el" href="structColorData.html#a0c2ffb8cf9b6cbcce28c928af3b3d624">reset()</a> method to set initial values.  <a href="structColorData.html#accf4e0c0d4549051a46783e964c95164">More...</a><br /></td></tr>
 <tr class="separator:accf4e0c0d4549051a46783e964c95164"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ab7e8d8eb653ca730e188ca4691d16635"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structColorData.html#ab7e8d8eb653ca730e188ca4691d16635">update</a> (const <a class="el" href="structTransData.html">TransData</a> &amp;td)</td></tr>
-<tr class="memdesc:ab7e8d8eb653ca730e188ca4691d16635"><td class="mdescLeft">&#160;</td><td class="mdescRight">Recomputes color of the 2D data points if user has changed any of the color settings.  <a href="structColorData.html#ab7e8d8eb653ca730e188ca4691d16635">More...</a><br /></td></tr>
-<tr class="separator:ab7e8d8eb653ca730e188ca4691d16635"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a0307bbbea7bea14b441e20dd13422dba"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structColorData.html#a0307bbbea7bea14b441e20dd13422dba">update</a> (const <a class="el" href="structTransData.html">TransData</a> &amp;td, const <a class="el" href="structLandmarkModel.html">LandmarkModel</a> &amp;lm, <a class="el" href="structFrameStats.html">FrameStats</a> &amp;frame_stats)</td></tr>
+<tr class="memdesc:a0307bbbea7bea14b441e20dd13422dba"><td class="mdescLeft">&#160;</td><td class="mdescRight">Recomputes color of the 2D data points if user has changed any of the color settings.  <a href="structColorData.html#a0307bbbea7bea14b441e20dd13422dba">More...</a><br /></td></tr>
+<tr class="separator:a0307bbbea7bea14b441e20dd13422dba"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a0ff710039a0e62d3d93cabba66ed0532"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structColorData.html#a0ff710039a0e62d3d93cabba66ed0532">color_landmarks</a> (const std::vector&lt; size_t &gt; &amp;idxs)</td></tr>
+<tr class="memdesc:a0ff710039a0e62d3d93cabba66ed0532"><td class="mdescLeft">&#160;</td><td class="mdescRight">Notifies <a class="el" href="structSweeper.html">Sweeper</a> that the color settings has been modified and that the data has to be recomputed.  <a href="structColorData.html#a0ff710039a0e62d3d93cabba66ed0532">More...</a><br /></td></tr>
+<tr class="separator:a0ff710039a0e62d3d93cabba66ed0532"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a54086887bb2f45aa6c9f51b09c0accf8"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structColorData.html#a54086887bb2f45aa6c9f51b09c0accf8">reset_landmark_color</a> (int id)</td></tr>
+<tr class="memdesc:a54086887bb2f45aa6c9f51b09c0accf8"><td class="mdescLeft">&#160;</td><td class="mdescRight">Reset colors and cluster ids of all landmarks in the cluster with input id.  <a href="structColorData.html#a54086887bb2f45aa6c9f51b09c0accf8">More...</a><br /></td></tr>
+<tr class="separator:a54086887bb2f45aa6c9f51b09c0accf8"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a73e8d4473c75daca5a3982b0d0d4f489"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structColorData.html#a73e8d4473c75daca5a3982b0d0d4f489">remove_landmark</a> (size_t ind)</td></tr>
+<tr class="separator:a73e8d4473c75daca5a3982b0d0d4f489"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a92a579faa57018d8fd3c4b4bf3cabb02"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structColorData.html#a92a579faa57018d8fd3c4b4bf3cabb02">touch_config</a> ()</td></tr>
-<tr class="memdesc:a92a579faa57018d8fd3c4b4bf3cabb02"><td class="mdescLeft">&#160;</td><td class="mdescRight">Notifies <a class="el" href="structSweeper.html">Sweeper</a> that the color settings has been modified and that the data has to be recomputed.  <a href="structColorData.html#a92a579faa57018d8fd3c4b4bf3cabb02">More...</a><br /></td></tr>
 <tr class="separator:a92a579faa57018d8fd3c4b4bf3cabb02"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a0c2ffb8cf9b6cbcce28c928af3b3d624"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structColorData.html#a0c2ffb8cf9b6cbcce28c928af3b3d624">reset</a> ()</td></tr>
 <tr class="memdesc:a0c2ffb8cf9b6cbcce28c928af3b3d624"><td class="mdescLeft">&#160;</td><td class="mdescRight">Resets color settings to their initial values.  <a href="structColorData.html#a0c2ffb8cf9b6cbcce28c928af3b3d624">More...</a><br /></td></tr>
@@ -145,9 +157,16 @@ Public Member Functions</h2></td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-attribs" name="pub-attribs"></a>
 Public Attributes</h2></td></tr>
+<tr class="memitem:ad00892cfd0df671ac6172975deb6284d"><td class="memItemLeft" align="right" valign="top">const glm::vec3&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structColorData.html#ad00892cfd0df671ac6172975deb6284d">default_landmark_color</a> = { 0.4, 0.4, 0.4 }</td></tr>
+<tr class="separator:ad00892cfd0df671ac6172975deb6284d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a96ebabacc16530e7b0caa9911a03fe90"><td class="memItemLeft" align="right" valign="top"><a class="el" href="structCleaner.html">Cleaner</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structColorData.html#a96ebabacc16530e7b0caa9911a03fe90">lm_watch</a></td></tr>
+<tr class="separator:a96ebabacc16530e7b0caa9911a03fe90"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ab898dad262fc2e21be7b99b153b8ed07"><td class="memItemLeft" align="right" valign="top">std::vector&lt; glm::vec4 &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structColorData.html#ab898dad262fc2e21be7b99b153b8ed07">data</a></td></tr>
 <tr class="memdesc:ab898dad262fc2e21be7b99b153b8ed07"><td class="mdescLeft">&#160;</td><td class="mdescRight">Colors of the 2D data points.  <a href="structColorData.html#ab898dad262fc2e21be7b99b153b8ed07">More...</a><br /></td></tr>
 <tr class="separator:ab898dad262fc2e21be7b99b153b8ed07"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a189b02a8361f3db8c0ad3f3632acafda"><td class="memItemLeft" align="right" valign="top">std::vector&lt; std::pair&lt; const glm::vec3 *, int &gt; &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structColorData.html#a189b02a8361f3db8c0ad3f3632acafda">landmarks</a></td></tr>
+<tr class="memdesc:a189b02a8361f3db8c0ad3f3632acafda"><td class="mdescLeft">&#160;</td><td class="mdescRight">Colors of the landmarks and id of the cluster.  <a href="structColorData.html#a189b02a8361f3db8c0ad3f3632acafda">More...</a><br /></td></tr>
+<tr class="separator:a189b02a8361f3db8c0ad3f3632acafda"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aa168bd9f67f809f7ab1fc09d98f3bbe9"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structColorData.html#aa168bd9f67f809f7ab1fc09d98f3bbe9">coloring</a></td></tr>
 <tr class="memdesc:aa168bd9f67f809f7ab1fc09d98f3bbe9"><td class="mdescLeft">&#160;</td><td class="mdescRight">Type of the coloring method.  <a href="structColorData.html#aa168bd9f67f809f7ab1fc09d98f3bbe9">More...</a><br /></td></tr>
 <tr class="separator:aa168bd9f67f809f7ab1fc09d98f3bbe9"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -157,18 +176,16 @@ Public Attributes</h2></td></tr>
 <tr class="memitem:ab389556068660729b6a4dd62e00e4bfb"><td class="memItemLeft" align="right" valign="top">std::string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structColorData.html#ab389556068660729b6a4dd62e00e4bfb">col_palette</a></td></tr>
 <tr class="memdesc:ab389556068660729b6a4dd62e00e4bfb"><td class="mdescLeft">&#160;</td><td class="mdescRight">Name of the currently used color palette.  <a href="structColorData.html#ab389556068660729b6a4dd62e00e4bfb">More...</a><br /></td></tr>
 <tr class="separator:ab389556068660729b6a4dd62e00e4bfb"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a6fc689e170c6039889f5e09aa46bdcf8"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structColorData.html#a6fc689e170c6039889f5e09aa46bdcf8">cluster_col</a></td></tr>
-<tr class="memdesc:a6fc689e170c6039889f5e09aa46bdcf8"><td class="mdescLeft">&#160;</td><td class="mdescRight">Index of the column used in cluster coloring.  <a href="structColorData.html#a6fc689e170c6039889f5e09aa46bdcf8">More...</a><br /></td></tr>
-<tr class="separator:a6fc689e170c6039889f5e09aa46bdcf8"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a45ef3906fdd80eff47695967da008146"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structColorData.html#a45ef3906fdd80eff47695967da008146">cluster_cnt</a></td></tr>
-<tr class="memdesc:a45ef3906fdd80eff47695967da008146"><td class="mdescLeft">&#160;</td><td class="mdescRight">Count of the clusters used in cluster coloring.  <a href="structColorData.html#a45ef3906fdd80eff47695967da008146">More...</a><br /></td></tr>
-<tr class="separator:a45ef3906fdd80eff47695967da008146"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a7642b50891aff07a100472520fac066b"><td class="memItemLeft" align="right" valign="top"><a class="el" href="structClusterData.html">ClusterData</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structColorData.html#a7642b50891aff07a100472520fac066b">clustering</a></td></tr>
+<tr class="separator:a7642b50891aff07a100472520fac066b"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a2191e3f94398a5651ba603469e858cda"><td class="memItemLeft" align="right" valign="top">float&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structColorData.html#a2191e3f94398a5651ba603469e858cda">alpha</a></td></tr>
 <tr class="memdesc:a2191e3f94398a5651ba603469e858cda"><td class="mdescLeft">&#160;</td><td class="mdescRight">Alpha channel of RGBA color.  <a href="structColorData.html#a2191e3f94398a5651ba603469e858cda">More...</a><br /></td></tr>
 <tr class="separator:a2191e3f94398a5651ba603469e858cda"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a1bae81e10cf3d81126452de2e197c241"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structColorData.html#a1bae81e10cf3d81126452de2e197c241">reverse</a></td></tr>
 <tr class="memdesc:a1bae81e10cf3d81126452de2e197c241"><td class="mdescLeft">&#160;</td><td class="mdescRight">Flag indicating if the colors of the color palette should be reversed.  <a href="structColorData.html#a1bae81e10cf3d81126452de2e197c241">More...</a><br /></td></tr>
 <tr class="separator:a1bae81e10cf3d81126452de2e197c241"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ae1915a11e10f4749200711e340c601ad"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classBatchSizeGen.html">BatchSizeGen</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structColorData.html#ae1915a11e10f4749200711e340c601ad">batch_size_gen</a></td></tr>
+<tr class="separator:ae1915a11e10f4749200711e340c601ad"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="inherit_header pub_attribs_structSweeper"><td colspan="2" onclick="javascript:toggleInherit('pub_attribs_structSweeper')"><img src="closed.png" alt="-"/>&#160;Public Attributes inherited from <a class="el" href="structSweeper.html">Sweeper</a></td></tr>
 <tr class="memitem:aa7323e351fea7e856892484a47754496 inherit pub_attribs_structSweeper"><td class="memItemLeft" align="right" valign="top">size_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structSweeper.html#aa7323e351fea7e856892484a47754496">begin</a></td></tr>
 <tr class="separator:aa7323e351fea7e856892484a47754496 inherit pub_attribs_structSweeper"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -177,11 +194,17 @@ Public Attributes</h2></td></tr>
 <tr class="inherit_header pub_attribs_structCleaner"><td colspan="2" onclick="javascript:toggleInherit('pub_attribs_structCleaner')"><img src="closed.png" alt="-"/>&#160;Public Attributes inherited from <a class="el" href="structCleaner.html">Cleaner</a></td></tr>
 <tr class="memitem:a2a534b1e323399dccba69fdd0db74c6d inherit pub_attribs_structCleaner"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structCleaner.html#a2a534b1e323399dccba69fdd0db74c6d">cleaned</a></td></tr>
 <tr class="separator:a2a534b1e323399dccba69fdd0db74c6d inherit pub_attribs_structCleaner"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pri-methods" name="pri-methods"></a>
+Private Member Functions</h2></td></tr>
+<tr class="memitem:aa25126670ee1c55656df1d0267b8d9d0"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structColorData.html#aa25126670ee1c55656df1d0267b8d9d0">color_landmark</a> (size_t ind)</td></tr>
+<tr class="memdesc:aa25126670ee1c55656df1d0267b8d9d0"><td class="mdescLeft">&#160;</td><td class="mdescRight">Color the landmark according to the active cluster.  <a href="structColorData.html#aa25126670ee1c55656df1d0267b8d9d0">More...</a><br /></td></tr>
+<tr class="separator:aa25126670ee1c55656df1d0267b8d9d0"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p >Storage of the color data. </p>
 
-<p class="definition">Definition at line <a class="el" href="color__data_8h_source.html#l00035">35</a> of file <a class="el" href="color__data_8h_source.html">color_data.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="color__data_8h_source.html#l00039">39</a> of file <a class="el" href="color__data_8h_source.html">color_data.h</a>.</p>
 </div><h2 class="groupheader">Member Enumeration Documentation</h2>
 <a id="a2d438350589c44bd3e88a451a3d05e2a" name="a2d438350589c44bd3e88a451a3d05e2a"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a2d438350589c44bd3e88a451a3d05e2a">&#9670;&nbsp;</a></span>Coloring</h2>
@@ -199,9 +222,10 @@ Public Attributes</h2></td></tr>
 <table class="fieldtable">
 <tr><th colspan="2">Enumerator</th></tr><tr><td class="fieldname"><a id="a2d438350589c44bd3e88a451a3d05e2aaadb8e1809c8968fc85288fe43e071606" name="a2d438350589c44bd3e88a451a3d05e2aaadb8e1809c8968fc85288fe43e071606"></a>EXPR&#160;</td><td class="fielddoc"></td></tr>
 <tr><td class="fieldname"><a id="a2d438350589c44bd3e88a451a3d05e2aa5105f4013b4e74d052ee793bade21360" name="a2d438350589c44bd3e88a451a3d05e2aa5105f4013b4e74d052ee793bade21360"></a>CLUSTER&#160;</td><td class="fielddoc"></td></tr>
+<tr><td class="fieldname"><a id="a2d438350589c44bd3e88a451a3d05e2aadd4e991a15ff0c00619c17c982159b09" name="a2d438350589c44bd3e88a451a3d05e2aadd4e991a15ff0c00619c17c982159b09"></a>BRUSHING&#160;</td><td class="fielddoc"></td></tr>
 </table>
 
-<p class="definition">Definition at line <a class="el" href="color__data_8h_source.html#l00041">41</a> of file <a class="el" href="color__data_8h_source.html">color_data.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="color__data_8h_source.html#l00045">45</a> of file <a class="el" href="color__data_8h_source.html">color_data.h</a>.</p>
 
 </div>
 </div>
@@ -231,22 +255,168 @@ Public Attributes</h2></td></tr>
 
 <p>Calls <a class="el" href="structColorData.html#a0c2ffb8cf9b6cbcce28c928af3b3d624">reset()</a> method to set initial values. </p>
 
-<p class="definition">Definition at line <a class="el" href="color__data_8h_source.html#l00071">71</a> of file <a class="el" href="color__data_8h_source.html">color_data.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="color__data_8h_source.html#l00084">84</a> of file <a class="el" href="color__data_8h_source.html">color_data.h</a>.</p>
 <div class="dynheader">
 Here is the call graph for this function:</div>
 <div class="dyncontent">
 <div class="center"><img src="structColorData_accf4e0c0d4549051a46783e964c95164_cgraph.png" border="0" usemap="#astructColorData_accf4e0c0d4549051a46783e964c95164_cgraph" alt=""/></div>
 <map name="astructColorData_accf4e0c0d4549051a46783e964c95164_cgraph" id="astructColorData_accf4e0c0d4549051a46783e964c95164_cgraph">
-<area shape="rect" title="Calls reset() method to set initial values." alt="" coords="5,5,165,32"/>
-<area shape="rect" href="structColorData.html#a0c2ffb8cf9b6cbcce28c928af3b3d624" title="Resets color settings to their initial values." alt="" coords="213,5,341,32"/>
-<area shape="rect" href="structColorData.html#a92a579faa57018d8fd3c4b4bf3cabb02" title="Notifies Sweeper that the color settings has been modified and that the data has to be recomputed." alt="" coords="389,5,567,32"/>
-<area shape="rect" href="structSweeper.html#af8cbe558ba3a09298813c9a0d8ee7234" title="Force&#45;refresh the whole range." alt="" coords="615,5,747,32"/>
+<area shape="rect" title="Calls reset() method to set initial values." alt="" coords="5,31,165,57"/>
+<area shape="rect" href="structColorData.html#a0c2ffb8cf9b6cbcce28c928af3b3d624" title="Resets color settings to their initial values." alt="" coords="213,31,341,57"/>
+<area shape="rect" href="structClusterData.html#a33c6c24fb5cb90e844185babe3ad6fb8" title=" " alt="" coords="408,5,548,32"/>
+<area shape="rect" href="structColorData.html#a92a579faa57018d8fd3c4b4bf3cabb02" title=" " alt="" coords="389,56,567,83"/>
+<area shape="rect" href="structSweeper.html#af8cbe558ba3a09298813c9a0d8ee7234" title="Force&#45;refresh the whole range." alt="" coords="615,56,747,83"/>
 </map>
 </div>
 
 </div>
 </div>
 <h2 class="groupheader">Member Function Documentation</h2>
+<a id="aa25126670ee1c55656df1d0267b8d9d0" name="aa25126670ee1c55656df1d0267b8d9d0"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aa25126670ee1c55656df1d0267b8d9d0">&#9670;&nbsp;</a></span>color_landmark()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void ColorData::color_landmark </td>
+          <td>(</td>
+          <td class="paramtype">size_t&#160;</td>
+          <td class="paramname"><em>ind</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Color the landmark according to the active cluster. </p>
+
+<p class="definition">Definition at line <a class="el" href="color__data_8cpp_source.html#l00139">139</a> of file <a class="el" href="color__data_8cpp_source.html">color_data.cpp</a>.</p>
+<div class="dynheader">
+Here is the call graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><img src="structColorData_aa25126670ee1c55656df1d0267b8d9d0_cgraph.png" border="0" usemap="#astructColorData_aa25126670ee1c55656df1d0267b8d9d0_cgraph" alt=""/></div>
+<map name="astructColorData_aa25126670ee1c55656df1d0267b8d9d0_cgraph" id="astructColorData_aa25126670ee1c55656df1d0267b8d9d0_cgraph">
+<area shape="rect" title="Color the landmark according to the active cluster." alt="" coords="5,5,201,32"/>
+<area shape="rect" href="structColorData.html#a92a579faa57018d8fd3c4b4bf3cabb02" title=" " alt="" coords="249,5,427,32"/>
+<area shape="rect" href="structSweeper.html#af8cbe558ba3a09298813c9a0d8ee7234" title="Force&#45;refresh the whole range." alt="" coords="475,5,607,32"/>
+</map>
+</div>
+<div class="dynheader">
+Here is the caller graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><img src="structColorData_aa25126670ee1c55656df1d0267b8d9d0_icgraph.png" border="0" usemap="#astructColorData_aa25126670ee1c55656df1d0267b8d9d0_icgraph" alt=""/></div>
+<map name="astructColorData_aa25126670ee1c55656df1d0267b8d9d0_icgraph" id="astructColorData_aa25126670ee1c55656df1d0267b8d9d0_icgraph">
+<area shape="rect" title="Color the landmark according to the active cluster." alt="" coords="777,13,973,39"/>
+<area shape="rect" href="structColorData.html#a0ff710039a0e62d3d93cabba66ed0532" title="Notifies Sweeper that the color settings has been modified and that the data has to be recomputed." alt="" coords="527,13,729,39"/>
+<area shape="rect" href="classInputHandler.html#a4acd17428d24191471c39039ec5dd3cf" title="Handle mouse button input." alt="" coords="315,5,479,47"/>
+<area shape="rect" href="classInputHandler.html#a415d65a1189126e3a26ae281e3428fc0" title=" " alt="" coords="108,13,267,39"/>
+<area shape="rect" href="main_8cpp.html#ae66f6b31b5ad750f1fe042a706a4e3d4" title=" " alt="" coords="5,13,60,39"/>
+</map>
+</div>
+
+</div>
+</div>
+<a id="a0ff710039a0e62d3d93cabba66ed0532" name="a0ff710039a0e62d3d93cabba66ed0532"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a0ff710039a0e62d3d93cabba66ed0532">&#9670;&nbsp;</a></span>color_landmarks()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void ColorData::color_landmarks </td>
+          <td>(</td>
+          <td class="paramtype">const std::vector&lt; size_t &gt; &amp;&#160;</td>
+          <td class="paramname"><em>idxs</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Notifies <a class="el" href="structSweeper.html">Sweeper</a> that the color settings has been modified and that the data has to be recomputed. </p>
+<p >Color landmarks by active cluster.</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">idxs</td><td>Ids of landmarks that will be colored. </td></tr>
+  </table>
+  </dd>
+</dl>
+
+<p class="definition">Definition at line <a class="el" href="color__data_8cpp_source.html#l00096">96</a> of file <a class="el" href="color__data_8cpp_source.html">color_data.cpp</a>.</p>
+<div class="dynheader">
+Here is the call graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><img src="structColorData_a0ff710039a0e62d3d93cabba66ed0532_cgraph.png" border="0" usemap="#astructColorData_a0ff710039a0e62d3d93cabba66ed0532_cgraph" alt=""/></div>
+<map name="astructColorData_a0ff710039a0e62d3d93cabba66ed0532_cgraph" id="astructColorData_a0ff710039a0e62d3d93cabba66ed0532_cgraph">
+<area shape="rect" title="Notifies Sweeper that the color settings has been modified and that the data has to be recomputed." alt="" coords="5,5,208,32"/>
+<area shape="rect" href="structColorData.html#aa25126670ee1c55656df1d0267b8d9d0" title="Color the landmark according to the active cluster." alt="" coords="256,5,452,32"/>
+<area shape="rect" href="structColorData.html#a92a579faa57018d8fd3c4b4bf3cabb02" title=" " alt="" coords="500,5,677,32"/>
+<area shape="rect" href="structSweeper.html#af8cbe558ba3a09298813c9a0d8ee7234" title="Force&#45;refresh the whole range." alt="" coords="725,5,857,32"/>
+</map>
+</div>
+<div class="dynheader">
+Here is the caller graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><img src="structColorData_a0ff710039a0e62d3d93cabba66ed0532_icgraph.png" border="0" usemap="#astructColorData_a0ff710039a0e62d3d93cabba66ed0532_icgraph" alt=""/></div>
+<map name="astructColorData_a0ff710039a0e62d3d93cabba66ed0532_icgraph" id="astructColorData_a0ff710039a0e62d3d93cabba66ed0532_icgraph">
+<area shape="rect" title="Notifies Sweeper that the color settings has been modified and that the data has to be recomputed." alt="" coords="527,13,729,39"/>
+<area shape="rect" href="classInputHandler.html#a4acd17428d24191471c39039ec5dd3cf" title="Handle mouse button input." alt="" coords="315,5,479,47"/>
+<area shape="rect" href="classInputHandler.html#a415d65a1189126e3a26ae281e3428fc0" title=" " alt="" coords="108,13,267,39"/>
+<area shape="rect" href="main_8cpp.html#ae66f6b31b5ad750f1fe042a706a4e3d4" title=" " alt="" coords="5,13,60,39"/>
+</map>
+</div>
+
+</div>
+</div>
+<a id="a73e8d4473c75daca5a3982b0d0d4f489" name="a73e8d4473c75daca5a3982b0d0d4f489"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a73e8d4473c75daca5a3982b0d0d4f489">&#9670;&nbsp;</a></span>remove_landmark()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void ColorData::remove_landmark </td>
+          <td>(</td>
+          <td class="paramtype">size_t&#160;</td>
+          <td class="paramname"><em>ind</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="color__data_8cpp_source.html#l00114">114</a> of file <a class="el" href="color__data_8cpp_source.html">color_data.cpp</a>.</p>
+<div class="dynheader">
+Here is the call graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><img src="structColorData_a73e8d4473c75daca5a3982b0d0d4f489_cgraph.png" border="0" usemap="#astructColorData_a73e8d4473c75daca5a3982b0d0d4f489_cgraph" alt=""/></div>
+<map name="astructColorData_a73e8d4473c75daca5a3982b0d0d4f489_cgraph" id="astructColorData_a73e8d4473c75daca5a3982b0d0d4f489_cgraph">
+<area shape="rect" title=" " alt="" coords="5,5,220,32"/>
+<area shape="rect" href="structColorData.html#a92a579faa57018d8fd3c4b4bf3cabb02" title=" " alt="" coords="268,5,445,32"/>
+<area shape="rect" href="structSweeper.html#af8cbe558ba3a09298813c9a0d8ee7234" title="Force&#45;refresh the whole range." alt="" coords="493,5,625,32"/>
+</map>
+</div>
+<div class="dynheader">
+Here is the caller graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><img src="structColorData_a73e8d4473c75daca5a3982b0d0d4f489_icgraph.png" border="0" usemap="#astructColorData_a73e8d4473c75daca5a3982b0d0d4f489_icgraph" alt=""/></div>
+<map name="astructColorData_a73e8d4473c75daca5a3982b0d0d4f489_icgraph" id="astructColorData_a73e8d4473c75daca5a3982b0d0d4f489_icgraph">
+<area shape="rect" title=" " alt="" coords="747,13,961,39"/>
+<area shape="rect" href="classRenderer.html#aab72c7e5038cd178943c7ccdea13960f" title=" " alt="" coords="527,13,699,39"/>
+<area shape="rect" href="classInputHandler.html#a4acd17428d24191471c39039ec5dd3cf" title="Handle mouse button input." alt="" coords="315,5,479,47"/>
+<area shape="rect" href="classInputHandler.html#a415d65a1189126e3a26ae281e3428fc0" title=" " alt="" coords="108,13,267,39"/>
+<area shape="rect" href="main_8cpp.html#ae66f6b31b5ad750f1fe042a706a4e3d4" title=" " alt="" coords="5,13,60,39"/>
+</map>
+</div>
+
+</div>
+</div>
 <a id="a0c2ffb8cf9b6cbcce28c928af3b3d624" name="a0c2ffb8cf9b6cbcce28c928af3b3d624"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a0c2ffb8cf9b6cbcce28c928af3b3d624">&#9670;&nbsp;</a></span>reset()</h2>
 
@@ -264,15 +434,16 @@ Here is the call graph for this function:</div>
 
 <p>Resets color settings to their initial values. </p>
 
-<p class="definition">Definition at line <a class="el" href="color__data_8cpp_source.html#l00175">175</a> of file <a class="el" href="color__data_8cpp_source.html">color_data.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="color__data_8cpp_source.html#l00121">121</a> of file <a class="el" href="color__data_8cpp_source.html">color_data.cpp</a>.</p>
 <div class="dynheader">
 Here is the call graph for this function:</div>
 <div class="dyncontent">
 <div class="center"><img src="structColorData_a0c2ffb8cf9b6cbcce28c928af3b3d624_cgraph.png" border="0" usemap="#astructColorData_a0c2ffb8cf9b6cbcce28c928af3b3d624_cgraph" alt=""/></div>
 <map name="astructColorData_a0c2ffb8cf9b6cbcce28c928af3b3d624_cgraph" id="astructColorData_a0c2ffb8cf9b6cbcce28c928af3b3d624_cgraph">
-<area shape="rect" title="Resets color settings to their initial values." alt="" coords="5,5,133,32"/>
-<area shape="rect" href="structColorData.html#a92a579faa57018d8fd3c4b4bf3cabb02" title="Notifies Sweeper that the color settings has been modified and that the data has to be recomputed." alt="" coords="181,5,359,32"/>
-<area shape="rect" href="structSweeper.html#af8cbe558ba3a09298813c9a0d8ee7234" title="Force&#45;refresh the whole range." alt="" coords="407,5,539,32"/>
+<area shape="rect" title="Resets color settings to their initial values." alt="" coords="5,31,133,57"/>
+<area shape="rect" href="structClusterData.html#a33c6c24fb5cb90e844185babe3ad6fb8" title=" " alt="" coords="200,5,340,32"/>
+<area shape="rect" href="structColorData.html#a92a579faa57018d8fd3c4b4bf3cabb02" title=" " alt="" coords="181,56,359,83"/>
+<area shape="rect" href="structSweeper.html#af8cbe558ba3a09298813c9a0d8ee7234" title="Force&#45;refresh the whole range." alt="" coords="407,56,539,83"/>
 </map>
 </div>
 <div class="dynheader">
@@ -284,8 +455,58 @@ Here is the caller graph for this function:</div>
 <area shape="rect" href="structColorData.html#accf4e0c0d4549051a46783e964c95164" title="Calls reset() method to set initial values." alt="" coords="500,5,660,32"/>
 <area shape="rect" href="structUiColorSettings.html#a03f1da424bb36a866a522c6832ebe79e" title="Renders window with corresponding color settings widgets." alt="" coords="493,56,667,83"/>
 <area shape="rect" href="structUiMenu.html#aa4ed0bb847de6d88a9198e522c5e852e" title="Renders main menu window, the plus button and currently opened menu item windows." alt="" coords="323,56,445,83"/>
-<area shape="rect" href="classImGuiWrapper.html#ae8cc6a14b94ce5e74a9ec18e65930da4" title="Render UI." alt="" coords="108,56,275,83"/>
+<area shape="rect" href="classImGuiWrapper.html#a12022a93acba1bdcafa126e7e44d8f76" title="Render UI." alt="" coords="108,56,275,83"/>
 <area shape="rect" href="main_8cpp.html#ae66f6b31b5ad750f1fe042a706a4e3d4" title=" " alt="" coords="5,56,60,83"/>
+</map>
+</div>
+
+</div>
+</div>
+<a id="a54086887bb2f45aa6c9f51b09c0accf8" name="a54086887bb2f45aa6c9f51b09c0accf8"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a54086887bb2f45aa6c9f51b09c0accf8">&#9670;&nbsp;</a></span>reset_landmark_color()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void ColorData::reset_landmark_color </td>
+          <td>(</td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>id</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Reset colors and cluster ids of all landmarks in the cluster with input id. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">id</td><td>Input </td></tr>
+  </table>
+  </dd>
+</dl>
+
+<p class="definition">Definition at line <a class="el" href="color__data_8cpp_source.html#l00104">104</a> of file <a class="el" href="color__data_8cpp_source.html">color_data.cpp</a>.</p>
+<div class="dynheader">
+Here is the call graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><img src="structColorData_a54086887bb2f45aa6c9f51b09c0accf8_cgraph.png" border="0" usemap="#astructColorData_a54086887bb2f45aa6c9f51b09c0accf8_cgraph" alt=""/></div>
+<map name="astructColorData_a54086887bb2f45aa6c9f51b09c0accf8_cgraph" id="astructColorData_a54086887bb2f45aa6c9f51b09c0accf8_cgraph">
+<area shape="rect" title="Reset colors and cluster ids of all landmarks in the cluster with input id." alt="" coords="5,5,203,47"/>
+<area shape="rect" href="structColorData.html#a92a579faa57018d8fd3c4b4bf3cabb02" title=" " alt="" coords="251,13,428,39"/>
+<area shape="rect" href="structSweeper.html#af8cbe558ba3a09298813c9a0d8ee7234" title="Force&#45;refresh the whole range." alt="" coords="476,13,608,39"/>
+</map>
+</div>
+<div class="dynheader">
+Here is the caller graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><img src="structColorData_a54086887bb2f45aa6c9f51b09c0accf8_icgraph.png" border="0" usemap="#astructColorData_a54086887bb2f45aa6c9f51b09c0accf8_icgraph" alt=""/></div>
+<map name="astructColorData_a54086887bb2f45aa6c9f51b09c0accf8_icgraph" id="astructColorData_a54086887bb2f45aa6c9f51b09c0accf8_icgraph">
+<area shape="rect" title="Reset colors and cluster ids of all landmarks in the cluster with input id." alt="" coords="715,5,912,47"/>
+<area shape="rect" href="structUiColorSettings.html#a03f1da424bb36a866a522c6832ebe79e" title="Renders window with corresponding color settings widgets." alt="" coords="493,13,667,39"/>
+<area shape="rect" href="structUiMenu.html#aa4ed0bb847de6d88a9198e522c5e852e" title="Renders main menu window, the plus button and currently opened menu item windows." alt="" coords="323,13,445,39"/>
+<area shape="rect" href="classImGuiWrapper.html#a12022a93acba1bdcafa126e7e44d8f76" title="Render UI." alt="" coords="108,13,275,39"/>
+<area shape="rect" href="main_8cpp.html#ae66f6b31b5ad750f1fe042a706a4e3d4" title=" " alt="" coords="5,13,60,39"/>
 </map>
 </div>
 
@@ -314,15 +535,13 @@ Here is the caller graph for this function:</div>
 </table>
 </div><div class="memdoc">
 
-<p>Notifies <a class="el" href="structSweeper.html">Sweeper</a> that the color settings has been modified and that the data has to be recomputed. </p>
-
-<p class="definition">Definition at line <a class="el" href="color__data_8h_source.html#l00085">85</a> of file <a class="el" href="color__data_8h_source.html">color_data.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="color__data_8h_source.html#l00118">118</a> of file <a class="el" href="color__data_8h_source.html">color_data.h</a>.</p>
 <div class="dynheader">
 Here is the call graph for this function:</div>
 <div class="dyncontent">
 <div class="center"><img src="structColorData_a92a579faa57018d8fd3c4b4bf3cabb02_cgraph.png" border="0" usemap="#astructColorData_a92a579faa57018d8fd3c4b4bf3cabb02_cgraph" alt=""/></div>
 <map name="astructColorData_a92a579faa57018d8fd3c4b4bf3cabb02_cgraph" id="astructColorData_a92a579faa57018d8fd3c4b4bf3cabb02_cgraph">
-<area shape="rect" title="Notifies Sweeper that the color settings has been modified and that the data has to be recomputed." alt="" coords="5,5,183,32"/>
+<area shape="rect" title=" " alt="" coords="5,5,183,32"/>
 <area shape="rect" href="structSweeper.html#af8cbe558ba3a09298813c9a0d8ee7234" title="Force&#45;refresh the whole range." alt="" coords="231,5,363,32"/>
 </map>
 </div>
@@ -331,20 +550,27 @@ Here is the caller graph for this function:</div>
 <div class="dyncontent">
 <div class="center"><img src="structColorData_a92a579faa57018d8fd3c4b4bf3cabb02_icgraph.png" border="0" usemap="#astructColorData_a92a579faa57018d8fd3c4b4bf3cabb02_icgraph" alt=""/></div>
 <map name="astructColorData_a92a579faa57018d8fd3c4b4bf3cabb02_icgraph" id="astructColorData_a92a579faa57018d8fd3c4b4bf3cabb02_icgraph">
-<area shape="rect" title="Notifies Sweeper that the color settings has been modified and that the data has to be recomputed." alt="" coords="891,31,1068,57"/>
-<area shape="rect" href="structUiColorSettings.html#a03f1da424bb36a866a522c6832ebe79e" title="Renders window with corresponding color settings widgets." alt="" coords="493,5,667,32"/>
-<area shape="rect" href="structColorData.html#a0c2ffb8cf9b6cbcce28c928af3b3d624" title="Resets color settings to their initial values." alt="" coords="715,56,843,83"/>
-<area shape="rect" href="structUiMenu.html#aa4ed0bb847de6d88a9198e522c5e852e" title="Renders main menu window, the plus button and currently opened menu item windows." alt="" coords="323,5,445,32"/>
-<area shape="rect" href="classImGuiWrapper.html#ae8cc6a14b94ce5e74a9ec18e65930da4" title="Render UI." alt="" coords="108,5,275,32"/>
-<area shape="rect" href="main_8cpp.html#ae66f6b31b5ad750f1fe042a706a4e3d4" title=" " alt="" coords="5,5,60,32"/>
-<area shape="rect" href="structColorData.html#accf4e0c0d4549051a46783e964c95164" title="Calls reset() method to set initial values." alt="" coords="500,56,660,83"/>
+<area shape="rect" title=" " alt="" coords="1048,107,1225,133"/>
+<area shape="rect" href="structColorData.html#aa25126670ee1c55656df1d0267b8d9d0" title="Color the landmark according to the active cluster." alt="" coords="795,5,991,32"/>
+<area shape="rect" href="structColorData.html#a73e8d4473c75daca5a3982b0d0d4f489" title=" " alt="" coords="785,56,1000,83"/>
+<area shape="rect" href="structUiColorSettings.html#a03f1da424bb36a866a522c6832ebe79e" title="Renders window with corresponding color settings widgets." alt="" coords="549,153,723,180"/>
+<area shape="rect" href="structColorData.html#a0c2ffb8cf9b6cbcce28c928af3b3d624" title="Resets color settings to their initial values." alt="" coords="829,224,957,251"/>
+<area shape="rect" href="structColorData.html#a54086887bb2f45aa6c9f51b09c0accf8" title="Reset colors and cluster ids of all landmarks in the cluster with input id." alt="" coords="794,158,991,199"/>
+<area shape="rect" href="structColorData.html#a0ff710039a0e62d3d93cabba66ed0532" title="Notifies Sweeper that the color settings has been modified and that the data has to be recomputed." alt="" coords="535,5,737,32"/>
+<area shape="rect" href="classInputHandler.html#a4acd17428d24191471c39039ec5dd3cf" title="Handle mouse button input." alt="" coords="323,49,487,90"/>
+<area shape="rect" href="classInputHandler.html#a415d65a1189126e3a26ae281e3428fc0" title=" " alt="" coords="112,84,271,111"/>
+<area shape="rect" href="main_8cpp.html#ae66f6b31b5ad750f1fe042a706a4e3d4" title=" " alt="" coords="5,111,60,137"/>
+<area shape="rect" href="classRenderer.html#aab72c7e5038cd178943c7ccdea13960f" title=" " alt="" coords="550,56,722,83"/>
+<area shape="rect" href="structUiMenu.html#aa4ed0bb847de6d88a9198e522c5e852e" title="Renders main menu window, the plus button and currently opened menu item windows." alt="" coords="343,140,466,167"/>
+<area shape="rect" href="classImGuiWrapper.html#a12022a93acba1bdcafa126e7e44d8f76" title="Render UI." alt="" coords="108,136,275,163"/>
+<area shape="rect" href="structColorData.html#accf4e0c0d4549051a46783e964c95164" title="Calls reset() method to set initial values." alt="" coords="556,224,716,251"/>
 </map>
 </div>
 
 </div>
 </div>
-<a id="ab7e8d8eb653ca730e188ca4691d16635" name="ab7e8d8eb653ca730e188ca4691d16635"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ab7e8d8eb653ca730e188ca4691d16635">&#9670;&nbsp;</a></span>update()</h2>
+<a id="a0307bbbea7bea14b441e20dd13422dba" name="a0307bbbea7bea14b441e20dd13422dba"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a0307bbbea7bea14b441e20dd13422dba">&#9670;&nbsp;</a></span>update()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -353,8 +579,24 @@ Here is the caller graph for this function:</div>
           <td class="memname">void ColorData::update </td>
           <td>(</td>
           <td class="paramtype">const <a class="el" href="structTransData.html">TransData</a> &amp;&#160;</td>
-          <td class="paramname"><em>td</em></td><td>)</td>
+          <td class="paramname"><em>td</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
           <td></td>
+          <td class="paramtype">const <a class="el" href="structLandmarkModel.html">LandmarkModel</a> &amp;&#160;</td>
+          <td class="paramname"><em>lm</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="structFrameStats.html">FrameStats</a> &amp;&#160;</td>
+          <td class="paramname"><em>frame_stats</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
         </tr>
       </table>
 </div><div class="memdoc">
@@ -367,32 +609,44 @@ Here is the caller graph for this function:</div>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="color__data_8cpp_source.html#l00099">99</a> of file <a class="el" href="color__data_8cpp_source.html">color_data.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="color__data_8cpp_source.html#l00025">25</a> of file <a class="el" href="color__data_8cpp_source.html">color_data.cpp</a>.</p>
 <div class="dynheader">
 Here is the call graph for this function:</div>
 <div class="dyncontent">
-<div class="center"><img src="structColorData_ab7e8d8eb653ca730e188ca4691d16635_cgraph.png" border="0" usemap="#astructColorData_ab7e8d8eb653ca730e188ca4691d16635_cgraph" alt=""/></div>
-<map name="astructColorData_ab7e8d8eb653ca730e188ca4691d16635_cgraph" id="astructColorData_ab7e8d8eb653ca730e188ca4691d16635_cgraph">
-<area shape="rect" title="Recomputes color of the 2D data points if user has changed any of the color settings." alt="" coords="5,132,145,159"/>
-<area shape="rect" href="structSweeper.html#ac14e4c576c9a3d24a777d1e44102c483" title="Clean a range of the cache." alt="" coords="193,5,359,32"/>
-<area shape="rect" href="color__data_8cpp.html#a3fb596985e9e4375aa3fe50bb1be6768" title="Creates color palette with the size of the cluster count." alt="" coords="205,56,347,83"/>
-<area shape="rect" href="structTransData.html#a3208334ef7d269f3bcee47a3f7d91860" title="Returns dimension of the transformed data." alt="" coords="216,107,336,133"/>
-<area shape="rect" href="structSweeper.html#a83feb9f88763ea6024500942372a6c16" title="Find the range to refresh." alt="" coords="196,157,356,184"/>
-<area shape="rect" href="structSweeper.html#af8cbe558ba3a09298813c9a0d8ee7234" title="Force&#45;refresh the whole range." alt="" coords="407,208,539,235"/>
-<area shape="rect" href="pnorm_8cpp.html#a9047caed4e2bdf40a79333aefd2bdaac" title=" " alt="" coords="241,259,311,285"/>
-<area shape="rect" href="color__data_8cpp.html#a58fc559a4db9fefd04bbefe0663cf817" title="Converts hsv color to rgb color system." alt="" coords="435,56,510,83"/>
-<area shape="rect" href="structCleaner.html#a0ab2a86910726bba3cadd22dec4e00ec" title="Call this when the cache is refreshed." alt="" coords="415,107,530,133"/>
-<area shape="rect" href="structCleaner.html#a1c6ef6eb6c37d12f318a53f720f93bae" title="Returns true if the cache needs to be refreshed." alt="" coords="417,157,528,184"/>
-<area shape="rect" href="pnorm_8cpp.html#aab661c1c717b3e236406778b15cee836" title="The actual implementation of pnormf()." alt="" coords="423,259,523,285"/>
+<div class="center"><img src="structColorData_a0307bbbea7bea14b441e20dd13422dba_cgraph.png" border="0" usemap="#astructColorData_a0307bbbea7bea14b441e20dd13422dba_cgraph" alt=""/></div>
+<map name="astructColorData_a0307bbbea7bea14b441e20dd13422dba_cgraph" id="astructColorData_a0307bbbea7bea14b441e20dd13422dba_cgraph">
+<area shape="rect" title="Recomputes color of the 2D data points if user has changed any of the color settings." alt="" coords="5,368,145,395"/>
+<area shape="rect" href="structFrameStats.html#a1d7c7c0ba39c41dde8797db556aabf4d" title=" " alt="" coords="193,56,400,83"/>
+<area shape="rect" href="structCleaner.html#a0ab2a86910726bba3cadd22dec4e00ec" title="Call this when the cache is refreshed." alt="" coords="500,113,615,140"/>
+<area shape="rect" href="structSweeper.html#ac14e4c576c9a3d24a777d1e44102c483" title="Clean a range of the cache." alt="" coords="214,309,379,336"/>
+<area shape="rect" href="structTransData.html#a3208334ef7d269f3bcee47a3f7d91860" title="Returns dimension of the transformed data." alt="" coords="497,423,617,449"/>
+<area shape="rect" href="structCleaner.html#a1c6ef6eb6c37d12f318a53f720f93bae" title="Returns true if the cache needs to be refreshed." alt="" coords="502,189,613,216"/>
+<area shape="rect" href="structSweeper.html#a83feb9f88763ea6024500942372a6c16" title="Find the range to refresh." alt="" coords="217,208,377,235"/>
+<area shape="rect" href="structSweeper.html#af8cbe558ba3a09298813c9a0d8ee7234" title="Force&#45;refresh the whole range." alt="" coords="491,249,623,276"/>
+<area shape="rect" href="structClusterData.html#a52606abe729982decff59021108e4263" title=" " alt="" coords="203,477,390,504"/>
+<area shape="rect" href="structLandmarkModel.html#a128124429b96766980b0cbd2a6980d5f" title="Reurns number of the 2D landmarks." alt="" coords="448,473,667,500"/>
+<area shape="rect" href="structClusterData.html#a6eb37e26ff8be5a02fab28671d4890ad" title=" " alt="" coords="209,361,384,402"/>
+<area shape="rect" href="classBatchSizeGen.html#a3bb0cbff59acbd46f4a7ebaa4487c1fa" title="Computes size of the next batch." alt="" coords="222,579,371,605"/>
+<area shape="rect" href="classBatchSizeGen.html#a6cbdb9238c56dbe3cd3dc30b8b757a85" title=" " alt="" coords="481,641,634,668"/>
+<area shape="rect" href="pnorm_8cpp.html#a9047caed4e2bdf40a79333aefd2bdaac" title=" " alt="" coords="262,680,331,707"/>
+<area shape="rect" href="structFrameStats.html#a46b82e363d4d34052c1b20e2e202511c" title=" " alt="" coords="228,731,365,757"/>
+<area shape="rect" href="structFrameStats.html#a35f1a18179979b4a7ac5281ac1c83b79" title=" " alt="" coords="209,5,384,32"/>
+<area shape="rect" href="structTimer.html#a6f4dc6b9e9f333fa4c60ddf2ff33c801" title="Counts frametime and sets last_tick variable to current time." alt="" coords="511,51,603,77"/>
+<area shape="rect" href="cluster__data_8cpp.html#a3fb596985e9e4375aa3fe50bb1be6768" title="Creates color palette with the size of the cluster count." alt="" coords="486,368,629,395"/>
+<area shape="rect" href="cluster__data_8cpp.html#a58fc559a4db9fefd04bbefe0663cf817" title="Converts hsv color to rgb color system." alt="" coords="741,368,815,395"/>
+<area shape="rect" href="classEstimator.html#aac56937d6f7e7cacc3e41901daece7e3" title=" " alt="" coords="468,591,647,617"/>
+<area shape="rect" href="classEstimator.html#a305e7078e18d8d56f56290b21e38c652" title=" " alt="" coords="486,525,629,566"/>
+<area shape="rect" href="classEstimator.html#a604eba93c1acc67ba9022e2d678248c9" title=" " alt="" coords="715,641,841,668"/>
+<area shape="rect" href="pnorm_8cpp.html#aab661c1c717b3e236406778b15cee836" title="The actual implementation of pnormf()." alt="" coords="507,692,607,719"/>
 </map>
 </div>
 <div class="dynheader">
 Here is the caller graph for this function:</div>
 <div class="dyncontent">
-<div class="center"><img src="structColorData_ab7e8d8eb653ca730e188ca4691d16635_icgraph.png" border="0" usemap="#astructColorData_ab7e8d8eb653ca730e188ca4691d16635_icgraph" alt=""/></div>
-<map name="astructColorData_ab7e8d8eb653ca730e188ca4691d16635_icgraph" id="astructColorData_ab7e8d8eb653ca730e188ca4691d16635_icgraph">
+<div class="center"><img src="structColorData_a0307bbbea7bea14b441e20dd13422dba_icgraph.png" border="0" usemap="#astructColorData_a0307bbbea7bea14b441e20dd13422dba_icgraph" alt=""/></div>
+<map name="astructColorData_a0307bbbea7bea14b441e20dd13422dba_icgraph" id="astructColorData_a0307bbbea7bea14b441e20dd13422dba_icgraph">
 <area shape="rect" title="Recomputes color of the 2D data points if user has changed any of the color settings." alt="" coords="265,5,405,32"/>
-<area shape="rect" href="structState.html#adcd0d835af130aa668bcc5799e8bb0c7" title="Performs simulation steps of all active algorithms and updates data according to the user interaction..." alt="" coords="108,5,217,32"/>
+<area shape="rect" href="structState.html#a08edb55dfdad9afc055fa9440564b04a" title="Performs simulation steps of all active algorithms and updates data according to the user interaction..." alt="" coords="108,5,217,32"/>
 <area shape="rect" href="main_8cpp.html#ae66f6b31b5ad750f1fe042a706a4e3d4" title=" " alt="" coords="5,5,60,32"/>
 </map>
 </div>
@@ -415,43 +669,39 @@ Here is the caller graph for this function:</div>
 <p>Alpha channel of RGBA color. </p>
 <p >It is the same for all 2D data points. </p>
 
-<p class="definition">Definition at line <a class="el" href="color__data_8h_source.html#l00062">62</a> of file <a class="el" href="color__data_8h_source.html">color_data.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="color__data_8h_source.html#l00073">73</a> of file <a class="el" href="color__data_8h_source.html">color_data.h</a>.</p>
 
 </div>
 </div>
-<a id="a45ef3906fdd80eff47695967da008146" name="a45ef3906fdd80eff47695967da008146"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a45ef3906fdd80eff47695967da008146">&#9670;&nbsp;</a></span>cluster_cnt</h2>
+<a id="ae1915a11e10f4749200711e340c601ad" name="ae1915a11e10f4749200711e340c601ad"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ae1915a11e10f4749200711e340c601ad">&#9670;&nbsp;</a></span>batch_size_gen</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">int ColorData::cluster_cnt</td>
+          <td class="memname"><a class="el" href="classBatchSizeGen.html">BatchSizeGen</a> ColorData::batch_size_gen</td>
         </tr>
       </table>
 </div><div class="memdoc">
 
-<p>Count of the clusters used in cluster coloring. </p>
-
-<p class="definition">Definition at line <a class="el" href="color__data_8h_source.html#l00060">60</a> of file <a class="el" href="color__data_8h_source.html">color_data.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="color__data_8h_source.html#l00078">78</a> of file <a class="el" href="color__data_8h_source.html">color_data.h</a>.</p>
 
 </div>
 </div>
-<a id="a6fc689e170c6039889f5e09aa46bdcf8" name="a6fc689e170c6039889f5e09aa46bdcf8"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a6fc689e170c6039889f5e09aa46bdcf8">&#9670;&nbsp;</a></span>cluster_col</h2>
+<a id="a7642b50891aff07a100472520fac066b" name="a7642b50891aff07a100472520fac066b"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a7642b50891aff07a100472520fac066b">&#9670;&nbsp;</a></span>clustering</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">int ColorData::cluster_col</td>
+          <td class="memname"><a class="el" href="structClusterData.html">ClusterData</a> ColorData::clustering</td>
         </tr>
       </table>
 </div><div class="memdoc">
 
-<p>Index of the column used in cluster coloring. </p>
-
-<p class="definition">Definition at line <a class="el" href="color__data_8h_source.html#l00058">58</a> of file <a class="el" href="color__data_8h_source.html">color_data.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="color__data_8h_source.html#l00071">71</a> of file <a class="el" href="color__data_8h_source.html">color_data.h</a>.</p>
 
 </div>
 </div>
@@ -469,7 +719,7 @@ Here is the caller graph for this function:</div>
 
 <p>Name of the currently used color palette. </p>
 
-<p class="definition">Definition at line <a class="el" href="color__data_8h_source.html#l00056">56</a> of file <a class="el" href="color__data_8h_source.html">color_data.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="color__data_8h_source.html#l00069">69</a> of file <a class="el" href="color__data_8h_source.html">color_data.h</a>.</p>
 
 </div>
 </div>
@@ -487,7 +737,7 @@ Here is the caller graph for this function:</div>
 
 <p>Type of the coloring method. </p>
 
-<p class="definition">Definition at line <a class="el" href="color__data_8h_source.html#l00052">52</a> of file <a class="el" href="color__data_8h_source.html">color_data.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="color__data_8h_source.html#l00065">65</a> of file <a class="el" href="color__data_8h_source.html">color_data.h</a>.</p>
 
 </div>
 </div>
@@ -504,9 +754,25 @@ Here is the caller graph for this function:</div>
 </div><div class="memdoc">
 
 <p>Colors of the 2D data points. </p>
-<p >Array has the size of number of 2D data points. </p>
+<p >Array has the size of the number of 2D data points. </p>
 
-<p class="definition">Definition at line <a class="el" href="color__data_8h_source.html#l00050">50</a> of file <a class="el" href="color__data_8h_source.html">color_data.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="color__data_8h_source.html#l00059">59</a> of file <a class="el" href="color__data_8h_source.html">color_data.h</a>.</p>
+
+</div>
+</div>
+<a id="ad00892cfd0df671ac6172975deb6284d" name="ad00892cfd0df671ac6172975deb6284d"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ad00892cfd0df671ac6172975deb6284d">&#9670;&nbsp;</a></span>default_landmark_color</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">const glm::vec3 ColorData::default_landmark_color = { 0.4, 0.4, 0.4 }</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="color__data_8h_source.html#l00052">52</a> of file <a class="el" href="color__data_8h_source.html">color_data.h</a>.</p>
 
 </div>
 </div>
@@ -523,6 +789,41 @@ Here is the caller graph for this function:</div>
 </div><div class="memdoc">
 
 <p>Index of the column used in expression coloring. </p>
+
+<p class="definition">Definition at line <a class="el" href="color__data_8h_source.html#l00067">67</a> of file <a class="el" href="color__data_8h_source.html">color_data.h</a>.</p>
+
+</div>
+</div>
+<a id="a189b02a8361f3db8c0ad3f3632acafda" name="a189b02a8361f3db8c0ad3f3632acafda"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a189b02a8361f3db8c0ad3f3632acafda">&#9670;&nbsp;</a></span>landmarks</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::vector&lt;std::pair&lt;const glm::vec3 *, int&gt; &gt; ColorData::landmarks</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Colors of the landmarks and id of the cluster. </p>
+<p >Array has the size of the number of landmarks. &lt;color, cluster id&gt; </p>
+
+<p class="definition">Definition at line <a class="el" href="color__data_8h_source.html#l00063">63</a> of file <a class="el" href="color__data_8h_source.html">color_data.h</a>.</p>
+
+</div>
+</div>
+<a id="a96ebabacc16530e7b0caa9911a03fe90" name="a96ebabacc16530e7b0caa9911a03fe90"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a96ebabacc16530e7b0caa9911a03fe90">&#9670;&nbsp;</a></span>lm_watch</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="structCleaner.html">Cleaner</a> ColorData::lm_watch</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
 
 <p class="definition">Definition at line <a class="el" href="color__data_8h_source.html#l00054">54</a> of file <a class="el" href="color__data_8h_source.html">color_data.h</a>.</p>
 
@@ -542,7 +843,7 @@ Here is the caller graph for this function:</div>
 
 <p>Flag indicating if the colors of the color palette should be reversed. </p>
 
-<p class="definition">Definition at line <a class="el" href="color__data_8h_source.html#l00065">65</a> of file <a class="el" href="color__data_8h_source.html">color_data.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="color__data_8h_source.html#l00076">76</a> of file <a class="el" href="color__data_8h_source.html">color_data.h</a>.</p>
 
 </div>
 </div>

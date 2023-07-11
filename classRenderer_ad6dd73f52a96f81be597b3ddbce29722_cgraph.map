@@ -1,0 +1,6 @@
+<map id="Renderer::move_selection" name="Renderer::move_selection">
+<area shape="rect" id="node1" title=" " alt="" coords="5,5,197,32"/>
+<area shape="rect" id="node2" href="$structUiRenderer.html#af6acfea548dd6d0f18ae4e6756e32884" title=" " alt="" coords="245,5,452,32"/>
+<area shape="rect" id="node3" href="$structLandmarkModel.html#a1d65e93179cc9de8bb158a4ca9a08625" title="Sets two&#45;dimensional position of the pressed landmark to mouse position." alt="" coords="500,5,672,32"/>
+<area shape="rect" id="node4" href="$structDirt.html#a6753e4542f5254af6366b36b5864a37e" title="Make the cache dirty." alt="" coords="720,5,811,32"/>
+</map>

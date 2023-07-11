@@ -81,9 +81,9 @@ $(function() {
 Public Member Functions</h2></td></tr>
 <tr class="memitem:afd8b0d6542992a2c7b56d378aff88222"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classView.html#afd8b0d6542992a2c7b56d378aff88222">View</a> (int <a class="el" href="classView.html#ae039aa744b085db819ae149705b2c32b">width</a>=800, int <a class="el" href="classView.html#a6e3e5c18893617490f02166641356746">height</a>=600, glm::vec3 position=glm::vec3(0.0f, 0.0f, 1.0f), glm::vec3 <a class="el" href="classView.html#a0dd006a9bfcbbed43d75ac2440ea0ecc">up</a>=glm::vec3(0.0f, 1.0f, 0.0f))</td></tr>
 <tr class="separator:afd8b0d6542992a2c7b56d378aff88222"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a357e8c8e1316cc0602a9d39f4c473ec4"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classView.html#a357e8c8e1316cc0602a9d39f4c473ec4">update</a> (float dt, const <a class="el" href="structCallbackValues.html">CallbackValues</a> &amp;callbacks)</td></tr>
-<tr class="memdesc:a357e8c8e1316cc0602a9d39f4c473ec4"><td class="mdescLeft">&#160;</td><td class="mdescRight">Move the current position and zoom a bit closer to the target position and zoom.  <a href="classView.html#a357e8c8e1316cc0602a9d39f4c473ec4">More...</a><br /></td></tr>
-<tr class="separator:a357e8c8e1316cc0602a9d39f4c473ec4"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a9b13194ddf7bb4e00254248932597713"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classView.html#a9b13194ddf7bb4e00254248932597713">update</a> (float dt, int w, int h)</td></tr>
+<tr class="memdesc:a9b13194ddf7bb4e00254248932597713"><td class="mdescLeft">&#160;</td><td class="mdescRight">Move the current position and zoom a bit closer to the target position and zoom.  <a href="classView.html#a9b13194ddf7bb4e00254248932597713">More...</a><br /></td></tr>
+<tr class="separator:a9b13194ddf7bb4e00254248932597713"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ae2675b41a3c49d8b52784955d128234a"><td class="memItemLeft" align="right" valign="top">glm::mat4&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classView.html#ae2675b41a3c49d8b52784955d128234a">get_view_matrix</a> () const</td></tr>
 <tr class="memdesc:ae2675b41a3c49d8b52784955d128234a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Compute view matrix for drawing into the "view" space.  <a href="classView.html#ae2675b41a3c49d8b52784955d128234a">More...</a><br /></td></tr>
 <tr class="separator:ae2675b41a3c49d8b52784955d128234a"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -100,6 +100,18 @@ Public Member Functions</h2></td></tr>
 <tr class="memdesc:ae728fdbc1b95ae6fd588d1d2b8d375db"><td class="mdescLeft">&#160;</td><td class="mdescRight">Converts point to screen coordinates([0,0] in the middle of the
 screen).  <a href="classView.html#ae728fdbc1b95ae6fd588d1d2b8d375db">More...</a><br /></td></tr>
 <tr class="separator:ae728fdbc1b95ae6fd588d1d2b8d375db"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a4286002c32c1dba63e4933aa0bff4210"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classView.html#a4286002c32c1dba63e4933aa0bff4210">move_y</a> (int dir)</td></tr>
+<tr class="memdesc:a4286002c32c1dba63e4933aa0bff4210"><td class="mdescLeft">&#160;</td><td class="mdescRight">Move view along Y-axis.  <a href="classView.html#a4286002c32c1dba63e4933aa0bff4210">More...</a><br /></td></tr>
+<tr class="separator:a4286002c32c1dba63e4933aa0bff4210"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aca4b330ddab799e009009bbb4b345be0"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classView.html#aca4b330ddab799e009009bbb4b345be0">move_x</a> (int dir)</td></tr>
+<tr class="memdesc:aca4b330ddab799e009009bbb4b345be0"><td class="mdescLeft">&#160;</td><td class="mdescRight">Move view along X-axis.  <a href="classView.html#aca4b330ddab799e009009bbb4b345be0">More...</a><br /></td></tr>
+<tr class="separator:aca4b330ddab799e009009bbb4b345be0"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a9188757b9f975297de2104b132be01c0"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classView.html#a9188757b9f975297de2104b132be01c0">zoom</a> (float yoffset, glm::vec2 mouse)</td></tr>
+<tr class="memdesc:a9188757b9f975297de2104b132be01c0"><td class="mdescLeft">&#160;</td><td class="mdescRight">Adjust zoom accordingly.  <a href="classView.html#a9188757b9f975297de2104b132be01c0">More...</a><br /></td></tr>
+<tr class="separator:a9188757b9f975297de2104b132be01c0"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a429fdc29e7533674e16a4cacf4efb5ad"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classView.html#a429fdc29e7533674e16a4cacf4efb5ad">look_at</a> (glm::vec2 tgt)</td></tr>
+<tr class="memdesc:a429fdc29e7533674e16a4cacf4efb5ad"><td class="mdescLeft">&#160;</td><td class="mdescRight">Cause the camera to look at the specified point.  <a href="classView.html#a429fdc29e7533674e16a4cacf4efb5ad">More...</a><br /></td></tr>
+<tr class="separator:a429fdc29e7533674e16a4cacf4efb5ad"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-attribs" name="pub-attribs"></a>
 Public Attributes</h2></td></tr>
@@ -135,25 +147,14 @@ Private Member Functions</h2></td></tr>
 <tr class="memitem:af1964e06e4b0463b3b9142f8bdbe2c10"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classView.html#af1964e06e4b0463b3b9142f8bdbe2c10">update_view_vectors</a> ()</td></tr>
 <tr class="memdesc:af1964e06e4b0463b3b9142f8bdbe2c10"><td class="mdescLeft">&#160;</td><td class="mdescRight">Re-calculates the right and up vector from the <a class="el" href="classView.html" title="A small utility class that manages the viewport coordinates, together with the virtual &quot;camera&quot; posit...">View</a>'s updated vectors.  <a href="classView.html#af1964e06e4b0463b3b9142f8bdbe2c10">More...</a><br /></td></tr>
 <tr class="separator:af1964e06e4b0463b3b9142f8bdbe2c10"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aabb37f3e5e0031e0d0a7d2f88d344df9"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classView.html#aabb37f3e5e0031e0d0a7d2f88d344df9">process_keyboard</a> (int key, int action)</td></tr>
-<tr class="memdesc:aabb37f3e5e0031e0d0a7d2f88d344df9"><td class="mdescLeft">&#160;</td><td class="mdescRight">Process keyboard input and move the "camera" accordingly.  <a href="classView.html#aabb37f3e5e0031e0d0a7d2f88d344df9">More...</a><br /></td></tr>
-<tr class="separator:aabb37f3e5e0031e0d0a7d2f88d344df9"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aeafc494c5781169ee93aae61ac67e775"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classView.html#aeafc494c5781169ee93aae61ac67e775">process_mouse_scroll</a> (float yoffset, glm::vec2 mouse)</td></tr>
-<tr class="memdesc:aeafc494c5781169ee93aae61ac67e775"><td class="mdescLeft">&#160;</td><td class="mdescRight">Process mouse scroll and adjust zoom accordingly.  <a href="classView.html#aeafc494c5781169ee93aae61ac67e775">More...</a><br /></td></tr>
-<tr class="separator:aeafc494c5781169ee93aae61ac67e775"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a542f06af2c25d7317497dcf8ba1c3d58"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classView.html#a542f06af2c25d7317497dcf8ba1c3d58">process_mouse_button</a> (int button, int action, glm::vec2 mouse_pos)</td></tr>
-<tr class="separator:a542f06af2c25d7317497dcf8ba1c3d58"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a891e963a0575956ccb9ae5bd8168e823"><td class="memItemLeft" align="right" valign="top">glm::vec2&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classView.html#a891e963a0575956ccb9ae5bd8168e823">screen_point_coords</a> (glm::vec2 point) const</td></tr>
 <tr class="memdesc:a891e963a0575956ccb9ae5bd8168e823"><td class="mdescLeft">&#160;</td><td class="mdescRight">Convert point coordinates ([0,0] in the upper left corner), to screen coordinates ([0,0] in the middle of the screen).  <a href="classView.html#a891e963a0575956ccb9ae5bd8168e823">More...</a><br /></td></tr>
 <tr class="separator:a891e963a0575956ccb9ae5bd8168e823"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a429fdc29e7533674e16a4cacf4efb5ad"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classView.html#a429fdc29e7533674e16a4cacf4efb5ad">look_at</a> (glm::vec2 tgt)</td></tr>
-<tr class="memdesc:a429fdc29e7533674e16a4cacf4efb5ad"><td class="mdescLeft">&#160;</td><td class="mdescRight">Cause the camera to look at the specified point.  <a href="classView.html#a429fdc29e7533674e16a4cacf4efb5ad">More...</a><br /></td></tr>
-<tr class="separator:a429fdc29e7533674e16a4cacf4efb5ad"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p >A small utility class that manages the viewport coordinates, together with the virtual "camera" position and zoom. </p>
 
-<p class="definition">Definition at line <a class="el" href="view_8h_source.html#l00039">39</a> of file <a class="el" href="view_8h_source.html">view.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="view_8h_source.html#l00036">36</a> of file <a class="el" href="view_8h_source.html">view.h</a>.</p>
 </div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
 <a id="afd8b0d6542992a2c7b56d378aff88222" name="afd8b0d6542992a2c7b56d378aff88222"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#afd8b0d6542992a2c7b56d378aff88222">&#9670;&nbsp;</a></span>View()</h2>
@@ -201,7 +202,7 @@ Private Member Functions</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="view_8h_source.html#l00062">62</a> of file <a class="el" href="view_8h_source.html">view.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="view_8h_source.html#l00059">59</a> of file <a class="el" href="view_8h_source.html">view.h</a>.</p>
 <div class="dynheader">
 Here is the call graph for this function:</div>
 <div class="dyncontent">
@@ -241,25 +242,32 @@ Here is the call graph for this function:</div>
 <p>Compute projection matrix for orthographic projection. </p>
 <dl class="section return"><dt>Returns</dt><dd>glm::mat4 Projection matrix </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="view_8h_source.html#l00120">120</a> of file <a class="el" href="view_8h_source.html">view.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="view_8h_source.html#l00108">108</a> of file <a class="el" href="view_8h_source.html">view.h</a>.</p>
 <div class="dynheader">
 Here is the caller graph for this function:</div>
 <div class="dyncontent">
 <div class="center"><img src="classView_a9e79788c1b06ba8176273672d6fc5d1f_icgraph.png" border="0" usemap="#aclassView_a9e79788c1b06ba8176273672d6fc5d1f_icgraph" alt=""/></div>
 <map name="aclassView_a9e79788c1b06ba8176273672d6fc5d1f_icgraph" id="aclassView_a9e79788c1b06ba8176273672d6fc5d1f_icgraph">
-<area shape="rect" title="Compute projection matrix for orthographic projection." alt="" coords="995,81,1159,108"/>
-<area shape="rect" href="structGraphRenderer.html#a5035b51f22a5d28314566fbb13dd7b23" title="Draw event of the 2D landmark graph." alt="" coords="783,5,943,32"/>
-<area shape="rect" href="structScatterRenderer.html#a37c7029cc2506b81c420691bcff3b207" title="Draw event of the 2D data points." alt="" coords="780,56,947,83"/>
-<area shape="rect" href="classView.html#aeda343862d3aa831814d252c6361cb90" title="Convert mouse coordinates ([0,0] in the upper left corner), to model coordinates ([0,..." alt="" coords="529,163,732,189"/>
-<area shape="rect" href="classView.html#ae728fdbc1b95ae6fd588d1d2b8d375db" title="Converts point to screen coordinates([0,0] in the middle of the screen)." alt="" coords="786,107,941,133"/>
-<area shape="rect" href="classRenderer.html#ab407870f559dfa892dd1dab1b842523f" title="Render graph and scatterplot." alt="" coords="565,45,696,72"/>
-<area shape="rect" href="classRenderer.html#acc7b3656f13c505a21175802a877e873" title="Process input events and render graph and scatterplot with updated values." alt="" coords="108,104,243,131"/>
-<area shape="rect" href="main_8cpp.html#ae66f6b31b5ad750f1fe042a706a4e3d4" title=" " alt="" coords="5,133,60,160"/>
-<area shape="rect" href="classRenderer.html#a95b6e3922529d554e7c6ee02f6108bfc" title="Process mouse input and moves the landmarks." alt="" coords="291,104,481,131"/>
-<area shape="rect" href="classView.html#a542f06af2c25d7317497dcf8ba1c3d58" title=" " alt="" coords="305,155,467,197"/>
-<area shape="rect" href="classView.html#aeafc494c5781169ee93aae61ac67e775" title="Process mouse scroll and adjust zoom accordingly." alt="" coords="305,221,467,262"/>
-<area shape="rect" href="classView.html#a357e8c8e1316cc0602a9d39f4c473ec4" title="Move the current position and zoom a bit closer to the target position and zoom." alt="" coords="122,163,229,189"/>
-<area shape="rect" href="structGraphRenderer.html#a0ff79676c92cc249ece2d7c8e53ee90c" title="Checks if some vertex was pressed." alt="" coords="545,97,717,138"/>
+<area shape="rect" title="Compute projection matrix for orthographic projection." alt="" coords="1245,107,1409,133"/>
+<area shape="rect" href="structScatterRenderer.html#ac3fe7953a924ede8ad6dd989970b9374" title="Draw event of the 2D data points." alt="" coords="1013,107,1179,133"/>
+<area shape="rect" href="structUiRenderer.html#a3ef14402100a1b5fe0e0d96ae98b0fe8" title=" " alt="" coords="1029,5,1163,32"/>
+<area shape="rect" href="structGraphRenderer.html#a69da926110c3259b3d992ce7c1639036" title="Draw event of the 2D landmark graph." alt="" coords="1016,56,1176,83"/>
+<area shape="rect" href="classView.html#aeda343862d3aa831814d252c6361cb90" title="Convert mouse coordinates ([0,0] in the upper left corner), to model coordinates ([0,..." alt="" coords="995,344,1197,371"/>
+<area shape="rect" href="classView.html#ae728fdbc1b95ae6fd588d1d2b8d375db" title="Converts point to screen coordinates([0,0] in the middle of the screen)." alt="" coords="1019,157,1173,184"/>
+<area shape="rect" href="classRenderer.html#a0936ec5e094ff46a696c579cd6f37569" title="Render graph and scatterplot." alt="" coords="788,44,919,71"/>
+<area shape="rect" href="main_8cpp.html#ae66f6b31b5ad750f1fe042a706a4e3d4" title=" " alt="" coords="5,167,60,193"/>
+<area shape="rect" href="classRenderer.html#a2bd0e4a83b7a2686ff518cc6f41afd8d" title=" " alt="" coords="546,344,693,371"/>
+<area shape="rect" href="classInputHandler.html#a4acd17428d24191471c39039ec5dd3cf" title="Handle mouse button input." alt="" coords="315,278,479,319"/>
+<area shape="rect" href="classView.html#a429fdc29e7533674e16a4cacf4efb5ad" title="Cause the camera to look at the specified point." alt="" coords="565,445,674,472"/>
+<area shape="rect" href="classRenderer.html#a9edc7edf33955d447b5fd8e4efb5b17f" title=" " alt="" coords="540,227,699,253"/>
+<area shape="rect" href="structUiRenderer.html#aa66be6f6bca1ce06840ae15eb4986621" title=" " alt="" coords="780,278,927,319"/>
+<area shape="rect" href="classView.html#a9188757b9f975297de2104b132be01c0" title="Adjust zoom accordingly." alt="" coords="805,496,902,523"/>
+<area shape="rect" href="classInputHandler.html#a415d65a1189126e3a26ae281e3428fc0" title=" " alt="" coords="108,285,267,312"/>
+<area shape="rect" href="classRenderer.html#a4e9204e6638cbcbf861565b9b74d807e" title=" " alt="" coords="535,278,703,319"/>
+<area shape="rect" href="classInputHandler.html#a6af2abb38ca607a79c272ef6203be151" title="Process mouse scroll and notify other parts(listed in arguments) about it." alt="" coords="315,415,479,457"/>
+<area shape="rect" href="classRenderer.html#a7219caca3c8fe45b472fc7edcf02900d" title=" " alt="" coords="760,161,947,202"/>
+<area shape="rect" href="structGraphRenderer.html#a2610046d8e0c85a1d5a0cc678ebfd846" title="Checks if some vertex was pressed." alt="" coords="767,95,939,137"/>
+<area shape="rect" href="classRenderer.html#a207c39d6d37ae82a629db05b69f32747" title="Check whether the vertex was pressed and set flags." alt="" coords="527,101,712,142"/>
 </map>
 </div>
 
@@ -291,25 +299,32 @@ Here is the caller graph for this function:</div>
 <p>Compute view matrix for drawing into the "view" space. </p>
 <dl class="section return"><dt>Returns</dt><dd>glm::mat4 <a class="el" href="classView.html" title="A small utility class that manages the viewport coordinates, together with the virtual &quot;camera&quot; posit...">View</a> matrix </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="view_8h_source.html#l00110">110</a> of file <a class="el" href="view_8h_source.html">view.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="view_8h_source.html#l00098">98</a> of file <a class="el" href="view_8h_source.html">view.h</a>.</p>
 <div class="dynheader">
 Here is the caller graph for this function:</div>
 <div class="dyncontent">
 <div class="center"><img src="classView_ae2675b41a3c49d8b52784955d128234a_icgraph.png" border="0" usemap="#aclassView_ae2675b41a3c49d8b52784955d128234a_icgraph" alt=""/></div>
 <map name="aclassView_ae2675b41a3c49d8b52784955d128234a_icgraph" id="aclassView_ae2675b41a3c49d8b52784955d128234a_icgraph">
-<area shape="rect" title="Compute view matrix for drawing into the &quot;view&quot; space." alt="" coords="995,81,1165,108"/>
-<area shape="rect" href="structGraphRenderer.html#a5035b51f22a5d28314566fbb13dd7b23" title="Draw event of the 2D landmark graph." alt="" coords="783,5,943,32"/>
-<area shape="rect" href="structScatterRenderer.html#a37c7029cc2506b81c420691bcff3b207" title="Draw event of the 2D data points." alt="" coords="780,56,947,83"/>
-<area shape="rect" href="classView.html#aeda343862d3aa831814d252c6361cb90" title="Convert mouse coordinates ([0,0] in the upper left corner), to model coordinates ([0,..." alt="" coords="529,163,732,189"/>
-<area shape="rect" href="classView.html#ae728fdbc1b95ae6fd588d1d2b8d375db" title="Converts point to screen coordinates([0,0] in the middle of the screen)." alt="" coords="786,107,941,133"/>
-<area shape="rect" href="classRenderer.html#ab407870f559dfa892dd1dab1b842523f" title="Render graph and scatterplot." alt="" coords="565,45,696,72"/>
-<area shape="rect" href="classRenderer.html#acc7b3656f13c505a21175802a877e873" title="Process input events and render graph and scatterplot with updated values." alt="" coords="108,104,243,131"/>
-<area shape="rect" href="main_8cpp.html#ae66f6b31b5ad750f1fe042a706a4e3d4" title=" " alt="" coords="5,133,60,160"/>
-<area shape="rect" href="classRenderer.html#a95b6e3922529d554e7c6ee02f6108bfc" title="Process mouse input and moves the landmarks." alt="" coords="291,104,481,131"/>
-<area shape="rect" href="classView.html#a542f06af2c25d7317497dcf8ba1c3d58" title=" " alt="" coords="305,155,467,197"/>
-<area shape="rect" href="classView.html#aeafc494c5781169ee93aae61ac67e775" title="Process mouse scroll and adjust zoom accordingly." alt="" coords="305,221,467,262"/>
-<area shape="rect" href="classView.html#a357e8c8e1316cc0602a9d39f4c473ec4" title="Move the current position and zoom a bit closer to the target position and zoom." alt="" coords="122,163,229,189"/>
-<area shape="rect" href="structGraphRenderer.html#a0ff79676c92cc249ece2d7c8e53ee90c" title="Checks if some vertex was pressed." alt="" coords="545,97,717,138"/>
+<area shape="rect" title="Compute view matrix for drawing into the &quot;view&quot; space." alt="" coords="1245,107,1416,133"/>
+<area shape="rect" href="structScatterRenderer.html#ac3fe7953a924ede8ad6dd989970b9374" title="Draw event of the 2D data points." alt="" coords="1013,107,1179,133"/>
+<area shape="rect" href="structUiRenderer.html#a3ef14402100a1b5fe0e0d96ae98b0fe8" title=" " alt="" coords="1029,5,1163,32"/>
+<area shape="rect" href="structGraphRenderer.html#a69da926110c3259b3d992ce7c1639036" title="Draw event of the 2D landmark graph." alt="" coords="1016,56,1176,83"/>
+<area shape="rect" href="classView.html#aeda343862d3aa831814d252c6361cb90" title="Convert mouse coordinates ([0,0] in the upper left corner), to model coordinates ([0,..." alt="" coords="995,344,1197,371"/>
+<area shape="rect" href="classView.html#ae728fdbc1b95ae6fd588d1d2b8d375db" title="Converts point to screen coordinates([0,0] in the middle of the screen)." alt="" coords="1019,157,1173,184"/>
+<area shape="rect" href="classRenderer.html#a0936ec5e094ff46a696c579cd6f37569" title="Render graph and scatterplot." alt="" coords="788,44,919,71"/>
+<area shape="rect" href="main_8cpp.html#ae66f6b31b5ad750f1fe042a706a4e3d4" title=" " alt="" coords="5,167,60,193"/>
+<area shape="rect" href="classRenderer.html#a2bd0e4a83b7a2686ff518cc6f41afd8d" title=" " alt="" coords="546,344,693,371"/>
+<area shape="rect" href="classInputHandler.html#a4acd17428d24191471c39039ec5dd3cf" title="Handle mouse button input." alt="" coords="315,278,479,319"/>
+<area shape="rect" href="classView.html#a429fdc29e7533674e16a4cacf4efb5ad" title="Cause the camera to look at the specified point." alt="" coords="565,445,674,472"/>
+<area shape="rect" href="classRenderer.html#a9edc7edf33955d447b5fd8e4efb5b17f" title=" " alt="" coords="540,227,699,253"/>
+<area shape="rect" href="structUiRenderer.html#aa66be6f6bca1ce06840ae15eb4986621" title=" " alt="" coords="780,278,927,319"/>
+<area shape="rect" href="classView.html#a9188757b9f975297de2104b132be01c0" title="Adjust zoom accordingly." alt="" coords="805,496,902,523"/>
+<area shape="rect" href="classInputHandler.html#a415d65a1189126e3a26ae281e3428fc0" title=" " alt="" coords="108,285,267,312"/>
+<area shape="rect" href="classRenderer.html#a4e9204e6638cbcbf861565b9b74d807e" title=" " alt="" coords="535,278,703,319"/>
+<area shape="rect" href="classInputHandler.html#a6af2abb38ca607a79c272ef6203be151" title="Process mouse scroll and notify other parts(listed in arguments) about it." alt="" coords="315,415,479,457"/>
+<area shape="rect" href="classRenderer.html#a7219caca3c8fe45b472fc7edcf02900d" title=" " alt="" coords="760,161,947,202"/>
+<area shape="rect" href="structGraphRenderer.html#a2610046d8e0c85a1d5a0cc678ebfd846" title="Checks if some vertex was pressed." alt="" coords="767,95,939,137"/>
+<area shape="rect" href="classRenderer.html#a207c39d6d37ae82a629db05b69f32747" title="Check whether the vertex was pressed and set flags." alt="" coords="527,101,712,142"/>
 </map>
 </div>
 
@@ -334,7 +349,7 @@ Here is the caller graph for this function:</div>
       </table>
   </td>
   <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">private</span></span>  </td>
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
   </tr>
 </table>
 </div><div class="memdoc">
@@ -342,20 +357,31 @@ Here is the caller graph for this function:</div>
 <p>Cause the camera to look at the specified point. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">tgt</td><td>This point will eventually get to the middle of the screen. </td></tr>
+    <tr><td class="paramname">tgt</td><td>This point will eventually get to the middle of the screen. It needs to be converted from mouse to model coordinates. </td></tr>
   </table>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="view_8h_source.html#l00271">271</a> of file <a class="el" href="view_8h_source.html">view.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="view_8h_source.html#l00218">218</a> of file <a class="el" href="view_8h_source.html">view.h</a>.</p>
+<div class="dynheader">
+Here is the call graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><img src="classView_a429fdc29e7533674e16a4cacf4efb5ad_cgraph.png" border="0" usemap="#aclassView_a429fdc29e7533674e16a4cacf4efb5ad_cgraph" alt=""/></div>
+<map name="aclassView_a429fdc29e7533674e16a4cacf4efb5ad_cgraph" id="aclassView_a429fdc29e7533674e16a4cacf4efb5ad_cgraph">
+<area shape="rect" title="Cause the camera to look at the specified point." alt="" coords="5,31,115,57"/>
+<area shape="rect" href="classView.html#aeda343862d3aa831814d252c6361cb90" title="Convert mouse coordinates ([0,0] in the upper left corner), to model coordinates ([0,..." alt="" coords="163,31,365,57"/>
+<area shape="rect" href="classView.html#a9e79788c1b06ba8176273672d6fc5d1f" title="Compute projection matrix for orthographic projection." alt="" coords="417,5,581,32"/>
+<area shape="rect" href="classView.html#ae2675b41a3c49d8b52784955d128234a" title="Compute view matrix for drawing into the &quot;view&quot; space." alt="" coords="413,56,584,83"/>
+</map>
+</div>
 <div class="dynheader">
 Here is the caller graph for this function:</div>
 <div class="dyncontent">
 <div class="center"><img src="classView_a429fdc29e7533674e16a4cacf4efb5ad_icgraph.png" border="0" usemap="#aclassView_a429fdc29e7533674e16a4cacf4efb5ad_icgraph" alt=""/></div>
 <map name="aclassView_a429fdc29e7533674e16a4cacf4efb5ad_icgraph" id="aclassView_a429fdc29e7533674e16a4cacf4efb5ad_icgraph">
-<area shape="rect" title="Cause the camera to look at the specified point." alt="" coords="473,13,583,39"/>
-<area shape="rect" href="classView.html#a542f06af2c25d7317497dcf8ba1c3d58" title=" " alt="" coords="263,5,425,47"/>
-<area shape="rect" href="classView.html#a357e8c8e1316cc0602a9d39f4c473ec4" title="Move the current position and zoom a bit closer to the target position and zoom." alt="" coords="108,13,215,39"/>
+<area shape="rect" title="Cause the camera to look at the specified point." alt="" coords="527,13,636,39"/>
+<area shape="rect" href="classInputHandler.html#a4acd17428d24191471c39039ec5dd3cf" title="Handle mouse button input." alt="" coords="315,5,479,47"/>
+<area shape="rect" href="classInputHandler.html#a415d65a1189126e3a26ae281e3428fc0" title=" " alt="" coords="108,13,267,39"/>
 <area shape="rect" href="main_8cpp.html#ae66f6b31b5ad750f1fe042a706a4e3d4" title=" " alt="" coords="5,13,60,39"/>
 </map>
 </div>
@@ -395,7 +421,7 @@ Here is the caller graph for this function:</div>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>glm::vec2 Model coordinates ([0,0] in the middle of the screen) </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="view_8h_source.html#l00151">151</a> of file <a class="el" href="view_8h_source.html">view.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="view_8h_source.html#l00139">139</a> of file <a class="el" href="view_8h_source.html">view.h</a>.</p>
 <div class="dynheader">
 Here is the call graph for this function:</div>
 <div class="dyncontent">
@@ -411,20 +437,24 @@ Here is the caller graph for this function:</div>
 <div class="dyncontent">
 <div class="center"><img src="classView_aeda343862d3aa831814d252c6361cb90_icgraph.png" border="0" usemap="#aclassView_aeda343862d3aa831814d252c6361cb90_icgraph" alt=""/></div>
 <map name="aclassView_aeda343862d3aa831814d252c6361cb90_icgraph" id="aclassView_aeda343862d3aa831814d252c6361cb90_icgraph">
-<area shape="rect" title="Convert mouse coordinates ([0,0] in the upper left corner), to model coordinates ([0,..." alt="" coords="529,64,732,91"/>
-<area shape="rect" href="classRenderer.html#a95b6e3922529d554e7c6ee02f6108bfc" title="Process mouse input and moves the landmarks." alt="" coords="291,5,481,32"/>
-<area shape="rect" href="classView.html#a542f06af2c25d7317497dcf8ba1c3d58" title=" " alt="" coords="305,57,467,98"/>
-<area shape="rect" href="classView.html#aeafc494c5781169ee93aae61ac67e775" title="Process mouse scroll and adjust zoom accordingly." alt="" coords="305,122,467,163"/>
-<area shape="rect" href="classRenderer.html#acc7b3656f13c505a21175802a877e873" title="Process input events and render graph and scatterplot with updated values." alt="" coords="108,9,243,36"/>
-<area shape="rect" href="main_8cpp.html#ae66f6b31b5ad750f1fe042a706a4e3d4" title=" " alt="" coords="5,39,60,65"/>
-<area shape="rect" href="classView.html#a357e8c8e1316cc0602a9d39f4c473ec4" title="Move the current position and zoom a bit closer to the target position and zoom." alt="" coords="122,64,229,91"/>
+<area shape="rect" title="Convert mouse coordinates ([0,0] in the upper left corner), to model coordinates ([0,..." alt="" coords="949,132,1152,159"/>
+<area shape="rect" href="classRenderer.html#a2bd0e4a83b7a2686ff518cc6f41afd8d" title=" " alt="" coords="537,5,684,32"/>
+<area shape="rect" href="classInputHandler.html#a4acd17428d24191471c39039ec5dd3cf" title="Handle mouse button input." alt="" coords="315,125,479,166"/>
+<area shape="rect" href="classView.html#a429fdc29e7533674e16a4cacf4efb5ad" title="Cause the camera to look at the specified point." alt="" coords="556,107,665,133"/>
+<area shape="rect" href="classRenderer.html#a9edc7edf33955d447b5fd8e4efb5b17f" title=" " alt="" coords="743,157,901,184"/>
+<area shape="rect" href="structUiRenderer.html#aa66be6f6bca1ce06840ae15eb4986621" title=" " alt="" coords="749,209,895,250"/>
+<area shape="rect" href="classView.html#a9188757b9f975297de2104b132be01c0" title="Adjust zoom accordingly." alt="" coords="773,275,871,301"/>
+<area shape="rect" href="classInputHandler.html#a415d65a1189126e3a26ae281e3428fc0" title=" " alt="" coords="108,191,267,217"/>
+<area shape="rect" href="main_8cpp.html#ae66f6b31b5ad750f1fe042a706a4e3d4" title=" " alt="" coords="5,191,60,217"/>
+<area shape="rect" href="classRenderer.html#a4e9204e6638cbcbf861565b9b74d807e" title=" " alt="" coords="527,209,695,250"/>
+<area shape="rect" href="classInputHandler.html#a6af2abb38ca607a79c272ef6203be151" title="Process mouse scroll and notify other parts(listed in arguments) about it." alt="" coords="315,215,479,257"/>
 </map>
 </div>
 
 </div>
 </div>
-<a id="aabb37f3e5e0031e0d0a7d2f88d344df9" name="aabb37f3e5e0031e0d0a7d2f88d344df9"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#aabb37f3e5e0031e0d0a7d2f88d344df9">&#9670;&nbsp;</a></span>process_keyboard()</h2>
+<a id="aca4b330ddab799e009009bbb4b345be0" name="aca4b330ddab799e009009bbb4b345be0"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aca4b330ddab799e009009bbb4b345be0">&#9670;&nbsp;</a></span>move_x()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -433,121 +463,45 @@ Here is the caller graph for this function:</div>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">void View::process_keyboard </td>
+          <td class="memname">void View::move_x </td>
           <td>(</td>
           <td class="paramtype">int&#160;</td>
-          <td class="paramname"><em>key</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
+          <td class="paramname"><em>dir</em></td><td>)</td>
           <td></td>
-          <td class="paramtype">int&#160;</td>
-          <td class="paramname"><em>action</em>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
         </tr>
       </table>
   </td>
   <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">private</span></span>  </td>
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
   </tr>
 </table>
 </div><div class="memdoc">
 
-<p>Process keyboard input and move the "camera" accordingly. </p>
+<p>Move view along X-axis. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">key</td><td>Name of the used key. </td></tr>
-    <tr><td class="paramname">action</td><td>Pressed, released or hold key. </td></tr>
+    <tr><td class="paramname">dir</td><td>Direction of the movement. (-1 - left, 1 - right) </td></tr>
   </table>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="view_8h_source.html#l00199">199</a> of file <a class="el" href="view_8h_source.html">view.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="view_8h_source.html#l00183">183</a> of file <a class="el" href="view_8h_source.html">view.h</a>.</p>
 <div class="dynheader">
 Here is the caller graph for this function:</div>
 <div class="dyncontent">
-<div class="center"><img src="classView_aabb37f3e5e0031e0d0a7d2f88d344df9_icgraph.png" border="0" usemap="#aclassView_aabb37f3e5e0031e0d0a7d2f88d344df9_icgraph" alt=""/></div>
-<map name="aclassView_aabb37f3e5e0031e0d0a7d2f88d344df9_icgraph" id="aclassView_aabb37f3e5e0031e0d0a7d2f88d344df9_icgraph">
-<area shape="rect" title="Process keyboard input and move the &quot;camera&quot; accordingly." alt="" coords="263,5,441,32"/>
-<area shape="rect" href="classView.html#a357e8c8e1316cc0602a9d39f4c473ec4" title="Move the current position and zoom a bit closer to the target position and zoom." alt="" coords="108,5,215,32"/>
-<area shape="rect" href="main_8cpp.html#ae66f6b31b5ad750f1fe042a706a4e3d4" title=" " alt="" coords="5,5,60,32"/>
-</map>
-</div>
-
-</div>
-</div>
-<a id="a542f06af2c25d7317497dcf8ba1c3d58" name="a542f06af2c25d7317497dcf8ba1c3d58"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a542f06af2c25d7317497dcf8ba1c3d58">&#9670;&nbsp;</a></span>process_mouse_button()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">void View::process_mouse_button </td>
-          <td>(</td>
-          <td class="paramtype">int&#160;</td>
-          <td class="paramname"><em>button</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">int&#160;</td>
-          <td class="paramname"><em>action</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">glm::vec2&#160;</td>
-          <td class="paramname"><em>mouse_pos</em>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">private</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p class="definition">Definition at line <a class="el" href="view_8h_source.html#l00239">239</a> of file <a class="el" href="view_8h_source.html">view.h</a>.</p>
-<div class="dynheader">
-Here is the call graph for this function:</div>
-<div class="dyncontent">
-<div class="center"><img src="classView_a542f06af2c25d7317497dcf8ba1c3d58_cgraph.png" border="0" usemap="#aclassView_a542f06af2c25d7317497dcf8ba1c3d58_cgraph" alt=""/></div>
-<map name="aclassView_a542f06af2c25d7317497dcf8ba1c3d58_cgraph" id="aclassView_a542f06af2c25d7317497dcf8ba1c3d58_cgraph">
-<area shape="rect" title=" " alt="" coords="5,23,168,65"/>
-<area shape="rect" href="classView.html#a429fdc29e7533674e16a4cacf4efb5ad" title="Cause the camera to look at the specified point." alt="" coords="263,5,372,32"/>
-<area shape="rect" href="classView.html#aeda343862d3aa831814d252c6361cb90" title="Convert mouse coordinates ([0,0] in the upper left corner), to model coordinates ([0,..." alt="" coords="216,56,419,83"/>
-<area shape="rect" href="classView.html#a9e79788c1b06ba8176273672d6fc5d1f" title="Compute projection matrix for orthographic projection." alt="" coords="470,31,634,57"/>
-<area shape="rect" href="classView.html#ae2675b41a3c49d8b52784955d128234a" title="Compute view matrix for drawing into the &quot;view&quot; space." alt="" coords="467,81,637,108"/>
-</map>
-</div>
-<div class="dynheader">
-Here is the caller graph for this function:</div>
-<div class="dyncontent">
-<div class="center"><img src="classView_a542f06af2c25d7317497dcf8ba1c3d58_icgraph.png" border="0" usemap="#aclassView_a542f06af2c25d7317497dcf8ba1c3d58_icgraph" alt=""/></div>
-<map name="aclassView_a542f06af2c25d7317497dcf8ba1c3d58_icgraph" id="aclassView_a542f06af2c25d7317497dcf8ba1c3d58_icgraph">
-<area shape="rect" title=" " alt="" coords="263,5,425,47"/>
-<area shape="rect" href="classView.html#a357e8c8e1316cc0602a9d39f4c473ec4" title="Move the current position and zoom a bit closer to the target position and zoom." alt="" coords="108,13,215,39"/>
+<div class="center"><img src="classView_aca4b330ddab799e009009bbb4b345be0_icgraph.png" border="0" usemap="#aclassView_aca4b330ddab799e009009bbb4b345be0_icgraph" alt=""/></div>
+<map name="aclassView_aca4b330ddab799e009009bbb4b345be0_icgraph" id="aclassView_aca4b330ddab799e009009bbb4b345be0_icgraph">
+<area shape="rect" title="Move view along X&#45;axis." alt="" coords="527,13,640,39"/>
+<area shape="rect" href="classInputHandler.html#a3f9aca388a14a4d004fda42f5a8ddac8" title="Identify which key was pressed and notify other parts (listed in arguments) about it." alt="" coords="315,5,479,47"/>
+<area shape="rect" href="classInputHandler.html#a415d65a1189126e3a26ae281e3428fc0" title=" " alt="" coords="108,13,267,39"/>
 <area shape="rect" href="main_8cpp.html#ae66f6b31b5ad750f1fe042a706a4e3d4" title=" " alt="" coords="5,13,60,39"/>
 </map>
 </div>
 
 </div>
 </div>
-<a id="aeafc494c5781169ee93aae61ac67e775" name="aeafc494c5781169ee93aae61ac67e775"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#aeafc494c5781169ee93aae61ac67e775">&#9670;&nbsp;</a></span>process_mouse_scroll()</h2>
+<a id="a4286002c32c1dba63e4933aa0bff4210" name="a4286002c32c1dba63e4933aa0bff4210"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a4286002c32c1dba63e4933aa0bff4210">&#9670;&nbsp;</a></span>move_y()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -556,58 +510,37 @@ Here is the caller graph for this function:</div>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">void View::process_mouse_scroll </td>
+          <td class="memname">void View::move_y </td>
           <td>(</td>
-          <td class="paramtype">float&#160;</td>
-          <td class="paramname"><em>yoffset</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>dir</em></td><td>)</td>
           <td></td>
-          <td class="paramtype">glm::vec2&#160;</td>
-          <td class="paramname"><em>mouse</em>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
         </tr>
       </table>
   </td>
   <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">private</span></span>  </td>
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
   </tr>
 </table>
 </div><div class="memdoc">
 
-<p>Process mouse scroll and adjust zoom accordingly. </p>
+<p>Move view along Y-axis. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">yoffset</td><td>Direction of the scroll (-1, 0, 1). </td></tr>
-    <tr><td class="paramname">mouse</td><td>Mouse coordinates ([0,0] in the upper left corner). </td></tr>
+    <tr><td class="paramname">dir</td><td>Direction of the movement. (-1 - down, 1 - up) </td></tr>
   </table>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="view_8h_source.html#l00223">223</a> of file <a class="el" href="view_8h_source.html">view.h</a>.</p>
-<div class="dynheader">
-Here is the call graph for this function:</div>
-<div class="dyncontent">
-<div class="center"><img src="classView_aeafc494c5781169ee93aae61ac67e775_cgraph.png" border="0" usemap="#aclassView_aeafc494c5781169ee93aae61ac67e775_cgraph" alt=""/></div>
-<map name="aclassView_aeafc494c5781169ee93aae61ac67e775_cgraph" id="aclassView_aeafc494c5781169ee93aae61ac67e775_cgraph">
-<area shape="rect" title="Process mouse scroll and adjust zoom accordingly." alt="" coords="5,23,168,65"/>
-<area shape="rect" href="classView.html#aeda343862d3aa831814d252c6361cb90" title="Convert mouse coordinates ([0,0] in the upper left corner), to model coordinates ([0,..." alt="" coords="216,31,419,57"/>
-<area shape="rect" href="classView.html#a9e79788c1b06ba8176273672d6fc5d1f" title="Compute projection matrix for orthographic projection." alt="" coords="470,5,634,32"/>
-<area shape="rect" href="classView.html#ae2675b41a3c49d8b52784955d128234a" title="Compute view matrix for drawing into the &quot;view&quot; space." alt="" coords="467,56,637,83"/>
-</map>
-</div>
+<p class="definition">Definition at line <a class="el" href="view_8h_source.html#l00171">171</a> of file <a class="el" href="view_8h_source.html">view.h</a>.</p>
 <div class="dynheader">
 Here is the caller graph for this function:</div>
 <div class="dyncontent">
-<div class="center"><img src="classView_aeafc494c5781169ee93aae61ac67e775_icgraph.png" border="0" usemap="#aclassView_aeafc494c5781169ee93aae61ac67e775_icgraph" alt=""/></div>
-<map name="aclassView_aeafc494c5781169ee93aae61ac67e775_icgraph" id="aclassView_aeafc494c5781169ee93aae61ac67e775_icgraph">
-<area shape="rect" title="Process mouse scroll and adjust zoom accordingly." alt="" coords="263,5,425,47"/>
-<area shape="rect" href="classView.html#a357e8c8e1316cc0602a9d39f4c473ec4" title="Move the current position and zoom a bit closer to the target position and zoom." alt="" coords="108,13,215,39"/>
+<div class="center"><img src="classView_a4286002c32c1dba63e4933aa0bff4210_icgraph.png" border="0" usemap="#aclassView_a4286002c32c1dba63e4933aa0bff4210_icgraph" alt=""/></div>
+<map name="aclassView_a4286002c32c1dba63e4933aa0bff4210_icgraph" id="aclassView_a4286002c32c1dba63e4933aa0bff4210_icgraph">
+<area shape="rect" title="Move view along Y&#45;axis." alt="" coords="527,13,640,39"/>
+<area shape="rect" href="classInputHandler.html#a3f9aca388a14a4d004fda42f5a8ddac8" title="Identify which key was pressed and notify other parts (listed in arguments) about it." alt="" coords="315,5,479,47"/>
+<area shape="rect" href="classInputHandler.html#a415d65a1189126e3a26ae281e3428fc0" title=" " alt="" coords="108,13,267,39"/>
 <area shape="rect" href="main_8cpp.html#ae66f6b31b5ad750f1fe042a706a4e3d4" title=" " alt="" coords="5,13,60,39"/>
 </map>
 </div>
@@ -648,7 +581,7 @@ screen). </p>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>glm::vec2 Point in screen coordinates. </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="view_8h_source.html#l00169">169</a> of file <a class="el" href="view_8h_source.html">view.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="view_8h_source.html#l00157">157</a> of file <a class="el" href="view_8h_source.html">view.h</a>.</p>
 <div class="dynheader">
 Here is the call graph for this function:</div>
 <div class="dyncontent">
@@ -665,11 +598,13 @@ Here is the caller graph for this function:</div>
 <div class="dyncontent">
 <div class="center"><img src="classView_ae728fdbc1b95ae6fd588d1d2b8d375db_icgraph.png" border="0" usemap="#aclassView_ae728fdbc1b95ae6fd588d1d2b8d375db_icgraph" alt=""/></div>
 <map name="aclassView_ae728fdbc1b95ae6fd588d1d2b8d375db_icgraph" id="aclassView_ae728fdbc1b95ae6fd588d1d2b8d375db_icgraph">
-<area shape="rect" title="Converts point to screen coordinates([0,0] in the middle of the screen)." alt="" coords="749,13,904,39"/>
-<area shape="rect" href="structGraphRenderer.html#a0ff79676c92cc249ece2d7c8e53ee90c" title="Checks if some vertex was pressed." alt="" coords="529,5,701,47"/>
-<area shape="rect" href="classRenderer.html#a95b6e3922529d554e7c6ee02f6108bfc" title="Process mouse input and moves the landmarks." alt="" coords="291,13,481,39"/>
-<area shape="rect" href="classRenderer.html#acc7b3656f13c505a21175802a877e873" title="Process input events and render graph and scatterplot with updated values." alt="" coords="108,13,243,39"/>
-<area shape="rect" href="main_8cpp.html#ae66f6b31b5ad750f1fe042a706a4e3d4" title=" " alt="" coords="5,13,60,39"/>
+<area shape="rect" title="Converts point to screen coordinates([0,0] in the middle of the screen)." alt="" coords="981,46,1136,73"/>
+<area shape="rect" href="classRenderer.html#a7219caca3c8fe45b472fc7edcf02900d" title=" " alt="" coords="527,5,713,47"/>
+<area shape="rect" href="structGraphRenderer.html#a2610046d8e0c85a1d5a0cc678ebfd846" title="Checks if some vertex was pressed." alt="" coords="761,68,933,109"/>
+<area shape="rect" href="classInputHandler.html#a4acd17428d24191471c39039ec5dd3cf" title="Handle mouse button input." alt="" coords="315,39,479,80"/>
+<area shape="rect" href="classInputHandler.html#a415d65a1189126e3a26ae281e3428fc0" title=" " alt="" coords="108,46,267,73"/>
+<area shape="rect" href="main_8cpp.html#ae66f6b31b5ad750f1fe042a706a4e3d4" title=" " alt="" coords="5,46,60,73"/>
+<area shape="rect" href="classRenderer.html#a207c39d6d37ae82a629db05b69f32747" title="Check whether the vertex was pressed and set flags." alt="" coords="527,71,713,112"/>
 </map>
 </div>
 
@@ -708,16 +643,18 @@ Here is the caller graph for this function:</div>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>glm::vec2 Screen coordinates ([0,0] in the middle of the screen) </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="view_8h_source.html#l00139">139</a> of file <a class="el" href="view_8h_source.html">view.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="view_8h_source.html#l00127">127</a> of file <a class="el" href="view_8h_source.html">view.h</a>.</p>
 <div class="dynheader">
 Here is the caller graph for this function:</div>
 <div class="dyncontent">
 <div class="center"><img src="classView_a13ae0b4ad614e20829b5f34499ae99cc_icgraph.png" border="0" usemap="#aclassView_a13ae0b4ad614e20829b5f34499ae99cc_icgraph" alt=""/></div>
 <map name="aclassView_a13ae0b4ad614e20829b5f34499ae99cc_icgraph" id="aclassView_a13ae0b4ad614e20829b5f34499ae99cc_icgraph">
-<area shape="rect" title="Convert mouse coordinates ([0,0] in the upper left corner), to screen coordinates ([0,..." alt="" coords="529,5,684,47"/>
-<area shape="rect" href="classRenderer.html#a95b6e3922529d554e7c6ee02f6108bfc" title="Process mouse input and moves the landmarks." alt="" coords="291,13,481,39"/>
-<area shape="rect" href="classRenderer.html#acc7b3656f13c505a21175802a877e873" title="Process input events and render graph and scatterplot with updated values." alt="" coords="108,13,243,39"/>
-<area shape="rect" href="main_8cpp.html#ae66f6b31b5ad750f1fe042a706a4e3d4" title=" " alt="" coords="5,13,60,39"/>
+<area shape="rect" title="Convert mouse coordinates ([0,0] in the upper left corner), to screen coordinates ([0,..." alt="" coords="761,39,916,80"/>
+<area shape="rect" href="classRenderer.html#a207c39d6d37ae82a629db05b69f32747" title="Check whether the vertex was pressed and set flags." alt="" coords="527,5,713,47"/>
+<area shape="rect" href="classRenderer.html#a7219caca3c8fe45b472fc7edcf02900d" title=" " alt="" coords="527,71,713,112"/>
+<area shape="rect" href="classInputHandler.html#a4acd17428d24191471c39039ec5dd3cf" title="Handle mouse button input." alt="" coords="315,39,479,80"/>
+<area shape="rect" href="classInputHandler.html#a415d65a1189126e3a26ae281e3428fc0" title=" " alt="" coords="108,46,267,73"/>
+<area shape="rect" href="main_8cpp.html#ae66f6b31b5ad750f1fe042a706a4e3d4" title=" " alt="" coords="5,46,60,73"/>
 </map>
 </div>
 
@@ -756,25 +693,27 @@ Here is the caller graph for this function:</div>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>glm::vec2 Screen coordinates ([0,0] in the middle of the screen) </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="view_8h_source.html#l00261">261</a> of file <a class="el" href="view_8h_source.html">view.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="view_8h_source.html#l00247">247</a> of file <a class="el" href="view_8h_source.html">view.h</a>.</p>
 <div class="dynheader">
 Here is the caller graph for this function:</div>
 <div class="dyncontent">
 <div class="center"><img src="classView_a891e963a0575956ccb9ae5bd8168e823_icgraph.png" border="0" usemap="#aclassView_a891e963a0575956ccb9ae5bd8168e823_icgraph" alt=""/></div>
 <map name="aclassView_a891e963a0575956ccb9ae5bd8168e823_icgraph" id="aclassView_a891e963a0575956ccb9ae5bd8168e823_icgraph">
-<area shape="rect" title="Convert point coordinates ([0,0] in the upper left corner), to screen coordinates ([0,..." alt="" coords="952,5,1096,47"/>
-<area shape="rect" href="classView.html#ae728fdbc1b95ae6fd588d1d2b8d375db" title="Converts point to screen coordinates([0,0] in the middle of the screen)." alt="" coords="749,13,904,39"/>
-<area shape="rect" href="structGraphRenderer.html#a0ff79676c92cc249ece2d7c8e53ee90c" title="Checks if some vertex was pressed." alt="" coords="529,5,701,47"/>
-<area shape="rect" href="classRenderer.html#a95b6e3922529d554e7c6ee02f6108bfc" title="Process mouse input and moves the landmarks." alt="" coords="291,13,481,39"/>
-<area shape="rect" href="classRenderer.html#acc7b3656f13c505a21175802a877e873" title="Process input events and render graph and scatterplot with updated values." alt="" coords="108,13,243,39"/>
-<area shape="rect" href="main_8cpp.html#ae66f6b31b5ad750f1fe042a706a4e3d4" title=" " alt="" coords="5,13,60,39"/>
+<area shape="rect" title="Convert point coordinates ([0,0] in the upper left corner), to screen coordinates ([0,..." alt="" coords="1184,39,1328,80"/>
+<area shape="rect" href="classView.html#ae728fdbc1b95ae6fd588d1d2b8d375db" title="Converts point to screen coordinates([0,0] in the middle of the screen)." alt="" coords="981,46,1136,73"/>
+<area shape="rect" href="classRenderer.html#a7219caca3c8fe45b472fc7edcf02900d" title=" " alt="" coords="527,5,713,47"/>
+<area shape="rect" href="structGraphRenderer.html#a2610046d8e0c85a1d5a0cc678ebfd846" title="Checks if some vertex was pressed." alt="" coords="761,68,933,109"/>
+<area shape="rect" href="classInputHandler.html#a4acd17428d24191471c39039ec5dd3cf" title="Handle mouse button input." alt="" coords="315,39,479,80"/>
+<area shape="rect" href="classInputHandler.html#a415d65a1189126e3a26ae281e3428fc0" title=" " alt="" coords="108,46,267,73"/>
+<area shape="rect" href="main_8cpp.html#ae66f6b31b5ad750f1fe042a706a4e3d4" title=" " alt="" coords="5,46,60,73"/>
+<area shape="rect" href="classRenderer.html#a207c39d6d37ae82a629db05b69f32747" title="Check whether the vertex was pressed and set flags." alt="" coords="527,71,713,112"/>
 </map>
 </div>
 
 </div>
 </div>
-<a id="a357e8c8e1316cc0602a9d39f4c473ec4" name="a357e8c8e1316cc0602a9d39f4c473ec4"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a357e8c8e1316cc0602a9d39f4c473ec4">&#9670;&nbsp;</a></span>update()</h2>
+<a id="a9b13194ddf7bb4e00254248932597713" name="a9b13194ddf7bb4e00254248932597713"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a9b13194ddf7bb4e00254248932597713">&#9670;&nbsp;</a></span>update()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -791,8 +730,14 @@ Here is the caller graph for this function:</div>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">const <a class="el" href="structCallbackValues.html">CallbackValues</a> &amp;&#160;</td>
-          <td class="paramname"><em>callbacks</em>&#160;</td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>w</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>h</em>&#160;</td>
         </tr>
         <tr>
           <td></td>
@@ -811,33 +756,26 @@ Here is the caller graph for this function:</div>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">dt</td><td>Time difference. </td></tr>
-    <tr><td class="paramname">callbacks</td><td>Values collected by event callbacks. </td></tr>
+    <tr><td class="paramname">input</td><td>Values collected by event callbacks. </td></tr>
   </table>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="view_8h_source.html#l00083">83</a> of file <a class="el" href="view_8h_source.html">view.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="view_8h_source.html#l00080">80</a> of file <a class="el" href="view_8h_source.html">view.h</a>.</p>
 <div class="dynheader">
 Here is the call graph for this function:</div>
 <div class="dyncontent">
-<div class="center"><img src="classView_a357e8c8e1316cc0602a9d39f4c473ec4_cgraph.png" border="0" usemap="#aclassView_a357e8c8e1316cc0602a9d39f4c473ec4_cgraph" alt=""/></div>
-<map name="aclassView_a357e8c8e1316cc0602a9d39f4c473ec4_cgraph" id="aclassView_a357e8c8e1316cc0602a9d39f4c473ec4_cgraph">
-<area shape="rect" title="Move the current position and zoom a bit closer to the target position and zoom." alt="" coords="5,97,112,124"/>
-<area shape="rect" href="classView.html#aabb37f3e5e0031e0d0a7d2f88d344df9" title="Process keyboard input and move the &quot;camera&quot; accordingly." alt="" coords="170,5,349,32"/>
-<area shape="rect" href="classView.html#a542f06af2c25d7317497dcf8ba1c3d58" title=" " alt="" coords="178,57,341,98"/>
-<area shape="rect" href="classView.html#aeafc494c5781169ee93aae61ac67e775" title="Process mouse scroll and adjust zoom accordingly." alt="" coords="178,122,341,163"/>
-<area shape="rect" href="classView.html#af1964e06e4b0463b3b9142f8bdbe2c10" title="Re&#45;calculates the right and up vector from the View&#39;s updated vectors." alt="" coords="160,188,359,215"/>
-<area shape="rect" href="classView.html#a429fdc29e7533674e16a4cacf4efb5ad" title="Cause the camera to look at the specified point." alt="" coords="453,64,563,91"/>
-<area shape="rect" href="classView.html#aeda343862d3aa831814d252c6361cb90" title="Convert mouse coordinates ([0,0] in the upper left corner), to model coordinates ([0,..." alt="" coords="407,121,609,148"/>
-<area shape="rect" href="classView.html#a9e79788c1b06ba8176273672d6fc5d1f" title="Compute projection matrix for orthographic projection." alt="" coords="661,96,825,123"/>
-<area shape="rect" href="classView.html#ae2675b41a3c49d8b52784955d128234a" title="Compute view matrix for drawing into the &quot;view&quot; space." alt="" coords="657,147,828,173"/>
+<div class="center"><img src="classView_a9b13194ddf7bb4e00254248932597713_cgraph.png" border="0" usemap="#aclassView_a9b13194ddf7bb4e00254248932597713_cgraph" alt=""/></div>
+<map name="aclassView_a9b13194ddf7bb4e00254248932597713_cgraph" id="aclassView_a9b13194ddf7bb4e00254248932597713_cgraph">
+<area shape="rect" title="Move the current position and zoom a bit closer to the target position and zoom." alt="" coords="5,5,112,32"/>
+<area shape="rect" href="classView.html#af1964e06e4b0463b3b9142f8bdbe2c10" title="Re&#45;calculates the right and up vector from the View&#39;s updated vectors." alt="" coords="160,5,359,32"/>
 </map>
 </div>
 <div class="dynheader">
 Here is the caller graph for this function:</div>
 <div class="dyncontent">
-<div class="center"><img src="classView_a357e8c8e1316cc0602a9d39f4c473ec4_icgraph.png" border="0" usemap="#aclassView_a357e8c8e1316cc0602a9d39f4c473ec4_icgraph" alt=""/></div>
-<map name="aclassView_a357e8c8e1316cc0602a9d39f4c473ec4_icgraph" id="aclassView_a357e8c8e1316cc0602a9d39f4c473ec4_icgraph">
+<div class="center"><img src="classView_a9b13194ddf7bb4e00254248932597713_icgraph.png" border="0" usemap="#aclassView_a9b13194ddf7bb4e00254248932597713_icgraph" alt=""/></div>
+<map name="aclassView_a9b13194ddf7bb4e00254248932597713_icgraph" id="aclassView_a9b13194ddf7bb4e00254248932597713_icgraph">
 <area shape="rect" title="Move the current position and zoom a bit closer to the target position and zoom." alt="" coords="108,5,215,32"/>
 <area shape="rect" href="main_8cpp.html#ae66f6b31b5ad750f1fe042a706a4e3d4" title=" " alt="" coords="5,5,60,32"/>
 </map>
@@ -870,16 +808,85 @@ Here is the caller graph for this function:</div>
 
 <p>Re-calculates the right and up vector from the <a class="el" href="classView.html" title="A small utility class that manages the viewport coordinates, together with the virtual &quot;camera&quot; posit...">View</a>'s updated vectors. </p>
 
-<p class="definition">Definition at line <a class="el" href="view_8h_source.html#l00184">184</a> of file <a class="el" href="view_8h_source.html">view.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="view_8h_source.html#l00231">231</a> of file <a class="el" href="view_8h_source.html">view.h</a>.</p>
 <div class="dynheader">
 Here is the caller graph for this function:</div>
 <div class="dyncontent">
 <div class="center"><img src="classView_af1964e06e4b0463b3b9142f8bdbe2c10_icgraph.png" border="0" usemap="#aclassView_af1964e06e4b0463b3b9142f8bdbe2c10_icgraph" alt=""/></div>
 <map name="aclassView_af1964e06e4b0463b3b9142f8bdbe2c10_icgraph" id="aclassView_af1964e06e4b0463b3b9142f8bdbe2c10_icgraph">
 <area shape="rect" title="Re&#45;calculates the right and up vector from the View&#39;s updated vectors." alt="" coords="263,31,461,57"/>
-<area shape="rect" href="classView.html#a357e8c8e1316cc0602a9d39f4c473ec4" title="Move the current position and zoom a bit closer to the target position and zoom." alt="" coords="108,5,215,32"/>
+<area shape="rect" href="classView.html#a9b13194ddf7bb4e00254248932597713" title="Move the current position and zoom a bit closer to the target position and zoom." alt="" coords="108,5,215,32"/>
 <area shape="rect" href="classView.html#afd8b0d6542992a2c7b56d378aff88222" title=" " alt="" coords="115,56,208,83"/>
 <area shape="rect" href="main_8cpp.html#ae66f6b31b5ad750f1fe042a706a4e3d4" title=" " alt="" coords="5,5,60,32"/>
+</map>
+</div>
+
+</div>
+</div>
+<a id="a9188757b9f975297de2104b132be01c0" name="a9188757b9f975297de2104b132be01c0"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a9188757b9f975297de2104b132be01c0">&#9670;&nbsp;</a></span>zoom()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void View::zoom </td>
+          <td>(</td>
+          <td class="paramtype">float&#160;</td>
+          <td class="paramname"><em>yoffset</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">glm::vec2&#160;</td>
+          <td class="paramname"><em>mouse</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Adjust zoom accordingly. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">yoffset</td><td>Direction of the scroll (-1, 0, 1). </td></tr>
+    <tr><td class="paramname">mouse</td><td>Mouse coordinates ([0,0] in the upper left corner). </td></tr>
+  </table>
+  </dd>
+</dl>
+
+<p class="definition">Definition at line <a class="el" href="view_8h_source.html#l00196">196</a> of file <a class="el" href="view_8h_source.html">view.h</a>.</p>
+<div class="dynheader">
+Here is the call graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><img src="classView_a9188757b9f975297de2104b132be01c0_cgraph.png" border="0" usemap="#aclassView_a9188757b9f975297de2104b132be01c0_cgraph" alt=""/></div>
+<map name="aclassView_a9188757b9f975297de2104b132be01c0_cgraph" id="aclassView_a9188757b9f975297de2104b132be01c0_cgraph">
+<area shape="rect" title="Adjust zoom accordingly." alt="" coords="5,31,103,57"/>
+<area shape="rect" href="classView.html#aeda343862d3aa831814d252c6361cb90" title="Convert mouse coordinates ([0,0] in the upper left corner), to model coordinates ([0,..." alt="" coords="151,31,353,57"/>
+<area shape="rect" href="classView.html#a9e79788c1b06ba8176273672d6fc5d1f" title="Compute projection matrix for orthographic projection." alt="" coords="405,5,569,32"/>
+<area shape="rect" href="classView.html#ae2675b41a3c49d8b52784955d128234a" title="Compute view matrix for drawing into the &quot;view&quot; space." alt="" coords="401,56,572,83"/>
+</map>
+</div>
+<div class="dynheader">
+Here is the caller graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><img src="classView_a9188757b9f975297de2104b132be01c0_icgraph.png" border="0" usemap="#aclassView_a9188757b9f975297de2104b132be01c0_icgraph" alt=""/></div>
+<map name="aclassView_a9188757b9f975297de2104b132be01c0_icgraph" id="aclassView_a9188757b9f975297de2104b132be01c0_icgraph">
+<area shape="rect" title="Adjust zoom accordingly." alt="" coords="527,13,624,39"/>
+<area shape="rect" href="classInputHandler.html#a6af2abb38ca607a79c272ef6203be151" title="Process mouse scroll and notify other parts(listed in arguments) about it." alt="" coords="315,5,479,47"/>
+<area shape="rect" href="classInputHandler.html#a415d65a1189126e3a26ae281e3428fc0" title=" " alt="" coords="108,13,267,39"/>
+<area shape="rect" href="main_8cpp.html#ae66f6b31b5ad750f1fe042a706a4e3d4" title=" " alt="" coords="5,13,60,39"/>
 </map>
 </div>
 
@@ -898,7 +905,7 @@ Here is the caller graph for this function:</div>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="view_8h_source.html#l00049">49</a> of file <a class="el" href="view_8h_source.html">view.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="view_8h_source.html#l00046">46</a> of file <a class="el" href="view_8h_source.html">view.h</a>.</p>
 
 </div>
 </div>
@@ -914,7 +921,7 @@ Here is the caller graph for this function:</div>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="view_8h_source.html#l00056">56</a> of file <a class="el" href="view_8h_source.html">view.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="view_8h_source.html#l00053">53</a> of file <a class="el" href="view_8h_source.html">view.h</a>.</p>
 
 </div>
 </div>
@@ -930,7 +937,7 @@ Here is the caller graph for this function:</div>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="view_8h_source.html#l00050">50</a> of file <a class="el" href="view_8h_source.html">view.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="view_8h_source.html#l00047">47</a> of file <a class="el" href="view_8h_source.html">view.h</a>.</p>
 
 </div>
 </div>
@@ -946,7 +953,7 @@ Here is the caller graph for this function:</div>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="view_8h_source.html#l00060">60</a> of file <a class="el" href="view_8h_source.html">view.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="view_8h_source.html#l00057">57</a> of file <a class="el" href="view_8h_source.html">view.h</a>.</p>
 
 </div>
 </div>
@@ -962,7 +969,7 @@ Here is the caller graph for this function:</div>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="view_8h_source.html#l00043">43</a> of file <a class="el" href="view_8h_source.html">view.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="view_8h_source.html#l00040">40</a> of file <a class="el" href="view_8h_source.html">view.h</a>.</p>
 
 </div>
 </div>
@@ -978,7 +985,7 @@ Here is the caller graph for this function:</div>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="view_8h_source.html#l00052">52</a> of file <a class="el" href="view_8h_source.html">view.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="view_8h_source.html#l00049">49</a> of file <a class="el" href="view_8h_source.html">view.h</a>.</p>
 
 </div>
 </div>
@@ -994,7 +1001,7 @@ Here is the caller graph for this function:</div>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="view_8h_source.html#l00044">44</a> of file <a class="el" href="view_8h_source.html">view.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="view_8h_source.html#l00041">41</a> of file <a class="el" href="view_8h_source.html">view.h</a>.</p>
 
 </div>
 </div>
@@ -1010,7 +1017,7 @@ Here is the caller graph for this function:</div>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="view_8h_source.html#l00048">48</a> of file <a class="el" href="view_8h_source.html">view.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="view_8h_source.html#l00045">45</a> of file <a class="el" href="view_8h_source.html">view.h</a>.</p>
 
 </div>
 </div>
@@ -1026,7 +1033,7 @@ Here is the caller graph for this function:</div>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="view_8h_source.html#l00055">55</a> of file <a class="el" href="view_8h_source.html">view.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="view_8h_source.html#l00052">52</a> of file <a class="el" href="view_8h_source.html">view.h</a>.</p>
 
 </div>
 </div>
@@ -1042,7 +1049,7 @@ Here is the caller graph for this function:</div>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="view_8h_source.html#l00051">51</a> of file <a class="el" href="view_8h_source.html">view.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="view_8h_source.html#l00048">48</a> of file <a class="el" href="view_8h_source.html">view.h</a>.</p>
 
 </div>
 </div>
@@ -1058,7 +1065,7 @@ Here is the caller graph for this function:</div>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="view_8h_source.html#l00059">59</a> of file <a class="el" href="view_8h_source.html">view.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="view_8h_source.html#l00056">56</a> of file <a class="el" href="view_8h_source.html">view.h</a>.</p>
 
 </div>
 </div>
@@ -1074,7 +1081,7 @@ Here is the caller graph for this function:</div>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="view_8h_source.html#l00053">53</a> of file <a class="el" href="view_8h_source.html">view.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="view_8h_source.html#l00050">50</a> of file <a class="el" href="view_8h_source.html">view.h</a>.</p>
 
 </div>
 </div>
@@ -1090,7 +1097,7 @@ Here is the caller graph for this function:</div>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="view_8h_source.html#l00045">45</a> of file <a class="el" href="view_8h_source.html">view.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="view_8h_source.html#l00042">42</a> of file <a class="el" href="view_8h_source.html">view.h</a>.</p>
 
 </div>
 </div>

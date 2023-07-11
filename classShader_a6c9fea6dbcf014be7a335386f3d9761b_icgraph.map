@@ -1,8 +1,8 @@
 <map id="Shader::set_mat4" name="Shader::set_mat4">
-<area shape="rect" id="node1" title="Bind the matrix 4x4 variable to the shader." alt="" coords="684,31,820,57"/>
-<area shape="rect" id="node2" href="$structGraphRenderer.html#a5035b51f22a5d28314566fbb13dd7b23" title="Draw event of the 2D landmark graph." alt="" coords="473,5,633,32"/>
-<area shape="rect" id="node6" href="$structScatterRenderer.html#a37c7029cc2506b81c420691bcff3b207" title="Draw event of the 2D data points." alt="" coords="469,56,636,83"/>
-<area shape="rect" id="node3" href="$classRenderer.html#ab407870f559dfa892dd1dab1b842523f" title="Render graph and scatterplot." alt="" coords="291,31,421,57"/>
-<area shape="rect" id="node4" href="$classRenderer.html#acc7b3656f13c505a21175802a877e873" title="Process input events and render graph and scatterplot with updated values." alt="" coords="108,31,243,57"/>
-<area shape="rect" id="node5" href="$main_8cpp.html#ae66f6b31b5ad750f1fe042a706a4e3d4" title=" " alt="" coords="5,31,60,57"/>
+<area shape="rect" id="node1" title="Bind the matrix 4x4 variable to the shader." alt="" coords="501,56,637,83"/>
+<area shape="rect" id="node2" href="$structScatterRenderer.html#ac3fe7953a924ede8ad6dd989970b9374" title="Draw event of the 2D data points." alt="" coords="287,5,453,32"/>
+<area shape="rect" id="node5" href="$structUiRenderer.html#a3ef14402100a1b5fe0e0d96ae98b0fe8" title=" " alt="" coords="303,56,437,83"/>
+<area shape="rect" id="node6" href="$structGraphRenderer.html#a69da926110c3259b3d992ce7c1639036" title="Draw event of the 2D landmark graph." alt="" coords="290,107,450,133"/>
+<area shape="rect" id="node3" href="$classRenderer.html#a0936ec5e094ff46a696c579cd6f37569" title="Render graph and scatterplot." alt="" coords="108,56,239,83"/>
+<area shape="rect" id="node4" href="$main_8cpp.html#ae66f6b31b5ad750f1fe042a706a4e3d4" title=" " alt="" coords="5,56,60,83"/>
 </map>

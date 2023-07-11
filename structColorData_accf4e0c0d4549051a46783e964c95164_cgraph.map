@@ -1,6 +1,7 @@
 <map id="ColorData::ColorData" name="ColorData::ColorData">
-<area shape="rect" id="node1" title="Calls reset() method to set initial values." alt="" coords="5,5,165,32"/>
-<area shape="rect" id="node2" href="$structColorData.html#a0c2ffb8cf9b6cbcce28c928af3b3d624" title="Resets color settings to their initial values." alt="" coords="213,5,341,32"/>
-<area shape="rect" id="node3" href="$structColorData.html#a92a579faa57018d8fd3c4b4bf3cabb02" title="Notifies Sweeper that the color settings has been modified and that the data has to be recomputed." alt="" coords="389,5,567,32"/>
-<area shape="rect" id="node4" href="$structSweeper.html#af8cbe558ba3a09298813c9a0d8ee7234" title="Force&#45;refresh the whole range." alt="" coords="615,5,747,32"/>
+<area shape="rect" id="node1" title="Calls reset() method to set initial values." alt="" coords="5,31,165,57"/>
+<area shape="rect" id="node2" href="$structColorData.html#a0c2ffb8cf9b6cbcce28c928af3b3d624" title="Resets color settings to their initial values." alt="" coords="213,31,341,57"/>
+<area shape="rect" id="node3" href="$structClusterData.html#a33c6c24fb5cb90e844185babe3ad6fb8" title=" " alt="" coords="408,5,548,32"/>
+<area shape="rect" id="node4" href="$structColorData.html#a92a579faa57018d8fd3c4b4bf3cabb02" title=" " alt="" coords="389,56,567,83"/>
+<area shape="rect" id="node5" href="$structSweeper.html#af8cbe558ba3a09298813c9a0d8ee7234" title="Force&#45;refresh the whole range." alt="" coords="615,56,747,83"/>
 </map>

@@ -1,0 +1,4 @@
+<map id="GraphRenderer::prepare_vertices" name="GraphRenderer::prepare_vertices">
+<area shape="rect" id="node1" title="Prepare graph vertices that are rendered as circles." alt="" coords="5,5,184,47"/>
+<area shape="rect" id="node2" href="$structGraphRenderer.html#a7530878e152d51beab450825d44c5859" title="Add vertices for TRIANGLE_FAN that creates circle at given position." alt="" coords="232,5,384,47"/>
+</map>

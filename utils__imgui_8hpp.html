@@ -72,14 +72,23 @@ $(function() {
   <div class="headertitle"><div class="title">utils_imgui.hpp File Reference</div></div>
 </div><!--header-->
 <div class="contents">
-<div class="textblock"><code>#include &lt;imgui.h&gt;</code><br />
+<div class="textblock"><code>#include &quot;<a class="el" href="frame__stats_8h_source.html">frame_stats.h</a>&quot;</code><br />
+<code>#include &lt;imgui.h&gt;</code><br />
+<code>#include &lt;string&gt;</code><br />
+<code>#include &lt;vector&gt;</code><br />
 </div><div class="textblock"><div class="dynheader">
 Include dependency graph for utils_imgui.hpp:</div>
 <div class="dyncontent">
 <div class="center"><img src="utils__imgui_8hpp__incl.png" border="0" usemap="#asrc_2utils__imgui_8hpp" alt=""/></div>
 <map name="asrc_2utils__imgui_8hpp" id="asrc_2utils__imgui_8hpp">
-<area shape="rect" title=" " alt="" coords="5,5,151,32"/>
-<area shape="rect" title=" " alt="" coords="43,80,113,107"/>
+<area shape="rect" title=" " alt="" coords="189,5,335,32"/>
+<area shape="rect" href="frame__stats_8h.html" title=" " alt="" coords="77,80,189,107"/>
+<area shape="rect" title=" " alt="" coords="193,155,256,181"/>
+<area shape="rect" title=" " alt="" coords="264,80,335,107"/>
+<area shape="rect" title=" " alt="" coords="359,80,418,107"/>
+<area shape="rect" title=" " alt="" coords="5,155,76,181"/>
+<area shape="rect" href="timer_8h.html" title=" " alt="" coords="100,155,168,181"/>
+<area shape="rect" title=" " alt="" coords="101,229,167,256"/>
 </map>
 </div>
 </div><div class="textblock"><div class="dynheader">
@@ -136,7 +145,7 @@ Functions</h2></td></tr>
 <dd>
 false If the button was not pressed. </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="utils__imgui_8hpp_source.html#l00055">55</a> of file <a class="el" href="utils__imgui_8hpp_source.html">utils_imgui.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="utils__imgui_8hpp_source.html#l00059">59</a> of file <a class="el" href="utils__imgui_8hpp_source.html">utils_imgui.hpp</a>.</p>
 <div class="dynheader">
 Here is the caller graph for this function:</div>
 <div class="dyncontent">
@@ -147,7 +156,7 @@ Here is the caller graph for this function:</div>
 <area shape="rect" href="structUiScaler.html#a4481cf933d9227eebdd010540bfa945d" title="Renders window with corresponding scale&amp;transform widgets." alt="" coords="517,56,643,83"/>
 <area shape="rect" href="structUiTrainingSettings.html#ad5ba46054f4731d44944861160a4e44c" title="Renders window with corresponding training settings widgets." alt="" coords="510,107,650,149"/>
 <area shape="rect" href="structUiMenu.html#aa4ed0bb847de6d88a9198e522c5e852e" title="Renders main menu window, the plus button and currently opened menu item windows." alt="" coords="323,56,445,83"/>
-<area shape="rect" href="classImGuiWrapper.html#ae8cc6a14b94ce5e74a9ec18e65930da4" title="Render UI." alt="" coords="108,56,275,83"/>
+<area shape="rect" href="classImGuiWrapper.html#a12022a93acba1bdcafa126e7e44d8f76" title="Render UI." alt="" coords="108,56,275,83"/>
 <area shape="rect" href="main_8cpp.html#ae66f6b31b5ad750f1fe042a706a4e3d4" title=" " alt="" coords="5,56,60,83"/>
 </map>
 </div>
@@ -187,17 +196,18 @@ Here is the caller graph for this function:</div>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="utils__imgui_8hpp_source.html#l00032">32</a> of file <a class="el" href="utils__imgui_8hpp_source.html">utils_imgui.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="utils__imgui_8hpp_source.html#l00036">36</a> of file <a class="el" href="utils__imgui_8hpp_source.html">utils_imgui.hpp</a>.</p>
 <div class="dynheader">
 Here is the caller graph for this function:</div>
 <div class="dyncontent">
 <div class="center"><img src="utils__imgui_8hpp_ad96c1b9779c23d1779f8f2d8cffefa64_icgraph.png" border="0" usemap="#autils__imgui_8hpp_ad96c1b9779c23d1779f8f2d8cffefa64_icgraph" alt=""/></div>
 <map name="autils__imgui_8hpp_ad96c1b9779c23d1779f8f2d8cffefa64_icgraph" id="autils__imgui_8hpp_ad96c1b9779c23d1779f8f2d8cffefa64_icgraph">
-<area shape="rect" title="ImGUI wrapper for setting tooltip." alt="" coords="755,5,819,32"/>
-<area shape="rect" href="structUiMenu.html#ab97776e252bc799d5b03d382dc09d688" title="Draws main menu window." alt="" coords="493,5,707,32"/>
-<area shape="rect" href="structUiMenu.html#aa4ed0bb847de6d88a9198e522c5e852e" title="Renders main menu window, the plus button and currently opened menu item windows." alt="" coords="323,5,445,32"/>
-<area shape="rect" href="classImGuiWrapper.html#ae8cc6a14b94ce5e74a9ec18e65930da4" title="Render UI." alt="" coords="108,5,275,32"/>
-<area shape="rect" href="main_8cpp.html#ae66f6b31b5ad750f1fe042a706a4e3d4" title=" " alt="" coords="5,5,60,32"/>
+<area shape="rect" title="ImGUI wrapper for setting tooltip." alt="" coords="755,31,819,57"/>
+<area shape="rect" href="structUiMenu.html#a362bfd4154ee7abdbc84cc91dada07c5" title="Draws main menu window." alt="" coords="493,5,707,32"/>
+<area shape="rect" href="structUiColorSettings.html#a03f1da424bb36a866a522c6832ebe79e" title="Renders window with corresponding color settings widgets." alt="" coords="513,56,687,83"/>
+<area shape="rect" href="structUiMenu.html#aa4ed0bb847de6d88a9198e522c5e852e" title="Renders main menu window, the plus button and currently opened menu item windows." alt="" coords="323,31,445,57"/>
+<area shape="rect" href="classImGuiWrapper.html#a12022a93acba1bdcafa126e7e44d8f76" title="Render UI." alt="" coords="108,31,275,57"/>
+<area shape="rect" href="main_8cpp.html#ae66f6b31b5ad750f1fe042a706a4e3d4" title=" " alt="" coords="5,31,60,57"/>
 </map>
 </div>
 

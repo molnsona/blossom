@@ -1,0 +1,4 @@
+<map id="View::update" name="View::update">
+<area shape="rect" id="node1" title="Move the current position and zoom a bit closer to the target position and zoom." alt="" coords="5,5,112,32"/>
+<area shape="rect" id="node2" href="$classView.html#af1964e06e4b0463b3b9142f8bdbe2c10" title="Re&#45;calculates the right and up vector from the View&#39;s updated vectors." alt="" coords="160,5,359,32"/>
+</map>

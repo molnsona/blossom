@@ -1,0 +1,6 @@
+<map id="ColorData::color_landmarks" name="ColorData::color_landmarks">
+<area shape="rect" id="node1" title="Notifies Sweeper that the color settings has been modified and that the data has to be recomputed." alt="" coords="5,5,208,32"/>
+<area shape="rect" id="node2" href="$structColorData.html#aa25126670ee1c55656df1d0267b8d9d0" title="Color the landmark according to the active cluster." alt="" coords="256,5,452,32"/>
+<area shape="rect" id="node3" href="$structColorData.html#a92a579faa57018d8fd3c4b4bf3cabb02" title=" " alt="" coords="500,5,677,32"/>
+<area shape="rect" id="node4" href="$structSweeper.html#af8cbe558ba3a09298813c9a0d8ee7234" title="Force&#45;refresh the whole range." alt="" coords="725,5,857,32"/>
+</map>

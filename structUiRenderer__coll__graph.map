@@ -1,0 +1,4 @@
+<map id="UiRenderer" name="UiRenderer">
+<area shape="rect" id="node1" title="Renderer of the objects that are needed in the user interaction with the dataset." alt="" coords="5,109,100,136"/>
+<area shape="rect" id="node2" href="$classShader.html" title="Abstracts working with shaders." alt="" coords="19,5,86,32"/>
+</map>

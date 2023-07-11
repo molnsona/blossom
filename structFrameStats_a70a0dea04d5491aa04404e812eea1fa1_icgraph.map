@@ -1,0 +1,5 @@
+<map id="FrameStats::update_times" name="FrameStats::update_times">
+<area shape="rect" id="node1" title="Compute durations of the estimation batch sizes computations." alt="" coords="265,5,415,47"/>
+<area shape="rect" id="node2" href="$structState.html#a08edb55dfdad9afc055fa9440564b04a" title="Performs simulation steps of all active algorithms and updates data according to the user interaction..." alt="" coords="108,13,217,39"/>
+<area shape="rect" id="node3" href="$main_8cpp.html#ae66f6b31b5ad750f1fe042a706a4e3d4" title=" " alt="" coords="5,13,60,39"/>
+</map>

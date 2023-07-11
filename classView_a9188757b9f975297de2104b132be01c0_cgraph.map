@@ -1,0 +1,6 @@
+<map id="View::zoom" name="View::zoom">
+<area shape="rect" id="node1" title="Adjust zoom accordingly." alt="" coords="5,31,103,57"/>
+<area shape="rect" id="node2" href="$classView.html#aeda343862d3aa831814d252c6361cb90" title="Convert mouse coordinates ([0,0] in the upper left corner), to model coordinates ([0,..." alt="" coords="151,31,353,57"/>
+<area shape="rect" id="node3" href="$classView.html#a9e79788c1b06ba8176273672d6fc5d1f" title="Compute projection matrix for orthographic projection." alt="" coords="405,5,569,32"/>
+<area shape="rect" id="node4" href="$classView.html#ae2675b41a3c49d8b52784955d128234a" title="Compute view matrix for drawing into the &quot;view&quot; space." alt="" coords="401,56,572,83"/>
+</map>

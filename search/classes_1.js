@@ -1,7 +1,9 @@
 var searchData=
 [
-  ['datamodel_0',['DataModel',['../structDataModel.html',1,'']]],
-  ['dirt_1',['Dirt',['../structDirt.html',1,'']]],
-  ['dirts_2',['Dirts',['../structDirts.html',1,'']]],
-  ['dist_5fid_3',['dist_id',['../structdist__id.html',1,'']]]
+  ['cleaner_0',['Cleaner',['../structCleaner.html',1,'']]],
+  ['clusterdata_1',['ClusterData',['../structClusterData.html',1,'']]],
+  ['colordata_2',['ColorData',['../structColorData.html',1,'']]],
+  ['comparatorpolicy_3',['ComparatorPolicy',['../structComparatorPolicy.html',1,'']]],
+  ['comparatorpolicy_3c_20float_20_3e_4',['ComparatorPolicy&lt; float &gt;',['../structComparatorPolicy_3_01float_01_4.html',1,'']]],
+  ['cudaerror_5',['CudaError',['../structCudaError.html',1,'']]]
 ];

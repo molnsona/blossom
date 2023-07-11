@@ -1,15 +1,22 @@
 <map id="View::get_proj_matrix" name="View::get_proj_matrix">
-<area shape="rect" id="node1" title="Compute projection matrix for orthographic projection." alt="" coords="995,81,1159,108"/>
-<area shape="rect" id="node2" href="$structGraphRenderer.html#a5035b51f22a5d28314566fbb13dd7b23" title="Draw event of the 2D landmark graph." alt="" coords="783,5,943,32"/>
-<area shape="rect" id="node6" href="$structScatterRenderer.html#a37c7029cc2506b81c420691bcff3b207" title="Draw event of the 2D data points." alt="" coords="780,56,947,83"/>
-<area shape="rect" id="node7" href="$classView.html#aeda343862d3aa831814d252c6361cb90" title="Convert mouse coordinates ([0,0] in the upper left corner), to model coordinates ([0,..." alt="" coords="529,163,732,189"/>
-<area shape="rect" id="node12" href="$classView.html#ae728fdbc1b95ae6fd588d1d2b8d375db" title="Converts point to screen coordinates([0,0] in the middle of the screen)." alt="" coords="786,107,941,133"/>
-<area shape="rect" id="node3" href="$classRenderer.html#ab407870f559dfa892dd1dab1b842523f" title="Render graph and scatterplot." alt="" coords="565,45,696,72"/>
-<area shape="rect" id="node4" href="$classRenderer.html#acc7b3656f13c505a21175802a877e873" title="Process input events and render graph and scatterplot with updated values." alt="" coords="108,104,243,131"/>
-<area shape="rect" id="node5" href="$main_8cpp.html#ae66f6b31b5ad750f1fe042a706a4e3d4" title=" " alt="" coords="5,133,60,160"/>
-<area shape="rect" id="node8" href="$classRenderer.html#a95b6e3922529d554e7c6ee02f6108bfc" title="Process mouse input and moves the landmarks." alt="" coords="291,104,481,131"/>
-<area shape="rect" id="node9" href="$classView.html#a542f06af2c25d7317497dcf8ba1c3d58" title=" " alt="" coords="305,155,467,197"/>
-<area shape="rect" id="node11" href="$classView.html#aeafc494c5781169ee93aae61ac67e775" title="Process mouse scroll and adjust zoom accordingly." alt="" coords="305,221,467,262"/>
-<area shape="rect" id="node10" href="$classView.html#a357e8c8e1316cc0602a9d39f4c473ec4" title="Move the current position and zoom a bit closer to the target position and zoom." alt="" coords="122,163,229,189"/>
-<area shape="rect" id="node13" href="$structGraphRenderer.html#a0ff79676c92cc249ece2d7c8e53ee90c" title="Checks if some vertex was pressed." alt="" coords="545,97,717,138"/>
+<area shape="rect" id="node1" title="Compute projection matrix for orthographic projection." alt="" coords="1245,107,1409,133"/>
+<area shape="rect" id="node2" href="$structScatterRenderer.html#ac3fe7953a924ede8ad6dd989970b9374" title="Draw event of the 2D data points." alt="" coords="1013,107,1179,133"/>
+<area shape="rect" id="node5" href="$structUiRenderer.html#a3ef14402100a1b5fe0e0d96ae98b0fe8" title=" " alt="" coords="1029,5,1163,32"/>
+<area shape="rect" id="node6" href="$structGraphRenderer.html#a69da926110c3259b3d992ce7c1639036" title="Draw event of the 2D landmark graph." alt="" coords="1016,56,1176,83"/>
+<area shape="rect" id="node7" href="$classView.html#aeda343862d3aa831814d252c6361cb90" title="Convert mouse coordinates ([0,0] in the upper left corner), to model coordinates ([0,..." alt="" coords="995,344,1197,371"/>
+<area shape="rect" id="node17" href="$classView.html#ae728fdbc1b95ae6fd588d1d2b8d375db" title="Converts point to screen coordinates([0,0] in the middle of the screen)." alt="" coords="1019,157,1173,184"/>
+<area shape="rect" id="node3" href="$classRenderer.html#a0936ec5e094ff46a696c579cd6f37569" title="Render graph and scatterplot." alt="" coords="788,44,919,71"/>
+<area shape="rect" id="node4" href="$main_8cpp.html#ae66f6b31b5ad750f1fe042a706a4e3d4" title=" " alt="" coords="5,167,60,193"/>
+<area shape="rect" id="node8" href="$classRenderer.html#a2bd0e4a83b7a2686ff518cc6f41afd8d" title=" " alt="" coords="546,344,693,371"/>
+<area shape="rect" id="node9" href="$classInputHandler.html#a4acd17428d24191471c39039ec5dd3cf" title="Handle mouse button input." alt="" coords="315,278,479,319"/>
+<area shape="rect" id="node11" href="$classView.html#a429fdc29e7533674e16a4cacf4efb5ad" title="Cause the camera to look at the specified point." alt="" coords="565,445,674,472"/>
+<area shape="rect" id="node12" href="$classRenderer.html#a9edc7edf33955d447b5fd8e4efb5b17f" title=" " alt="" coords="540,227,699,253"/>
+<area shape="rect" id="node13" href="$structUiRenderer.html#aa66be6f6bca1ce06840ae15eb4986621" title=" " alt="" coords="780,278,927,319"/>
+<area shape="rect" id="node15" href="$classView.html#a9188757b9f975297de2104b132be01c0" title="Adjust zoom accordingly." alt="" coords="805,496,902,523"/>
+<area shape="rect" id="node10" href="$classInputHandler.html#a415d65a1189126e3a26ae281e3428fc0" title=" " alt="" coords="108,285,267,312"/>
+<area shape="rect" id="node14" href="$classRenderer.html#a4e9204e6638cbcbf861565b9b74d807e" title=" " alt="" coords="535,278,703,319"/>
+<area shape="rect" id="node16" href="$classInputHandler.html#a6af2abb38ca607a79c272ef6203be151" title="Process mouse scroll and notify other parts(listed in arguments) about it." alt="" coords="315,415,479,457"/>
+<area shape="rect" id="node18" href="$classRenderer.html#a7219caca3c8fe45b472fc7edcf02900d" title=" " alt="" coords="760,161,947,202"/>
+<area shape="rect" id="node19" href="$structGraphRenderer.html#a2610046d8e0c85a1d5a0cc678ebfd846" title="Checks if some vertex was pressed." alt="" coords="767,95,939,137"/>
+<area shape="rect" id="node20" href="$classRenderer.html#a207c39d6d37ae82a629db05b69f32747" title="Check whether the vertex was pressed and set flags." alt="" coords="527,101,712,142"/>
 </map>

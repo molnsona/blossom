@@ -1,4 +1,10 @@
 <map id="src/utils_imgui.hpp" name="src/utils_imgui.hpp">
-<area shape="rect" id="node1" title=" " alt="" coords="5,5,151,32"/>
-<area shape="rect" id="node2" title=" " alt="" coords="43,80,113,107"/>
+<area shape="rect" id="node1" title=" " alt="" coords="189,5,335,32"/>
+<area shape="rect" id="node2" href="$frame__stats_8h.html" title=" " alt="" coords="77,80,189,107"/>
+<area shape="rect" id="node4" title=" " alt="" coords="193,155,256,181"/>
+<area shape="rect" id="node7" title=" " alt="" coords="264,80,335,107"/>
+<area shape="rect" id="node8" title=" " alt="" coords="359,80,418,107"/>
+<area shape="rect" id="node3" title=" " alt="" coords="5,155,76,181"/>
+<area shape="rect" id="node5" href="$timer_8h.html" title=" " alt="" coords="100,155,168,181"/>
+<area shape="rect" id="node6" title=" " alt="" coords="101,229,167,256"/>
 </map>

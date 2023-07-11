@@ -1,0 +1,6 @@
+<map id="View::move_y" name="View::move_y">
+<area shape="rect" id="node1" title="Move view along Y&#45;axis." alt="" coords="527,13,640,39"/>
+<area shape="rect" id="node2" href="$classInputHandler.html#a3f9aca388a14a4d004fda42f5a8ddac8" title="Identify which key was pressed and notify other parts (listed in arguments) about it." alt="" coords="315,5,479,47"/>
+<area shape="rect" id="node3" href="$classInputHandler.html#a415d65a1189126e3a26ae281e3428fc0" title=" " alt="" coords="108,13,267,39"/>
+<area shape="rect" id="node4" href="$main_8cpp.html#ae66f6b31b5ad750f1fe042a706a4e3d4" title=" " alt="" coords="5,13,60,39"/>
+</map>

@@ -1,10 +1,16 @@
 <map id="src/trans_data.h" name="src/trans_data.h">
-<area shape="rect" id="node1" title=" " alt="" coords="43,5,170,32"/>
+<area shape="rect" id="node1" title=" " alt="" coords="245,5,371,32"/>
 <area shape="rect" id="node2" title=" " alt="" coords="5,80,69,107"/>
-<area shape="rect" id="node3" title=" " alt="" coords="79,155,142,181"/>
-<area shape="rect" id="node4" href="$data__model_8h.html" title=" " alt="" coords="145,80,255,107"/>
-<area shape="rect" id="node5" title=" " alt="" coords="168,155,227,181"/>
-<area shape="rect" id="node6" href="$dirty_8h.html" title=" " alt="" coords="251,155,314,181"/>
-<area shape="rect" id="node7" title=" " alt="" coords="203,229,274,256"/>
-<area shape="rect" id="node8" title=" " alt="" coords="298,229,353,256"/>
+<area shape="rect" id="node3" title=" " alt="" coords="370,155,433,181"/>
+<area shape="rect" id="node4" href="$batch__size__gen_8h.html" title=" " alt="" coords="94,80,229,107"/>
+<area shape="rect" id="node9" href="$data__model_8h.html" title=" " alt="" coords="253,80,363,107"/>
+<area shape="rect" id="node12" href="$frame__stats_8h.html" title=" " alt="" coords="439,80,551,107"/>
+<area shape="rect" id="node5" title=" " alt="" coords="195,229,266,256"/>
+<area shape="rect" id="node6" href="$estimator_8h.html" title=" " alt="" coords="28,155,124,181"/>
+<area shape="rect" id="node7" title=" " alt="" coords="36,229,92,256"/>
+<area shape="rect" id="node8" title=" " alt="" coords="117,229,171,256"/>
+<area shape="rect" id="node10" title=" " alt="" coords="287,155,345,181"/>
+<area shape="rect" id="node11" href="$dirty_8h.html" title=" " alt="" coords="199,155,262,181"/>
+<area shape="rect" id="node13" href="$timer_8h.html" title=" " alt="" coords="509,155,577,181"/>
+<area shape="rect" id="node14" title=" " alt="" coords="509,229,576,256"/>
 </map>

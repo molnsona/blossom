@@ -1,5 +1,5 @@
 var searchData=
 [
-  ['points_5f2d_0',['POINTS_2D',['../structUiSaver.html#a17371d2e1c1f0f852c836c4906fa2322af6ccdc21b15cfb79b804e6909f8a2b6a',1,'UiSaver']]],
-  ['points_5fhd_1',['POINTS_HD',['../structUiSaver.html#a17371d2e1c1f0f852c836c4906fa2322a1a926ff05db5aa63740933e75f243c4c',1,'UiSaver']]]
+  ['land_5f2d_0',['LAND_2D',['../structUiSaver.html#a17371d2e1c1f0f852c836c4906fa2322aaabf5fa6baf10151047307484cbdde1f',1,'UiSaver']]],
+  ['land_5fhd_1',['LAND_HD',['../structUiSaver.html#a17371d2e1c1f0f852c836c4906fa2322a05d3f0f1e170d82047bf74e2fa845fd8',1,'UiSaver']]]
 ];

@@ -1,6 +1,6 @@
 <map id="embedsom" name="embedsom">
 <area shape="rect" id="node1" title=" " alt="" coords="475,5,569,32"/>
-<area shape="rect" id="node2" href="$structScatterModel.html#aedfea70c9bace6079f6f20a9e6736694" title="Recomputes the coordinates if any of the the parameters of the embedsom algorithm has changed." alt="" coords="265,5,427,32"/>
-<area shape="rect" id="node3" href="$structState.html#adcd0d835af130aa668bcc5799e8bb0c7" title="Performs simulation steps of all active algorithms and updates data according to the user interaction..." alt="" coords="108,5,217,32"/>
+<area shape="rect" id="node2" href="$structScatterModel.html#aece3d7c5774154aa7636f5727c98acba" title="Recomputes the coordinates if any of the the parameters of the embedsom algorithm has changed." alt="" coords="265,5,427,32"/>
+<area shape="rect" id="node3" href="$structState.html#a08edb55dfdad9afc055fa9440564b04a" title="Performs simulation steps of all active algorithms and updates data according to the user interaction..." alt="" coords="108,5,217,32"/>
 <area shape="rect" id="node4" href="$main_8cpp.html#ae66f6b31b5ad750f1fe042a706a4e3d4" title=" " alt="" coords="5,5,60,32"/>
 </map>

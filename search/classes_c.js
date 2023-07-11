@@ -1,8 +1,6 @@
 var searchData=
 [
-  ['timer_0',['Timer',['../structTimer.html',1,'']]],
-  ['trainingconfig_1',['TrainingConfig',['../structTrainingConfig.html',1,'']]],
-  ['transconfig_2',['TransConfig',['../structTransConfig.html',1,'']]],
-  ['transdata_3',['TransData',['../structTransData.html',1,'']]],
-  ['tsnelayoutdata_4',['TSNELayoutData',['../structTSNELayoutData.html',1,'']]]
+  ['rawdatastats_0',['RawDataStats',['../structRawDataStats.html',1,'']]],
+  ['rectangleindexer_1',['RectangleIndexer',['../structRectangleIndexer.html',1,'']]],
+  ['renderer_2',['Renderer',['../classRenderer.html',1,'']]]
 ];

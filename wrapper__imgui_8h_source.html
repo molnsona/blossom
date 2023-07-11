@@ -104,37 +104,35 @@ $(function() {
 <div class="line"><a id="l00032" name="l00032"></a><span class="lineno">   32</span><span class="comment"> */</span></div>
 <div class="line"><a id="l00033" name="l00033"></a><span class="lineno"><a class="line" href="classImGuiWrapper.html">   33</a></span><span class="keyword">class </span><a class="code hl_class" href="classImGuiWrapper.html">ImGuiWrapper</a></div>
 <div class="line"><a id="l00034" name="l00034"></a><span class="lineno">   34</span>{</div>
-<div class="line"><a id="l00035" name="l00035"></a><span class="lineno">   35</span><span class="keyword">public</span>:<span class="comment"></span></div>
-<div class="line"><a id="l00036" name="l00036"></a><span class="lineno">   36</span><span class="comment">    /**</span></div>
-<div class="line"><a id="l00037" name="l00037"></a><span class="lineno">   37</span><span class="comment">     * @brief Initialize ImGui and load fonts.</span></div>
-<div class="line"><a id="l00038" name="l00038"></a><span class="lineno">   38</span><span class="comment">     *</span></div>
-<div class="line"><a id="l00039" name="l00039"></a><span class="lineno">   39</span><span class="comment">     * @param window</span></div>
-<div class="line"><a id="l00040" name="l00040"></a><span class="lineno">   40</span><span class="comment">     * @return true</span></div>
-<div class="line"><a id="l00041" name="l00041"></a><span class="lineno">   41</span><span class="comment">     * @return false</span></div>
-<div class="line"><a id="l00042" name="l00042"></a><span class="lineno">   42</span><span class="comment">     */</span></div>
-<div class="line"><a id="l00043" name="l00043"></a><span class="lineno">   43</span>    <span class="keywordtype">bool</span> <a class="code hl_function" href="classImGuiWrapper.html#a4dca2c8b6ef4949eb47ff2e2424d5353">init</a>(GLFWwindow *window);<span class="comment"></span></div>
-<div class="line"><a id="l00044" name="l00044"></a><span class="lineno">   44</span><span class="comment">    /**</span></div>
-<div class="line"><a id="l00045" name="l00045"></a><span class="lineno">   45</span><span class="comment">     * @brief Render UI.</span></div>
-<div class="line"><a id="l00046" name="l00046"></a><span class="lineno">   46</span><span class="comment">     *</span></div>
-<div class="line"><a id="l00047" name="l00047"></a><span class="lineno">   47</span><span class="comment">     * @param callbacks</span></div>
-<div class="line"><a id="l00048" name="l00048"></a><span class="lineno">   48</span><span class="comment">     * @param state</span></div>
-<div class="line"><a id="l00049" name="l00049"></a><span class="lineno">   49</span><span class="comment">     */</span></div>
-<div class="line"><a id="l00050" name="l00050"></a><span class="lineno">   50</span>    <span class="keywordtype">void</span> <a class="code hl_function" href="classImGuiWrapper.html#ae8cc6a14b94ce5e74a9ec18e65930da4">render</a>(<a class="code hl_struct" href="structCallbackValues.html">CallbackValues</a> callbacks, <a class="code hl_struct" href="structState.html">State</a> &amp;state);</div>
-<div class="line"><a id="l00051" name="l00051"></a><span class="lineno">   51</span> </div>
-<div class="line"><a id="l00052" name="l00052"></a><span class="lineno">   52</span>    <span class="keywordtype">void</span> <a class="code hl_function" href="classImGuiWrapper.html#ae12603c6d91bd5555e61acaeca54dfb1">destroy</a>();</div>
-<div class="line"><a id="l00053" name="l00053"></a><span class="lineno">   53</span> </div>
-<div class="line"><a id="l00054" name="l00054"></a><span class="lineno">   54</span><span class="keyword">private</span>:</div>
-<div class="line"><a id="l00055" name="l00055"></a><span class="lineno"><a class="line" href="classImGuiWrapper.html#a000e9382c747bbe254b3624f70bf2c94">   55</a></span>    <a class="code hl_struct" href="structUiMenu.html">UiMenu</a> <a class="code hl_variable" href="classImGuiWrapper.html#a000e9382c747bbe254b3624f70bf2c94">menu</a>;</div>
-<div class="line"><a id="l00056" name="l00056"></a><span class="lineno">   56</span>};</div>
-<div class="line"><a id="l00057" name="l00057"></a><span class="lineno">   57</span> </div>
-<div class="line"><a id="l00058" name="l00058"></a><span class="lineno">   58</span><span class="preprocessor">#endif </span><span class="comment">// WRAPPER_IMGUI_H</span></div>
+<div class="line"><a id="l00035" name="l00035"></a><span class="lineno">   35</span><span class="keyword">public</span>:</div>
+<div class="line"><a id="l00036" name="l00036"></a><span class="lineno">   36</span>    <a class="code hl_function" href="classImGuiWrapper.html#a6222320681ad67fba62f912a5d88c4b2">~ImGuiWrapper</a>();<span class="comment"></span></div>
+<div class="line"><a id="l00037" name="l00037"></a><span class="lineno">   37</span><span class="comment">    /**</span></div>
+<div class="line"><a id="l00038" name="l00038"></a><span class="lineno">   38</span><span class="comment">     * @brief Initialize ImGui and load fonts.</span></div>
+<div class="line"><a id="l00039" name="l00039"></a><span class="lineno">   39</span><span class="comment">     *</span></div>
+<div class="line"><a id="l00040" name="l00040"></a><span class="lineno">   40</span><span class="comment">     * @param window</span></div>
+<div class="line"><a id="l00041" name="l00041"></a><span class="lineno">   41</span><span class="comment">     * @return true</span></div>
+<div class="line"><a id="l00042" name="l00042"></a><span class="lineno">   42</span><span class="comment">     * @return false</span></div>
+<div class="line"><a id="l00043" name="l00043"></a><span class="lineno">   43</span><span class="comment">     */</span></div>
+<div class="line"><a id="l00044" name="l00044"></a><span class="lineno">   44</span>    <span class="keywordtype">bool</span> <a class="code hl_function" href="classImGuiWrapper.html#a4dca2c8b6ef4949eb47ff2e2424d5353">init</a>(GLFWwindow *window);<span class="comment"></span></div>
+<div class="line"><a id="l00045" name="l00045"></a><span class="lineno">   45</span><span class="comment">    /**</span></div>
+<div class="line"><a id="l00046" name="l00046"></a><span class="lineno">   46</span><span class="comment">     * @brief Render UI.</span></div>
+<div class="line"><a id="l00047" name="l00047"></a><span class="lineno">   47</span><span class="comment">     *</span></div>
+<div class="line"><a id="l00048" name="l00048"></a><span class="lineno">   48</span><span class="comment">     * @param input</span></div>
+<div class="line"><a id="l00049" name="l00049"></a><span class="lineno">   49</span><span class="comment">     * @param state</span></div>
+<div class="line"><a id="l00050" name="l00050"></a><span class="lineno">   50</span><span class="comment">     */</span></div>
+<div class="line"><a id="l00051" name="l00051"></a><span class="lineno">   51</span>    <span class="keywordtype">void</span> <a class="code hl_function" href="classImGuiWrapper.html#a12022a93acba1bdcafa126e7e44d8f76">render</a>(<span class="keywordtype">int</span> w, <span class="keywordtype">int</span> h, <a class="code hl_struct" href="structState.html">State</a> &amp;state);</div>
+<div class="line"><a id="l00052" name="l00052"></a><span class="lineno">   52</span> </div>
+<div class="line"><a id="l00053" name="l00053"></a><span class="lineno">   53</span><span class="keyword">private</span>:</div>
+<div class="line"><a id="l00054" name="l00054"></a><span class="lineno"><a class="line" href="classImGuiWrapper.html#a000e9382c747bbe254b3624f70bf2c94">   54</a></span>    <a class="code hl_struct" href="structUiMenu.html">UiMenu</a> <a class="code hl_variable" href="classImGuiWrapper.html#a000e9382c747bbe254b3624f70bf2c94">menu</a>;</div>
+<div class="line"><a id="l00055" name="l00055"></a><span class="lineno">   55</span>};</div>
+<div class="line"><a id="l00056" name="l00056"></a><span class="lineno">   56</span> </div>
+<div class="line"><a id="l00057" name="l00057"></a><span class="lineno">   57</span><span class="preprocessor">#endif </span><span class="comment">// WRAPPER_IMGUI_H</span></div>
 <div class="ttc" id="aclassImGuiWrapper_html"><div class="ttname"><a href="classImGuiWrapper.html">ImGuiWrapper</a></div><div class="ttdoc">Wrapper of the ImGui.</div><div class="ttdef"><b>Definition:</b> <a href="wrapper__imgui_8h_source.html#l00033">wrapper_imgui.h:34</a></div></div>
-<div class="ttc" id="aclassImGuiWrapper_html_a000e9382c747bbe254b3624f70bf2c94"><div class="ttname"><a href="classImGuiWrapper.html#a000e9382c747bbe254b3624f70bf2c94">ImGuiWrapper::menu</a></div><div class="ttdeci">UiMenu menu</div><div class="ttdef"><b>Definition:</b> <a href="wrapper__imgui_8h_source.html#l00055">wrapper_imgui.h:55</a></div></div>
-<div class="ttc" id="aclassImGuiWrapper_html_a4dca2c8b6ef4949eb47ff2e2424d5353"><div class="ttname"><a href="classImGuiWrapper.html#a4dca2c8b6ef4949eb47ff2e2424d5353">ImGuiWrapper::init</a></div><div class="ttdeci">bool init(GLFWwindow *window)</div><div class="ttdoc">Initialize ImGui and load fonts.</div><div class="ttdef"><b>Definition:</b> <a href="wrapper__imgui_8cpp_source.html#l00010">wrapper_imgui.cpp:10</a></div></div>
-<div class="ttc" id="aclassImGuiWrapper_html_ae12603c6d91bd5555e61acaeca54dfb1"><div class="ttname"><a href="classImGuiWrapper.html#ae12603c6d91bd5555e61acaeca54dfb1">ImGuiWrapper::destroy</a></div><div class="ttdeci">void destroy()</div><div class="ttdef"><b>Definition:</b> <a href="wrapper__imgui_8cpp_source.html#l00049">wrapper_imgui.cpp:49</a></div></div>
-<div class="ttc" id="aclassImGuiWrapper_html_ae8cc6a14b94ce5e74a9ec18e65930da4"><div class="ttname"><a href="classImGuiWrapper.html#ae8cc6a14b94ce5e74a9ec18e65930da4">ImGuiWrapper::render</a></div><div class="ttdeci">void render(CallbackValues callbacks, State &amp;state)</div><div class="ttdoc">Render UI.</div><div class="ttdef"><b>Definition:</b> <a href="wrapper__imgui_8cpp_source.html#l00036">wrapper_imgui.cpp:36</a></div></div>
+<div class="ttc" id="aclassImGuiWrapper_html_a000e9382c747bbe254b3624f70bf2c94"><div class="ttname"><a href="classImGuiWrapper.html#a000e9382c747bbe254b3624f70bf2c94">ImGuiWrapper::menu</a></div><div class="ttdeci">UiMenu menu</div><div class="ttdef"><b>Definition:</b> <a href="wrapper__imgui_8h_source.html#l00054">wrapper_imgui.h:54</a></div></div>
+<div class="ttc" id="aclassImGuiWrapper_html_a12022a93acba1bdcafa126e7e44d8f76"><div class="ttname"><a href="classImGuiWrapper.html#a12022a93acba1bdcafa126e7e44d8f76">ImGuiWrapper::render</a></div><div class="ttdeci">void render(int w, int h, State &amp;state)</div><div class="ttdoc">Render UI.</div><div class="ttdef"><b>Definition:</b> <a href="wrapper__imgui_8cpp_source.html#l00043">wrapper_imgui.cpp:43</a></div></div>
+<div class="ttc" id="aclassImGuiWrapper_html_a4dca2c8b6ef4949eb47ff2e2424d5353"><div class="ttname"><a href="classImGuiWrapper.html#a4dca2c8b6ef4949eb47ff2e2424d5353">ImGuiWrapper::init</a></div><div class="ttdeci">bool init(GLFWwindow *window)</div><div class="ttdoc">Initialize ImGui and load fonts.</div><div class="ttdef"><b>Definition:</b> <a href="wrapper__imgui_8cpp_source.html#l00017">wrapper_imgui.cpp:17</a></div></div>
+<div class="ttc" id="aclassImGuiWrapper_html_a6222320681ad67fba62f912a5d88c4b2"><div class="ttname"><a href="classImGuiWrapper.html#a6222320681ad67fba62f912a5d88c4b2">ImGuiWrapper::~ImGuiWrapper</a></div><div class="ttdeci">~ImGuiWrapper()</div><div class="ttdef"><b>Definition:</b> <a href="wrapper__imgui_8cpp_source.html#l00009">wrapper_imgui.cpp:9</a></div></div>
 <div class="ttc" id="astate_8h_html"><div class="ttname"><a href="state_8h.html">state.h</a></div></div>
-<div class="ttc" id="astructCallbackValues_html"><div class="ttname"><a href="structCallbackValues.html">CallbackValues</a></div><div class="ttdoc">Values stored from Glfw callbacks.</div><div class="ttdef"><b>Definition:</b> <a href="wrapper__glfw_8h_source.html#l00032">wrapper_glfw.h:33</a></div></div>
 <div class="ttc" id="astructState_html"><div class="ttname"><a href="structState.html">State</a></div><div class="ttdoc">Storage of data of used algorithms and input events.</div><div class="ttdef"><b>Definition:</b> <a href="state_8h_source.html#l00049">state.h:50</a></div></div>
 <div class="ttc" id="astructUiMenu_html"><div class="ttname"><a href="structUiMenu.html">UiMenu</a></div><div class="ttdoc">ImGUI handler for rendering main menu window.</div><div class="ttdef"><b>Definition:</b> <a href="ui__menu_8h_source.html#l00036">ui_menu.h:37</a></div></div>
 <div class="ttc" id="aui__menu_8h_html"><div class="ttname"><a href="ui__menu_8h.html">ui_menu.h</a></div></div>

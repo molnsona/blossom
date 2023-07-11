@@ -2,9 +2,9 @@
 <area shape="rect" id="node1" title="Notifies Sweeper that the config has been modified and that the data has to be recomputed." alt="" coords="865,23,1052,49"/>
 <area shape="rect" id="node2" href="$structUiScaler.html#a4481cf933d9227eebdd010540bfa945d" title="Renders window with corresponding scale&amp;transform widgets." alt="" coords="493,23,620,49"/>
 <area shape="rect" id="node6" href="$structScaledData.html#acc02a74e8bddb74341e2460d80b6d14e" title="Resets configurations to their initial values." alt="" coords="674,23,811,49"/>
-<area shape="rect" id="node7" href="$structScaledData.html#ae18b964a4a04746001f816c072761d10" title="Recomputes the data if any of the config has been touched." alt="" coords="668,73,817,100"/>
+<area shape="rect" id="node7" href="$structScaledData.html#a2c3fda8694a3005d0594e09cb88c0160" title="Recomputes the data if any of the config has been touched." alt="" coords="668,73,817,100"/>
 <area shape="rect" id="node3" href="$structUiMenu.html#aa4ed0bb847de6d88a9198e522c5e852e" title="Renders main menu window, the plus button and currently opened menu item windows." alt="" coords="323,23,445,49"/>
-<area shape="rect" id="node4" href="$classImGuiWrapper.html#ae8cc6a14b94ce5e74a9ec18e65930da4" title="Render UI." alt="" coords="108,23,275,49"/>
+<area shape="rect" id="node4" href="$classImGuiWrapper.html#a12022a93acba1bdcafa126e7e44d8f76" title="Render UI." alt="" coords="108,23,275,49"/>
 <area shape="rect" id="node5" href="$main_8cpp.html#ae66f6b31b5ad750f1fe042a706a4e3d4" title=" " alt="" coords="5,48,60,75"/>
-<area shape="rect" id="node8" href="$structState.html#adcd0d835af130aa668bcc5799e8bb0c7" title="Performs simulation steps of all active algorithms and updates data according to the user interaction..." alt="" coords="329,73,439,100"/>
+<area shape="rect" id="node8" href="$structState.html#a08edb55dfdad9afc055fa9440564b04a" title="Performs simulation steps of all active algorithms and updates data according to the user interaction..." alt="" coords="329,73,439,100"/>
 </map>

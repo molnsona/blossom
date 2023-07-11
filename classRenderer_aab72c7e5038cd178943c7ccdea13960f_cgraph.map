@@ -1,0 +1,8 @@
+<map id="Renderer::remove_vert" name="Renderer::remove_vert">
+<area shape="rect" id="node1" title=" " alt="" coords="5,31,177,57"/>
+<area shape="rect" id="node2" href="$structLandmarkModel.html#ad56183084296cb9969ef854fbeb8cbbb" title="Removes landmark and corresponding edges." alt="" coords="240,5,425,32"/>
+<area shape="rect" id="node4" href="$structColorData.html#a73e8d4473c75daca5a3982b0d0d4f489" title=" " alt="" coords="225,56,440,83"/>
+<area shape="rect" id="node3" href="$structDirt.html#a6753e4542f5254af6366b36b5864a37e" title="Make the cache dirty." alt="" coords="531,5,622,32"/>
+<area shape="rect" id="node5" href="$structColorData.html#a92a579faa57018d8fd3c4b4bf3cabb02" title=" " alt="" coords="488,56,665,83"/>
+<area shape="rect" id="node6" href="$structSweeper.html#af8cbe558ba3a09298813c9a0d8ee7234" title="Force&#45;refresh the whole range." alt="" coords="713,56,845,83"/>
+</map>

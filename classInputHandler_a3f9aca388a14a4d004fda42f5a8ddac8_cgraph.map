@@ -1,0 +1,5 @@
+<map id="InputHandler::process_keyboard" name="InputHandler::process_keyboard">
+<area shape="rect" id="node1" title="Identify which key was pressed and notify other parts (listed in arguments) about it." alt="" coords="5,23,169,65"/>
+<area shape="rect" id="node2" href="$classView.html#aca4b330ddab799e009009bbb4b345be0" title="Move view along X&#45;axis." alt="" coords="217,5,331,32"/>
+<area shape="rect" id="node3" href="$classView.html#a4286002c32c1dba63e4933aa0bff4210" title="Move view along Y&#45;axis." alt="" coords="217,56,331,83"/>
+</map>

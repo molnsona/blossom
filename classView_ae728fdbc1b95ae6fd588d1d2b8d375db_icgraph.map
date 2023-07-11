@@ -1,7 +1,9 @@
 <map id="View::screen_coords" name="View::screen_coords">
-<area shape="rect" id="node1" title="Converts point to screen coordinates([0,0] in the middle of the screen)." alt="" coords="749,13,904,39"/>
-<area shape="rect" id="node2" href="$structGraphRenderer.html#a0ff79676c92cc249ece2d7c8e53ee90c" title="Checks if some vertex was pressed." alt="" coords="529,5,701,47"/>
-<area shape="rect" id="node3" href="$classRenderer.html#a95b6e3922529d554e7c6ee02f6108bfc" title="Process mouse input and moves the landmarks." alt="" coords="291,13,481,39"/>
-<area shape="rect" id="node4" href="$classRenderer.html#acc7b3656f13c505a21175802a877e873" title="Process input events and render graph and scatterplot with updated values." alt="" coords="108,13,243,39"/>
-<area shape="rect" id="node5" href="$main_8cpp.html#ae66f6b31b5ad750f1fe042a706a4e3d4" title=" " alt="" coords="5,13,60,39"/>
+<area shape="rect" id="node1" title="Converts point to screen coordinates([0,0] in the middle of the screen)." alt="" coords="981,46,1136,73"/>
+<area shape="rect" id="node2" href="$classRenderer.html#a7219caca3c8fe45b472fc7edcf02900d" title=" " alt="" coords="527,5,713,47"/>
+<area shape="rect" id="node6" href="$structGraphRenderer.html#a2610046d8e0c85a1d5a0cc678ebfd846" title="Checks if some vertex was pressed." alt="" coords="761,68,933,109"/>
+<area shape="rect" id="node3" href="$classInputHandler.html#a4acd17428d24191471c39039ec5dd3cf" title="Handle mouse button input." alt="" coords="315,39,479,80"/>
+<area shape="rect" id="node4" href="$classInputHandler.html#a415d65a1189126e3a26ae281e3428fc0" title=" " alt="" coords="108,46,267,73"/>
+<area shape="rect" id="node5" href="$main_8cpp.html#ae66f6b31b5ad750f1fe042a706a4e3d4" title=" " alt="" coords="5,46,60,73"/>
+<area shape="rect" id="node7" href="$classRenderer.html#a207c39d6d37ae82a629db05b69f32747" title="Check whether the vertex was pressed and set flags." alt="" coords="527,71,713,112"/>
 </map>

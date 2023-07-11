@@ -1,0 +1,4 @@
+<map id="FrameStats" name="FrameStats">
+<area shape="rect" id="node1" title=" " alt="" coords="5,95,101,121"/>
+<area shape="rect" id="node2" href="$structTimer.html" title="Handler for frametime computation." alt="" coords="23,5,83,32"/>
+</map>

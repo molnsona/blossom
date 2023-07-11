@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['neighborscorestorage_0',['NeighborScoreStorage',['../structNeighborScoreStorage.html',1,'']]]
+  ['landmarkmodel_0',['LandmarkModel',['../structLandmarkModel.html',1,'']]]
 ];

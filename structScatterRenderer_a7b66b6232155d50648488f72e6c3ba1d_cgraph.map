@@ -1,4 +1,9 @@
 <map id="ScatterRenderer::init" name="ScatterRenderer::init">
-<area shape="rect" id="node1" title=" " alt="" coords="5,5,161,32"/>
-<area shape="rect" id="node2" href="$classShader.html#a9191278846b741fe10cd1019fefc15f2" title="Read and build the shader." alt="" coords="209,5,316,32"/>
+<area shape="rect" id="node1" title=" " alt="" coords="5,68,161,95"/>
+<area shape="rect" id="node2" href="$classShader.html#a9191278846b741fe10cd1019fefc15f2" title="Read and build the shader." alt="" coords="457,5,563,32"/>
+<area shape="rect" id="node3" href="$structTextureRenderer.html#af3e29e61eab7a8d1bc4cde87314aeaa6" title=" " alt="" coords="209,93,368,120"/>
+<area shape="rect" id="node4" href="$structTextureRenderer.html#a0f8a35b739d7926352c75b310e095ef8" title=" " alt="" coords="427,57,593,98"/>
+<area shape="rect" id="node5" href="$structTextureRenderer.html#a5741993697a2a148ee808f63a5d7c9aa" title=" " alt="" coords="416,123,604,149"/>
+<area shape="rect" id="node6" href="$structTextureRenderer.html#a8fed88a4754e1e65700148403182ff37" title=" " alt="" coords="429,174,591,215"/>
+<area shape="rect" id="node7" href="$structTextureRenderer.html#a18cbfa533e9b611d383bfc5e45227fd9" title=" " alt="" coords="417,239,603,281"/>
 </map>

@@ -1,0 +1,5 @@
+<map id="ColorData::reset_landmark_color" name="ColorData::reset_landmark_color">
+<area shape="rect" id="node1" title="Reset colors and cluster ids of all landmarks in the cluster with input id." alt="" coords="5,5,203,47"/>
+<area shape="rect" id="node2" href="$structColorData.html#a92a579faa57018d8fd3c4b4bf3cabb02" title=" " alt="" coords="251,13,428,39"/>
+<area shape="rect" id="node3" href="$structSweeper.html#af8cbe558ba3a09298813c9a0d8ee7234" title="Force&#45;refresh the whole range." alt="" coords="476,13,608,39"/>
+</map>

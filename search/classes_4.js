@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['imguiwrapper_0',['ImGuiWrapper',['../classImGuiWrapper.html',1,'']]]
+  ['framestats_0',['FrameStats',['../structFrameStats.html',1,'']]]
 ];

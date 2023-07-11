@@ -1,21 +1,24 @@
 <map id="State" name="State">
-<area shape="rect" id="node1" title="Storage of data of used algorithms and input events." alt="" coords="693,343,749,369"/>
-<area shape="rect" id="node2" href="$structMouseData.html" title="Mouse events data storage." alt="" coords="436,12,532,39"/>
-<area shape="rect" id="node3" href="$structKeyboardData.html" title="Keyboard events data storage." alt="" coords="427,63,541,89"/>
-<area shape="rect" id="node4" href="$structDataModel.html" title="Storage of data from loaded input file." alt="" coords="437,316,531,343"/>
-<area shape="rect" id="node5" href="$structDirts.html" title="Multi&#45;piece cache&#45;dirtying object." alt="" coords="157,309,211,336"/>
-<area shape="rect" id="node9" href="$structTransData.html" title="Storage of the transformed data." alt="" coords="441,215,527,241"/>
-<area shape="rect" id="node11" href="$structScaledData.html" title="Storage of the scaled data." alt="" coords="436,265,532,292"/>
-<area shape="rect" id="node6" href="$structDirt.html" title="A piece of dirt for dirtying the caches." alt="" coords="18,364,65,391"/>
-<area shape="rect" id="node7" href="$structRawDataStats.html" title="Statistics from the untransformed dataset." alt="" coords="127,364,241,391"/>
-<area shape="rect" id="node12" href="$structLandmarkModel.html" title="Model of the high&#45; and low&#45;dimensional landmarks." alt="" coords="265,427,392,453"/>
-<area shape="rect" id="node8" href="$structCleaner.html" title="A piece of cache that keeps track of the dirty status." alt="" coords="5,211,77,237"/>
-<area shape="rect" id="node10" href="$structSweeper.html" title="A piece of multi&#45;object cache." alt="" coords="145,168,223,195"/>
-<area shape="rect" id="node19" href="$structScatterModel.html" title="Model of the two&#45;dimensional data points." alt="" coords="430,113,538,140"/>
-<area shape="rect" id="node18" href="$structColorData.html" title="Storage of the color data." alt="" coords="441,164,527,191"/>
-<area shape="rect" id="node13" href="$structTrainingConfig.html" title="Storage of the dynamic parameters of the algorithms that are set in the GUI by user." alt="" coords="427,492,541,519"/>
-<area shape="rect" id="node14" href="$structGraphLayoutData.html" title="Data for landmark graph layouting algorithm using forces." alt="" coords="416,543,552,569"/>
-<area shape="rect" id="node15" href="$structTSNELayoutData.html" title="A context structure for tSNE computation." alt="" coords="419,593,549,620"/>
-<area shape="rect" id="node16" href="$structKMeansData.html" title="Structure for storing the kmeans&#45;style data." alt="" coords="431,644,537,671"/>
-<area shape="rect" id="node17" href="$structKnnEdgesData.html" title=" " alt="" coords="425,695,543,721"/>
+<area shape="rect" id="node1" title="Storage of data of used algorithms and input events." alt="" coords="773,348,829,375"/>
+<area shape="rect" id="node2" href="$structDataModel.html" title="Storage of data from loaded input file." alt="" coords="517,145,611,172"/>
+<area shape="rect" id="node3" href="$structDirts.html" title="Multi&#45;piece cache&#45;dirtying object." alt="" coords="237,144,291,171"/>
+<area shape="rect" id="node7" href="$structTransData.html" title="Storage of the transformed data." alt="" coords="521,196,607,223"/>
+<area shape="rect" id="node11" href="$structScaledData.html" title="Storage of the scaled data." alt="" coords="516,247,612,273"/>
+<area shape="rect" id="node4" href="$structDirt.html" title="A piece of dirt for dirtying the caches." alt="" coords="25,77,71,104"/>
+<area shape="rect" id="node5" href="$structRawDataStats.html" title="Statistics from the untransformed dataset." alt="" coords="207,84,321,111"/>
+<area shape="rect" id="node12" href="$structLandmarkModel.html" title="Model of the high&#45; and low&#45;dimensional landmarks." alt="" coords="345,25,472,52"/>
+<area shape="rect" id="node6" href="$structCleaner.html" title="A piece of cache that keeps track of the dirty status." alt="" coords="12,325,84,352"/>
+<area shape="rect" id="node8" href="$structSweeper.html" title="A piece of multi&#45;object cache." alt="" coords="225,325,303,352"/>
+<area shape="rect" id="node18" href="$structColorData.html" title="Storage of the color data." alt="" coords="521,601,607,628"/>
+<area shape="rect" id="node20" href="$structScatterModel.html" title="Model of the two&#45;dimensional data points." alt="" coords="510,551,618,577"/>
+<area shape="rect" id="node9" href="$classBatchSizeGen.html" title="Generator of the size of the next point batch." alt="" coords="208,521,320,548"/>
+<area shape="rect" id="node10" href="$classEstimator.html" title=" " alt="" coords="5,632,91,659"/>
+<area shape="rect" id="node13" href="$structTrainingConfig.html" title="Storage of the dynamic parameters of the algorithms that are set in the GUI by user." alt="" coords="507,297,621,324"/>
+<area shape="rect" id="node14" href="$structGraphLayoutData.html" title="Data for landmark graph layouting algorithm using forces." alt="" coords="496,348,632,375"/>
+<area shape="rect" id="node15" href="$structTSNELayoutData.html" title="A context structure for tSNE computation." alt="" coords="499,399,629,425"/>
+<area shape="rect" id="node16" href="$structKMeansData.html" title="Structure for storing the kmeans&#45;style data." alt="" coords="511,449,617,476"/>
+<area shape="rect" id="node17" href="$structKnnEdgesData.html" title=" " alt="" coords="505,500,623,527"/>
+<area shape="rect" id="node19" href="$structClusterData.html" title="Storage of data used for cluster coloring." alt="" coords="215,659,313,685"/>
+<area shape="rect" id="node21" href="$structFrameStats.html" title=" " alt="" coords="516,673,612,700"/>
+<area shape="rect" id="node22" href="$structTimer.html" title="Handler for frametime computation." alt="" coords="234,709,294,736"/>
 </map>

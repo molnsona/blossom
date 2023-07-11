@@ -91,52 +91,57 @@ $(function() {
 <div class="line"><a id="l00019" name="l00019"></a><span class="lineno">   19</span><span class="preprocessor">#ifndef UTILS_IMGUI_HPP</span></div>
 <div class="line"><a id="l00020" name="l00020"></a><span class="lineno">   20</span><span class="preprocessor">#define UTILS_IMGUI_HPP</span></div>
 <div class="line"><a id="l00021" name="l00021"></a><span class="lineno">   21</span> </div>
-<div class="line"><a id="l00022" name="l00022"></a><span class="lineno">   22</span><span class="preprocessor">#include &lt;imgui.h&gt;</span></div>
-<div class="line"><a id="l00023" name="l00023"></a><span class="lineno">   23</span><span class="comment"></span> </div>
-<div class="line"><a id="l00024" name="l00024"></a><span class="lineno">   24</span><span class="comment">/**</span></div>
-<div class="line"><a id="l00025" name="l00025"></a><span class="lineno">   25</span><span class="comment"> * @brief ImGUI wrapper for setting tooltip.</span></div>
-<div class="line"><a id="l00026" name="l00026"></a><span class="lineno">   26</span><span class="comment"> *</span></div>
-<div class="line"><a id="l00027" name="l00027"></a><span class="lineno">   27</span><span class="comment"> * Call this after the widget you want to use the tooltip on.</span></div>
-<div class="line"><a id="l00028" name="l00028"></a><span class="lineno">   28</span><span class="comment"> *</span></div>
-<div class="line"><a id="l00029" name="l00029"></a><span class="lineno">   29</span><span class="comment"> * @param text Tooltip text.</span></div>
-<div class="line"><a id="l00030" name="l00030"></a><span class="lineno">   30</span><span class="comment"> */</span></div>
-<div class="line"><a id="l00031" name="l00031"></a><span class="lineno">   31</span><span class="keyword">static</span> <span class="keywordtype">void</span></div>
-<div class="line"><a id="l00032" name="l00032"></a><span class="lineno"><a class="line" href="utils__imgui_8hpp.html#ad96c1b9779c23d1779f8f2d8cffefa64">   32</a></span><a class="code hl_function" href="utils__imgui_8hpp.html#ad96c1b9779c23d1779f8f2d8cffefa64">tooltip</a>(<span class="keyword">const</span> <span class="keywordtype">char</span> *text)</div>
-<div class="line"><a id="l00033" name="l00033"></a><span class="lineno">   33</span>{</div>
-<div class="line"><a id="l00034" name="l00034"></a><span class="lineno">   34</span>    ImGui::PushStyleVar(ImGuiStyleVar_WindowRounding, 5.0f);</div>
-<div class="line"><a id="l00035" name="l00035"></a><span class="lineno">   35</span>    ImGui::PushStyleVar(ImGuiStyleVar_WindowPadding, ImVec2(2, 2));</div>
-<div class="line"><a id="l00036" name="l00036"></a><span class="lineno">   36</span>    ImGui::PushStyleVar(ImGuiStyleVar_Alpha, 0.8f);</div>
-<div class="line"><a id="l00037" name="l00037"></a><span class="lineno">   37</span>    <span class="keywordflow">if</span> (ImGui::IsItemHovered())</div>
-<div class="line"><a id="l00038" name="l00038"></a><span class="lineno">   38</span>        ImGui::SetTooltip(text);</div>
-<div class="line"><a id="l00039" name="l00039"></a><span class="lineno">   39</span>    ImGui::PopStyleVar();</div>
-<div class="line"><a id="l00040" name="l00040"></a><span class="lineno">   40</span>    ImGui::PopStyleVar();</div>
-<div class="line"><a id="l00041" name="l00041"></a><span class="lineno">   41</span>    ImGui::PopStyleVar();</div>
-<div class="line"><a id="l00042" name="l00042"></a><span class="lineno">   42</span>}</div>
-<div class="line"><a id="l00043" name="l00043"></a><span class="lineno">   43</span><span class="comment"></span> </div>
-<div class="line"><a id="l00044" name="l00044"></a><span class="lineno">   44</span><span class="comment">/**</span></div>
-<div class="line"><a id="l00045" name="l00045"></a><span class="lineno">   45</span><span class="comment"> * @brief ImGUI wrapper for reset button.</span></div>
-<div class="line"><a id="l00046" name="l00046"></a><span class="lineno">   46</span><span class="comment"> *</span></div>
-<div class="line"><a id="l00047" name="l00047"></a><span class="lineno">   47</span><span class="comment"> * It does not reset anything. It just creates button and returns if the button</span></div>
-<div class="line"><a id="l00048" name="l00048"></a><span class="lineno">   48</span><span class="comment"> * was pressed. It is on the user to reset the data after the button was</span></div>
-<div class="line"><a id="l00049" name="l00049"></a><span class="lineno">   49</span><span class="comment"> * pressed.</span></div>
+<div class="line"><a id="l00022" name="l00022"></a><span class="lineno">   22</span><span class="preprocessor">#include &quot;<a class="code" href="frame__stats_8h.html">frame_stats.h</a>&quot;</span></div>
+<div class="line"><a id="l00023" name="l00023"></a><span class="lineno">   23</span> </div>
+<div class="line"><a id="l00024" name="l00024"></a><span class="lineno">   24</span><span class="preprocessor">#include &lt;imgui.h&gt;</span></div>
+<div class="line"><a id="l00025" name="l00025"></a><span class="lineno">   25</span><span class="preprocessor">#include &lt;string&gt;</span></div>
+<div class="line"><a id="l00026" name="l00026"></a><span class="lineno">   26</span><span class="preprocessor">#include &lt;vector&gt;</span></div>
+<div class="line"><a id="l00027" name="l00027"></a><span class="lineno">   27</span><span class="comment"></span> </div>
+<div class="line"><a id="l00028" name="l00028"></a><span class="lineno">   28</span><span class="comment">/**</span></div>
+<div class="line"><a id="l00029" name="l00029"></a><span class="lineno">   29</span><span class="comment"> * @brief ImGUI wrapper for setting tooltip.</span></div>
+<div class="line"><a id="l00030" name="l00030"></a><span class="lineno">   30</span><span class="comment"> *</span></div>
+<div class="line"><a id="l00031" name="l00031"></a><span class="lineno">   31</span><span class="comment"> * Call this after the widget you want to use the tooltip on.</span></div>
+<div class="line"><a id="l00032" name="l00032"></a><span class="lineno">   32</span><span class="comment"> *</span></div>
+<div class="line"><a id="l00033" name="l00033"></a><span class="lineno">   33</span><span class="comment"> * @param text Tooltip text.</span></div>
+<div class="line"><a id="l00034" name="l00034"></a><span class="lineno">   34</span><span class="comment"> */</span></div>
+<div class="line"><a id="l00035" name="l00035"></a><span class="lineno">   35</span><span class="keyword">static</span> <span class="keywordtype">void</span></div>
+<div class="line"><a id="l00036" name="l00036"></a><span class="lineno"><a class="line" href="utils__imgui_8hpp.html#ad96c1b9779c23d1779f8f2d8cffefa64">   36</a></span><a class="code hl_function" href="utils__imgui_8hpp.html#ad96c1b9779c23d1779f8f2d8cffefa64">tooltip</a>(<span class="keyword">const</span> <span class="keywordtype">char</span> *text)</div>
+<div class="line"><a id="l00037" name="l00037"></a><span class="lineno">   37</span>{</div>
+<div class="line"><a id="l00038" name="l00038"></a><span class="lineno">   38</span>    ImGui::PushStyleVar(ImGuiStyleVar_WindowRounding, 5.0f);</div>
+<div class="line"><a id="l00039" name="l00039"></a><span class="lineno">   39</span>    ImGui::PushStyleVar(ImGuiStyleVar_WindowPadding, ImVec2(2, 2));</div>
+<div class="line"><a id="l00040" name="l00040"></a><span class="lineno">   40</span>    ImGui::PushStyleVar(ImGuiStyleVar_Alpha, 0.8f);</div>
+<div class="line"><a id="l00041" name="l00041"></a><span class="lineno">   41</span>    <span class="keywordflow">if</span> (ImGui::IsItemHovered())</div>
+<div class="line"><a id="l00042" name="l00042"></a><span class="lineno">   42</span>        ImGui::SetTooltip(text);</div>
+<div class="line"><a id="l00043" name="l00043"></a><span class="lineno">   43</span>    ImGui::PopStyleVar();</div>
+<div class="line"><a id="l00044" name="l00044"></a><span class="lineno">   44</span>    ImGui::PopStyleVar();</div>
+<div class="line"><a id="l00045" name="l00045"></a><span class="lineno">   45</span>    ImGui::PopStyleVar();</div>
+<div class="line"><a id="l00046" name="l00046"></a><span class="lineno">   46</span>}</div>
+<div class="line"><a id="l00047" name="l00047"></a><span class="lineno">   47</span><span class="comment"></span> </div>
+<div class="line"><a id="l00048" name="l00048"></a><span class="lineno">   48</span><span class="comment">/**</span></div>
+<div class="line"><a id="l00049" name="l00049"></a><span class="lineno">   49</span><span class="comment"> * @brief ImGUI wrapper for reset button.</span></div>
 <div class="line"><a id="l00050" name="l00050"></a><span class="lineno">   50</span><span class="comment"> *</span></div>
-<div class="line"><a id="l00051" name="l00051"></a><span class="lineno">   51</span><span class="comment"> * @return true If the button was pressed.</span></div>
-<div class="line"><a id="l00052" name="l00052"></a><span class="lineno">   52</span><span class="comment"> * @return false If the button was not pressed.</span></div>
-<div class="line"><a id="l00053" name="l00053"></a><span class="lineno">   53</span><span class="comment"> */</span></div>
-<div class="line"><a id="l00054" name="l00054"></a><span class="lineno">   54</span><span class="keyword">static</span> <span class="keywordtype">bool</span></div>
-<div class="line"><a id="l00055" name="l00055"></a><span class="lineno"><a class="line" href="utils__imgui_8hpp.html#a7198a716c578110d3a308c526f8f17c3">   55</a></span><a class="code hl_function" href="utils__imgui_8hpp.html#a7198a716c578110d3a308c526f8f17c3">reset_button</a>()</div>
-<div class="line"><a id="l00056" name="l00056"></a><span class="lineno">   56</span>{</div>
-<div class="line"><a id="l00057" name="l00057"></a><span class="lineno">   57</span>    ImGui::SameLine();</div>
-<div class="line"><a id="l00058" name="l00058"></a><span class="lineno">   58</span>    <span class="keywordtype">float</span> width = ImGui::GetWindowContentRegionWidth() - 70.0f;</div>
-<div class="line"><a id="l00059" name="l00059"></a><span class="lineno">   59</span>    ImGui::Indent(width);</div>
-<div class="line"><a id="l00060" name="l00060"></a><span class="lineno">   60</span>    <span class="keywordtype">bool</span> res = ImGui::Button(<span class="stringliteral">&quot;Reset data&quot;</span>);</div>
-<div class="line"><a id="l00061" name="l00061"></a><span class="lineno">   61</span>    ImGui::Unindent(width);</div>
-<div class="line"><a id="l00062" name="l00062"></a><span class="lineno">   62</span>    <span class="keywordflow">return</span> res;</div>
-<div class="line"><a id="l00063" name="l00063"></a><span class="lineno">   63</span>}</div>
-<div class="line"><a id="l00064" name="l00064"></a><span class="lineno">   64</span> </div>
-<div class="line"><a id="l00065" name="l00065"></a><span class="lineno">   65</span><span class="preprocessor">#endif </span><span class="comment">// #ifndef UTILS_IMGUI_HPP</span></div>
-<div class="ttc" id="autils__imgui_8hpp_html_a7198a716c578110d3a308c526f8f17c3"><div class="ttname"><a href="utils__imgui_8hpp.html#a7198a716c578110d3a308c526f8f17c3">reset_button</a></div><div class="ttdeci">static bool reset_button()</div><div class="ttdoc">ImGUI wrapper for reset button.</div><div class="ttdef"><b>Definition:</b> <a href="utils__imgui_8hpp_source.html#l00055">utils_imgui.hpp:55</a></div></div>
-<div class="ttc" id="autils__imgui_8hpp_html_ad96c1b9779c23d1779f8f2d8cffefa64"><div class="ttname"><a href="utils__imgui_8hpp.html#ad96c1b9779c23d1779f8f2d8cffefa64">tooltip</a></div><div class="ttdeci">static void tooltip(const char *text)</div><div class="ttdoc">ImGUI wrapper for setting tooltip.</div><div class="ttdef"><b>Definition:</b> <a href="utils__imgui_8hpp_source.html#l00032">utils_imgui.hpp:32</a></div></div>
+<div class="line"><a id="l00051" name="l00051"></a><span class="lineno">   51</span><span class="comment"> * It does not reset anything. It just creates button and returns if the button</span></div>
+<div class="line"><a id="l00052" name="l00052"></a><span class="lineno">   52</span><span class="comment"> * was pressed. It is on the user to reset the data after the button was</span></div>
+<div class="line"><a id="l00053" name="l00053"></a><span class="lineno">   53</span><span class="comment"> * pressed.</span></div>
+<div class="line"><a id="l00054" name="l00054"></a><span class="lineno">   54</span><span class="comment"> *</span></div>
+<div class="line"><a id="l00055" name="l00055"></a><span class="lineno">   55</span><span class="comment"> * @return true If the button was pressed.</span></div>
+<div class="line"><a id="l00056" name="l00056"></a><span class="lineno">   56</span><span class="comment"> * @return false If the button was not pressed.</span></div>
+<div class="line"><a id="l00057" name="l00057"></a><span class="lineno">   57</span><span class="comment"> */</span></div>
+<div class="line"><a id="l00058" name="l00058"></a><span class="lineno">   58</span><span class="keyword">static</span> <span class="keywordtype">bool</span></div>
+<div class="line"><a id="l00059" name="l00059"></a><span class="lineno"><a class="line" href="utils__imgui_8hpp.html#a7198a716c578110d3a308c526f8f17c3">   59</a></span><a class="code hl_function" href="utils__imgui_8hpp.html#a7198a716c578110d3a308c526f8f17c3">reset_button</a>()</div>
+<div class="line"><a id="l00060" name="l00060"></a><span class="lineno">   60</span>{</div>
+<div class="line"><a id="l00061" name="l00061"></a><span class="lineno">   61</span>    ImGui::SameLine();</div>
+<div class="line"><a id="l00062" name="l00062"></a><span class="lineno">   62</span>    <span class="keywordtype">float</span> width = ImGui::GetWindowContentRegionWidth() - 70.0f;</div>
+<div class="line"><a id="l00063" name="l00063"></a><span class="lineno">   63</span>    ImGui::Indent(width);</div>
+<div class="line"><a id="l00064" name="l00064"></a><span class="lineno">   64</span>    <span class="keywordtype">bool</span> res = ImGui::Button(<span class="stringliteral">&quot;Reset data&quot;</span>);</div>
+<div class="line"><a id="l00065" name="l00065"></a><span class="lineno">   65</span>    ImGui::Unindent(width);</div>
+<div class="line"><a id="l00066" name="l00066"></a><span class="lineno">   66</span>    <span class="keywordflow">return</span> res;</div>
+<div class="line"><a id="l00067" name="l00067"></a><span class="lineno">   67</span>}</div>
+<div class="line"><a id="l00068" name="l00068"></a><span class="lineno">   68</span> </div>
+<div class="line"><a id="l00069" name="l00069"></a><span class="lineno">   69</span><span class="preprocessor">#endif </span><span class="comment">// #ifndef UTILS_IMGUI_HPP</span></div>
+<div class="ttc" id="aframe__stats_8h_html"><div class="ttname"><a href="frame__stats_8h.html">frame_stats.h</a></div></div>
+<div class="ttc" id="autils__imgui_8hpp_html_a7198a716c578110d3a308c526f8f17c3"><div class="ttname"><a href="utils__imgui_8hpp.html#a7198a716c578110d3a308c526f8f17c3">reset_button</a></div><div class="ttdeci">static bool reset_button()</div><div class="ttdoc">ImGUI wrapper for reset button.</div><div class="ttdef"><b>Definition:</b> <a href="utils__imgui_8hpp_source.html#l00059">utils_imgui.hpp:59</a></div></div>
+<div class="ttc" id="autils__imgui_8hpp_html_ad96c1b9779c23d1779f8f2d8cffefa64"><div class="ttname"><a href="utils__imgui_8hpp.html#ad96c1b9779c23d1779f8f2d8cffefa64">tooltip</a></div><div class="ttdeci">static void tooltip(const char *text)</div><div class="ttdoc">ImGUI wrapper for setting tooltip.</div><div class="ttdef"><b>Definition:</b> <a href="utils__imgui_8hpp_source.html#l00036">utils_imgui.hpp:36</a></div></div>
 </div><!-- fragment --></div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>

@@ -1,0 +1,7 @@
+<map id="Renderer::draw_cursor_radius" name="Renderer::draw_cursor_radius">
+<area shape="rect" id="node1" title=" " alt="" coords="5,23,173,65"/>
+<area shape="rect" id="node2" href="$structUiRenderer.html#aa66be6f6bca1ce06840ae15eb4986621" title=" " alt="" coords="221,23,368,65"/>
+<area shape="rect" id="node3" href="$classView.html#aeda343862d3aa831814d252c6361cb90" title="Convert mouse coordinates ([0,0] in the upper left corner), to model coordinates ([0,..." alt="" coords="416,31,619,57"/>
+<area shape="rect" id="node4" href="$classView.html#a9e79788c1b06ba8176273672d6fc5d1f" title="Compute projection matrix for orthographic projection." alt="" coords="670,5,834,32"/>
+<area shape="rect" id="node5" href="$classView.html#ae2675b41a3c49d8b52784955d128234a" title="Compute view matrix for drawing into the &quot;view&quot; space." alt="" coords="667,56,837,83"/>
+</map>

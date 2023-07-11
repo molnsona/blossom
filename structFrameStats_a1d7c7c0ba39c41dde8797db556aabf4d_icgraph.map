@@ -1,0 +1,10 @@
+<map id="FrameStats::add_const_time" name="FrameStats::add_const_time">
+<area shape="rect" id="node1" title=" " alt="" coords="540,82,747,109"/>
+<area shape="rect" id="node2" href="$structFrameStats.html#a9bf1328055dd2563fc35e83106d081d9" title=" " alt="" coords="108,6,283,33"/>
+<area shape="rect" id="node4" href="$structTransData.html#a20e6d97d3d1f000c1b2fbe23a87e1dcc" title="Recomputes the data if any of the config has been touched." alt="" coords="341,32,481,58"/>
+<area shape="rect" id="node6" href="$structScatterModel.html#aece3d7c5774154aa7636f5727c98acba" title="Recomputes the coordinates if any of the the parameters of the embedsom algorithm has changed." alt="" coords="331,82,492,109"/>
+<area shape="rect" id="node7" href="$structColorData.html#a0307bbbea7bea14b441e20dd13422dba" title="Recomputes color of the 2D data points if user has changed any of the color settings." alt="" coords="341,133,481,160"/>
+<area shape="rect" id="node8" href="$structScaledData.html#a2c3fda8694a3005d0594e09cb88c0160" title="Recomputes the data if any of the config has been touched." alt="" coords="337,184,486,210"/>
+<area shape="rect" id="node3" href="$main_8cpp.html#ae66f6b31b5ad750f1fe042a706a4e3d4" title=" " alt="" coords="5,57,60,84"/>
+<area shape="rect" id="node5" href="$structState.html#a08edb55dfdad9afc055fa9440564b04a" title="Performs simulation steps of all active algorithms and updates data according to the user interaction..." alt="" coords="141,82,250,109"/>
+</map>

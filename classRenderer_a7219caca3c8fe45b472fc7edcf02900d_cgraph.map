@@ -1,0 +1,10 @@
+<map id="Renderer::get_landmarks_within_circle" name="Renderer::get_landmarks_within_circle">
+<area shape="rect" id="node1" title=" " alt="" coords="5,89,192,131"/>
+<area shape="rect" id="node2" href="$structUiRenderer.html#ad2234ce16774a56440297d71868b42a9" title=" " alt="" coords="269,5,430,47"/>
+<area shape="rect" id="node3" href="$structLandmarkModel.html#a128124429b96766980b0cbd2a6980d5f" title="Reurns number of the 2D landmarks." alt="" coords="240,71,459,98"/>
+<area shape="rect" id="node4" href="$classView.html#ae728fdbc1b95ae6fd588d1d2b8d375db" title="Converts point to screen coordinates([0,0] in the middle of the screen)." alt="" coords="272,122,427,149"/>
+<area shape="rect" id="node8" href="$classView.html#a13ae0b4ad614e20829b5f34499ae99cc" title="Convert mouse coordinates ([0,0] in the upper left corner), to screen coordinates ([0,..." alt="" coords="272,173,427,215"/>
+<area shape="rect" id="node5" href="$classView.html#a9e79788c1b06ba8176273672d6fc5d1f" title="Compute projection matrix for orthographic projection." alt="" coords="510,71,674,98"/>
+<area shape="rect" id="node6" href="$classView.html#ae2675b41a3c49d8b52784955d128234a" title="Compute view matrix for drawing into the &quot;view&quot; space." alt="" coords="507,122,677,149"/>
+<area shape="rect" id="node7" href="$classView.html#a891e963a0575956ccb9ae5bd8168e823" title="Convert point coordinates ([0,0] in the upper left corner), to screen coordinates ([0,..." alt="" coords="520,173,664,215"/>
+</map>

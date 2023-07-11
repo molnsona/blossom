@@ -6,7 +6,9 @@ var searchData=
   ['graph_5flayout_3',['graph_layout',['../structTrainingConfig.html#ab79a70f1e228b2b3723ea46276e033a2',1,'TrainingConfig']]],
   ['graph_5frenderer_4',['graph_renderer',['../classRenderer.html#a3a21a8c11914164414df62647a041703',1,'Renderer']]],
   ['graph_5fv_5ffs_5',['graph_v_fs',['../shaders_8h.html#abf248f610e5d3c9015c2c7fb1d1c3bc2',1,'shaders.h']]],
-  ['graph_5fv_5fvs_6',['graph_v_vs',['../shaders_8h.html#ad26815b461985375857d43a732e4532c',1,'shaders.h']]],
-  ['gravity_7',['gravity',['../structTrainingConfig.html#a79a6a4cdfb3abbc5184f509ab9e2e9b9',1,'TrainingConfig']]],
-  ['gridgravity_8',['gridGravity',['../structEmbedSOMConstants.html#ac18c5711d4be70d6e5bd42ce7c9ba3d7',1,'EmbedSOMConstants']]]
+  ['graph_5fv_5foutline_5ffs_6',['graph_v_outline_fs',['../shaders_8h.html#aae3891ad5354e7828f361de790fd588a',1,'shaders.h']]],
+  ['graph_5fv_5foutline_5fvs_7',['graph_v_outline_vs',['../shaders_8h.html#a87ee6ae5c8658b60a31987ba15ab353a',1,'shaders.h']]],
+  ['graph_5fv_5fvs_8',['graph_v_vs',['../shaders_8h.html#ad26815b461985375857d43a732e4532c',1,'shaders.h']]],
+  ['gravity_9',['gravity',['../structTrainingConfig.html#a79a6a4cdfb3abbc5184f509ab9e2e9b9',1,'TrainingConfig']]],
+  ['gridgravity_10',['gridGravity',['../structEmbedSOMConstants.html#ac18c5711d4be70d6e5bd42ce7c9ba3d7',1,'EmbedSOMConstants']]]
 ];

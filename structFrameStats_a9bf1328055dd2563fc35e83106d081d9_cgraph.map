@@ -1,0 +1,5 @@
+<map id="FrameStats::end_frame" name="FrameStats::end_frame">
+<area shape="rect" id="node1" title=" " alt="" coords="5,5,180,32"/>
+<area shape="rect" id="node2" href="$structFrameStats.html#a1d7c7c0ba39c41dde8797db556aabf4d" title=" " alt="" coords="228,5,435,32"/>
+<area shape="rect" id="node3" href="$structTimer.html#a6f4dc6b9e9f333fa4c60ddf2ff33c801" title="Counts frametime and sets last_tick variable to current time." alt="" coords="483,5,575,32"/>
+</map>

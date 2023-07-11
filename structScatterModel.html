@@ -90,17 +90,19 @@ Collaboration diagram for ScatterModel:</div>
 <div class="dyncontent">
 <div class="center"><img src="structScatterModel__coll__graph.png" border="0" usemap="#aScatterModel_coll__map" alt="Collaboration graph"/></div>
 <map name="aScatterModel_coll__map" id="aScatterModel_coll__map">
-<area shape="rect" title="Model of the two&#45;dimensional data points." alt="" coords="13,157,121,184"/>
-<area shape="rect" href="structSweeper.html" title="A piece of multi&#45;object cache." alt="" coords="118,81,197,108"/>
+<area shape="rect" title="Model of the two&#45;dimensional data points." alt="" coords="78,184,186,211"/>
+<area shape="rect" href="structSweeper.html" title="A piece of multi&#45;object cache." alt="" coords="93,95,171,121"/>
 <area shape="rect" href="structCleaner.html" title="A piece of cache that keeps track of the dirty status." alt="" coords="5,5,77,32"/>
+<area shape="rect" href="classBatchSizeGen.html" title="Generator of the size of the next point batch." alt="" coords="196,95,308,121"/>
+<area shape="rect" href="classEstimator.html" title=" " alt="" coords="209,5,295,32"/>
 </map>
 <center><span class="legend">[<a href="graph_legend.html">legend</a>]</span></center></div>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-methods" name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
-<tr class="memitem:aedfea70c9bace6079f6f20a9e6736694"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structScatterModel.html#aedfea70c9bace6079f6f20a9e6736694">update</a> (const <a class="el" href="structScaledData.html">ScaledData</a> &amp;d, const <a class="el" href="structLandmarkModel.html">LandmarkModel</a> &amp;lm, const <a class="el" href="structTrainingConfig.html">TrainingConfig</a> &amp;tc)</td></tr>
-<tr class="memdesc:aedfea70c9bace6079f6f20a9e6736694"><td class="mdescLeft">&#160;</td><td class="mdescRight">Recomputes the coordinates if any of the the parameters of the embedsom algorithm has changed.  <a href="structScatterModel.html#aedfea70c9bace6079f6f20a9e6736694">More...</a><br /></td></tr>
-<tr class="separator:aedfea70c9bace6079f6f20a9e6736694"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aece3d7c5774154aa7636f5727c98acba"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structScatterModel.html#aece3d7c5774154aa7636f5727c98acba">update</a> (const <a class="el" href="structScaledData.html">ScaledData</a> &amp;d, const <a class="el" href="structLandmarkModel.html">LandmarkModel</a> &amp;lm, const <a class="el" href="structTrainingConfig.html">TrainingConfig</a> &amp;tc, <a class="el" href="structFrameStats.html">FrameStats</a> &amp;frame_stats)</td></tr>
+<tr class="memdesc:aece3d7c5774154aa7636f5727c98acba"><td class="mdescLeft">&#160;</td><td class="mdescRight">Recomputes the coordinates if any of the the parameters of the embedsom algorithm has changed.  <a href="structScatterModel.html#aece3d7c5774154aa7636f5727c98acba">More...</a><br /></td></tr>
+<tr class="separator:aece3d7c5774154aa7636f5727c98acba"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aa46123a613a27654d982ea8064af3aa9"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structScatterModel.html#aa46123a613a27654d982ea8064af3aa9">touch_config</a> ()</td></tr>
 <tr class="memdesc:aa46123a613a27654d982ea8064af3aa9"><td class="mdescLeft">&#160;</td><td class="mdescRight">Notifies <a class="el" href="structSweeper.html">Sweeper</a> that the parameters of the embedsom algorithm has been modified and that the coordinates has to be recomputed.  <a href="structScatterModel.html#aa46123a613a27654d982ea8064af3aa9">More...</a><br /></td></tr>
 <tr class="separator:aa46123a613a27654d982ea8064af3aa9"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -135,6 +137,8 @@ Public Attributes</h2></td></tr>
 <tr class="separator:a0fa33a68ded8d34e99aacd7489bcf05f"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:afe8a49d46605e9492f2351d141df64fb"><td class="memItemLeft" align="right" valign="top"><a class="el" href="structCleaner.html">Cleaner</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structScatterModel.html#afe8a49d46605e9492f2351d141df64fb">lm_watch</a></td></tr>
 <tr class="separator:afe8a49d46605e9492f2351d141df64fb"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a3ebc417a55f17948c7fa1635ba5f4065"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classBatchSizeGen.html">BatchSizeGen</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structScatterModel.html#a3ebc417a55f17948c7fa1635ba5f4065">batch_size_gen</a></td></tr>
+<tr class="separator:a3ebc417a55f17948c7fa1635ba5f4065"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="inherit_header pub_attribs_structSweeper"><td colspan="2" onclick="javascript:toggleInherit('pub_attribs_structSweeper')"><img src="closed.png" alt="-"/>&#160;Public Attributes inherited from <a class="el" href="structSweeper.html">Sweeper</a></td></tr>
 <tr class="memitem:aa7323e351fea7e856892484a47754496 inherit pub_attribs_structSweeper"><td class="memItemLeft" align="right" valign="top">size_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structSweeper.html#aa7323e351fea7e856892484a47754496">begin</a></td></tr>
 <tr class="separator:aa7323e351fea7e856892484a47754496 inherit pub_attribs_structSweeper"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -147,7 +151,7 @@ Public Attributes</h2></td></tr>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p >Model of the two-dimensional data points. </p>
 
-<p class="definition">Definition at line <a class="el" href="scatter__model_8h_source.html#l00040">40</a> of file <a class="el" href="scatter__model_8h_source.html">scatter_model.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="scatter__model_8h_source.html#l00041">41</a> of file <a class="el" href="scatter__model_8h_source.html">scatter_model.h</a>.</p>
 </div><h2 class="groupheader">Member Function Documentation</h2>
 <a id="aa46123a613a27654d982ea8064af3aa9" name="aa46123a613a27654d982ea8064af3aa9"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#aa46123a613a27654d982ea8064af3aa9">&#9670;&nbsp;</a></span>touch_config()</h2>
@@ -174,7 +178,7 @@ Public Attributes</h2></td></tr>
 
 <p>Notifies <a class="el" href="structSweeper.html">Sweeper</a> that the parameters of the embedsom algorithm has been modified and that the coordinates has to be recomputed. </p>
 
-<p class="definition">Definition at line <a class="el" href="scatter__model_8h_source.html#l00069">69</a> of file <a class="el" href="scatter__model_8h_source.html">scatter_model.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="scatter__model_8h_source.html#l00073">73</a> of file <a class="el" href="scatter__model_8h_source.html">scatter_model.h</a>.</p>
 <div class="dynheader">
 Here is the call graph for this function:</div>
 <div class="dyncontent">
@@ -192,15 +196,15 @@ Here is the caller graph for this function:</div>
 <area shape="rect" title="Notifies Sweeper that the parameters of the embedsom algorithm has been modified and that the coordin..." alt="" coords="681,5,833,47"/>
 <area shape="rect" href="structUiTrainingSettings.html#ad5ba46054f4731d44944861160a4e44c" title="Renders window with corresponding training settings widgets." alt="" coords="493,5,633,47"/>
 <area shape="rect" href="structUiMenu.html#aa4ed0bb847de6d88a9198e522c5e852e" title="Renders main menu window, the plus button and currently opened menu item windows." alt="" coords="323,13,445,39"/>
-<area shape="rect" href="classImGuiWrapper.html#ae8cc6a14b94ce5e74a9ec18e65930da4" title="Render UI." alt="" coords="108,13,275,39"/>
+<area shape="rect" href="classImGuiWrapper.html#a12022a93acba1bdcafa126e7e44d8f76" title="Render UI." alt="" coords="108,13,275,39"/>
 <area shape="rect" href="main_8cpp.html#ae66f6b31b5ad750f1fe042a706a4e3d4" title=" " alt="" coords="5,13,60,39"/>
 </map>
 </div>
 
 </div>
 </div>
-<a id="aedfea70c9bace6079f6f20a9e6736694" name="aedfea70c9bace6079f6f20a9e6736694"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#aedfea70c9bace6079f6f20a9e6736694">&#9670;&nbsp;</a></span>update()</h2>
+<a id="aece3d7c5774154aa7636f5727c98acba" name="aece3d7c5774154aa7636f5727c98acba"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aece3d7c5774154aa7636f5727c98acba">&#9670;&nbsp;</a></span>update()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -221,7 +225,13 @@ Here is the caller graph for this function:</div>
           <td class="paramkey"></td>
           <td></td>
           <td class="paramtype">const <a class="el" href="structTrainingConfig.html">TrainingConfig</a> &amp;&#160;</td>
-          <td class="paramname"><em>tc</em>&#160;</td>
+          <td class="paramname"><em>tc</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="structFrameStats.html">FrameStats</a> &amp;&#160;</td>
+          <td class="paramname"><em>frame_stats</em>&#160;</td>
         </tr>
         <tr>
           <td></td>
@@ -245,26 +255,35 @@ Here is the caller graph for this function:</div>
 <div class="dynheader">
 Here is the call graph for this function:</div>
 <div class="dyncontent">
-<div class="center"><img src="structScatterModel_aedfea70c9bace6079f6f20a9e6736694_cgraph.png" border="0" usemap="#astructScatterModel_aedfea70c9bace6079f6f20a9e6736694_cgraph" alt=""/></div>
-<map name="astructScatterModel_aedfea70c9bace6079f6f20a9e6736694_cgraph" id="astructScatterModel_aedfea70c9bace6079f6f20a9e6736694_cgraph">
-<area shape="rect" title="Recomputes the coordinates if any of the the parameters of the embedsom algorithm has changed." alt="" coords="5,177,167,203"/>
-<area shape="rect" href="structCleaner.html#a0ab2a86910726bba3cadd22dec4e00ec" title="Call this when the cache is refreshed." alt="" coords="490,13,605,39"/>
-<area shape="rect" href="structSweeper.html#ac14e4c576c9a3d24a777d1e44102c483" title="Clean a range of the cache." alt="" coords="241,202,407,229"/>
-<area shape="rect" href="structScaledData.html#aa7e5813c44782202475c66cb6a968ad1" title="Returns dimension of the scaled data." alt="" coords="259,253,389,279"/>
-<area shape="rect" href="structCleaner.html#a1c6ef6eb6c37d12f318a53f720f93bae" title="Returns true if the cache needs to be refreshed." alt="" coords="492,75,603,102"/>
-<area shape="rect" href="structSweeper.html#a83feb9f88763ea6024500942372a6c16" title="Find the range to refresh." alt="" coords="244,50,404,77"/>
-<area shape="rect" href="structSweeper.html#af8cbe558ba3a09298813c9a0d8ee7234" title="Force&#45;refresh the whole range." alt="" coords="481,126,613,153"/>
-<area shape="rect" href="embedsom_8cpp.html#a41bb6fea614fa1103684aa86d501d667" title=" " alt="" coords="277,303,371,330"/>
-<area shape="rect" href="structLandmarkModel.html#a128124429b96766980b0cbd2a6980d5f" title="Reurns number of the 2D landmarks." alt="" coords="215,354,433,381"/>
+<div class="center"><img src="structScatterModel_aece3d7c5774154aa7636f5727c98acba_cgraph.png" border="0" usemap="#astructScatterModel_aece3d7c5774154aa7636f5727c98acba_cgraph" alt=""/></div>
+<map name="astructScatterModel_aece3d7c5774154aa7636f5727c98acba_cgraph" id="astructScatterModel_aece3d7c5774154aa7636f5727c98acba_cgraph">
+<area shape="rect" title="Recomputes the coordinates if any of the the parameters of the embedsom algorithm has changed." alt="" coords="5,309,167,336"/>
+<area shape="rect" href="structFrameStats.html#a1d7c7c0ba39c41dde8797db556aabf4d" title=" " alt="" coords="221,56,427,83"/>
+<area shape="rect" href="structCleaner.html#a0ab2a86910726bba3cadd22dec4e00ec" title="Call this when the cache is refreshed." alt="" coords="513,120,628,147"/>
+<area shape="rect" href="structSweeper.html#ac14e4c576c9a3d24a777d1e44102c483" title="Clean a range of the cache." alt="" coords="241,309,407,336"/>
+<area shape="rect" href="structScaledData.html#aa7e5813c44782202475c66cb6a968ad1" title="Returns dimension of the scaled data." alt="" coords="259,360,389,387"/>
+<area shape="rect" href="structCleaner.html#a1c6ef6eb6c37d12f318a53f720f93bae" title="Returns true if the cache needs to be refreshed." alt="" coords="515,189,626,216"/>
+<area shape="rect" href="structSweeper.html#a83feb9f88763ea6024500942372a6c16" title="Find the range to refresh." alt="" coords="244,208,404,235"/>
+<area shape="rect" href="structSweeper.html#af8cbe558ba3a09298813c9a0d8ee7234" title="Force&#45;refresh the whole range." alt="" coords="505,249,637,276"/>
+<area shape="rect" href="embedsom_8cpp.html#a41bb6fea614fa1103684aa86d501d667" title=" " alt="" coords="277,411,371,437"/>
+<area shape="rect" href="structLandmarkModel.html#a128124429b96766980b0cbd2a6980d5f" title="Reurns number of the 2D landmarks." alt="" coords="215,461,433,488"/>
+<area shape="rect" href="classBatchSizeGen.html#a3bb0cbff59acbd46f4a7ebaa4487c1fa" title="Computes size of the next batch." alt="" coords="249,512,399,539"/>
+<area shape="rect" href="classBatchSizeGen.html#a6cbdb9238c56dbe3cd3dc30b8b757a85" title=" " alt="" coords="494,563,647,589"/>
+<area shape="rect" href="structFrameStats.html#a46b82e363d4d34052c1b20e2e202511c" title=" " alt="" coords="255,613,393,640"/>
+<area shape="rect" href="structFrameStats.html#a35f1a18179979b4a7ac5281ac1c83b79" title=" " alt="" coords="237,5,411,32"/>
+<area shape="rect" href="structTimer.html#a6f4dc6b9e9f333fa4c60ddf2ff33c801" title="Counts frametime and sets last_tick variable to current time." alt="" coords="525,44,617,71"/>
+<area shape="rect" href="classEstimator.html#aac56937d6f7e7cacc3e41901daece7e3" title=" " alt="" coords="481,512,660,539"/>
+<area shape="rect" href="classEstimator.html#a305e7078e18d8d56f56290b21e38c652" title=" " alt="" coords="499,446,642,487"/>
+<area shape="rect" href="classEstimator.html#a604eba93c1acc67ba9022e2d678248c9" title=" " alt="" coords="708,563,835,589"/>
 </map>
 </div>
 <div class="dynheader">
 Here is the caller graph for this function:</div>
 <div class="dyncontent">
-<div class="center"><img src="structScatterModel_aedfea70c9bace6079f6f20a9e6736694_icgraph.png" border="0" usemap="#astructScatterModel_aedfea70c9bace6079f6f20a9e6736694_icgraph" alt=""/></div>
-<map name="astructScatterModel_aedfea70c9bace6079f6f20a9e6736694_icgraph" id="astructScatterModel_aedfea70c9bace6079f6f20a9e6736694_icgraph">
+<div class="center"><img src="structScatterModel_aece3d7c5774154aa7636f5727c98acba_icgraph.png" border="0" usemap="#astructScatterModel_aece3d7c5774154aa7636f5727c98acba_icgraph" alt=""/></div>
+<map name="astructScatterModel_aece3d7c5774154aa7636f5727c98acba_icgraph" id="astructScatterModel_aece3d7c5774154aa7636f5727c98acba_icgraph">
 <area shape="rect" title="Recomputes the coordinates if any of the the parameters of the embedsom algorithm has changed." alt="" coords="265,5,427,32"/>
-<area shape="rect" href="structState.html#adcd0d835af130aa668bcc5799e8bb0c7" title="Performs simulation steps of all active algorithms and updates data according to the user interaction..." alt="" coords="108,5,217,32"/>
+<area shape="rect" href="structState.html#a08edb55dfdad9afc055fa9440564b04a" title="Performs simulation steps of all active algorithms and updates data according to the user interaction..." alt="" coords="108,5,217,32"/>
 <area shape="rect" href="main_8cpp.html#ae66f6b31b5ad750f1fe042a706a4e3d4" title=" " alt="" coords="5,5,60,32"/>
 </map>
 </div>
@@ -272,6 +291,22 @@ Here is the caller graph for this function:</div>
 </div>
 </div>
 <h2 class="groupheader">Member Data Documentation</h2>
+<a id="a3ebc417a55f17948c7fa1635ba5f4065" name="a3ebc417a55f17948c7fa1635ba5f4065"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a3ebc417a55f17948c7fa1635ba5f4065">&#9670;&nbsp;</a></span>batch_size_gen</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="classBatchSizeGen.html">BatchSizeGen</a> ScatterModel::batch_size_gen</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="scatter__model_8h_source.html#l00052">52</a> of file <a class="el" href="scatter__model_8h_source.html">scatter_model.h</a>.</p>
+
+</div>
+</div>
 <a id="afe8a49d46605e9492f2351d141df64fb" name="afe8a49d46605e9492f2351d141df64fb"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#afe8a49d46605e9492f2351d141df64fb">&#9670;&nbsp;</a></span>lm_watch</h2>
 
@@ -284,7 +319,7 @@ Here is the caller graph for this function:</div>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="scatter__model_8h_source.html#l00049">49</a> of file <a class="el" href="scatter__model_8h_source.html">scatter_model.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="scatter__model_8h_source.html#l00050">50</a> of file <a class="el" href="scatter__model_8h_source.html">scatter_model.h</a>.</p>
 
 </div>
 </div>
@@ -302,7 +337,7 @@ Here is the caller graph for this function:</div>
 
 <p>Coordinates of the two-dimensional data points. </p>
 
-<p class="definition">Definition at line <a class="el" href="scatter__model_8h_source.html#l00043">43</a> of file <a class="el" href="scatter__model_8h_source.html">scatter_model.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="scatter__model_8h_source.html#l00044">44</a> of file <a class="el" href="scatter__model_8h_source.html">scatter_model.h</a>.</p>
 
 </div>
 </div>

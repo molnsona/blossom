@@ -1,0 +1,7 @@
+<map id="InputHandler::process_mouse_scroll" name="InputHandler::process_mouse_scroll">
+<area shape="rect" id="node1" title="Process mouse scroll and notify other parts(listed in arguments) about it." alt="" coords="5,23,169,65"/>
+<area shape="rect" id="node2" href="$classView.html#a9188757b9f975297de2104b132be01c0" title="Adjust zoom accordingly." alt="" coords="217,31,315,57"/>
+<area shape="rect" id="node3" href="$classView.html#aeda343862d3aa831814d252c6361cb90" title="Convert mouse coordinates ([0,0] in the upper left corner), to model coordinates ([0,..." alt="" coords="363,31,565,57"/>
+<area shape="rect" id="node4" href="$classView.html#a9e79788c1b06ba8176273672d6fc5d1f" title="Compute projection matrix for orthographic projection." alt="" coords="617,5,781,32"/>
+<area shape="rect" id="node5" href="$classView.html#ae2675b41a3c49d8b52784955d128234a" title="Compute view matrix for drawing into the &quot;view&quot; space." alt="" coords="613,56,784,83"/>
+</map>

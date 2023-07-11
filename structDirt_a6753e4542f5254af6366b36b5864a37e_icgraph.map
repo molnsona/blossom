@@ -1,27 +1,32 @@
 <map id="Dirt::touch" name="Dirt::touch">
-<area shape="rect" id="node1" title="Make the cache dirty." alt="" coords="1215,309,1305,336"/>
-<area shape="rect" id="node2" href="$structLandmarkModel.html#a257bfeca44096ff53d4d49a94cffd0c4" title="Creates new landmark with the two&#45; and high&#45;dimensional coordinates as the closeset landmark." alt="" coords="990,5,1149,32"/>
-<area shape="rect" id="node6" href="$structDataModel.html#a527e859d5cd47042071d605028555fae" title="Clears all DataModel data to their default values." alt="" coords="1003,208,1136,235"/>
-<area shape="rect" id="node12" href="$structLandmarkModel.html#a181ae32a2c6557fa39326eb0d77d1434" title="Creates new landmark with the same two&#45; and high&#45;dimensional coordinates as the given landmark." alt="" coords="972,56,1167,83"/>
-<area shape="rect" id="node13" href="$graph__layout_8cpp.html#acdb73b81c2565027fba9889d06426a07" title="One iteration step of the landmark layouting algorithm." alt="" coords="733,208,875,235"/>
-<area shape="rect" id="node15" href="$structLandmarkModel.html#ae12323b91a1255e730072f437e82331d" title="Creates squared landmarks layout, without edges." alt="" coords="975,309,1163,336"/>
-<area shape="rect" id="node18" href="$kmeans__landmark_8cpp.html#a0b4aa3989f033bb2e73ec30516da3aa3" title="Run a k&#45;means&#45;like optimization of high&#45;dimensional landmark positions." alt="" coords="715,360,893,387"/>
-<area shape="rect" id="node19" href="$structLandmarkModel.html#a1d65e93179cc9de8bb158a4ca9a08625" title="Sets two&#45;dimensional position of the pressed landmark to mouse position." alt="" coords="983,107,1155,133"/>
-<area shape="rect" id="node20" href="$structLandmarkModel.html#ad56183084296cb9969ef854fbeb8cbbb" title="Removes landmark and corresponding edges." alt="" coords="977,157,1162,184"/>
-<area shape="rect" id="node21" href="$kmeans__landmark_8cpp.html#a47b6e968d7438c5eb6e93d07e5870ac6" title="Run a SOM to optimize high&#45;dimensional landmark positions." alt="" coords="727,411,881,437"/>
-<area shape="rect" id="node22" href="$tsne__layout_8cpp.html#a7bd33978ed338ff6c51d80d6cf5a0fb3" title="Optimize the positions of low&#45;dimensional landmarks using the t&#45;SNE algorithm." alt="" coords="737,461,871,488"/>
-<area shape="rect" id="node23" href="$structRawDataStats.html#a20ffa1818701c5affd3ff4370b531a17" title="Recomputes the statistics if the input data changed." alt="" coords="986,512,1153,539"/>
-<area shape="rect" id="node24" href="$structTransData.html#a0a3c117b336b787215a5603274615cff" title="Recomputes the data if any of the config has been touched." alt="" coords="999,563,1139,589"/>
-<area shape="rect" id="node25" href="$structScaledData.html#ae18b964a4a04746001f816c072761d10" title="Recomputes the data if any of the config has been touched." alt="" coords="995,613,1144,640"/>
-<area shape="rect" id="node3" href="$classRenderer.html#a95b6e3922529d554e7c6ee02f6108bfc" title="Process mouse input and moves the landmarks." alt="" coords="709,56,899,83"/>
-<area shape="rect" id="node4" href="$classRenderer.html#acc7b3656f13c505a21175802a877e873" title="Process input events and render graph and scatterplot with updated values." alt="" coords="323,93,457,120"/>
-<area shape="rect" id="node5" href="$main_8cpp.html#ae66f6b31b5ad750f1fe042a706a4e3d4" title=" " alt="" coords="5,157,60,184"/>
-<area shape="rect" id="node7" href="$structDataModel.html#abff03aef2cb531142a35781bb87c3365" title="Calls clear()." alt="" coords="718,107,890,133"/>
-<area shape="rect" id="node8" href="$parsers_8cpp.html#a88aceee0c94640e06327d9ca6c171369" title="Parses data from input file." alt="" coords="747,157,861,184"/>
-<area shape="rect" id="node9" href="$structUiLoader.html#af636b0236a47a755c0b60c168845afe9" title="Renders open file dialog window." alt="" coords="505,157,636,184"/>
-<area shape="rect" id="node10" href="$structUiMenu.html#aa4ed0bb847de6d88a9198e522c5e852e" title="Renders main menu window, the plus button and currently opened menu item windows." alt="" coords="329,157,451,184"/>
-<area shape="rect" id="node11" href="$classImGuiWrapper.html#ae8cc6a14b94ce5e74a9ec18e65930da4" title="Render UI." alt="" coords="108,157,275,184"/>
-<area shape="rect" id="node14" href="$structState.html#adcd0d835af130aa668bcc5799e8bb0c7" title="Performs simulation steps of all active algorithms and updates data according to the user interaction..." alt="" coords="516,411,625,437"/>
-<area shape="rect" id="node16" href="$structLandmarkModel.html#ac685e6d8d7d52ccc2e7675e8d6cc3c98" title="Creates empty landmarks with dimension 0." alt="" coords="684,259,924,285"/>
-<area shape="rect" id="node17" href="$structLandmarkModel.html#ad0f46ebf55af946fbd2f1329cfd19fe0" title="Updates current dimension and calls init_grid()." alt="" coords="698,309,910,336"/>
+<area shape="rect" id="node1" title="Make the cache dirty." alt="" coords="1305,360,1396,387"/>
+<area shape="rect" id="node2" href="$structLandmarkModel.html#a257bfeca44096ff53d4d49a94cffd0c4" title="Creates new landmark with the two&#45; and high&#45;dimensional coordinates as the closeset landmark." alt="" coords="1081,107,1239,133"/>
+<area shape="rect" id="node7" href="$structDataModel.html#a527e859d5cd47042071d605028555fae" title="Clears all DataModel data to their default values." alt="" coords="1093,56,1227,83"/>
+<area shape="rect" id="node13" href="$structLandmarkModel.html#a181ae32a2c6557fa39326eb0d77d1434" title="Creates new landmark with the same two&#45; and high&#45;dimensional coordinates as the given landmark." alt="" coords="1063,157,1257,184"/>
+<area shape="rect" id="node14" href="$graph__layout_8cpp.html#a3493cffa0d852dcb2e768a33e360d841" title="One iteration step of the landmark layouting algorithm." alt="" coords="823,613,966,640"/>
+<area shape="rect" id="node16" href="$structLandmarkModel.html#ae12323b91a1255e730072f437e82331d" title="Creates squared landmarks layout, without edges." alt="" coords="1066,411,1254,437"/>
+<area shape="rect" id="node19" href="$kmeans__landmark_8cpp.html#a0b4aa3989f033bb2e73ec30516da3aa3" title="Run a k&#45;means&#45;like optimization of high&#45;dimensional landmark positions." alt="" coords="805,664,984,691"/>
+<area shape="rect" id="node20" href="$structLandmarkModel.html#a1d65e93179cc9de8bb158a4ca9a08625" title="Sets two&#45;dimensional position of the pressed landmark to mouse position." alt="" coords="1074,208,1246,235"/>
+<area shape="rect" id="node24" href="$structLandmarkModel.html#ad56183084296cb9969ef854fbeb8cbbb" title="Removes landmark and corresponding edges." alt="" coords="1067,259,1253,285"/>
+<area shape="rect" id="node26" href="$kmeans__landmark_8cpp.html#a47b6e968d7438c5eb6e93d07e5870ac6" title="Run a SOM to optimize high&#45;dimensional landmark positions." alt="" coords="817,512,972,539"/>
+<area shape="rect" id="node27" href="$tsne__layout_8cpp.html#ad30e3cd93743475eef28dc1c4df48417" title="Optimize the positions of low&#45;dimensional landmarks using the t&#45;SNE algorithm." alt="" coords="1093,516,1227,543"/>
+<area shape="rect" id="node28" href="$structRawDataStats.html#a20ffa1818701c5affd3ff4370b531a17" title="Recomputes the statistics if the input data changed." alt="" coords="1077,712,1243,739"/>
+<area shape="rect" id="node29" href="$structTransData.html#a20e6d97d3d1f000c1b2fbe23a87e1dcc" title="Recomputes the data if any of the config has been touched." alt="" coords="1090,309,1230,336"/>
+<area shape="rect" id="node30" href="$structScaledData.html#a2c3fda8694a3005d0594e09cb88c0160" title="Recomputes the data if any of the config has been touched." alt="" coords="1085,360,1235,387"/>
+<area shape="rect" id="node3" href="$classRenderer.html#a2bd0e4a83b7a2686ff518cc6f41afd8d" title=" " alt="" coords="821,107,968,133"/>
+<area shape="rect" id="node4" href="$classInputHandler.html#a4acd17428d24191471c39039ec5dd3cf" title="Handle mouse button input." alt="" coords="323,175,487,217"/>
+<area shape="rect" id="node5" href="$classInputHandler.html#a415d65a1189126e3a26ae281e3428fc0" title=" " alt="" coords="112,183,271,209"/>
+<area shape="rect" id="node6" href="$main_8cpp.html#ae66f6b31b5ad750f1fe042a706a4e3d4" title=" " alt="" coords="5,183,60,209"/>
+<area shape="rect" id="node8" href="$structDataModel.html#abff03aef2cb531142a35781bb87c3365" title="Calls clear()." alt="" coords="809,56,981,83"/>
+<area shape="rect" id="node9" href="$parsers_8cpp.html#a88aceee0c94640e06327d9ca6c171369" title="Parses data from input file." alt="" coords="838,5,951,32"/>
+<area shape="rect" id="node10" href="$structUiLoader.html#af636b0236a47a755c0b60c168845afe9" title="Renders open file dialog window." alt="" coords="565,31,696,57"/>
+<area shape="rect" id="node11" href="$structUiMenu.html#aa4ed0bb847de6d88a9198e522c5e852e" title="Renders main menu window, the plus button and currently opened menu item windows." alt="" coords="343,77,466,104"/>
+<area shape="rect" id="node12" href="$classImGuiWrapper.html#a12022a93acba1bdcafa126e7e44d8f76" title="Render UI." alt="" coords="108,128,275,155"/>
+<area shape="rect" id="node15" href="$structState.html#a08edb55dfdad9afc055fa9440564b04a" title="Performs simulation steps of all active algorithms and updates data according to the user interaction..." alt="" coords="576,512,685,539"/>
+<area shape="rect" id="node17" href="$structLandmarkModel.html#ac685e6d8d7d52ccc2e7675e8d6cc3c98" title="Creates empty landmarks with dimension 0." alt="" coords="775,411,1015,437"/>
+<area shape="rect" id="node18" href="$structLandmarkModel.html#ad0f46ebf55af946fbd2f1329cfd19fe0" title="Updates current dimension and calls init_grid()." alt="" coords="789,461,1001,488"/>
+<area shape="rect" id="node21" href="$structUiRenderer.html#af6acfea548dd6d0f18ae4e6756e32884" title=" " alt="" coords="791,157,998,184"/>
+<area shape="rect" id="node23" href="$classRenderer.html#a9edc7edf33955d447b5fd8e4efb5b17f" title=" " alt="" coords="551,208,710,235"/>
+<area shape="rect" id="node22" href="$classRenderer.html#ad6dd73f52a96f81be597b3ddbce29722" title=" " alt="" coords="535,157,727,184"/>
+<area shape="rect" id="node25" href="$classRenderer.html#aab72c7e5038cd178943c7ccdea13960f" title=" " alt="" coords="545,259,717,285"/>
 </map>

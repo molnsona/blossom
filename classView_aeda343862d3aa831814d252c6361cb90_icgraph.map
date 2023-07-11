@@ -1,9 +1,13 @@
 <map id="View::model_mouse_coords" name="View::model_mouse_coords">
-<area shape="rect" id="node1" title="Convert mouse coordinates ([0,0] in the upper left corner), to model coordinates ([0,..." alt="" coords="529,64,732,91"/>
-<area shape="rect" id="node2" href="$classRenderer.html#a95b6e3922529d554e7c6ee02f6108bfc" title="Process mouse input and moves the landmarks." alt="" coords="291,5,481,32"/>
-<area shape="rect" id="node5" href="$classView.html#a542f06af2c25d7317497dcf8ba1c3d58" title=" " alt="" coords="305,57,467,98"/>
-<area shape="rect" id="node7" href="$classView.html#aeafc494c5781169ee93aae61ac67e775" title="Process mouse scroll and adjust zoom accordingly." alt="" coords="305,122,467,163"/>
-<area shape="rect" id="node3" href="$classRenderer.html#acc7b3656f13c505a21175802a877e873" title="Process input events and render graph and scatterplot with updated values." alt="" coords="108,9,243,36"/>
-<area shape="rect" id="node4" href="$main_8cpp.html#ae66f6b31b5ad750f1fe042a706a4e3d4" title=" " alt="" coords="5,39,60,65"/>
-<area shape="rect" id="node6" href="$classView.html#a357e8c8e1316cc0602a9d39f4c473ec4" title="Move the current position and zoom a bit closer to the target position and zoom." alt="" coords="122,64,229,91"/>
+<area shape="rect" id="node1" title="Convert mouse coordinates ([0,0] in the upper left corner), to model coordinates ([0,..." alt="" coords="949,132,1152,159"/>
+<area shape="rect" id="node2" href="$classRenderer.html#a2bd0e4a83b7a2686ff518cc6f41afd8d" title=" " alt="" coords="537,5,684,32"/>
+<area shape="rect" id="node3" href="$classInputHandler.html#a4acd17428d24191471c39039ec5dd3cf" title="Handle mouse button input." alt="" coords="315,125,479,166"/>
+<area shape="rect" id="node6" href="$classView.html#a429fdc29e7533674e16a4cacf4efb5ad" title="Cause the camera to look at the specified point." alt="" coords="556,107,665,133"/>
+<area shape="rect" id="node7" href="$classRenderer.html#a9edc7edf33955d447b5fd8e4efb5b17f" title=" " alt="" coords="743,157,901,184"/>
+<area shape="rect" id="node8" href="$structUiRenderer.html#aa66be6f6bca1ce06840ae15eb4986621" title=" " alt="" coords="749,209,895,250"/>
+<area shape="rect" id="node10" href="$classView.html#a9188757b9f975297de2104b132be01c0" title="Adjust zoom accordingly." alt="" coords="773,275,871,301"/>
+<area shape="rect" id="node4" href="$classInputHandler.html#a415d65a1189126e3a26ae281e3428fc0" title=" " alt="" coords="108,191,267,217"/>
+<area shape="rect" id="node5" href="$main_8cpp.html#ae66f6b31b5ad750f1fe042a706a4e3d4" title=" " alt="" coords="5,191,60,217"/>
+<area shape="rect" id="node9" href="$classRenderer.html#a4e9204e6638cbcbf861565b9b74d807e" title=" " alt="" coords="527,209,695,250"/>
+<area shape="rect" id="node11" href="$classInputHandler.html#a6af2abb38ca607a79c272ef6203be151" title="Process mouse scroll and notify other parts(listed in arguments) about it." alt="" coords="315,215,479,257"/>
 </map>

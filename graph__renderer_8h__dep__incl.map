@@ -2,6 +2,8 @@
 <area shape="rect" id="node1" title=" " alt="" coords="96,5,251,32"/>
 <area shape="rect" id="node2" href="$graph__renderer_8cpp.html" title=" " alt="" coords="5,80,176,107"/>
 <area shape="rect" id="node3" href="$renderer_8h.html" title=" " alt="" coords="201,80,311,107"/>
-<area shape="rect" id="node4" href="$main_8cpp.html" title=" " alt="" coords="133,155,238,181"/>
-<area shape="rect" id="node5" href="$renderer_8cpp.html" title=" " alt="" coords="262,155,389,181"/>
+<area shape="rect" id="node4" href="$input__handler_8h.html" title=" " alt="" coords="73,155,218,181"/>
+<area shape="rect" id="node6" href="$main_8cpp.html" title=" " alt="" coords="203,229,309,256"/>
+<area shape="rect" id="node7" href="$renderer_8cpp.html" title=" " alt="" coords="294,155,421,181"/>
+<area shape="rect" id="node5" href="$input__handler_8cpp.html" title=" " alt="" coords="19,229,179,256"/>
 </map>

@@ -1,7 +1,9 @@
 <map id="src/scatter_renderer.h" name="src/scatter_renderer.h">
-<area shape="rect" id="node1" title=" " alt="" coords="130,5,293,32"/>
-<area shape="rect" id="node2" href="$renderer_8h.html" title=" " alt="" coords="72,80,183,107"/>
-<area shape="rect" id="node5" href="$scatter__renderer_8cpp.html" title=" " alt="" coords="207,80,386,107"/>
-<area shape="rect" id="node3" href="$main_8cpp.html" title=" " alt="" coords="5,155,111,181"/>
-<area shape="rect" id="node4" href="$renderer_8cpp.html" title=" " alt="" coords="135,155,261,181"/>
+<area shape="rect" id="node1" title=" " alt="" coords="245,5,408,32"/>
+<area shape="rect" id="node2" href="$renderer_8h.html" title=" " alt="" coords="187,80,298,107"/>
+<area shape="rect" id="node7" href="$scatter__renderer_8cpp.html" title=" " alt="" coords="323,80,501,107"/>
+<area shape="rect" id="node3" href="$input__handler_8h.html" title=" " alt="" coords="59,155,205,181"/>
+<area shape="rect" id="node5" href="$main_8cpp.html" title=" " alt="" coords="190,229,295,256"/>
+<area shape="rect" id="node6" href="$renderer_8cpp.html" title=" " alt="" coords="281,155,407,181"/>
+<area shape="rect" id="node4" href="$input__handler_8cpp.html" title=" " alt="" coords="5,229,165,256"/>
 </map>

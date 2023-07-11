@@ -1,0 +1,5 @@
+<map id="ColorData::color_landmark" name="ColorData::color_landmark">
+<area shape="rect" id="node1" title="Color the landmark according to the active cluster." alt="" coords="5,5,201,32"/>
+<area shape="rect" id="node2" href="$structColorData.html#a92a579faa57018d8fd3c4b4bf3cabb02" title=" " alt="" coords="249,5,427,32"/>
+<area shape="rect" id="node3" href="$structSweeper.html#af8cbe558ba3a09298813c9a0d8ee7234" title="Force&#45;refresh the whole range." alt="" coords="475,5,607,32"/>
+</map>

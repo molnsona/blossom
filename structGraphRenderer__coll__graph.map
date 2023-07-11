@@ -1,4 +1,4 @@
 <map id="GraphRenderer" name="GraphRenderer">
-<area shape="rect" id="node1" title="Renderer of the 2D landmark graph." alt="" coords="5,109,125,136"/>
+<area shape="rect" id="node1" title="Renderer of the 2D landmark graph." alt="" coords="5,124,125,151"/>
 <area shape="rect" id="node2" href="$classShader.html" title="Abstracts working with shaders." alt="" coords="32,5,99,32"/>
 </map>

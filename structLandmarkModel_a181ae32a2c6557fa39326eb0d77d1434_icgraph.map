@@ -1,6 +1,7 @@
 <map id="LandmarkModel::duplicate" name="LandmarkModel::duplicate">
-<area shape="rect" id="node1" title="Creates new landmark with the same two&#45; and high&#45;dimensional coordinates as the given landmark." alt="" coords="529,5,724,32"/>
-<area shape="rect" id="node2" href="$classRenderer.html#a95b6e3922529d554e7c6ee02f6108bfc" title="Process mouse input and moves the landmarks." alt="" coords="291,5,481,32"/>
-<area shape="rect" id="node3" href="$classRenderer.html#acc7b3656f13c505a21175802a877e873" title="Process input events and render graph and scatterplot with updated values." alt="" coords="108,5,243,32"/>
-<area shape="rect" id="node4" href="$main_8cpp.html#ae66f6b31b5ad750f1fe042a706a4e3d4" title=" " alt="" coords="5,5,60,32"/>
+<area shape="rect" id="node1" title="Creates new landmark with the same two&#45; and high&#45;dimensional coordinates as the given landmark." alt="" coords="721,13,916,39"/>
+<area shape="rect" id="node2" href="$classRenderer.html#a2bd0e4a83b7a2686ff518cc6f41afd8d" title=" " alt="" coords="527,13,673,39"/>
+<area shape="rect" id="node3" href="$classInputHandler.html#a4acd17428d24191471c39039ec5dd3cf" title="Handle mouse button input." alt="" coords="315,5,479,47"/>
+<area shape="rect" id="node4" href="$classInputHandler.html#a415d65a1189126e3a26ae281e3428fc0" title=" " alt="" coords="108,13,267,39"/>
+<area shape="rect" id="node5" href="$main_8cpp.html#ae66f6b31b5ad750f1fe042a706a4e3d4" title=" " alt="" coords="5,13,60,39"/>
 </map>

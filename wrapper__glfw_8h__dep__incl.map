@@ -1,14 +1,7 @@
 <map id="src/wrapper_glfw.h" name="src/wrapper_glfw.h">
-<area shape="rect" id="node1" title=" " alt="" coords="217,5,360,32"/>
-<area shape="rect" id="node2" href="$main_8cpp.html" title=" " alt="" coords="203,304,308,331"/>
-<area shape="rect" id="node3" href="$view_8h.html" title=" " alt="" coords="451,80,537,107"/>
-<area shape="rect" id="node10" href="$wrapper__glfw_8cpp.html" title=" " alt="" coords="268,80,427,107"/>
-<area shape="rect" id="node11" href="$wrapper__imgui_8h.html" title=" " alt="" coords="30,80,185,107"/>
-<area shape="rect" id="node4" href="$graph__renderer_8h.html" title=" " alt="" coords="589,155,743,181"/>
-<area shape="rect" id="node6" href="$renderer_8h.html" title=" " alt="" coords="521,229,632,256"/>
-<area shape="rect" id="node8" href="$scatter__renderer_8h.html" title=" " alt="" coords="351,155,514,181"/>
-<area shape="rect" id="node5" href="$graph__renderer_8cpp.html" title=" " alt="" coords="657,229,827,256"/>
-<area shape="rect" id="node7" href="$renderer_8cpp.html" title=" " alt="" coords="513,304,640,331"/>
-<area shape="rect" id="node9" href="$scatter__renderer_8cpp.html" title=" " alt="" coords="318,229,497,256"/>
-<area shape="rect" id="node12" href="$wrapper__imgui_8cpp.html" title=" " alt="" coords="23,155,192,181"/>
+<area shape="rect" id="node1" title=" " alt="" coords="35,5,177,32"/>
+<area shape="rect" id="node2" href="$main_8cpp.html" title=" " alt="" coords="5,155,111,181"/>
+<area shape="rect" id="node3" href="$wrapper__glfw_8cpp.html" title=" " alt="" coords="27,80,185,107"/>
+<area shape="rect" id="node4" href="$wrapper__imgui_8h.html" title=" " alt="" coords="210,80,365,107"/>
+<area shape="rect" id="node5" href="$wrapper__imgui_8cpp.html" title=" " alt="" coords="203,155,372,181"/>
 </map>

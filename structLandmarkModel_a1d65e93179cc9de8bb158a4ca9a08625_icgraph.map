@@ -1,6 +1,9 @@
 <map id="LandmarkModel::move" name="LandmarkModel::move">
-<area shape="rect" id="node1" title="Sets two&#45;dimensional position of the pressed landmark to mouse position." alt="" coords="529,5,701,32"/>
-<area shape="rect" id="node2" href="$classRenderer.html#a95b6e3922529d554e7c6ee02f6108bfc" title="Process mouse input and moves the landmarks." alt="" coords="291,5,481,32"/>
-<area shape="rect" id="node3" href="$classRenderer.html#acc7b3656f13c505a21175802a877e873" title="Process input events and render graph and scatterplot with updated values." alt="" coords="108,5,243,32"/>
-<area shape="rect" id="node4" href="$main_8cpp.html#ae66f6b31b5ad750f1fe042a706a4e3d4" title=" " alt="" coords="5,5,60,32"/>
+<area shape="rect" id="node1" title="Sets two&#45;dimensional position of the pressed landmark to mouse position." alt="" coords="1021,31,1193,57"/>
+<area shape="rect" id="node2" href="$structUiRenderer.html#af6acfea548dd6d0f18ae4e6756e32884" title=" " alt="" coords="767,5,973,32"/>
+<area shape="rect" id="node7" href="$classRenderer.html#a9edc7edf33955d447b5fd8e4efb5b17f" title=" " alt="" coords="543,56,702,83"/>
+<area shape="rect" id="node3" href="$classRenderer.html#ad6dd73f52a96f81be597b3ddbce29722" title=" " alt="" coords="527,5,719,32"/>
+<area shape="rect" id="node4" href="$classInputHandler.html#a4acd17428d24191471c39039ec5dd3cf" title="Handle mouse button input." alt="" coords="315,23,479,65"/>
+<area shape="rect" id="node5" href="$classInputHandler.html#a415d65a1189126e3a26ae281e3428fc0" title=" " alt="" coords="108,31,267,57"/>
+<area shape="rect" id="node6" href="$main_8cpp.html#ae66f6b31b5ad750f1fe042a706a4e3d4" title=" " alt="" coords="5,31,60,57"/>
 </map>

@@ -1,5 +1,4 @@
 var searchData=
 [
-  ['land_5f2d_0',['LAND_2D',['../structUiSaver.html#a17371d2e1c1f0f852c836c4906fa2322aaabf5fa6baf10151047307484cbdde1f',1,'UiSaver']]],
-  ['land_5fhd_1',['LAND_HD',['../structUiSaver.html#a17371d2e1c1f0f852c836c4906fa2322a05d3f0f1e170d82047bf74e2fa845fd8',1,'UiSaver']]]
+  ['expr_0',['EXPR',['../structColorData.html#a2d438350589c44bd3e88a451a3d05e2aaadb8e1809c8968fc85288fe43e071606',1,'ColorData']]]
 ];

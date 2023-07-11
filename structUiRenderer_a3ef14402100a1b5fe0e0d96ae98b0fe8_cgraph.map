@@ -1,0 +1,10 @@
+<map id="UiRenderer::draw" name="UiRenderer::draw">
+<area shape="rect" id="node1" title=" " alt="" coords="5,107,140,133"/>
+<area shape="rect" id="node2" href="$classView.html#a9e79788c1b06ba8176273672d6fc5d1f" title="Compute projection matrix for orthographic projection." alt="" coords="201,5,365,32"/>
+<area shape="rect" id="node3" href="$classView.html#ae2675b41a3c49d8b52784955d128234a" title="Compute view matrix for drawing into the &quot;view&quot; space." alt="" coords="197,56,368,83"/>
+<area shape="rect" id="node4" href="$structUiRenderer.html#a9b81a40a0beeef2020d4e5174a2d37c9" title=" " alt="" coords="188,107,377,133"/>
+<area shape="rect" id="node7" href="$classShader.html#a6c9fea6dbcf014be7a335386f3d9761b" title="Bind the matrix 4x4 variable to the shader." alt="" coords="215,157,351,184"/>
+<area shape="rect" id="node8" href="$classShader.html#a870fa9f13d69e558815d6fd351a469dc" title="Activate built shader." alt="" coords="233,208,332,235"/>
+<area shape="rect" id="node5" href="$structUiRenderer.html#adc70125394bf754a8c644d4c746e986f" title=" " alt="" coords="425,67,579,109"/>
+<area shape="rect" id="node6" href="$structUiRenderer.html#af75f2c6f6fd3296ad32c8c3225093cf5" title="Prepare rectangle data used for multiselect." alt="" coords="425,133,579,174"/>
+</map>

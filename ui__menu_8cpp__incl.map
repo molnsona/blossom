@@ -1,37 +1,43 @@
 <map id="src/ui_menu.cpp" name="src/ui_menu.cpp">
-<area shape="rect" id="node1" title=" " alt="" coords="866,5,994,32"/>
-<area shape="rect" id="node2" href="$ui__menu_8h.html" title=" " alt="" coords="1161,80,1251,107"/>
-<area shape="rect" id="node27" title=" " alt="" coords="935,229,1005,256"/>
-<area shape="rect" id="node34" title=" " alt="" coords="919,80,1136,107"/>
-<area shape="rect" id="node35" href="$utils__imgui_8hpp.html" title=" " alt="" coords="771,80,894,107"/>
-<area shape="rect" id="node3" href="$state_8h.html" title=" " alt="" coords="1030,229,1097,256"/>
-<area shape="rect" id="node26" href="$ui__color_8h.html" title=" " alt="" coords="975,155,1059,181"/>
-<area shape="rect" id="node28" href="$ui__load_8h.html" title=" " alt="" coords="1245,155,1327,181"/>
-<area shape="rect" id="node30" href="$ui__save_8h.html" title=" " alt="" coords="1359,155,1443,181"/>
-<area shape="rect" id="node32" href="$ui__scale_8h.html" title=" " alt="" coords="1083,155,1169,181"/>
-<area shape="rect" id="node33" href="$ui__train_8h.html" title=" " alt="" coords="867,155,950,181"/>
-<area shape="rect" id="node4" title=" " alt="" coords="1101,304,1178,331"/>
-<area shape="rect" id="node5" title=" " alt="" coords="1437,603,1495,629"/>
-<area shape="rect" id="node6" title=" " alt="" coords="831,603,893,629"/>
-<area shape="rect" id="node7" href="$color__data_8h.html" title=" " alt="" coords="1176,379,1279,405"/>
-<area shape="rect" id="node12" href="$trans__data_8h.html" title=" " alt="" coords="1179,453,1281,480"/>
-<area shape="rect" id="node14" href="$data__model_8h.html" title=" " alt="" coords="1267,528,1377,555"/>
-<area shape="rect" id="node15" href="$graph__layout_8h.html" title=" " alt="" coords="5,304,124,331"/>
-<area shape="rect" id="node16" href="$landmark__model_8h.html" title=" " alt="" coords="367,379,511,405"/>
-<area shape="rect" id="node17" href="$mouse__data_8h.html" title=" " alt="" coords="127,379,242,405"/>
-<area shape="rect" id="node18" href="$keyboard__data_8h.html" title=" " alt="" coords="335,304,466,331"/>
-<area shape="rect" id="node19" href="$kmeans__landmark_8h.html" title=" " alt="" coords="871,304,1026,331"/>
-<area shape="rect" id="node21" href="$scaled__data_8h.html" title=" " alt="" coords="893,379,1005,405"/>
-<area shape="rect" id="node22" href="$knn__edges_8h.html" title=" " alt="" coords="541,304,645,331"/>
-<area shape="rect" id="node23" href="$scatter__model_8h.html" title=" " alt="" coords="669,304,796,331"/>
-<area shape="rect" id="node24" href="$training__config_8h.html" title=" " alt="" coords="687,379,818,405"/>
-<area shape="rect" id="node25" href="$tsne__layout_8h.html" title=" " alt="" coords="200,304,311,331"/>
-<area shape="rect" id="node8" title=" " alt="" coords="322,453,426,480"/>
-<area shape="rect" id="node9" href="$dirty_8h.html" title=" " alt="" coords="1033,603,1096,629"/>
-<area shape="rect" id="node10" title=" " alt="" coords="985,677,1056,704"/>
-<area shape="rect" id="node11" title=" " alt="" coords="1080,677,1135,704"/>
-<area shape="rect" id="node13" title=" " alt="" coords="1178,528,1242,555"/>
-<area shape="rect" id="node20" title=" " alt="" coords="1029,379,1101,405"/>
-<area shape="rect" id="node29" title=" " alt="" coords="1319,229,1490,256"/>
-<area shape="rect" id="node31" title=" " alt="" coords="1514,229,1570,256"/>
+<area shape="rect" id="node1" title=" " alt="" coords="1947,5,2075,32"/>
+<area shape="rect" id="node2" href="$ui__menu_8h.html" title=" " alt="" coords="1707,80,1798,107"/>
+<area shape="rect" id="node34" title=" " alt="" coords="1751,229,1821,256"/>
+<area shape="rect" id="node40" title=" " alt="" coords="1976,80,2193,107"/>
+<area shape="rect" id="node41" href="$utils__imgui_8hpp.html" title=" " alt="" coords="2170,155,2293,181"/>
+<area shape="rect" id="node3" href="$state_8h.html" title=" " alt="" coords="1517,229,1583,256"/>
+<area shape="rect" id="node33" href="$ui__color_8h.html" title=" " alt="" coords="1711,155,1795,181"/>
+<area shape="rect" id="node35" href="$ui__load_8h.html" title=" " alt="" coords="1819,155,1900,181"/>
+<area shape="rect" id="node37" href="$ui__save_8h.html" title=" " alt="" coords="1976,155,2060,181"/>
+<area shape="rect" id="node38" href="$ui__scale_8h.html" title=" " alt="" coords="1492,155,1579,181"/>
+<area shape="rect" id="node39" href="$ui__train_8h.html" title=" " alt="" coords="1603,155,1686,181"/>
+<area shape="rect" id="node4" title=" " alt="" coords="1646,304,1723,331"/>
+<area shape="rect" id="node5" title=" " alt="" coords="1974,603,2033,629"/>
+<area shape="rect" id="node6" title=" " alt="" coords="1148,603,1211,629"/>
+<area shape="rect" id="node7" href="$color__data_8h.html" title=" " alt="" coords="1417,304,1520,331"/>
+<area shape="rect" id="node16" href="$landmark__model_8h.html" title=" " alt="" coords="593,453,737,480"/>
+<area shape="rect" id="node18" href="$trans__data_8h.html" title=" " alt="" coords="1444,453,1547,480"/>
+<area shape="rect" id="node20" href="$data__model_8h.html" title=" " alt="" coords="1617,528,1728,555"/>
+<area shape="rect" id="node21" href="$frame__stats_8h.html" title=" " alt="" coords="1753,528,1865,555"/>
+<area shape="rect" id="node24" href="$graph__layout_8h.html" title=" " alt="" coords="201,379,320,405"/>
+<area shape="rect" id="node25" href="$mouse__data_8h.html" title=" " alt="" coords="454,453,569,480"/>
+<area shape="rect" id="node26" href="$kmeans__landmark_8h.html" title=" " alt="" coords="921,304,1075,331"/>
+<area shape="rect" id="node28" href="$scaled__data_8h.html" title=" " alt="" coords="1326,379,1438,405"/>
+<area shape="rect" id="node29" href="$knn__edges_8h.html" title=" " alt="" coords="601,304,705,331"/>
+<area shape="rect" id="node30" href="$scatter__model_8h.html" title=" " alt="" coords="197,304,324,331"/>
+<area shape="rect" id="node31" href="$training__config_8h.html" title=" " alt="" coords="395,379,526,405"/>
+<area shape="rect" id="node32" href="$tsne__layout_8h.html" title=" " alt="" coords="703,379,813,405"/>
+<area shape="rect" id="node8" title=" " alt="" coords="613,528,717,555"/>
+<area shape="rect" id="node9" href="$batch__size__gen_8h.html" title=" " alt="" coords="1217,528,1352,555"/>
+<area shape="rect" id="node14" href="$cluster__data_8h.html" title=" " alt="" coords="1187,379,1302,405"/>
+<area shape="rect" id="node17" href="$dirty_8h.html" title=" " alt="" coords="911,603,973,629"/>
+<area shape="rect" id="node10" title=" " alt="" coords="1291,677,1361,704"/>
+<area shape="rect" id="node11" href="$estimator_8h.html" title=" " alt="" coords="1235,603,1331,629"/>
+<area shape="rect" id="node12" title=" " alt="" coords="1562,677,1618,704"/>
+<area shape="rect" id="node13" title=" " alt="" coords="1000,677,1055,704"/>
+<area shape="rect" id="node15" title=" " alt="" coords="1166,453,1217,480"/>
+<area shape="rect" id="node19" title=" " alt="" coords="1478,528,1542,555"/>
+<area shape="rect" id="node22" href="$timer_8h.html" title=" " alt="" coords="1775,603,1843,629"/>
+<area shape="rect" id="node23" title=" " alt="" coords="1775,677,1842,704"/>
+<area shape="rect" id="node27" title=" " alt="" coords="889,379,961,405"/>
+<area shape="rect" id="node36" title=" " alt="" coords="1897,229,2067,256"/>
 </map>

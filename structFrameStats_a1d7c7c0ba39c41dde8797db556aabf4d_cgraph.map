@@ -1,0 +1,4 @@
+<map id="FrameStats::add_const_time" name="FrameStats::add_const_time">
+<area shape="rect" id="node1" title=" " alt="" coords="5,5,212,32"/>
+<area shape="rect" id="node2" href="$structTimer.html#a6f4dc6b9e9f333fa4c60ddf2ff33c801" title="Counts frametime and sets last_tick variable to current time." alt="" coords="260,5,352,32"/>
+</map>
