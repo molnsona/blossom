@@ -24,17 +24,8 @@
 
 #include "timer.h"
 
-#define DEBUG
-
 struct FrameStats
 {
-    // TODO: remove these Ns, they are only
-    // for debug output
-    size_t trans_n;
-    size_t embedsom_n;
-    size_t scaled_n;
-    size_t color_n;
-
     // Actual computation time of the methods.
     float trans_t = 0.00001f;
     float embedsom_t = 0.00001f;
@@ -64,12 +55,6 @@ struct FrameStats
     float trans_priority = 0.45f;
     float scaled_priority = 0.45f;
 
-#ifdef DEBUG
-    float gl_finish_time = 0.0f;
-    float prev_const_time = 0.0f;
-    float dt;
-#endif
-
     void start_frame()
     {
         constant_time = 0.0f;
@@ -80,10 +65,8 @@ struct FrameStats
     {
         add_const_time();
 
-        // // Because we want the frame to last ~17ms (~60 FPS).
-        // float diff = 17.0f - constant_time;
-        // Because we want the frame to last ~20ms (~50 FPS).
-        float diff = 20.0f - constant_time;
+        // Because we want the frame to last ~50ms (~20 FPS).
+        float diff = 50.0f - constant_time;
         est_time = diff < 0.0001f ? 1.0f : diff;
     }
 
@@ -99,11 +82,7 @@ struct FrameStats
         to = timer.frametime * 1000; // to get milliseconds
     }
 
-    void reset(float &t, size_t &n)
-    {
-        t = 0.00001f;
-        n = 0;
-    }
+    void reset(float &t) { t = 0.00001f; }
 
     /**
      * @brief Compute durations of the estimation batch sizes computations.
@@ -111,30 +90,32 @@ struct FrameStats
      */
     void update_times()
     {
+        float high = 0.45f;
+        float low = 0.05f;
         // First compute statistics
         // if all 4 are computing
         if (trans_t > 0.00001f && scaled_t > 0.00001f &&
             embedsom_t > 0.00001f && color_t > 0.00001f) {
-            trans_priority = 0.45;
-            scaled_priority = 0.45f;
-            color_priority = 0.05f;
-            embed_priority = 0.05f;
+            trans_priority = high;
+            scaled_priority = high;
+            color_priority = low;
+            embed_priority = low;
         } else
             // if trans finished and all other are computing
             if (trans_t <= 0.00001f && scaled_t > 0.00001f &&
                 embedsom_t > 0.00001f && color_t > 0.00001f) {
                 trans_priority = 0.0f;
-                scaled_priority = 0.9f;
-                color_priority = 0.05f;
-                embed_priority = 0.05f;
+                scaled_priority = high + high;
+                color_priority = low;
+                embed_priority = low;
             } else
                 // if scaled finished and all others are computing
                 if (trans_t > 0.00001f && scaled_t <= 0.00001f &&
                     embedsom_t > 0.00001f && color_t > 0.00001f) {
-                    trans_priority = 0.9f;
+                    trans_priority = high + high;
                     scaled_priority = 0.0f;
-                    color_priority = 0.05f;
-                    embed_priority = 0.05f;
+                    color_priority = low;
+                    embed_priority = low;
                 } else
                     // if trans and scaled finished computing
                     if (trans_t <= 0.00001f && scaled_t <= 0.00001f &&
@@ -172,28 +153,22 @@ struct FrameStats
                                     embed_priority = 0.0f;
                                 }
 
-        float alpha = 0.05f;
-        float coalpha = 1 - 0.05f;
         if (trans_priority == 0.0f)
             trans_duration = 0.0f;
         else
             trans_duration = est_time * trans_priority;
-        //   trans_duration * coalpha + est_time * trans_priority * alpha;
         if (embed_priority == 0.0f)
             embedsom_duration = 0.0f;
         else
             embedsom_duration = est_time * embed_priority;
-        //   embedsom_duration * coalpha + est_time * embed_priority * alpha;
         if (scaled_priority == 0.0f)
             scaled_duration = 0.0f;
         else
             scaled_duration = est_time * scaled_priority;
-        //   scaled_duration * coalpha + est_time * scaled_priority * alpha;
         if (color_priority == 0.0f)
             color_duration = 0.0f;
         else
             color_duration = est_time * color_priority;
-        //   color_duration * coalpha + est_time * color_priority * alpha;
     }
 };
 

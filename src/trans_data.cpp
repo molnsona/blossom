@@ -20,11 +20,6 @@
 #include "trans_data.h"
 #include <cmath>
 
-#define DEBUG
-#ifdef DEBUG
-#include <iostream>
-#endif
-
 void
 RawDataStats::update(const DataModel &dm)
 {
@@ -70,6 +65,8 @@ TransData::update(const DataModel &dm,
         sqsums = sums;
         touch();
         clean(dm);
+        frame_stats.reset(frame_stats.trans_t);
+        batch_size_gen.reset();
     }
 
     if (stat_watch.dirty(s)) {
@@ -80,14 +77,12 @@ TransData::update(const DataModel &dm,
     // make sure we're the right size
     auto [ri, rn] = dirty_range(dm);
     if (!rn) {
-        frame_stats.reset(frame_stats.trans_t, frame_stats.trans_n);
-        batch_size_gen.reset();
+        frame_stats.reset(frame_stats.trans_t);
         return;
     }
 
-    frame_stats.trans_n =
+    const size_t max_points =
       batch_size_gen.next(frame_stats.trans_t, frame_stats.trans_duration);
-    const size_t max_points = frame_stats.trans_n;
 
     if (rn > max_points)
         rn = max_points;

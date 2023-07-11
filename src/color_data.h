@@ -25,8 +25,8 @@
 #include "batch_size_gen.h"
 #include "cluster_data.h"
 #include "dirty.h"
-#include "landmark_model.h"
 #include "frame_stats.h"
+#include "landmark_model.h"
 #include "trans_data.h"
 
 #include <string>
@@ -89,7 +89,9 @@ struct ColorData : public Sweeper
      *
      * @param td Transformed data received from the data flow pipeline.
      */
-    void update(const TransData &td, const LandmarkModel &lm, FrameStats &frame_stats);    
+    void update(const TransData &td,
+                const LandmarkModel &lm,
+                FrameStats &frame_stats);
     /**
      * @brief Notifies @ref Sweeper that the color settings has been modified
      * and that the data has to be recomputed.

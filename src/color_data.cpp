@@ -22,14 +22,18 @@
 #include "vendor/colormap/palettes.hpp"
 
 void
-ColorData::update(const TransData &td, const LandmarkModel &lm, FrameStats &frame_stats)
+ColorData::update(const TransData &td,
+                  const LandmarkModel &lm,
+                  FrameStats &frame_stats)
 {
     if (td.n != data.size()) {
         data.resize(td.n, glm::vec4(0, 0, 0, 0));
         refresh(td);
+        frame_stats.reset(frame_stats.color_t);
+        batch_size_gen.reset();
     }
 
-    if (lm_watch.dirty(lm)) {
+    if (lm_watch.dirty(lm) && coloring == ColorData::Coloring::BRUSHING) {
         landmarks.resize(lm.n_landmarks(), { &default_landmark_color, -1 });
         refresh(td);
         lm_watch.clean(lm);
@@ -37,14 +41,12 @@ ColorData::update(const TransData &td, const LandmarkModel &lm, FrameStats &fram
 
     auto [ri, rn] = dirty_range(td);
     if (!rn) {
-        frame_stats.reset(frame_stats.color_t, frame_stats.color_n);
-        batch_size_gen.reset();
+        frame_stats.reset(frame_stats.color_t);
         return;
     }
 
-    frame_stats.color_n =
+    const size_t max_points =
       batch_size_gen.next(frame_stats.color_t, frame_stats.color_duration);
-    const size_t max_points = frame_stats.color_n;
 
     if (rn > max_points)
         rn = max_points;

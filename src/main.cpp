@@ -27,8 +27,6 @@
 #include "wrapper_glfw.h"
 #include "wrapper_imgui.h"
 
-#define DEBUG
-
 int
 main()
 {
@@ -48,30 +46,22 @@ main()
 
     if (!glad.init()) {
         std::cout << "GLAD initialization failed." << std::endl;
-        glfw.destroy();
         return -1;
     }
 
     if (!imgui.init(glfw.window)) {
         std::cout << "Dear ImGui initialization failed." << std::endl;
-        glfw.destroy();
         return -1;
     }
 
     if (!renderer.init()) {
         std::cout << "Renderer initialization failed." << std::endl;
-        imgui.destroy();
-        glfw.destroy();
         return -1;
     }
 
     while (!glfw.window_should_close()) {
         timer.tick();
         state.frame_stats.start_frame();
-
-#ifdef DEBUG
-        state.frame_stats.dt = timer.frametime * 1000;
-#endif
 
         input_handler.update(view, renderer, state);
 
@@ -94,13 +84,7 @@ main()
         input_handler.reset();
         glfw.end_frame(state.frame_stats);
         state.frame_stats.end_frame();
-
-#ifdef DEBUG
-        state.frame_stats.prev_const_time = state.frame_stats.constant_time;
-#endif
     }
 
-    imgui.destroy();
-    glfw.destroy();
     return 0;
 }

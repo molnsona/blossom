@@ -6,10 +6,12 @@
 
 #include "vendor/IconsFontAwesome5.h"
 
-#define DEBUG
-#ifdef DEBUG
-#include "utils_imgui.hpp"
-#endif
+ImGuiWrapper::~ImGuiWrapper()
+{
+    ImGui_ImplOpenGL3_Shutdown();
+    ImGui_ImplGlfw_Shutdown();
+    ImGui::DestroyContext();
+}
 
 bool
 ImGuiWrapper::init(GLFWwindow *window)
@@ -46,18 +48,6 @@ ImGuiWrapper::render(int w, int h, State &state)
 
     menu.render(w, h, state);
 
-#ifdef DEBUG
-    debug_windows(state.frame_stats);
-#endif
-
     ImGui::Render();
     ImGui_ImplOpenGL3_RenderDrawData(ImGui::GetDrawData());
-}
-
-void
-ImGuiWrapper::destroy()
-{
-    ImGui_ImplOpenGL3_Shutdown();
-    ImGui_ImplGlfw_Shutdown();
-    ImGui::DestroyContext();
 }

@@ -43,7 +43,7 @@ struct TextureRenderer
     size_t get_num_of_texts() { return num_of_textures; }
 
 private:
-    static constexpr size_t num_of_textures = 3;
+    static constexpr size_t num_of_textures = 5;
 
     const std::array<float, 12> screen_quad_data;
 

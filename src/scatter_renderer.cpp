@@ -51,7 +51,10 @@ ScatterRenderer::draw(const glm::vec2 &fb_size,
       std::min(model.points.size(),
                colors.data.size()); // misalignment aborts it, be careful
 
-    prepare_data(model, colors);
+    size_t points_size = n / texture_renderer.get_num_of_texts();
+    size_t start_index = texture_renderer.get_active_fb() * points_size;
+
+    prepare_data(start_index, points_size, model, colors);
 
     shader.use();
     shader.set_mat4("model", glm::mat4(1.0f));
@@ -60,9 +63,7 @@ ScatterRenderer::draw(const glm::vec2 &fb_size,
 
     glBindVertexArray(VAO);
     glEnable(GL_BLEND);
-    size_t points_size = n / texture_renderer.get_num_of_texts();
-    size_t start_index = texture_renderer.get_active_fb() * points_size;
-    glDrawArrays(GL_POINTS, start_index, points_size);
+    glDrawArrays(GL_POINTS, 0, points_size);
 
     glDisable(GL_BLEND);
 
@@ -72,15 +73,17 @@ ScatterRenderer::draw(const glm::vec2 &fb_size,
 }
 
 void
-ScatterRenderer::prepare_data(const ScatterModel &model,
+ScatterRenderer::prepare_data(size_t start_index,
+                              size_t points_size,
+                              const ScatterModel &model,
                               const ColorData &colors)
 {
     glBindVertexArray(VAO);
 
     glBindBuffer(GL_ARRAY_BUFFER, VBO_pos);
     glBufferData(GL_ARRAY_BUFFER,
-                 model.points.size() * sizeof(glm::vec2),
-                 &model.points[0],
+                 points_size * sizeof(glm::vec2),
+                 &model.points[start_index],
                  GL_DYNAMIC_DRAW);
     glVertexAttribPointer(
       0, 2, GL_FLOAT, GL_FALSE, sizeof(glm::vec2), (void *)0);
@@ -88,8 +91,8 @@ ScatterRenderer::prepare_data(const ScatterModel &model,
 
     glBindBuffer(GL_ARRAY_BUFFER, VBO_col);
     glBufferData(GL_ARRAY_BUFFER,
-                 colors.data.size() * sizeof(glm::vec4),
-                 &colors.data[0],
+                 points_size * sizeof(glm::vec4),
+                 &colors.data[start_index],
                  GL_DYNAMIC_DRAW);
     glVertexAttribPointer(
       1, 4, GL_FLOAT, GL_FALSE, sizeof(glm::vec4), (void *)0);
